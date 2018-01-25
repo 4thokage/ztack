@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<domain project-version="6">
+	<map name="admin"/>
+	<map name="ajuda"/>
+	<map name="alertas"/>
+	<map name="atendimento"/>
+	<map name="cele"/>
+	<map name="comum"/>
+	<map name="egar"/>
+	<map name="emissoesAtmosfericas"/>
+	<map name="fe"/>
+	<map name="ficheiros"/>
+	<map name="gasesFluorados"/>
+	<map name="inventario"/>
+	<map name="lua"/>
+	<map name="mensagens"/>
+	<map name="mirr"/>
+	<map name="mrru"/>
+	<map name="mtr"/>
+	<map name="mtr_laranja"/>
+	<map name="pagamentos"/>
+	<map name="processo"/>
+	<map name="residuos"/>
+	<map name="sirapa"/>
+	<map name="tabelas"/>
+	<map name="trh"/>
+	<map name="tua"/>
+	<map name="utilizadores"/>
+
+	<node name="ficheirosNode"
+		 factory="org.apache.cayenne.configuration.server.JNDIDataSourceFactory"
+		 parameters="jdbc/ficheiros"
+		>
+		<map-ref name="ficheiros"/>
+	</node>
+	<node name="licenciamentoNode"
+		 factory="org.apache.cayenne.configuration.server.JNDIDataSourceFactory"
+		 parameters="jdbc/licenciamento"
+		>
+		<map-ref name="admin"/>
+		<map-ref name="ajuda"/>
+		<map-ref name="alertas"/>
+		<map-ref name="atendimento"/>
+		<map-ref name="cele"/>
+		<map-ref name="egar"/>
+		<map-ref name="emissoesAtmosfericas"/>
+		<map-ref name="fe"/>
+		<map-ref name="gasesFluorados"/>
+		<map-ref name="inventario"/>
+		<map-ref name="lua"/>
+		<map-ref name="mensagens"/>
+		<map-ref name="mirr"/>
+		<map-ref name="mrru"/>
+		<map-ref name="mtr"/>
+		<map-ref name="pagamentos"/>
+		<map-ref name="processo"/>
+		<map-ref name="residuos"/>
+		<map-ref name="tabelas"/>
+		<map-ref name="trh"/>
+		<map-ref name="tua"/>
+		<map-ref name="utilizadores"/>
+	</node>
+	<node name="mtrLaranja"
+		 factory="org.apache.cayenne.configuration.server.JNDIDataSourceFactory"
+		 parameters="jdbc/mtrLaranja"
+		>
+		<map-ref name="comum"/>
+		<map-ref name="mtr_laranja"/>
+	</node>
+	<node name="sirapa"
+		 factory="org.apache.cayenne.configuration.server.JNDIDataSourceFactory"
+		 parameters="jdbc/sirapa"
+		>
+		<map-ref name="sirapa"/>
+	</node>
+</domain>

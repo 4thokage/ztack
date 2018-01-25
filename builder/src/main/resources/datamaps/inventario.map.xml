@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.nls.apa.inventario.entities"/>
+	<property name="defaultSchema" value="inventario"/>
+	<db-entity name="fonte_estabelecimento" schema="inventario">
+		<db-attribute name="actual" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="altura_chamine" type="DECIMAL"/>
+		<db-attribute name="area_seccao_amostragem" type="DECIMAL"/>
+		<db-attribute name="capacidade_nominal" type="DECIMAL"/>
+		<db-attribute name="codigo_operador" type="VARCHAR" length="20"/>
+		<db-attribute name="data_activacao" type="DATE"/>
+		<db-attribute name="data_desactivacao" type="DATE"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP"/>
+		<db-attribute name="designacao" type="VARCHAR" length="100"/>
+		<db-attribute name="diametro_chamine" type="DECIMAL"/>
+		<db-attribute name="distancia_jusante_perturbacao" type="DECIMAL"/>
+		<db-attribute name="distancia_montante_perturbacao" type="DECIMAL"/>
+		<db-attribute name="fk_criador" type="INTEGER"/>
+		<db-attribute name="fk_criador_adm" type="INTEGER"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_geometria" type="INTEGER"/>
+		<db-attribute name="fk_pedido_adicao_fontes_emissao" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="identificacao" type="VARCHAR" length="20"/>
+		<db-attribute name="is_fonte_combustao" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="localizacao_seccao_amostragem" type="BOOLEAN"/>
+		<db-attribute name="nr_tomas_amostragem" type="DECIMAL"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="1000"/>
+		<db-attribute name="plataforma_amostragem_2167_2007" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="potencia_termica" type="DECIMAL"/>
+		<db-attribute name="tem_enquad_legal_incineracao" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="tem_enquad_legal_instalacao_combustao" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="tem_enquad_legal_instalacao_combustao_abrangida_ptn" type="BOOLEAN"/>
+		<db-attribute name="tem_enquad_legal_instalacao_combustao_total_nox" type="DECIMAL"/>
+		<db-attribute name="tem_enquad_legal_instalacao_combustao_total_pts" type="DECIMAL"/>
+		<db-attribute name="tem_enquad_legal_instalacao_combustao_total_so2" type="DECIMAL"/>
+		<db-attribute name="tem_enquad_legal_outros" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="tem_enquad_legal_regime_cov" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="tem_grupo_fontes_multiplas" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="tem_monitorizacao_continuo" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="tem_monitorizacao_pontual" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="tem_regime_dispensa" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="tem_tratamento_emissoes_associado" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="unidade_capacidade_nominal" type="VARCHAR" length="100"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_actividade" schema="inventario">
+		<db-attribute name="fk_fonte_estabelecimento" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_actividade_associada" schema="inventario">
+		<db-attribute name="fk_actividade_associada" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="fk_actividade_fonte" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_actividade_nao_prtrpcip" schema="inventario">
+		<db-attribute name="fk_actividade_fonte" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="fk_actividade_nao_prtr_pcip" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_actividade_prtrpcip" schema="inventario">
+		<db-attribute name="fk_actividade_fonte" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="fk_actividade_prtr_pcip" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_equipamento" schema="inventario">
+		<db-attribute name="capacidade_termica_nominal" type="DECIMAL"/>
+		<db-attribute name="data_activacao" type="DATE"/>
+		<db-attribute name="data_desactivacao" type="DATE"/>
+		<db-attribute name="descricao" type="VARCHAR" length="250"/>
+		<db-attribute name="existe_monitorizacao" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="existe_steg" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="fk_fonte_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_tipo_equipamento_combustao" type="VARCHAR" length="3"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="is_equipamento_combustao" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="is_parte_proc_ciclo_combinado" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="is_parte_sistema_cogeracao" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" length="100"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="1000"/>
+		<db-attribute name="potencia_termica_nominal" type="DECIMAL"/>
+		<db-attribute name="unidade_capacidade_nominal" type="VARCHAR" length="100"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_equipamento_combustivel" schema="inventario">
+		<db-attribute name="fk_combustivel" type="INTEGER"/>
+		<db-attribute name="fk_fonte_estabelecimento_equipamento" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_equipamento_poluente" schema="inventario">
+		<db-attribute name="descricao_regime_monitorizacao" type="VARCHAR" length="20"/>
+		<db-attribute name="fk_fonte_estabelecimento_equipamento" type="INTEGER"/>
+		<db-attribute name="fk_poluente" type="INTEGER"/>
+		<db-attribute name="fk_regime_monitorizacao" type="VARCHAR" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_equipamento_poluente_condicao_cumprimento" schema="inventario">
+		<db-attribute name="fk_condicao_cumprimento" type="INTEGER"/>
+		<db-attribute name="fk_fonte_emissao_equipamento_poluente" type="INTEGER"/>
+		<db-attribute name="fk_teor_o2_referencia" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="vle" type="DECIMAL"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_equipamento_steg" schema="inventario">
+		<db-attribute name="descricao" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_fonte_emissao_equipamento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_steg" type="VARCHAR" isMandatory="true" length="3"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_poluente" schema="inventario">
+		<db-attribute name="descricao_regime_monitorizacao" type="VARCHAR" length="30"/>
+		<db-attribute name="fk_fonte_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_poluente" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_regime_monitorizacao" type="VARCHAR" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_poluente_condicao_cumprimento" schema="inventario">
+		<db-attribute name="fk_condicao_cumprimento" type="INTEGER"/>
+		<db-attribute name="fk_fonte_emissao_poluente" type="INTEGER"/>
+		<db-attribute name="fk_teor_o2_referencia" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="vle" type="DECIMAL"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_report_anual" schema="inventario">
+		<db-attribute name="ano" type="INTEGER"/>
+		<db-attribute name="caracteristica_sistema" type="VARCHAR" length="255"/>
+		<db-attribute name="caudal_efluente_gasoso_efectivo" type="DECIMAL"/>
+		<db-attribute name="cumprimento_np2167" type="BOOLEAN"/>
+		<db-attribute name="data_inicio_inst_combustao" type="TIMESTAMP"/>
+		<db-attribute name="emissao_total_anual" type="DECIMAL"/>
+		<db-attribute name="especificacao_cumprimento_np2167" type="BOOLEAN"/>
+		<db-attribute name="fk_fonte_emissao" type="INTEGER"/>
+		<db-attribute name="frequencia_consulta" type="INTEGER"/>
+		<db-attribute name="horas_funcionamento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="is_medicao_continuo_caudal_escoamento" type="BOOLEAN"/>
+		<db-attribute name="massa_molecular" type="DECIMAL"/>
+		<db-attribute name="metodo" type="VARCHAR" length="255"/>
+		<db-attribute name="periodo_integracao" type="INTEGER"/>
+		<db-attribute name="pressao_absoluta_interior_conduta" type="DECIMAL"/>
+		<db-attribute name="temperatura_media_gases" type="DECIMAL"/>
+		<db-attribute name="teor_co2" type="DECIMAL"/>
+		<db-attribute name="teor_vapor_agua" type="DECIMAL"/>
+		<db-attribute name="total_pts" type="DECIMAL"/>
+		<db-attribute name="total_so2" type="DECIMAL"/>
+		<db-attribute name="total_sox" type="DECIMAL"/>
+		<db-attribute name="velocidade_escoamento" type="DECIMAL"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_report_anual_cat_combustivel" schema="inventario">
+		<db-attribute name="categoria_combustivel" type="VARCHAR" isMandatory="true" length="30"/>
+		<db-attribute name="descricao" type="VARCHAR" length="50"/>
+		<db-attribute name="fk_report_anual" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="total_consumo_energia" type="DECIMAL"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_report_anual_combustivel" schema="inventario">
+		<db-attribute name="fk_combustivel" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_report_anual" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="perc_teor_medio_cinzas" type="DECIMAL"/>
+		<db-attribute name="perc_teor_medio_enxofre" type="DECIMAL"/>
+		<db-attribute name="total" type="DECIMAL"/>
+	</db-entity>
+	<db-entity name="fonte_estabelecimento_steg" schema="inventario">
+		<db-attribute name="descricao" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_fonte_emissao" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_steg" type="VARCHAR" isMandatory="true" length="3"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<obj-entity name="FonteEstabelecimento" className="org.nls.apa.inventario.entities.FonteEstabelecimento" dbEntityName="fonte_estabelecimento" superClassName="org.addition.versioning.AbstractCayenneVersioning">
+		<obj-attribute name="actual" type="java.lang.Boolean" db-attribute-path="actual"/>
+		<obj-attribute name="alturaChamine" type="java.math.BigDecimal" db-attribute-path="altura_chamine"/>
+		<obj-attribute name="areaSeccaoAmostragem" type="java.math.BigDecimal" db-attribute-path="area_seccao_amostragem"/>
+		<obj-attribute name="capacidadeNominal" type="java.math.BigDecimal" db-attribute-path="capacidade_nominal"/>
+		<obj-attribute name="codigoOperador" type="java.lang.String" db-attribute-path="codigo_operador"/>
+		<obj-attribute name="dataActivacao" type="java.util.Date" db-attribute-path="data_activacao"/>
+		<obj-attribute name="dataDesactivacao" type="java.util.Date" db-attribute-path="data_desactivacao"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="designacao" type="java.lang.String" db-attribute-path="designacao"/>
+		<obj-attribute name="diametroChamine" type="java.math.BigDecimal" db-attribute-path="diametro_chamine"/>
+		<obj-attribute name="distanciaJusantePerturbacao" type="java.math.BigDecimal" db-attribute-path="distancia_jusante_perturbacao"/>
+		<obj-attribute name="distanciaMontantePerturbacao" type="java.math.BigDecimal" db-attribute-path="distancia_montante_perturbacao"/>
+		<obj-attribute name="identificacao" type="java.lang.String" db-attribute-path="identificacao"/>
+		<obj-attribute name="isFonteCombustao" type="java.lang.Boolean" db-attribute-path="is_fonte_combustao"/>
+		<obj-attribute name="localizacaoSeccaoAmostragem" type="java.lang.Boolean" db-attribute-path="localizacao_seccao_amostragem"/>
+		<obj-attribute name="nrTomasAmostragem" type="java.math.BigDecimal" db-attribute-path="nr_tomas_amostragem"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="plataformaAmostragem21672007" type="java.lang.Boolean" db-attribute-path="plataforma_amostragem_2167_2007"/>
+		<obj-attribute name="potenciaTermica" type="java.math.BigDecimal" db-attribute-path="potencia_termica"/>
+		<obj-attribute name="temEnquadLegalIncineracao" type="java.lang.Boolean" db-attribute-path="tem_enquad_legal_incineracao"/>
+		<obj-attribute name="temEnquadLegalInstalacaoCombustao" type="java.lang.Boolean" db-attribute-path="tem_enquad_legal_instalacao_combustao"/>
+		<obj-attribute name="temEnquadLegalInstalacaoCombustaoAbrangidaPtn" type="java.lang.Boolean" db-attribute-path="tem_enquad_legal_instalacao_combustao_abrangida_ptn"/>
+		<obj-attribute name="temEnquadLegalInstalacaoCombustaoTotalNox" type="java.math.BigDecimal" db-attribute-path="tem_enquad_legal_instalacao_combustao_total_nox"/>
+		<obj-attribute name="temEnquadLegalInstalacaoCombustaoTotalPts" type="java.math.BigDecimal" db-attribute-path="tem_enquad_legal_instalacao_combustao_total_pts"/>
+		<obj-attribute name="temEnquadLegalInstalacaoCombustaoTotalSo2" type="java.math.BigDecimal" db-attribute-path="tem_enquad_legal_instalacao_combustao_total_so2"/>
+		<obj-attribute name="temEnquadLegalOutros" type="java.lang.Boolean" db-attribute-path="tem_enquad_legal_outros"/>
+		<obj-attribute name="temEnquadLegalRegimeCov" type="java.lang.Boolean" db-attribute-path="tem_enquad_legal_regime_cov"/>
+		<obj-attribute name="temGrupoFontesMultiplas" type="java.lang.Boolean" db-attribute-path="tem_grupo_fontes_multiplas"/>
+		<obj-attribute name="temMonitorizacaoContinuo" type="java.lang.Boolean" db-attribute-path="tem_monitorizacao_continuo"/>
+		<obj-attribute name="temMonitorizacaoPontual" type="java.lang.Boolean" db-attribute-path="tem_monitorizacao_pontual"/>
+		<obj-attribute name="temRegimeDispensa" type="java.lang.Boolean" db-attribute-path="tem_regime_dispensa"/>
+		<obj-attribute name="temTratamentoEmissoesAssociado" type="java.lang.Boolean" db-attribute-path="tem_tratamento_emissoes_associado"/>
+		<obj-attribute name="unidadeCapacidadeNominal" type="java.lang.String" db-attribute-path="unidade_capacidade_nominal"/>
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoActividade" className="org.nls.apa.inventario.entities.FonteEstabelecimentoActividade" dbEntityName="fonte_estabelecimento_actividade">
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoActividadeAssociada" className="org.nls.apa.inventario.entities.FonteEstabelecimentoActividadeAssociada" dbEntityName="fonte_estabelecimento_actividade_associada">
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoActividadeNaoPrtrpcip" className="org.nls.apa.inventario.entities.FonteEstabelecimentoActividadeNaoPrtrpcip" dbEntityName="fonte_estabelecimento_actividade_nao_prtrpcip">
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoActividadePrtrpcip" className="org.nls.apa.inventario.entities.FonteEstabelecimentoActividadePrtrpcip" dbEntityName="fonte_estabelecimento_actividade_prtrpcip">
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoEquipamento" className="org.nls.apa.inventario.entities.FonteEstabelecimentoEquipamento" dbEntityName="fonte_estabelecimento_equipamento">
+		<obj-attribute name="capacidadeTermicaNominal" type="java.math.BigDecimal" db-attribute-path="capacidade_termica_nominal"/>
+		<obj-attribute name="dataActivacao" type="java.util.Date" db-attribute-path="data_activacao"/>
+		<obj-attribute name="dataDesactivacao" type="java.util.Date" db-attribute-path="data_desactivacao"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="existeMonitorizacao" type="java.lang.Boolean" db-attribute-path="existe_monitorizacao"/>
+		<obj-attribute name="existeSteg" type="java.lang.Boolean" db-attribute-path="existe_steg"/>
+		<obj-attribute name="isEquipamentoCombustao" type="java.lang.Boolean" db-attribute-path="is_equipamento_combustao"/>
+		<obj-attribute name="isParteProcCicloCombinado" type="java.lang.Boolean" db-attribute-path="is_parte_proc_ciclo_combinado"/>
+		<obj-attribute name="isParteSistemaCogeracao" type="java.lang.Boolean" db-attribute-path="is_parte_sistema_cogeracao"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="potenciaTermicaNominal" type="java.math.BigDecimal" db-attribute-path="potencia_termica_nominal"/>
+		<obj-attribute name="unidadeCapacidadeNominal" type="java.lang.String" db-attribute-path="unidade_capacidade_nominal"/>
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoEquipamentoCombustivel" className="org.nls.apa.inventario.entities.FonteEstabelecimentoEquipamentoCombustivel" dbEntityName="fonte_estabelecimento_equipamento_combustivel">
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoEquipamentoPoluente" className="org.nls.apa.inventario.entities.FonteEstabelecimentoEquipamentoPoluente" dbEntityName="fonte_estabelecimento_equipamento_poluente">
+		<obj-attribute name="descricaoRegimeMonitorizacao" type="java.lang.String" db-attribute-path="descricao_regime_monitorizacao"/>
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoEquipamentoPoluenteCondicaoCumprimento" className="org.nls.apa.inventario.entities.FonteEstabelecimentoEquipamentoPoluenteCondicaoCumprimento" dbEntityName="fonte_estabelecimento_equipamento_poluente_condicao_cumprimento">
+		<obj-attribute name="vle" type="java.math.BigDecimal" db-attribute-path="vle"/>
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoEquipamentoSteg" className="org.nls.apa.inventario.entities.FonteEstabelecimentoEquipamentoSteg" dbEntityName="fonte_estabelecimento_equipamento_steg">
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoPoluente" className="org.nls.apa.inventario.entities.FonteEstabelecimentoPoluente" dbEntityName="fonte_estabelecimento_poluente">
+		<obj-attribute name="descricaoRegimeMonitorizacao" type="java.lang.String" db-attribute-path="descricao_regime_monitorizacao"/>
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoPoluenteCondicaoCumprimento" className="org.nls.apa.inventario.entities.FonteEstabelecimentoPoluenteCondicaoCumprimento" dbEntityName="fonte_estabelecimento_poluente_condicao_cumprimento">
+		<obj-attribute name="vle" type="java.math.BigDecimal" db-attribute-path="vle"/>
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoReportAnual" className="org.nls.apa.inventario.entities.FonteEstabelecimentoReportAnual" dbEntityName="fonte_estabelecimento_report_anual">
+		<obj-attribute name="ano" type="java.lang.Integer" db-attribute-path="ano"/>
+		<obj-attribute name="caracteristicaSistema" type="java.lang.String" db-attribute-path="caracteristica_sistema"/>
+		<obj-attribute name="caudalEfluenteGasosoEfectivo" type="java.math.BigDecimal" db-attribute-path="caudal_efluente_gasoso_efectivo"/>
+		<obj-attribute name="cumprimentoNp2167" type="java.lang.Boolean" db-attribute-path="cumprimento_np2167"/>
+		<obj-attribute name="dataInicioInstCombustao" type="java.util.Date" db-attribute-path="data_inicio_inst_combustao"/>
+		<obj-attribute name="emissaoTotalAnual" type="java.math.BigDecimal" db-attribute-path="emissao_total_anual"/>
+		<obj-attribute name="especificacaoCumprimentoNp2167" type="java.lang.Boolean" db-attribute-path="especificacao_cumprimento_np2167"/>
+		<obj-attribute name="frequenciaConsulta" type="java.lang.Integer" db-attribute-path="frequencia_consulta"/>
+		<obj-attribute name="horasFuncionamento" type="java.lang.Integer" db-attribute-path="horas_funcionamento"/>
+		<obj-attribute name="isMedicaoContinuoCaudalEscoamento" type="java.lang.Boolean" db-attribute-path="is_medicao_continuo_caudal_escoamento"/>
+		<obj-attribute name="massaMolecular" type="java.math.BigDecimal" db-attribute-path="massa_molecular"/>
+		<obj-attribute name="metodo" type="java.lang.String" db-attribute-path="metodo"/>
+		<obj-attribute name="periodoIntegracao" type="java.lang.Integer" db-attribute-path="periodo_integracao"/>
+		<obj-attribute name="pressaoAbsolutaInteriorConduta" type="java.math.BigDecimal" db-attribute-path="pressao_absoluta_interior_conduta"/>
+		<obj-attribute name="temperaturaMediaGases" type="java.math.BigDecimal" db-attribute-path="temperatura_media_gases"/>
+		<obj-attribute name="teorCo2" type="java.math.BigDecimal" db-attribute-path="teor_co2"/>
+		<obj-attribute name="teorVaporAgua" type="java.math.BigDecimal" db-attribute-path="teor_vapor_agua"/>
+		<obj-attribute name="totalPts" type="java.math.BigDecimal" db-attribute-path="total_pts"/>
+		<obj-attribute name="totalSo2" type="java.math.BigDecimal" db-attribute-path="total_so2"/>
+		<obj-attribute name="totalSox" type="java.math.BigDecimal" db-attribute-path="total_sox"/>
+		<obj-attribute name="velocidadeEscoamento" type="java.math.BigDecimal" db-attribute-path="velocidade_escoamento"/>
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoReportAnualCatCombustivel" className="org.nls.apa.inventario.entities.FonteEstabelecimentoReportAnualCatCombustivel" dbEntityName="fonte_estabelecimento_report_anual_cat_combustivel">
+		<obj-attribute name="categoriaCombustivel" type="java.lang.String" db-attribute-path="categoria_combustivel"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="totalConsumoEnergia" type="java.math.BigDecimal" db-attribute-path="total_consumo_energia"/>
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoReportAnualCombustivel" className="org.nls.apa.inventario.entities.FonteEstabelecimentoReportAnualCombustivel" dbEntityName="fonte_estabelecimento_report_anual_combustivel">
+		<obj-attribute name="percTeorMedioCinzas" type="java.math.BigDecimal" db-attribute-path="perc_teor_medio_cinzas"/>
+		<obj-attribute name="percTeorMedioEnxofre" type="java.math.BigDecimal" db-attribute-path="perc_teor_medio_enxofre"/>
+		<obj-attribute name="total" type="java.math.BigDecimal" db-attribute-path="total"/>
+	</obj-entity>
+	<obj-entity name="FonteEstabelecimentoSteg" className="org.nls.apa.inventario.entities.FonteEstabelecimentoSteg" dbEntityName="fonte_estabelecimento_steg">
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<db-relationship name="actividades" source="fonte_estabelecimento" target="fonte_estabelecimento_actividade" toMany="true">
+		<db-attribute-pair source="id" target="fk_fonte_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="administrador" source="fonte_estabelecimento" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criador_adm" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="fonte_estabelecimento" target="utilizador" toMany="false">
+		<db-attribute-pair source="fk_criador" target="pkid"/>
+	</db-relationship>
+	<db-relationship name="equipamentos" source="fonte_estabelecimento" target="fonte_estabelecimento_equipamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_fonte_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="fonte_estabelecimento" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="ficheiroMonitorizacaoAnexo" source="fonte_estabelecimento" target="ficheiro_monitorizacao_anexo" toMany="true">
+		<db-attribute-pair source="id" target="fk_fonte_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="geometria" source="fonte_estabelecimento" target="t_geometria_seccao_amostragem" toMany="false">
+		<db-attribute-pair source="fk_geometria" target="id"/>
+	</db-relationship>
+	<db-relationship name="pedido_adicao" source="fonte_estabelecimento" target="pedido_adicao_fontes_emissao" toMany="false">
+		<db-attribute-pair source="fk_pedido_adicao_fontes_emissao" target="id"/>
+	</db-relationship>
+	<db-relationship name="poluentes" source="fonte_estabelecimento" target="fonte_estabelecimento_poluente" toMany="true">
+		<db-attribute-pair source="id" target="fk_fonte_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="reports_anuais" source="fonte_estabelecimento" target="fonte_estabelecimento_report_anual" toMany="true">
+		<db-attribute-pair source="id" target="fk_fonte_emissao"/>
+	</db-relationship>
+	<db-relationship name="stegs" source="fonte_estabelecimento" target="fonte_estabelecimento_steg" toMany="true">
+		<db-attribute-pair source="id" target="fk_fonte_emissao"/>
+	</db-relationship>
+	<db-relationship name="untitledRel" source="fonte_estabelecimento" target="regime_cov_actividade_fonte" toMany="true">
+		<db-attribute-pair source="id" target="fk_fonte_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="actividades_associadas" source="fonte_estabelecimento_actividade" target="fonte_estabelecimento_actividade_associada" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_actividade_fonte"/>
+	</db-relationship>
+	<db-relationship name="actividades_nao_prtrpcip" source="fonte_estabelecimento_actividade" target="fonte_estabelecimento_actividade_nao_prtrpcip" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_actividade_fonte"/>
+	</db-relationship>
+	<db-relationship name="actividades_prtr_pcip" source="fonte_estabelecimento_actividade" target="fonte_estabelecimento_actividade_prtrpcip" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_actividade_fonte"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao" source="fonte_estabelecimento_actividade" target="fonte_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_fonte_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="actividade" source="fonte_estabelecimento_actividade_associada" target="t_actividade_associada" toMany="false">
+		<db-attribute-pair source="fk_actividade_associada" target="id"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao_actividade" source="fonte_estabelecimento_actividade_associada" target="fonte_estabelecimento_actividade" toMany="false">
+		<db-attribute-pair source="fk_actividade_fonte" target="id"/>
+	</db-relationship>
+	<db-relationship name="actividade" source="fonte_estabelecimento_actividade_nao_prtrpcip" target="t_actividade_naoprtrpcip" toMany="false">
+		<db-attribute-pair source="fk_actividade_nao_prtr_pcip" target="id"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao_actividade" source="fonte_estabelecimento_actividade_nao_prtrpcip" target="fonte_estabelecimento_actividade" toMany="false">
+		<db-attribute-pair source="fk_actividade_fonte" target="id"/>
+	</db-relationship>
+	<db-relationship name="actividade" source="fonte_estabelecimento_actividade_prtrpcip" target="t_actividade_prtrpcip" toMany="false">
+		<db-attribute-pair source="fk_actividade_prtr_pcip" target="id"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao_actividade" source="fonte_estabelecimento_actividade_prtrpcip" target="fonte_estabelecimento_actividade" toMany="false">
+		<db-attribute-pair source="fk_actividade_fonte" target="id"/>
+	</db-relationship>
+	<db-relationship name="combustiveis" source="fonte_estabelecimento_equipamento" target="fonte_estabelecimento_equipamento_combustivel" toMany="true">
+		<db-attribute-pair source="id" target="fk_fonte_estabelecimento_equipamento"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao" source="fonte_estabelecimento_equipamento" target="fonte_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_fonte_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="poluentes" source="fonte_estabelecimento_equipamento" target="fonte_estabelecimento_equipamento_poluente" toMany="true">
+		<db-attribute-pair source="id" target="fk_fonte_estabelecimento_equipamento"/>
+	</db-relationship>
+	<db-relationship name="stegs" source="fonte_estabelecimento_equipamento" target="fonte_estabelecimento_equipamento_steg" toMany="true">
+		<db-attribute-pair source="id" target="fk_fonte_emissao_equipamento"/>
+	</db-relationship>
+	<db-relationship name="tipo_equipamento_combustao" source="fonte_estabelecimento_equipamento" target="t_tipo_equipamento_combustao" toMany="false">
+		<db-attribute-pair source="fk_tipo_equipamento_combustao" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="combustivel" source="fonte_estabelecimento_equipamento_combustivel" target="t_combustivel" toMany="false">
+		<db-attribute-pair source="fk_combustivel" target="id"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao_equipamento" source="fonte_estabelecimento_equipamento_combustivel" target="fonte_estabelecimento_equipamento" toMany="false">
+		<db-attribute-pair source="fk_fonte_estabelecimento_equipamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao_equipamento" source="fonte_estabelecimento_equipamento_poluente" target="fonte_estabelecimento_equipamento" toMany="false">
+		<db-attribute-pair source="fk_fonte_estabelecimento_equipamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="fonte_equipamento_poluentes_cond_cumprimento" source="fonte_estabelecimento_equipamento_poluente" target="fonte_estabelecimento_equipamento_poluente_condicao_cumprimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_fonte_emissao_equipamento_poluente"/>
+	</db-relationship>
+	<db-relationship name="poluente" source="fonte_estabelecimento_equipamento_poluente" target="t_poluente" toMany="false">
+		<db-attribute-pair source="fk_poluente" target="id"/>
+	</db-relationship>
+	<db-relationship name="regime_monitorizacao" source="fonte_estabelecimento_equipamento_poluente" target="t_tipo_regime_monitorizacao" toMany="false">
+		<db-attribute-pair source="fk_regime_monitorizacao" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="condicao_cumprimento" source="fonte_estabelecimento_equipamento_poluente_condicao_cumprimento" target="t_condicao_cumprimento" toMany="false">
+		<db-attribute-pair source="fk_condicao_cumprimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao_equipamento_poluente" source="fonte_estabelecimento_equipamento_poluente_condicao_cumprimento" target="fonte_estabelecimento_equipamento_poluente" toMany="false">
+		<db-attribute-pair source="fk_fonte_emissao_equipamento_poluente" target="id"/>
+	</db-relationship>
+	<db-relationship name="teor_o2_referencia" source="fonte_estabelecimento_equipamento_poluente_condicao_cumprimento" target="t_teor_o2_referencia" toMany="false">
+		<db-attribute-pair source="fk_teor_o2_referencia" target="id"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao_equipamento" source="fonte_estabelecimento_equipamento_steg" target="fonte_estabelecimento_equipamento" toMany="false">
+		<db-attribute-pair source="fk_fonte_emissao_equipamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="steg" source="fonte_estabelecimento_equipamento_steg" target="t_sistema_tratamento_efluente_gasoso" toMany="false">
+		<db-attribute-pair source="fk_steg" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="condicoes_cumprimento" source="fonte_estabelecimento_poluente" target="fonte_estabelecimento_poluente_condicao_cumprimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_fonte_emissao_poluente"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao" source="fonte_estabelecimento_poluente" target="fonte_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_fonte_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="monitorizacoes" source="fonte_estabelecimento_poluente" target="monitorizacao" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_poluente_fonte_emissao"/>
+	</db-relationship>
+	<db-relationship name="poluente" source="fonte_estabelecimento_poluente" target="t_poluente" toMany="false">
+		<db-attribute-pair source="fk_poluente" target="id"/>
+	</db-relationship>
+	<db-relationship name="regime_monitorizacao" source="fonte_estabelecimento_poluente" target="t_tipo_regime_monitorizacao" toMany="false">
+		<db-attribute-pair source="fk_regime_monitorizacao" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="condicao_cumprimento" source="fonte_estabelecimento_poluente_condicao_cumprimento" target="t_condicao_cumprimento" toMany="false">
+		<db-attribute-pair source="fk_condicao_cumprimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao_poluente" source="fonte_estabelecimento_poluente_condicao_cumprimento" target="fonte_estabelecimento_poluente" toMany="false">
+		<db-attribute-pair source="fk_fonte_emissao_poluente" target="id"/>
+	</db-relationship>
+	<db-relationship name="teor_o2_referencia" source="fonte_estabelecimento_poluente_condicao_cumprimento" target="t_teor_o2_referencia" toMany="false">
+		<db-attribute-pair source="fk_teor_o2_referencia" target="id"/>
+	</db-relationship>
+	<db-relationship name="categorias_combustivel" source="fonte_estabelecimento_report_anual" target="fonte_estabelecimento_report_anual_cat_combustivel" toMany="true">
+		<db-attribute-pair source="id" target="fk_report_anual"/>
+	</db-relationship>
+	<db-relationship name="combustiveis" source="fonte_estabelecimento_report_anual" target="fonte_estabelecimento_report_anual_combustivel" toMany="true">
+		<db-attribute-pair source="id" target="fk_report_anual"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao" source="fonte_estabelecimento_report_anual" target="fonte_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_fonte_emissao" target="id"/>
+	</db-relationship>
+	<db-relationship name="report_anual" source="fonte_estabelecimento_report_anual_cat_combustivel" target="fonte_estabelecimento_report_anual" toMany="false">
+		<db-attribute-pair source="fk_report_anual" target="id"/>
+	</db-relationship>
+	<db-relationship name="combustivel" source="fonte_estabelecimento_report_anual_combustivel" target="t_combustivel" toMany="false">
+		<db-attribute-pair source="fk_combustivel" target="id"/>
+	</db-relationship>
+	<db-relationship name="report_anual" source="fonte_estabelecimento_report_anual_combustivel" target="fonte_estabelecimento_report_anual" toMany="false">
+		<db-attribute-pair source="fk_report_anual" target="id"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao" source="fonte_estabelecimento_steg" target="fonte_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_fonte_emissao" target="id"/>
+	</db-relationship>
+	<db-relationship name="steg" source="fonte_estabelecimento_steg" target="t_sistema_tratamento_efluente_gasoso" toMany="false">
+		<db-attribute-pair source="fk_steg" target="codigo"/>
+	</db-relationship>
+	<obj-relationship name="actividades" source="FonteEstabelecimento" target="FonteEstabelecimentoActividade" deleteRule="Deny" db-relationship-path="actividades"/>
+	<obj-relationship name="administrador" source="FonteEstabelecimento" target="Administrador" deleteRule="Nullify" db-relationship-path="administrador"/>
+	<obj-relationship name="criador" source="FonteEstabelecimento" target="Utilizador" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="equipamentos" source="FonteEstabelecimento" target="FonteEstabelecimentoEquipamento" deleteRule="Deny" db-relationship-path="equipamentos"/>
+	<obj-relationship name="estabelecimento" source="FonteEstabelecimento" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="ficheiroMonitorizacaoAnexo" source="FonteEstabelecimento" target="FicheiroMonitorizacaoAnexo" deleteRule="Deny" db-relationship-path="ficheiroMonitorizacaoAnexo"/>
+	<obj-relationship name="geometria" source="FonteEstabelecimento" target="TGeometriaSeccaoAmostragem" deleteRule="Nullify" db-relationship-path="geometria"/>
+	<obj-relationship name="pedidoAdicao" source="FonteEstabelecimento" target="PedidoAdicaoFontesEmissao" deleteRule="Nullify" db-relationship-path="pedido_adicao"/>
+	<obj-relationship name="poluentes" source="FonteEstabelecimento" target="FonteEstabelecimentoPoluente" deleteRule="Deny" db-relationship-path="poluentes"/>
+	<obj-relationship name="reportsAnuais" source="FonteEstabelecimento" target="FonteEstabelecimentoReportAnual" deleteRule="Deny" db-relationship-path="reports_anuais"/>
+	<obj-relationship name="stegs" source="FonteEstabelecimento" target="FonteEstabelecimentoSteg" deleteRule="Cascade" db-relationship-path="stegs"/>
+	<obj-relationship name="actividadesAssociadas" source="FonteEstabelecimentoActividade" target="FonteEstabelecimentoActividadeAssociada" deleteRule="Deny" db-relationship-path="actividades_associadas"/>
+	<obj-relationship name="actividadesNaoPrtrpcip" source="FonteEstabelecimentoActividade" target="FonteEstabelecimentoActividadeNaoPrtrpcip" deleteRule="Deny" db-relationship-path="actividades_nao_prtrpcip"/>
+	<obj-relationship name="actividadesPrtrPcip" source="FonteEstabelecimentoActividade" target="FonteEstabelecimentoActividadePrtrpcip" deleteRule="Deny" db-relationship-path="actividades_prtr_pcip"/>
+	<obj-relationship name="fonteEmissao" source="FonteEstabelecimentoActividade" target="FonteEstabelecimento" deleteRule="Nullify" db-relationship-path="fonte_emissao"/>
+	<obj-relationship name="actividade" source="FonteEstabelecimentoActividadeAssociada" target="TActividadeAssociada" deleteRule="Nullify" db-relationship-path="actividade"/>
+	<obj-relationship name="fonteEmissaoActividade" source="FonteEstabelecimentoActividadeAssociada" target="FonteEstabelecimentoActividade" deleteRule="Nullify" db-relationship-path="fonte_emissao_actividade"/>
+	<obj-relationship name="actividade" source="FonteEstabelecimentoActividadeNaoPrtrpcip" target="TActividadeNaoprtrpcip" deleteRule="Nullify" db-relationship-path="actividade"/>
+	<obj-relationship name="fonteEmissaoActividade" source="FonteEstabelecimentoActividadeNaoPrtrpcip" target="FonteEstabelecimentoActividade" deleteRule="Nullify" db-relationship-path="fonte_emissao_actividade"/>
+	<obj-relationship name="actividade" source="FonteEstabelecimentoActividadePrtrpcip" target="TActividadePrtrpcip" deleteRule="Nullify" db-relationship-path="actividade"/>
+	<obj-relationship name="fonteEmissaoActividade" source="FonteEstabelecimentoActividadePrtrpcip" target="FonteEstabelecimentoActividade" deleteRule="Nullify" db-relationship-path="fonte_emissao_actividade"/>
+	<obj-relationship name="combustiveis" source="FonteEstabelecimentoEquipamento" target="FonteEstabelecimentoEquipamentoCombustivel" deleteRule="Cascade" db-relationship-path="combustiveis"/>
+	<obj-relationship name="fonteEmissao" source="FonteEstabelecimentoEquipamento" target="FonteEstabelecimento" deleteRule="Nullify" db-relationship-path="fonte_emissao"/>
+	<obj-relationship name="poluentes" source="FonteEstabelecimentoEquipamento" target="FonteEstabelecimentoEquipamentoPoluente" deleteRule="Cascade" db-relationship-path="poluentes"/>
+	<obj-relationship name="stegs" source="FonteEstabelecimentoEquipamento" target="FonteEstabelecimentoEquipamentoSteg" deleteRule="Cascade" db-relationship-path="stegs"/>
+	<obj-relationship name="tipoEquipamentoCombustao" source="FonteEstabelecimentoEquipamento" target="TTipoEquipamentoCombustao" deleteRule="Nullify" db-relationship-path="tipo_equipamento_combustao"/>
+	<obj-relationship name="combustivel" source="FonteEstabelecimentoEquipamentoCombustivel" target="TCombustivel" deleteRule="Nullify" db-relationship-path="combustivel"/>
+	<obj-relationship name="fonteEmissaoEquipamento" source="FonteEstabelecimentoEquipamentoCombustivel" target="FonteEstabelecimentoEquipamento" deleteRule="Nullify" db-relationship-path="fonte_emissao_equipamento"/>
+	<obj-relationship name="fonteEmissaoEquipamento" source="FonteEstabelecimentoEquipamentoPoluente" target="FonteEstabelecimentoEquipamento" deleteRule="Nullify" db-relationship-path="fonte_emissao_equipamento"/>
+	<obj-relationship name="fonteEquipamentoPoluentesCondCumprimento" source="FonteEstabelecimentoEquipamentoPoluente" target="FonteEstabelecimentoEquipamentoPoluenteCondicaoCumprimento" deleteRule="Cascade" db-relationship-path="fonte_equipamento_poluentes_cond_cumprimento"/>
+	<obj-relationship name="poluente" source="FonteEstabelecimentoEquipamentoPoluente" target="TPoluente" deleteRule="Nullify" db-relationship-path="poluente"/>
+	<obj-relationship name="regimeMonitorizacao" source="FonteEstabelecimentoEquipamentoPoluente" target="TTipoRegimeMonitorizacao" deleteRule="Nullify" db-relationship-path="regime_monitorizacao"/>
+	<obj-relationship name="condicaoCumprimento" source="FonteEstabelecimentoEquipamentoPoluenteCondicaoCumprimento" target="TCondicaoCumprimento" deleteRule="Nullify" db-relationship-path="condicao_cumprimento"/>
+	<obj-relationship name="fonteEmissaoEquipamentoPoluente" source="FonteEstabelecimentoEquipamentoPoluenteCondicaoCumprimento" target="FonteEstabelecimentoEquipamentoPoluente" deleteRule="Nullify" db-relationship-path="fonte_emissao_equipamento_poluente"/>
+	<obj-relationship name="teorO2Referencia" source="FonteEstabelecimentoEquipamentoPoluenteCondicaoCumprimento" target="TTeorO2Referencia" deleteRule="Nullify" db-relationship-path="teor_o2_referencia"/>
+	<obj-relationship name="fonteEmissaoEquipamento" source="FonteEstabelecimentoEquipamentoSteg" target="FonteEstabelecimentoEquipamento" deleteRule="Nullify" db-relationship-path="fonte_emissao_equipamento"/>
+	<obj-relationship name="steg" source="FonteEstabelecimentoEquipamentoSteg" target="TSistemaTratamentoEfluenteGasoso" deleteRule="Nullify" db-relationship-path="steg"/>
+	<obj-relationship name="condicoesCumprimento" source="FonteEstabelecimentoPoluente" target="FonteEstabelecimentoPoluenteCondicaoCumprimento" deleteRule="Cascade" db-relationship-path="condicoes_cumprimento"/>
+	<obj-relationship name="fonteEmissao" source="FonteEstabelecimentoPoluente" target="FonteEstabelecimento" deleteRule="Nullify" db-relationship-path="fonte_emissao"/>
+	<obj-relationship name="monitorizacoes" source="FonteEstabelecimentoPoluente" target="Monitorizacao" deleteRule="Deny" db-relationship-path="monitorizacoes"/>
+	<obj-relationship name="poluente" source="FonteEstabelecimentoPoluente" target="TPoluente" deleteRule="Nullify" db-relationship-path="poluente"/>
+	<obj-relationship name="regimeMonitorizacao" source="FonteEstabelecimentoPoluente" target="TTipoRegimeMonitorizacao" deleteRule="Nullify" db-relationship-path="regime_monitorizacao"/>
+	<obj-relationship name="condicaoCumprimento" source="FonteEstabelecimentoPoluenteCondicaoCumprimento" target="TCondicaoCumprimento" deleteRule="Nullify" db-relationship-path="condicao_cumprimento"/>
+	<obj-relationship name="fonteEmissaoPoluente" source="FonteEstabelecimentoPoluenteCondicaoCumprimento" target="FonteEstabelecimentoPoluente" deleteRule="Nullify" db-relationship-path="fonte_emissao_poluente"/>
+	<obj-relationship name="teorO2Referencia" source="FonteEstabelecimentoPoluenteCondicaoCumprimento" target="TTeorO2Referencia" deleteRule="Nullify" db-relationship-path="teor_o2_referencia"/>
+	<obj-relationship name="categoriasCombustivel" source="FonteEstabelecimentoReportAnual" target="FonteEstabelecimentoReportAnualCatCombustivel" deleteRule="Deny" db-relationship-path="categorias_combustivel"/>
+	<obj-relationship name="combustiveis" source="FonteEstabelecimentoReportAnual" target="FonteEstabelecimentoReportAnualCombustivel" deleteRule="Deny" db-relationship-path="combustiveis"/>
+	<obj-relationship name="fonteEmissao" source="FonteEstabelecimentoReportAnual" target="FonteEstabelecimento" deleteRule="Nullify" db-relationship-path="fonte_emissao"/>
+	<obj-relationship name="reportAnual" source="FonteEstabelecimentoReportAnualCatCombustivel" target="FonteEstabelecimentoReportAnual" deleteRule="Nullify" db-relationship-path="report_anual"/>
+	<obj-relationship name="combustivel" source="FonteEstabelecimentoReportAnualCombustivel" target="TCombustivel" deleteRule="Nullify" db-relationship-path="combustivel"/>
+	<obj-relationship name="reportAnual" source="FonteEstabelecimentoReportAnualCombustivel" target="FonteEstabelecimentoReportAnual" deleteRule="Nullify" db-relationship-path="report_anual"/>
+	<obj-relationship name="fonteEmissao" source="FonteEstabelecimentoSteg" target="FonteEstabelecimento" deleteRule="Nullify" db-relationship-path="fonte_emissao"/>
+	<obj-relationship name="steg" source="FonteEstabelecimentoSteg" target="TSistemaTratamentoEfluenteGasoso" deleteRule="Nullify" db-relationship-path="steg"/>
+</data-map>

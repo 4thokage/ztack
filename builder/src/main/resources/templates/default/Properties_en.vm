@@ -1,0 +1,14 @@
+#set( $info = ".info")
+# Ficheiro $fileName foi gerado atravéz do ficheiro $rootFile
+# È desaconselhado alterar este ficheiro manualmente pois
+# poderá ser gerado novamente, apagando as alterações manuais que foram efetuadas.
+
+#foreach( $component in ${data} )
+#if(${component.enTableDescription} != '')
+$velocityUtils.labelCodeForValue(${component.tableName})=${component.enTableDescription}
+#end
+$velocityUtils.labelCodeForValue(${component.tableName}).$velocityUtils.labelCodeForValue(${component.columnName})=${component.enColumnDescription}
+#if(${component.ptInfoText} != '')
+$velocityUtils.labelCodeForValue(${component.tableName}).$velocityUtils.labelCodeForValue(${component.columnName})$info=${component.enInfoText}
+#end
+#end

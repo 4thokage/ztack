@@ -1,0 +1,245 @@
+#set( $Form = "Form" )
+#set( $PForm = "PrincipalForm" )
+#set( $Detalhe = "Detalhe.xhtml" )
+#set( $FormView = "Form.xhtml" )
+#set( $conf = "Conflito" )
+#set( $Hist = "Historico" )
+#set( $WV = "WidgetVar" )
+#set( $Edit = "Edit" )
+#set( $Add = "Add" )
+#set( $AddReg = "AddReg" )
+#set( $AddDirimir = "AddDirimir" )
+#set( $descricao = ".descricao" )
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<!-- detalhe -->
+	<p:dialog id="#{descritorTua.prefixoComponentesUi}detalheDialog$entityName"
+		widgetVar="#{descritorTua.prefixoComponentesUi}detalheDialog$entityName" resizable="false"
+		header="Detalhe" modal="true" closeOnEscape="true" appendTo="@(body)"
+		responsive="true">
+		<!-- DESENHAR O PROPRIO -->
+		<p:accordionPanel>
+		
+			<p:tab title="Condição Principal - #{descritorTua.condicaoSelecionada.codigoCondicao}">
+				<h:form id="#{descritorTua.prefixoComponentesUi}detalheDialog$entityName$PForm">
+					<ui:include src="$entityName$Detalhe">
+						<ui:param name="condicao" value="#{descritorTua.condicaoSelecionada}" />
+						<ui:param name="apresentarBotoes" value="true" />
+						<ui:param name="descritorTua" value="#{descritorTua}" />
+						<ui:param name="caminhoTabela" value="#{caminhoTabela}" />
+					</ui:include>
+				</h:form>
+			</p:tab>
+			<!-- desenhar filhos -->
+			<c:forEach
+				items="${descritorTua.condicaoSelecionada.filhos}"
+				var="filhoCondicao" varStatus="status">
+				<p:tab title="Condição Secundária - #{filhoCondicao.codigoCondicao}">
+					<h:form id="#{descritorTua.prefixoComponentesUi}detalheDialog$entityName#{status.index}Form">
+						<ui:include
+							src="$entityName$Detalhe">
+							<ui:param name="condicao" value="#{filhoCondicao}" />
+							<ui:param name="apresentarBotoes" value="true" />
+							<ui:param name="descritorTua" value="#{descritorTua}" />
+							<ui:param name="caminhoTabela" value="#{caminhoTabela}" />
+						</ui:include>
+					</h:form>
+				</p:tab>
+			</c:forEach>
+		</p:accordionPanel>
+		<br/><br/>
+		<p:commandButton update="#{caminhoTabela}#{descritorTua.prefixoComponentesUi}tabela$entityName"
+			value="Fechar" icon="fa fa-close"
+			onclick="PF('#{descritorTua.prefixoComponentesUi}detalheDialog$entityName').hide();">
+		</p:commandButton>
+		<p:commandButton update="#{caminhoTabela}#{descritorTua.prefixoComponentesUi}tabela$entityName"
+			value="Dirimir conflito" icon="fa fa-diamond" rendered="#{descritorTua.visibilidadeTua.botaoDirimir and descritorTua.condicaoSelecionada.conflito}"
+			onclick="PF('#{descritorTua.prefixoComponentesUi}detalheDialog$entityName').hide(); PF('#{descritorTua.prefixoComponentesUi}dialogNovoDirimir$entityName').show();">
+			<f:setPropertyActionListener value="#{condicao}" target="#{descritorTua.condicaoSelecionada}" />
+		</p:commandButton>
+	</p:dialog>
+	
+	<p:dialog id="#{descritorTua.prefixoComponentesUi}dialogHistorico$entityName"
+		widgetVar="#{descritorTua.prefixoComponentesUi}dialogHistorico$entityName" resizable="false"
+		header="Histórico" modal="true" closeOnEscape="true" appendTo="@(body)"
+		responsive="true" scrollable="true">
+		<!-- DESENHAR O PROPRIO -->
+		<p:dataTable id="#{descritorTua.prefixoComponentesUi}tabela$entityName$Hist"
+				widgetVar="#{descritorTua.prefixoComponentesUi}tabela$entityName$Hist$WV"
+				#if($tipoTabela == 'PADRAO')
+				value="#{descritorTua.historicoTabelaPadrao}"
+				#else
+				value="#{descritorTua.historico}"
+				#end
+				 emptyMessage="Sem dados."
+				var="condicao">
+				
+				<p:column headerText="Código da Condição">
+					<h:outputText value="#{condicao.codigoCondicao}" />
+				</p:column>
+#foreach( $attribute in $objAttributes )
+#if( $attribute.getName() != "id" && $attribute.getName() != "dataEstado" && $attribute.getName() != "dataCriacao" && $attribute.getName() != "utilizadorCriacao" && $attribute.getName() != "utilizadorEstado" && $attribute.getName() != "codigoCondicao" )
+#if( $attribute.getType() == "java.util.Date" )
+				<p:column headerText="$attribute.getDescription() ">
+					<h:outputText value="#{condicao.$attribute.getName()}" >
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+#end
+#if( $attribute.getType() == "java.lang.Boolean" )
+				<p:column headerText="$attribute.getDescription() ">
+					<h:outputText value="#{condicao.$attribute.getName() ? 'Sim' : 'Não'}" />
+				</p:column>
+#end
+#if( $attribute.getType() == "java.lang.String" || $attribute.getListaValores() != "")
+				<p:column headerText="$attribute.getDescription() ">
+					<h:outputText value="#{condicao.$attribute.getName()}" />
+				</p:column>
+#end
+#end
+#end
+				<p:column headerText="Regime ">
+					<h:outputText value="#{condicao.codigoRegime}" />
+				</p:column>
+				<p:column headerText="Data Alteração ">
+					<h:outputText value="#{condicao.dataCriacao}" >
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Estado ">
+					<h:outputText value="#{condicao.descricaoEstado}" />
+				</p:column>
+				<p:column headerText="Utilizador Alteração ">
+					<h:outputText value="#{condicao.utilizadorCriacao}" />
+				</p:column>
+				<p:column headerText="Processo Origem ">
+					<h:outputText value="#{condicao.pli.codigoPli}" />
+				</p:column>				
+			</p:dataTable>
+		</p:dialog>
+
+	<p:dialog id="#{descritorTua.prefixoComponentesUi}dialogEditar$entityName"
+		widgetVar="#{descritorTua.prefixoComponentesUi}dialogEditar$entityName" modal="true"
+		closeOnEscape="true" appendTo="@(body)" resizable="false"
+		header="Editar" responsive="true">
+		
+		<h:form id="#{descritorTua.prefixoComponentesUi}dialogEditar$entityName$Form">
+			
+			<p:messages id="#{descritorTua.prefixoComponentesUi}msg$entityName$Edit" showDetail="false" autoUpdate="true" closable="true" />
+				
+			<p:panelGrid id="#{descritorTua.prefixoComponentesUi}mostrarEditarConflito$entityName" columns="2" cellpadding="4">
+
+				<ui:include src="$entityName$FormView">
+					<ui:param name="condicao"
+						value="#{descritorTua.condicaoSelecionada}" />
+					<ui:param name="descritorTua" value="#{descritorTua}" />
+				</ui:include>
+
+				<f:facet name="footer">
+					<p:commandButton value="Confirmar" icon="fa fa-check"
+						update="#{caminhoTabela}#{descritorTua.prefixoComponentesUi}tabela$entityName #{descritorTua.prefixoComponentesUi}dialogHistorico$entityName #{descritorTua.prefixoComponentesUi}msg$entityName$Edit #{caminhoTabela}#{descritorTua.prefixoComponentesUi}Msg$entityName"
+						oncomplete="processaRequest(xhr, status, args, '#{descritorTua.prefixoComponentesUi}dialogEditar$entityName','#{descritorTua.prefixoComponentesUi}dialogEditar$entityName$Form');"
+						actionListener="#{descritorTua.editarCondicao}"></p:commandButton>
+
+					<p:commandButton type="reset" value="Limpar" icon="fa fa-trash-o"></p:commandButton>
+				</f:facet>
+
+			</p:panelGrid>
+	
+		</h:form>
+	</p:dialog>
+
+	<p:dialog id="#{descritorTua.prefixoComponentesUi}dialogNovo$entityName"
+		widgetVar="#{descritorTua.prefixoComponentesUi}dialogNovo$entityName" modal="true"
+		closeOnEscape="true" appendTo="@(body)" resizable="false"
+		header="Adicionar Condição" responsive="true">
+
+		<h:form id="#{descritorTua.prefixoComponentesUi}dialogNovo$entityName$Form">
+		
+			<p:messages id="#{descritorTua.prefixoComponentesUi}msg$entityName$Add" showDetail="false" autoUpdate="true" closable="true" />
+		
+			<p:panelGrid id="#{descritorTua.prefixoComponentesUi}mostrarNovo$entityName" columns="2" cellpadding="4">
+				<ui:include src="$entityName$FormView">
+					<ui:param name="condicao" value="#{descritorTua.condicaoNova}" />
+					<ui:param name="descritorTua" value="#{descritorTua}" />
+				</ui:include>
+				
+				<f:facet name="footer">
+					<p:commandButton value="Confirmar" icon="fa fa-check"
+						update="#{caminhoTabela}#{descritorTua.prefixoComponentesUi}tabela$entityName #{descritorTua.prefixoComponentesUi}dialogHistorico$entityName #{descritorTua.prefixoComponentesUi}msg$entityName$Add #{caminhoTabela}#{descritorTua.prefixoComponentesUi}Msg$entityName"
+						oncomplete="processaRequest(xhr, status, args, '#{descritorTua.prefixoComponentesUi}dialogNovo$entityName','#{descritorTua.prefixoComponentesUi}dialogNovo$entityName$Form');"
+						actionListener="#{descritorTua.adicionarCondicaoNova}"></p:commandButton>
+
+					<p:commandButton type="reset" value="Limpar" icon="fa fa-trash-o"></p:commandButton>
+				</f:facet>
+
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+	
+	<p:dialog id="#{descritorTua.prefixoComponentesUi}dialogNovoConflito$entityName"
+		widgetVar="#{descritorTua.prefixoComponentesUi}dialogNovoConflito$entityName" modal="true"
+		closeOnEscape="true" appendTo="@(body)" resizable="false"
+		header="Adicionar Condição - Conflito" responsive="true">
+		
+		<h:form id="#{descritorTua.prefixoComponentesUi}dialogNovoConflito$entityName$Form">
+		
+		<p:messages id="#{descritorTua.prefixoComponentesUi}msg$entityName$AddReg" showDetail="false" autoUpdate="true" closable="true" />
+		
+			<p:panelGrid id="#{descritorTua.prefixoComponentesUi}mostrarNovoConflito$entityName" columns="2" cellpadding="4">
+
+				<ui:include src="$entityName$FormView">
+					<ui:param name="condicao" value="#{descritorTua.condicaoNova}" />
+					<ui:param name="descritorTua" value="#{descritorTua}" />
+				</ui:include>
+
+				<f:facet name="footer">
+					<p:commandButton value="Confirmar" icon="fa fa-check"
+						update="#{caminhoTabela}#{descritorTua.prefixoComponentesUi}tabela$entityName #{descritorTua.prefixoComponentesUi}dialogHistorico$entityName #{descritorTua.prefixoComponentesUi}msg$entityName$AddReg #{caminhoTabela}#{descritorTua.prefixoComponentesUi}Msg$entityName"
+						oncomplete="processaRequest(xhr, status, args, '#{descritorTua.prefixoComponentesUi}dialogNovoConflito$entityName','#{descritorTua.prefixoComponentesUi}dialogNovoConflito$entityName$Form');"
+						actionListener="#{descritorTua.adicionarCondicaoConflito}"></p:commandButton>
+
+					<p:commandButton type="reset" value="Limpar" icon="fa fa-trash-o"></p:commandButton>
+				</f:facet>
+
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+	
+	<p:dialog id="#{descritorTua.prefixoComponentesUi}dialogNovoDirimir$entityName"
+		widgetVar="#{descritorTua.prefixoComponentesUi}dialogNovoDirimir$entityName" modal="true"
+		closeOnEscape="true" appendTo="@(body)" resizable="false"
+		header="Adicionar Condição - Dirimir" responsive="true">
+
+		<h:form id="#{descritorTua.prefixoComponentesUi}dialogNovoDirimir$entityName$Form">
+		
+			<p:messages id="#{descritorTua.prefixoComponentesUi}msg$entityName$AddDirimir" showDetail="false" autoUpdate="true" redisplay="false" closable="true" />
+		
+			<p:panelGrid id="#{descritorTua.prefixoComponentesUi}mostrarNovoDirimir$entityName" columns="2" cellpadding="4">
+				<ui:include src="$entityName$FormView">
+					<ui:param name="condicao" value="#{descritorTua.condicaoNova}" />
+					<ui:param name="descritorTua" value="#{descritorTua}" />
+				</ui:include>
+
+				<f:facet name="footer">
+					<p:commandButton value="Confirmar" icon="fa fa-check"
+						update="#{caminhoTabela}#{descritorTua.prefixoComponentesUi}tabela$entityName #{descritorTua.prefixoComponentesUi}dialogHistorico$entityName #{descritorTua.prefixoComponentesUi}msg$entityName$AddDirimir #{caminhoTabela}#{descritorTua.prefixoComponentesUi}Msg$entityName"
+						oncomplete="processaRequest(xhr, status, args, '#{descritorTua.prefixoComponentesUi}dialogNovoDirimir$entityName','#{descritorTua.prefixoComponentesUi}dialogNovoDirimir$entityName$Form');"
+						actionListener="#{descritorTua.adicionarCondicaoDirimir}"></p:commandButton>
+
+					<p:commandButton type="reset" value="Limpar" icon="fa fa-trash-o"></p:commandButton>
+				</f:facet>
+
+			</p:panelGrid>
+
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

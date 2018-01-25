@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+        Licensed to the Apache Software Foundation (ASF) under one
+        or more contributor license agreements.  See the NOTICE file
+        distributed with this work for additional information
+        regarding copyright ownership.  The ASF licenses this file
+        to you under the Apache License, Version 2.0 (the
+        "License"); you may not use this file except in compliance
+        with the License.  You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing,
+        software distributed under the License is distributed on an
+        "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+        KIND, either express or implied.  See the License for the
+        specific language governing permissions and limitations
+        under the License.
+-->
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="868.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="10.0" layoutY="10.0" minHeight="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefWidth="200.0">
+               <children>
+                  <Button fx:id="newRelationshipButton" mnemonicParsing="false" text="New Relationship">
+                     <tooltip>
+                        <Tooltip text="Create a new Object Attribute." />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="synchronizeWithDatabaseEntityButton" mnemonicParsing="false" text="Sync">
+                     <tooltip>
+                        <Tooltip text="Synchronize this Object Entity with the mapped Database Entity." />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="viewRelatedDatabaseEntityButton" mnemonicParsing="false" text="Jump">
+                     <tooltip>
+                        <Tooltip text="View related Database Entity." />
+                     </tooltip>
+                  </Button>
+                  <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
+                  <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete">
+                     <tooltip>
+                        <Tooltip text="Delete this Object Attribute." />
+                     </tooltip>
+                  </Button>
+                  <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
+                  <Button fx:id="cutButton" mnemonicParsing="false" text="Cut">
+                     <tooltip>
+                        <Tooltip text="Cut this Object Attribute." />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="copyButton" mnemonicParsing="false" text="Copy">
+                     <tooltip>
+                        <Tooltip text="Copy this Object Attribute." />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="pasteButton" mnemonicParsing="false" text="Paste">
+                     <tooltip>
+                        <Tooltip text="Paste previously cut or copied Object Attribute." />
+                     </tooltip>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </VBox.margin>
+            </HBox>
+            <TableView fx:id="relationshipsTableView" VBox.vgrow="ALWAYS">
+               <placeholder>
+                  <Label text="No Object Entity (Java) relationships have been defined; please add them using the toolbar above." />
+               </placeholder>
+               <columns>
+                  <TableColumn fx:id="attributeIsInheritedColumn" editable="false" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" resizable="false" sortable="false" text="I" />
+                  <TableColumn fx:id="attributeUsedForLockingColumn" editable="false" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" resizable="false" sortable="false" text="L" />
+                  <TableColumn fx:id="relationshipNameColumn" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="179.0" text="Relationship Name" />
+                  <TableColumn fx:id="relationshipTargetColumn" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="182.0" text="Target" />
+                  <TableColumn fx:id="attributeDatabaseTypeColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="116.0" text="Semantics" />
+                  <TableColumn fx:id="attributeDatabasePathColumn" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="183.0" text="Database Path" />
+                  <TableColumn prefWidth="157.0" text="Database Type" />
+               </columns>
+            </TableView>
+            <GridPane vgap="6.0" VBox.vgrow="NEVER">
+               <columnConstraints>
+                  <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="210.0" />
+                  <ColumnConstraints fillWidth="false" halignment="RIGHT" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="210.0" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Relationship Name: " />
+                  <Label text="Database Attribute Path: " GridPane.rowIndex="1" />
+                  <Label text="Java Type: " GridPane.columnIndex="2" />
+                  <Label text="Database Type: " GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TextField fx:id="javaAttributeNameTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
+                  <Label fx:id="databaseTypeLabel" text="type name here" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="javaTypeComboBox" editable="true" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Enter or Choose..." GridPane.columnIndex="3" />
+                  <CheckBox fx:id="optimisticLockingCheckBox" mnemonicParsing="false" text="Optimistic Locking" GridPane.columnIndex="4" />
+                  <ComboBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </GridPane>
+            <TabPane maxHeight="200.0" minHeight="120.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="Getter JavaDoc">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <TextArea promptText="Omit comment characters.  Press return to include newlines in output." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Add-To JavaDoc">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <TextArea promptText="Omit comment characters.  Press return to include newlines in output." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Remove-From JavaDoc">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <TextArea promptText="Omit comment characters.  Press return to include newlines in output." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Attribute Annotations">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <TextArea layoutX="320.0" layoutY="-63.0" promptText="Add annotations to be included here.  Press return to include newlines in output.  Be sure to add any required imports under the Class tab." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Getter Annotations">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <TextArea promptText="Add annotations to be included here.  Press return to include newlines in output.  Be sure to add any required imports under the Class tab." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Setter Annotations">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <TextArea promptText="Add annotations to be included here.  Press return to include newlines in output.  Be sure to add any required imports under the Class tab." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" />
+               </padding>
+            </TabPane>
+         </children>
+      </VBox>
+   </children>
+</fx:root>

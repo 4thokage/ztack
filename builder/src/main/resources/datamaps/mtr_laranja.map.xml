@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.mtrLaranja"/>
+	<property name="defaultSchema" value="mtr_laranja"/>
+	<procedure name="validatenotificacaomovimento" schema="mtr_laranja">
+		<procedure-parameter name="notificacao_id" type="INTEGER" direction="in"/>
+		<procedure-parameter name="notificacao_movimento_id" type="INTEGER" direction="in"/>
+		<procedure-parameter name="datamovimento" type="DATE" direction="in"/>
+		<procedure-parameter name="datainstalacao" type="DATE" direction="in"/>
+		<procedure-parameter name="dataconclusao" type="DATE" direction="in"/>
+		<procedure-parameter name="dataconclusaofinal" type="DATE" direction="in"/>
+		<procedure-parameter name="unidade_id" type="INTEGER" direction="in"/>
+		<procedure-parameter name="movimentonum" type="INTEGER" direction="in"/>
+		<procedure-parameter name="quantidadereal" type="DOUBLE" direction="in"/>
+		<procedure-parameter name="quantidaderecebida" type="DOUBLE" direction="in"/>
+		<procedure-parameter name="produtores" type="VARCHAR" length="10000" direction="in"/>
+		<procedure-parameter name="transportadores" type="VARCHAR" length="10000" direction="in"/>
+		<procedure-parameter name="observacoes" type="VARCHAR" length="1000" direction="in"/>
+		<procedure-parameter name="errors" type="LONGVARCHAR" direction="out"/>
+	</procedure>
+	<db-entity name="decisao_notificacao" schema="mtr_laranja">
+		<db-attribute name="codigo" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="100"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="id" type="INTEGER" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="estado_notificacao" schema="mtr_laranja">
+		<db-attribute name="codigo" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="100"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="id" type="INTEGER" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="movimento" schema="mtr_laranja">
+		<db-attribute name="anulado" type="BOOLEAN"/>
+		<db-attribute name="atualizadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="criadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_conclusao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_conclusao_final" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_instalacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_movimento" type="TIMESTAMP" length="8"/>
+		<db-attribute name="fechado" type="BIT" length="1"/>
+		<db-attribute name="fk_notificacao" type="INTEGER" length="4"/>
+		<db-attribute name="fk_quant_real_unidade" type="INTEGER" length="4"/>
+		<db-attribute name="fk_quant_recebida_unidade" type="INTEGER" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="num_movimento" type="INTEGER" length="4"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="500"/>
+		<db-attribute name="quant_real" type="DOUBLE" length="8"/>
+		<db-attribute name="quant_recebida" type="DOUBLE" length="8"/>
+	</db-entity>
+	<db-entity name="movimento_documento" schema="mtr_laranja">
+		<db-attribute name="fk_documento" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_movimento" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_movimento_tipo_documento" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="movimento_entidade" schema="mtr_laranja">
+		<db-attribute name="fk_movimento" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="fk_notificacao_entidade" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="fk_quantidade_unidade" type="INTEGER"/>
+		<db-attribute name="quantidade" type="DOUBLE"/>
+		<db-attribute name="quantidade_recebida" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="movimento_tipo_documento" schema="mtr_laranja">
+		<db-attribute name="descricao" type="VARCHAR" length="500"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="50"/>
+	</db-entity>
+	<db-entity name="notificacao" schema="mtr_laranja">
+		<db-attribute name="atualizadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="criadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_autorizacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_aviso_rececao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_emissao_duc" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_emissao_nota_liquidacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_informacao_tecnica" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_limite" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_notificacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_pedido_informacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_rececao_informacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_registo" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_registo_gf" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_transmissao_notificacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="fechado" type="BIT" length="1"/>
+		<db-attribute name="fk_decisao" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="fk_estado" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="fk_fronteira" type="INTEGER" length="4"/>
+		<db-attribute name="fk_fronteira_alt" type="INTEGER" length="4"/>
+		<db-attribute name="fk_operacao" type="INTEGER" length="4"/>
+		<db-attribute name="fk_tipo" type="VARCHAR" length="10"/>
+		<db-attribute name="fk_unidade" type="INTEGER" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="num_movimentos_simul" type="INTEGER" length="4"/>
+		<db-attribute name="num_notificacao" type="VARCHAR" length="20"/>
+		<db-attribute name="num_trans" type="INTEGER" length="4"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="500"/>
+		<db-attribute name="quant_prev" type="DOUBLE" length="8"/>
+		<db-attribute name="varios_produtores" type="BIT" length="1"/>
+	</db-entity>
+	<db-entity name="notificacao_autoridade" schema="mtr_laranja">
+		<db-attribute name="fk_notificacao" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="fk_tipo_autoridade" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="pais" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="2"/>
+	</db-entity>
+	<db-entity name="notificacao_basileia" schema="mtr_laranja">
+		<db-attribute name="fk_basileia" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="fk_notificacao_residuos" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="notificacao_classe_onu" schema="mtr_laranja">
+		<db-attribute name="data_update" type="TIMESTAMP" length="29"/>
+		<db-attribute name="fk_classe_onu" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="fk_notificacao_residuos" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="notificacao_codigo_h" schema="mtr_laranja">
+		<db-attribute name="data_update" type="TIMESTAMP" length="29"/>
+		<db-attribute name="fk_codigo_h" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="fk_notificacao_residuos" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="notificacao_entidade" schema="mtr_laranja">
+		<db-attribute name="fk_estabelecimento" type="INTEGER" length="4"/>
+		<db-attribute name="fk_notificacao" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_perfil" type="INTEGER" length="4"/>
+		<db-attribute name="fk_tipo_entidade" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="notificacao_ler" schema="mtr_laranja">
+		<db-attribute name="fk_ler" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="fk_notificacao_residuos" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="notificacao_ocde" schema="mtr_laranja">
+		<db-attribute name="fk_notificacao_residuos" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="fk_ocde" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="notificacao_operacao" schema="mtr_laranja">
+		<db-attribute name="fk_operacao" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_rel_operacao_notificacao" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="operacao_sec" type="BIT" length="1"/>
+	</db-entity>
+	<db-entity name="notificacao_residuos_y" schema="mtr_laranja">
+		<db-attribute name="fk_notificacao_residuos" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="fk_residuo_y" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="rel_operacao_notificacao" schema="mtr_laranja">
+		<db-attribute name="comentarios" type="VARCHAR" length="500"/>
+		<db-attribute name="fk_notificacao" type="INTEGER" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="rel_residuos_notificacao" schema="mtr_laranja">
+		<db-attribute name="designacao" type="VARCHAR" length="500"/>
+		<db-attribute name="fk_notificacao" type="INTEGER" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="tipo_entidade_notificacao" schema="mtr_laranja">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="255"/>
+	</db-entity>
+	<db-entity name="tipo_notificacao" schema="mtr_laranja">
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="id" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="tipo" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="vw_notificacoes_mtr_ll" schema="mtr_laranja">
+		<db-attribute name="data_inicio" type="TIMESTAMP"/>
+		<db-attribute name="data_limite" type="TIMESTAMP"/>
+		<db-attribute name="fk_decisao" type="LONGVARCHAR"/>
+		<db-attribute name="fk_estado" type="LONGVARCHAR"/>
+		<db-attribute name="fk_notificacao" type="INTEGER"/>
+		<db-attribute name="fk_perfil" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="num_notificacao" type="VARCHAR" length="20"/>
+	</db-entity>
+	<obj-entity name="DecisaoNotificacao" className="org.addition.apa.mtrLaranja.DecisaoNotificacao" dbEntityName="decisao_notificacao">
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+	</obj-entity>
+	<obj-entity name="EstadoNotificacao" className="org.addition.apa.mtrLaranja.EstadoNotificacao" dbEntityName="estado_notificacao">
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+	</obj-entity>
+	<obj-entity name="Movimento" className="org.addition.apa.mtrLaranja.Movimento" dbEntityName="movimento">
+		<obj-attribute name="anulado" type="java.lang.Boolean" db-attribute-path="anulado"/>
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataConclusao" type="java.util.Date" db-attribute-path="data_conclusao"/>
+		<obj-attribute name="dataConclusaoFinal" type="java.util.Date" db-attribute-path="data_conclusao_final"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataInstalacao" type="java.util.Date" db-attribute-path="data_instalacao"/>
+		<obj-attribute name="dataMovimento" type="java.util.Date" db-attribute-path="data_movimento"/>
+		<obj-attribute name="fechado" type="java.lang.Boolean" db-attribute-path="fechado"/>
+		<obj-attribute name="numMovimento" type="java.lang.Integer" db-attribute-path="num_movimento"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="quantReal" type="java.lang.Double" db-attribute-path="quant_real"/>
+		<obj-attribute name="quantRecebida" type="java.lang.Double" db-attribute-path="quant_recebida"/>
+	</obj-entity>
+	<obj-entity name="MovimentoDocumento" className="org.addition.apa.mtrLaranja.MovimentoDocumento" dbEntityName="movimento_documento">
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="MovimentoEntidade" className="org.addition.apa.mtrLaranja.MovimentoEntidade" dbEntityName="movimento_entidade">
+		<obj-attribute name="quantidade" type="java.lang.Double" db-attribute-path="quantidade"/>
+		<obj-attribute name="quantidadeRecebida" type="java.lang.Double" db-attribute-path="quantidade_recebida"/>
+	</obj-entity>
+	<obj-entity name="MovimentoTipoDocumento" className="org.addition.apa.mtrLaranja.MovimentoTipoDocumento" dbEntityName="movimento_tipo_documento">
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="Notificacao" className="org.addition.apa.mtrLaranja.Notificacao" dbEntityName="notificacao">
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataAutorizacao" type="java.util.Date" db-attribute-path="data_autorizacao"/>
+		<obj-attribute name="dataAvisoRececao" type="java.util.Date" db-attribute-path="data_aviso_rececao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataEmissaoDuc" type="java.util.Date" db-attribute-path="data_emissao_duc"/>
+		<obj-attribute name="dataEmissaoNotaLiquidacao" type="java.util.Date" db-attribute-path="data_emissao_nota_liquidacao"/>
+		<obj-attribute name="dataInformacaoTecnica" type="java.util.Date" db-attribute-path="data_informacao_tecnica"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="dataLimite" type="java.util.Date" db-attribute-path="data_limite"/>
+		<obj-attribute name="dataNotificacao" type="java.util.Date" db-attribute-path="data_notificacao"/>
+		<obj-attribute name="dataPedidoInformacao" type="java.util.Date" db-attribute-path="data_pedido_informacao"/>
+		<obj-attribute name="dataRececaoInformacao" type="java.util.Date" db-attribute-path="data_rececao_informacao"/>
+		<obj-attribute name="dataRegisto" type="java.util.Date" db-attribute-path="data_registo"/>
+		<obj-attribute name="dataRegistoGf" type="java.util.Date" db-attribute-path="data_registo_gf"/>
+		<obj-attribute name="dataTransmissaoNotificacao" type="java.util.Date" db-attribute-path="data_transmissao_notificacao"/>
+		<obj-attribute name="fechado" type="java.lang.Boolean" db-attribute-path="fechado"/>
+		<obj-attribute name="numMovimentosSimul" type="java.lang.Integer" db-attribute-path="num_movimentos_simul"/>
+		<obj-attribute name="numNotificacao" type="java.lang.String" db-attribute-path="num_notificacao"/>
+		<obj-attribute name="numTrans" type="java.lang.Integer" db-attribute-path="num_trans"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="quantPrev" type="java.lang.Double" db-attribute-path="quant_prev"/>
+		<obj-attribute name="variosProdutores" type="java.lang.Boolean" db-attribute-path="varios_produtores"/>
+	</obj-entity>
+	<obj-entity name="NotificacaoAutoridade" className="org.addition.apa.mtrLaranja.NotificacaoAutoridade" dbEntityName="notificacao_autoridade">
+	</obj-entity>
+	<obj-entity name="NotificacaoBasileia" className="org.addition.apa.mtrLaranja.NotificacaoBasileia" dbEntityName="notificacao_basileia">
+	</obj-entity>
+	<obj-entity name="NotificacaoClasseOnu" className="org.addition.apa.mtrLaranja.NotificacaoClasseOnu" dbEntityName="notificacao_classe_onu">
+		<obj-attribute name="dataUpdate" type="java.util.Date" db-attribute-path="data_update"/>
+	</obj-entity>
+	<obj-entity name="NotificacaoCodigoH" className="org.addition.apa.mtrLaranja.NotificacaoCodigoH" dbEntityName="notificacao_codigo_h">
+		<obj-attribute name="dataUpdate" type="java.util.Date" db-attribute-path="data_update"/>
+	</obj-entity>
+	<obj-entity name="NotificacaoEntidade" className="org.addition.apa.mtrLaranja.NotificacaoEntidade" dbEntityName="notificacao_entidade">
+		<obj-attribute name="fkEstabelecimento" type="java.lang.Integer" db-attribute-path="fk_estabelecimento"/>
+		<obj-attribute name="fkPerfil" type="java.lang.Integer" db-attribute-path="fk_perfil"/>
+	</obj-entity>
+	<obj-entity name="NotificacaoLer" className="org.addition.apa.mtrLaranja.NotificacaoLer" dbEntityName="notificacao_ler">
+	</obj-entity>
+	<obj-entity name="NotificacaoOcde" className="org.addition.apa.mtrLaranja.NotificacaoOcde" dbEntityName="notificacao_ocde">
+	</obj-entity>
+	<obj-entity name="NotificacaoOperacao" className="org.addition.apa.mtrLaranja.NotificacaoOperacao" dbEntityName="notificacao_operacao">
+		<obj-attribute name="fkOperacao" type="java.lang.Integer" db-attribute-path="fk_operacao"/>
+		<obj-attribute name="operacaoSec" type="java.lang.Boolean" db-attribute-path="operacao_sec"/>
+	</obj-entity>
+	<obj-entity name="NotificacaoResiduosY" className="org.addition.apa.mtrLaranja.NotificacaoResiduosY" dbEntityName="notificacao_residuos_y">
+	</obj-entity>
+	<obj-entity name="RelOperacaoNotificacao" className="org.addition.apa.mtrLaranja.RelOperacaoNotificacao" dbEntityName="rel_operacao_notificacao">
+		<obj-attribute name="comentarios" type="java.lang.String" db-attribute-path="comentarios"/>
+	</obj-entity>
+	<obj-entity name="RelResiduosNotificacao" className="org.addition.apa.mtrLaranja.RelResiduosNotificacao" dbEntityName="rel_residuos_notificacao">
+		<obj-attribute name="designacao" type="java.lang.String" db-attribute-path="designacao"/>
+	</obj-entity>
+	<obj-entity name="TipoEntidadeNotificacao" className="org.addition.apa.mtrLaranja.TipoEntidadeNotificacao" dbEntityName="tipo_entidade_notificacao">
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="TipoNotificacao" className="org.addition.apa.mtrLaranja.TipoNotificacao" dbEntityName="tipo_notificacao">
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+	</obj-entity>
+	<obj-entity name="VwNotificacoesMtrLl" className="org.addition.apa.mtrLaranja.VwNotificacoesMtrLl" readOnly="true" dbEntityName="vw_notificacoes_mtr_ll">
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="dataLimite" type="java.util.Date" db-attribute-path="data_limite"/>
+		<obj-attribute name="numNotificacao" type="java.lang.String" db-attribute-path="num_notificacao"/>
+	</obj-entity>
+	<db-relationship name="notificacaoArray" source="decisao_notificacao" target="notificacao" toMany="true">
+		<db-attribute-pair source="codigo" target="fk_decisao"/>
+	</db-relationship>
+	<db-relationship name="notificacaoArray" source="estado_notificacao" target="notificacao" toMany="true">
+		<db-attribute-pair source="codigo" target="fk_estado"/>
+	</db-relationship>
+	<db-relationship name="movimentoDocumentoArray" source="movimento" target="movimento_documento" toMany="true">
+		<db-attribute-pair source="id" target="fk_movimento"/>
+	</db-relationship>
+	<db-relationship name="movimentoEntidade" source="movimento" target="movimento_entidade" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_movimento"/>
+	</db-relationship>
+	<db-relationship name="toNotificacao" source="movimento" target="notificacao" toMany="false">
+		<db-attribute-pair source="fk_notificacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTUnidade" source="movimento" target="t_unidade" toMany="false">
+		<db-attribute-pair source="fk_quant_real_unidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTUnidade1" source="movimento" target="t_unidade" toMany="false">
+		<db-attribute-pair source="fk_quant_recebida_unidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="documento" source="movimento_documento" target="documento" toMany="false">
+		<db-attribute-pair source="fk_documento" target="id"/>
+	</db-relationship>
+	<db-relationship name="movimento" source="movimento_documento" target="movimento" toMany="false">
+		<db-attribute-pair source="fk_movimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="movimentoTipoDocumento" source="movimento_documento" target="movimento_tipo_documento" toMany="false">
+		<db-attribute-pair source="fk_movimento_tipo_documento" target="id"/>
+	</db-relationship>
+	<db-relationship name="movimento" source="movimento_entidade" target="movimento" toMany="false">
+		<db-attribute-pair source="fk_movimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="notificacaoEntidade" source="movimento_entidade" target="notificacao_entidade" toMany="false">
+		<db-attribute-pair source="fk_notificacao_entidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTUnidade" source="movimento_entidade" target="t_unidade" toMany="false">
+		<db-attribute-pair source="fk_quantidade_unidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="movimentoDocumentoArray" source="movimento_tipo_documento" target="movimento_documento" toMany="true">
+		<db-attribute-pair source="id" target="fk_movimento_tipo_documento"/>
+	</db-relationship>
+	<db-relationship name="listNotificacao" source="notificacao" target="vw_notificacoes_mtr_ll" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao"/>
+	</db-relationship>
+	<db-relationship name="movimentoArray" source="notificacao" target="movimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao"/>
+	</db-relationship>
+	<db-relationship name="notificacaoAutoridadeArray" source="notificacao" target="notificacao_autoridade" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao"/>
+	</db-relationship>
+	<db-relationship name="notificacaoEntidadeArray" source="notificacao" target="notificacao_entidade" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao"/>
+	</db-relationship>
+	<db-relationship name="relOperacaoNotificacaoArray" source="notificacao" target="rel_operacao_notificacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao"/>
+	</db-relationship>
+	<db-relationship name="relResiduosNotificacaoArray" source="notificacao" target="rel_residuos_notificacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao"/>
+	</db-relationship>
+	<db-relationship name="toDecisaoNotificacao" source="notificacao" target="decisao_notificacao" toMany="false">
+		<db-attribute-pair source="fk_decisao" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="toEstado" source="notificacao" target="estado_notificacao" toMany="false">
+		<db-attribute-pair source="fk_estado" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="toTFronteiraAlternativa" source="notificacao" target="t_fronteira" toMany="false">
+		<db-attribute-pair source="fk_fronteira_alt" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTFronteiraPrincipal" source="notificacao" target="t_fronteira" toMany="false">
+		<db-attribute-pair source="fk_fronteira" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTUnidade" source="notificacao" target="t_unidade" toMany="false">
+		<db-attribute-pair source="fk_unidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTipo" source="notificacao" target="tipo_notificacao" toMany="false">
+		<db-attribute-pair source="fk_tipo" target="tipo"/>
+	</db-relationship>
+	<db-relationship name="toTipoOperacao" source="notificacao" target="tipo_operacao" toMany="false">
+		<db-attribute-pair source="fk_operacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="tPais" source="notificacao_autoridade" target="t_pais" toMany="false">
+		<db-attribute-pair source="pais" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="toNotificacao" source="notificacao_autoridade" target="notificacao" toMany="false">
+		<db-attribute-pair source="fk_notificacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTipoAutoridade" source="notificacao_autoridade" target="tipo_autoridade" toMany="false">
+		<db-attribute-pair source="fk_tipo_autoridade" target="id"/>
+	</db-relationship>
+	<db-relationship name="basileia" source="notificacao_basileia" target="residuos_basileia" toDependentPK="true" toMany="false">
+		<db-attribute-pair source="fk_basileia" target="id"/>
+	</db-relationship>
+	<db-relationship name="toRelResiduosNotificacao" source="notificacao_basileia" target="rel_residuos_notificacao" toMany="false">
+		<db-attribute-pair source="fk_notificacao_residuos" target="id"/>
+	</db-relationship>
+	<db-relationship name="classeOnu" source="notificacao_classe_onu" target="classe_onu" toMany="false">
+		<db-attribute-pair source="fk_classe_onu" target="id"/>
+	</db-relationship>
+	<db-relationship name="relResiduosNotificacao" source="notificacao_classe_onu" target="rel_residuos_notificacao" toMany="false">
+		<db-attribute-pair source="fk_notificacao_residuos" target="id"/>
+	</db-relationship>
+	<db-relationship name="codigoH" source="notificacao_codigo_h" target="codigo_h" toMany="false">
+		<db-attribute-pair source="fk_codigo_h" target="id"/>
+	</db-relationship>
+	<db-relationship name="relResiduosNotificacao" source="notificacao_codigo_h" target="rel_residuos_notificacao" toMany="false">
+		<db-attribute-pair source="fk_notificacao_residuos" target="id"/>
+	</db-relationship>
+	<db-relationship name="movimentoEntidadeArray" source="notificacao_entidade" target="movimento_entidade" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao_entidade"/>
+	</db-relationship>
+	<db-relationship name="toNotificacao" source="notificacao_entidade" target="notificacao" toMany="false">
+		<db-attribute-pair source="fk_notificacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTipoEntidadeNotificacao" source="notificacao_entidade" target="tipo_entidade_notificacao" toMany="false">
+		<db-attribute-pair source="fk_tipo_entidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="codigoLer" source="notificacao_ler" target="residuos_ler" toMany="false">
+		<db-attribute-pair source="fk_ler" target="id"/>
+	</db-relationship>
+	<db-relationship name="toRelResiduosNotificacao" source="notificacao_ler" target="rel_residuos_notificacao" toMany="false">
+		<db-attribute-pair source="fk_notificacao_residuos" target="id"/>
+	</db-relationship>
+	<db-relationship name="codigoOcde" source="notificacao_ocde" target="residuos_ocde" toMany="false">
+		<db-attribute-pair source="fk_ocde" target="id"/>
+	</db-relationship>
+	<db-relationship name="toRelResiduosNotificacao" source="notificacao_ocde" target="rel_residuos_notificacao" toMany="false">
+		<db-attribute-pair source="fk_notificacao_residuos" target="id"/>
+	</db-relationship>
+	<db-relationship name="toRelOperacaoNotificacao" source="notificacao_operacao" target="rel_operacao_notificacao" toMany="false">
+		<db-attribute-pair source="fk_rel_operacao_notificacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTipoOperacao" source="notificacao_operacao" target="tipo_operacao_valorizacao" toMany="false">
+		<db-attribute-pair source="fk_operacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="residuosY" source="notificacao_residuos_y" target="residuos_y" toMany="false">
+		<db-attribute-pair source="fk_residuo_y" target="id"/>
+	</db-relationship>
+	<db-relationship name="toRelResiduosNotificacao" source="notificacao_residuos_y" target="rel_residuos_notificacao" toMany="false">
+		<db-attribute-pair source="fk_notificacao_residuos" target="id"/>
+	</db-relationship>
+	<db-relationship name="notificacaoOperacaoArray" source="rel_operacao_notificacao" target="notificacao_operacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_rel_operacao_notificacao"/>
+	</db-relationship>
+	<db-relationship name="toNotificacao" source="rel_operacao_notificacao" target="notificacao" toMany="false">
+		<db-attribute-pair source="fk_notificacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="notificacaoBasileiaArray" source="rel_residuos_notificacao" target="notificacao_basileia" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao_residuos"/>
+	</db-relationship>
+	<db-relationship name="notificacaoClasseOnu" source="rel_residuos_notificacao" target="notificacao_classe_onu" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao_residuos"/>
+	</db-relationship>
+	<db-relationship name="notificacaoCodigoH" source="rel_residuos_notificacao" target="notificacao_codigo_h" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao_residuos"/>
+	</db-relationship>
+	<db-relationship name="notificacaoLerArray" source="rel_residuos_notificacao" target="notificacao_ler" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao_residuos"/>
+	</db-relationship>
+	<db-relationship name="notificacaoOcdeArray" source="rel_residuos_notificacao" target="notificacao_ocde" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao_residuos"/>
+	</db-relationship>
+	<db-relationship name="notificacaoResiduosYArray" source="rel_residuos_notificacao" target="notificacao_residuos_y" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_notificacao_residuos"/>
+	</db-relationship>
+	<db-relationship name="toNotificacao" source="rel_residuos_notificacao" target="notificacao" toMany="false">
+		<db-attribute-pair source="fk_notificacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="notificacaoEntidadeArray" source="tipo_entidade_notificacao" target="notificacao_entidade" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_entidade"/>
+	</db-relationship>
+	<db-relationship name="notificacaoArray" source="tipo_notificacao" target="notificacao" toMany="true">
+		<db-attribute-pair source="tipo" target="fk_tipo"/>
+	</db-relationship>
+	<db-relationship name="decisao" source="vw_notificacoes_mtr_ll" target="decisao_notificacao" toMany="false">
+		<db-attribute-pair source="fk_decisao" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="estado" source="vw_notificacoes_mtr_ll" target="estado_notificacao" toMany="false">
+		<db-attribute-pair source="fk_estado" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="notificacao" source="vw_notificacoes_mtr_ll" target="notificacao" toMany="false">
+		<db-attribute-pair source="fk_notificacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="vw_notificacoes_mtr_ll" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<obj-relationship name="notificacaoArray" source="DecisaoNotificacao" target="Notificacao" deleteRule="Deny" db-relationship-path="notificacaoArray"/>
+	<obj-relationship name="notificacaoArray" source="EstadoNotificacao" target="Notificacao" deleteRule="Deny" db-relationship-path="notificacaoArray"/>
+	<obj-relationship name="movimentoDocumentoArray" source="Movimento" target="MovimentoDocumento" deleteRule="Deny" db-relationship-path="movimentoDocumentoArray"/>
+	<obj-relationship name="movimentoEntidade" source="Movimento" target="MovimentoEntidade" deleteRule="Cascade" db-relationship-path="movimentoEntidade"/>
+	<obj-relationship name="notificacaoEntidade" source="Movimento" target="NotificacaoEntidade" deleteRule="Deny" db-relationship-path="movimentoEntidade.notificacaoEntidade"/>
+	<obj-relationship name="toNotificacao" source="Movimento" target="Notificacao" deleteRule="Nullify" db-relationship-path="toNotificacao"/>
+	<obj-relationship name="toTUnidade" source="Movimento" target="TUnidade" deleteRule="Nullify" db-relationship-path="toTUnidade"/>
+	<obj-relationship name="toTUnidade1" source="Movimento" target="TUnidade" deleteRule="Nullify" db-relationship-path="toTUnidade1"/>
+	<obj-relationship name="documento" source="MovimentoDocumento" target="Documento" deleteRule="Nullify" db-relationship-path="documento"/>
+	<obj-relationship name="movimento" source="MovimentoDocumento" target="Movimento" deleteRule="Nullify" db-relationship-path="movimento"/>
+	<obj-relationship name="movimentoTipoDocumento" source="MovimentoDocumento" target="MovimentoTipoDocumento" deleteRule="Nullify" db-relationship-path="movimentoTipoDocumento"/>
+	<obj-relationship name="movimento" source="MovimentoEntidade" target="Movimento" db-relationship-path="movimento"/>
+	<obj-relationship name="notificacaoEntidade" source="MovimentoEntidade" target="NotificacaoEntidade" db-relationship-path="notificacaoEntidade"/>
+	<obj-relationship name="toTUnidade" source="MovimentoEntidade" target="TUnidade" deleteRule="Nullify" db-relationship-path="toTUnidade"/>
+	<obj-relationship name="movimentoDocumentoArray" source="MovimentoTipoDocumento" target="MovimentoDocumento" deleteRule="Deny" db-relationship-path="movimentoDocumentoArray"/>
+	<obj-relationship name="NotificacaoOperacao" source="Notificacao" target="NotificacaoOperacao" deleteRule="Deny" db-relationship-path="relOperacaoNotificacaoArray.notificacaoOperacaoArray"/>
+	<obj-relationship name="movimentoArray" source="Notificacao" target="Movimento" deleteRule="Deny" db-relationship-path="movimentoArray"/>
+	<obj-relationship name="notificacaoAutoridadeArray" source="Notificacao" target="NotificacaoAutoridade" deleteRule="Deny" db-relationship-path="notificacaoAutoridadeArray"/>
+	<obj-relationship name="notificacaoEntidadeArray" source="Notificacao" target="NotificacaoEntidade" deleteRule="Deny" db-relationship-path="notificacaoEntidadeArray"/>
+	<obj-relationship name="relOperacaoNotificacaoArray" source="Notificacao" target="RelOperacaoNotificacao" deleteRule="Deny" db-relationship-path="relOperacaoNotificacaoArray"/>
+	<obj-relationship name="relResiduosNotificacaoArray" source="Notificacao" target="RelResiduosNotificacao" deleteRule="Deny" db-relationship-path="relResiduosNotificacaoArray"/>
+	<obj-relationship name="toDecisaoNotificacao" source="Notificacao" target="DecisaoNotificacao" deleteRule="Nullify" db-relationship-path="toDecisaoNotificacao"/>
+	<obj-relationship name="toEstado" source="Notificacao" target="EstadoNotificacao" deleteRule="Nullify" db-relationship-path="toEstado"/>
+	<obj-relationship name="toTFronteiraAlternativa" source="Notificacao" target="TFronteira" deleteRule="Nullify" db-relationship-path="toTFronteiraAlternativa"/>
+	<obj-relationship name="toTFronteiraPrincipal" source="Notificacao" target="TFronteira" deleteRule="Nullify" db-relationship-path="toTFronteiraPrincipal"/>
+	<obj-relationship name="toTUnidade" source="Notificacao" target="TUnidade" deleteRule="Nullify" db-relationship-path="toTUnidade"/>
+	<obj-relationship name="toTipo" source="Notificacao" target="TipoNotificacao" deleteRule="Nullify" db-relationship-path="toTipo"/>
+	<obj-relationship name="toTipoOperacao" source="Notificacao" target="TipoOperacao" deleteRule="Nullify" db-relationship-path="toTipoOperacao"/>
+	<obj-relationship name="tPais" source="NotificacaoAutoridade" target="TPais" deleteRule="Nullify" db-relationship-path="tPais"/>
+	<obj-relationship name="toNotificacao" source="NotificacaoAutoridade" target="Notificacao" deleteRule="Nullify" db-relationship-path="toNotificacao"/>
+	<obj-relationship name="toTipoAutoridade" source="NotificacaoAutoridade" target="TipoAutoridade" deleteRule="Nullify" db-relationship-path="toTipoAutoridade"/>
+	<obj-relationship name="basileia" source="NotificacaoBasileia" target="ResiduosBasileia" deleteRule="Deny" db-relationship-path="basileia"/>
+	<obj-relationship name="toRelResiduosNotificacao" source="NotificacaoBasileia" target="RelResiduosNotificacao" deleteRule="Nullify" db-relationship-path="toRelResiduosNotificacao"/>
+	<obj-relationship name="classeOnu" source="NotificacaoClasseOnu" target="ClasseOnu" deleteRule="Nullify" db-relationship-path="classeOnu"/>
+	<obj-relationship name="relResiduosNotificacao" source="NotificacaoClasseOnu" target="RelResiduosNotificacao" deleteRule="Nullify" db-relationship-path="relResiduosNotificacao"/>
+	<obj-relationship name="codigoH" source="NotificacaoCodigoH" target="CodigoH" deleteRule="Nullify" db-relationship-path="codigoH"/>
+	<obj-relationship name="relResiduosNotificacao" source="NotificacaoCodigoH" target="RelResiduosNotificacao" deleteRule="Nullify" db-relationship-path="relResiduosNotificacao"/>
+	<obj-relationship name="movimentoEntidadeArray" source="NotificacaoEntidade" target="MovimentoEntidade" deleteRule="Cascade" db-relationship-path="movimentoEntidadeArray"/>
+	<obj-relationship name="toNotificacao" source="NotificacaoEntidade" target="Notificacao" deleteRule="Nullify" db-relationship-path="toNotificacao"/>
+	<obj-relationship name="toTipoEntidadeNotificacao" source="NotificacaoEntidade" target="TipoEntidadeNotificacao" deleteRule="Nullify" db-relationship-path="toTipoEntidadeNotificacao"/>
+	<obj-relationship name="codigoLer" source="NotificacaoLer" target="ResiduosLer" deleteRule="Nullify" db-relationship-path="codigoLer"/>
+	<obj-relationship name="toRelResiduosNotificacao" source="NotificacaoLer" target="RelResiduosNotificacao" deleteRule="Nullify" db-relationship-path="toRelResiduosNotificacao"/>
+	<obj-relationship name="codigoOcde" source="NotificacaoOcde" target="ResiduosOcde" deleteRule="Nullify" db-relationship-path="codigoOcde"/>
+	<obj-relationship name="toRelResiduosNotificacao" source="NotificacaoOcde" target="RelResiduosNotificacao" deleteRule="Nullify" db-relationship-path="toRelResiduosNotificacao"/>
+	<obj-relationship name="toRelOperacaoNotificacao" source="NotificacaoOperacao" target="RelOperacaoNotificacao" deleteRule="Nullify" db-relationship-path="toRelOperacaoNotificacao"/>
+	<obj-relationship name="toTipoOperacao" source="NotificacaoOperacao" target="TipoOperacaoValorizacao" deleteRule="Nullify" db-relationship-path="toTipoOperacao"/>
+	<obj-relationship name="residuosY" source="NotificacaoResiduosY" target="ResiduosY" deleteRule="Nullify" db-relationship-path="residuosY"/>
+	<obj-relationship name="toRelResiduosNotificacao" source="NotificacaoResiduosY" target="RelResiduosNotificacao" deleteRule="Nullify" db-relationship-path="toRelResiduosNotificacao"/>
+	<obj-relationship name="notificacaoOperacaoArray" source="RelOperacaoNotificacao" target="NotificacaoOperacao" deleteRule="Deny" db-relationship-path="notificacaoOperacaoArray"/>
+	<obj-relationship name="toNotificacao" source="RelOperacaoNotificacao" target="Notificacao" deleteRule="Nullify" db-relationship-path="toNotificacao"/>
+	<obj-relationship name="notificacaoBasileiaArray" source="RelResiduosNotificacao" target="NotificacaoBasileia" deleteRule="Deny" db-relationship-path="notificacaoBasileiaArray"/>
+	<obj-relationship name="notificacaoClasseOnu" source="RelResiduosNotificacao" target="NotificacaoClasseOnu" deleteRule="Deny" db-relationship-path="notificacaoClasseOnu"/>
+	<obj-relationship name="notificacaoCodigoH" source="RelResiduosNotificacao" target="NotificacaoCodigoH" deleteRule="Deny" db-relationship-path="notificacaoCodigoH"/>
+	<obj-relationship name="notificacaoLerArray" source="RelResiduosNotificacao" target="NotificacaoLer" deleteRule="Deny" db-relationship-path="notificacaoLerArray"/>
+	<obj-relationship name="notificacaoOcdeArray" source="RelResiduosNotificacao" target="NotificacaoOcde" deleteRule="Deny" db-relationship-path="notificacaoOcdeArray"/>
+	<obj-relationship name="notificacaoResiduosYArray" source="RelResiduosNotificacao" target="NotificacaoResiduosY" deleteRule="Deny" db-relationship-path="notificacaoResiduosYArray"/>
+	<obj-relationship name="toNotificacao" source="RelResiduosNotificacao" target="Notificacao" deleteRule="Nullify" db-relationship-path="toNotificacao"/>
+	<obj-relationship name="notificacaoEntidadeArray" source="TipoEntidadeNotificacao" target="NotificacaoEntidade" deleteRule="Deny" db-relationship-path="notificacaoEntidadeArray"/>
+	<obj-relationship name="notificacaoArray" source="TipoNotificacao" target="Notificacao" deleteRule="Deny" db-relationship-path="notificacaoArray"/>
+	<obj-relationship name="decisao" source="VwNotificacoesMtrLl" target="DecisaoNotificacao" deleteRule="Nullify" db-relationship-path="decisao"/>
+	<obj-relationship name="estado" source="VwNotificacoesMtrLl" target="EstadoNotificacao" deleteRule="Nullify" db-relationship-path="estado"/>
+	<obj-relationship name="notificacao" source="VwNotificacoesMtrLl" target="Notificacao" deleteRule="Nullify" db-relationship-path="notificacao"/>
+	<obj-relationship name="perfil" source="VwNotificacoesMtrLl" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+</data-map>

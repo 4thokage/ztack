@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.sirapa"/>
+	<property name="defaultSchema" value="dbo"/>
+	<property name="quoteSqlIdentifiers" value="true"/>
+	<db-entity name="PG_SILIAMB_ENTIDADEMAIL" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="Email" type="VARCHAR" length="500"/>
+		<db-attribute name="ID_APA" type="VARCHAR" length="50"/>
+		<db-attribute name="ID_ENTERPRIZE" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="NomeEntidade" type="VARCHAR" length="500"/>
+	</db-entity>
+	<db-entity name="PG_SILIAMB_ENTIDADETELEF" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="ID_APA" type="VARCHAR" length="50"/>
+		<db-attribute name="ID_ENTERPRIZE" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="NomeEntidade" type="VARCHAR" length="500"/>
+		<db-attribute name="Telefone" type="VARCHAR" length="500"/>
+	</db-entity>
+	<db-entity name="PG_SILIAMB_ESTABEL" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="CPostalEstabel" type="VARCHAR" length="15"/>
+		<db-attribute name="CodNIA" type="VARCHAR" length="100"/>
+		<db-attribute name="CodSIPO" type="VARCHAR" length="100"/>
+		<db-attribute name="CodSIRER" type="VARCHAR" length="100"/>
+		<db-attribute name="ConcelhoEstabel" type="VARCHAR" length="500"/>
+		<db-attribute name="DataInactivacaoEstabel" type="TIMESTAMP" length="23"/>
+		<db-attribute name="DistritoEstabel" type="VARCHAR" length="500"/>
+		<db-attribute name="Estado1Incompleto2Ativo3Inativo" type="INTEGER" length="10"/>
+		<db-attribute name="FreguesiaEstabel" type="VARCHAR" length="500"/>
+		<db-attribute name="ID_APAEstabel" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="ID_APAOrganizacao" type="VARCHAR" length="50"/>
+		<db-attribute name="ID_ORGANI2" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="INE_COD" type="VARCHAR" length="7"/>
+		<db-attribute name="InicioLaboracaoEstabel" type="TIMESTAMP" length="23"/>
+		<db-attribute name="LatitudeCentroFreg" type="DECIMAL" length="37" scale="8"/>
+		<db-attribute name="LatitudeEstabel" type="DECIMAL" length="37" scale="8"/>
+		<db-attribute name="LocalidadeEstabel" type="VARCHAR" length="60"/>
+		<db-attribute name="LongitudeCentroFreg" type="DECIMAL" length="37" scale="8"/>
+		<db-attribute name="LongitudeEstabel" type="DECIMAL" length="37" scale="8"/>
+		<db-attribute name="MoradaEstabel" type="VARCHAR" length="500"/>
+		<db-attribute name="MotivoInactivacaoEstabel" type="VARCHAR" length="255"/>
+		<db-attribute name="NIFOrganizacao" type="VARCHAR" length="50"/>
+		<db-attribute name="NTrabalhadoresEstabel" type="INTEGER" length="10"/>
+		<db-attribute name="NomeEstabel" type="VARCHAR" length="500"/>
+		<db-attribute name="NomeOrganizacao" type="VARCHAR" length="500"/>
+		<db-attribute name="PaisEstabel" type="VARCHAR" length="50"/>
+		<db-attribute name="RegimeLaboralEstabel" type="VARCHAR" length="500"/>
+		<db-attribute name="UploadExcelEstabel" type="BIT" length="1"/>
+	</db-entity>
+	<db-entity name="PG_SILIAMB_ESTABEL_CAE" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="CAECodigo" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="CAEDesignacao" type="VARCHAR" length="500"/>
+		<db-attribute name="CAEPrincipal" type="BIT" length="1"/>
+		<db-attribute name="ID_APAEstabel" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+	</db-entity>
+	<db-entity name="PG_SILIAMB_ESTABEL_MIRR" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="DataPerfilEstabel" type="TIMESTAMP" isPrimaryKey="true" isMandatory="true" length="23"/>
+		<db-attribute name="ID_APAEstabel" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="PerfilEstabel" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="500"/>
+		<db-attribute name="VisivelPerfilEstabel" type="BIT" length="1"/>
+	</db-entity>
+	<db-entity name="PG_SILIAMB_ESTABEL_POR_REGULARIZAR" schema="dbo">
+		<db-attribute name="Data_Fim_Periodo" type="TIMESTAMP" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="Data_Inicio_Periodo" type="TIMESTAMP" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="NUMERODOCUMENTO" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="200"/>
+		<db-attribute name="codigo_apa" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="200"/>
+	</db-entity>
+	<db-entity name="PG_SILIAMB_ESTABEL_REGISTOS" schema="dbo">
+		<db-attribute name="cod_estabelecimento" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="data_fim_registo" type="TIMESTAMP"/>
+		<db-attribute name="registo_dia" type="BIT"/>
+	</db-entity>
+	<db-entity name="PG_SILIAMB_ESTABEL_RESPONSAVEL" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="BIResponsavel" type="VARCHAR" length="50"/>
+		<db-attribute name="EmailResponsavel" type="VARCHAR" length="500"/>
+		<db-attribute name="Estabelecimento" type="VARCHAR" length="500"/>
+		<db-attribute name="ID_APAEstab" type="VARCHAR" length="50"/>
+		<db-attribute name="LoginResponsavel" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="NIFResponsavel" type="VARCHAR" length="50"/>
+		<db-attribute name="NomeResponsavel" type="VARCHAR" length="500"/>
+		<db-attribute name="PaisResponsavel" type="VARCHAR" length="50"/>
+		<db-attribute name="TelefoneResponsavel" type="VARCHAR" length="500"/>
+		<db-attribute name="TelemovelResponsavel" type="VARCHAR" length="500"/>
+	</db-entity>
+	<db-entity name="PG_SILIAMB_ESTABEL_TODOS_ENQ" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="Enquadramento" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="500"/>
+		<db-attribute name="ID_APAEstabel" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+	</db-entity>
+	<db-entity name="PG_SILIAMB_ORGANIZA" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="CPostal" type="VARCHAR" length="15"/>
+		<db-attribute name="Email" type="VARCHAR" length="500"/>
+		<db-attribute name="Estado_1Incompleto_2Ativo_3Inativo" type="INTEGER" length="10"/>
+		<db-attribute name="ID_APA" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="Localidade" type="VARCHAR" length="60"/>
+		<db-attribute name="Morada" type="VARCHAR" length="500"/>
+		<db-attribute name="NIF" type="VARCHAR" length="50"/>
+		<db-attribute name="Organizacao" type="VARCHAR" length="500"/>
+		<db-attribute name="Pais" type="VARCHAR" length="50"/>
+		<db-attribute name="PaisMorada" type="VARCHAR" length="50"/>
+		<db-attribute name="Telefone" type="VARCHAR" length="500"/>
+	</db-entity>
+	<db-entity name="PG_SILIAMB_ORGANIZA_CAE" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="CAECodigo" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="CAEDesignacao" type="VARCHAR" length="500"/>
+		<db-attribute name="CAEPrincipal" type="BIT" length="1"/>
+		<db-attribute name="ID_APAOrganizacao" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="NIFOrganizacao" type="VARCHAR" length="50"/>
+	</db-entity>
+	<db-entity name="PG_SILIAMB_ORGANIZA_REPRESENTA" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="BIRepresentante" type="VARCHAR" length="50"/>
+		<db-attribute name="EmailRepresentante" type="VARCHAR" length="500"/>
+		<db-attribute name="ID_APAOrganizacao" type="VARCHAR" length="50"/>
+		<db-attribute name="LoginRepresentante" type="VARCHAR" length="50"/>
+		<db-attribute name="NIFOrganizacao" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="NIFRepresentante" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="NomeOrganizacao" type="VARCHAR" length="500"/>
+		<db-attribute name="NomeRepresentante" type="VARCHAR" length="500"/>
+		<db-attribute name="PaisRepresentante" type="VARCHAR" length="50"/>
+		<db-attribute name="TelefoneRepresentante" type="VARCHAR" length="500"/>
+		<db-attribute name="TelemovelRepresentante" type="VARCHAR" length="500"/>
+	</db-entity>
+	<db-entity name="PG_SILIAMB_PAGAMENTOS" schema="dbo">
+		<db-attribute name="ano_economico" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="codigoapa" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="data_emissao" type="TIMESTAMP" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="data_pagamento" type="TIMESTAMP"/>
+		<db-attribute name="estabelecimento" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="500"/>
+		<db-attribute name="estabelecimentoid" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="estado" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="informacao" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="nif" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="numero_documento" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="organizacao" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="500"/>
+		<db-attribute name="organizacaoid" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="periodo_registo" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="prazo_limite" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="processo" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="200"/>
+		<db-attribute name="taxa" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="500"/>
+		<db-attribute name="taxaid" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="valor_taxa" type="DOUBLE" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="SILIAMB_ENTIDADE_TELEM" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="ID_APA" type="VARCHAR" length="50"/>
+		<db-attribute name="ID_ENTERPRIZE" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="NomeEntidade" type="VARCHAR" length="500"/>
+		<db-attribute name="Telemovel" type="VARCHAR" length="500"/>
+	</db-entity>
+	<db-entity name="SILIAMB_ISO3166_A7L_LOCATION" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="ID" type="DOUBLE" isPrimaryKey="true" isMandatory="true" length="53"/>
+		<db-attribute name="ISO3166_Code" type="VARCHAR" length="2"/>
+		<db-attribute name="NAME" type="VARCHAR" length="255"/>
+	</db-entity>
+	<db-entity name="SILIAMB_ORGANIZA_ESTABEL" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="ID_APAEstabel" type="VARCHAR" length="50"/>
+		<db-attribute name="ID_APAOrganizacaoID_APA" type="VARCHAR" length="50"/>
+		<db-attribute name="ID_ORGANI2" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="NIFOrganizacao" type="VARCHAR" length="50"/>
+		<db-attribute name="NomeEstabel" type="VARCHAR" length="500"/>
+		<db-attribute name="NomeOrganizacao" type="VARCHAR" length="500"/>
+		<db-attribute name="Relacao" type="VARCHAR" length="500"/>
+	</db-entity>
+	<db-entity name="SILIAMB_USERS" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="ID_APA_Org_Estabel" type="VARCHAR" length="50"/>
+		<db-attribute name="LoginUtilizador" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+		<db-attribute name="NIFOrganizacao" type="VARCHAR" length="50"/>
+		<db-attribute name="NIFUtilizador" type="VARCHAR" length="50"/>
+		<db-attribute name="NomeUtilizador" type="VARCHAR" length="500"/>
+		<db-attribute name="Nome_Org_Estabel" type="VARCHAR" length="500"/>
+		<db-attribute name="RESP_REPR" type="VARCHAR" length="50"/>
+	</db-entity>
+	<db-entity name="SILIAMB_USERS_PAISES" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="Ocorrencias" type="INTEGER" length="10"/>
+		<db-attribute name="Pais" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="50"/>
+	</db-entity>
+	<db-entity name="SILIAMB_VIEWS" schema="dbo" catalog="OutSystems_Prd">
+		<db-attribute name="create_date" type="TIMESTAMP" isMandatory="true" length="23"/>
+		<db-attribute name="modify_date" type="TIMESTAMP" isMandatory="true" length="23"/>
+		<db-attribute name="name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="128"/>
+	</db-entity>
+	<obj-entity name="PgSiliambEstabelPorRegularizar" className="org.addition.apa.sirapa.PgSiliambEstabelPorRegularizar" dbEntityName="PG_SILIAMB_ESTABEL_POR_REGULARIZAR">
+		<obj-attribute name="codigoApa" type="java.lang.String" db-attribute-path="codigo_apa"/>
+		<obj-attribute name="dataFimPeriodo" type="java.util.Date" db-attribute-path="Data_Fim_Periodo"/>
+		<obj-attribute name="dataInicioPeriodo" type="java.util.Date" db-attribute-path="Data_Inicio_Periodo"/>
+		<obj-attribute name="numerodocumento" type="java.lang.String" db-attribute-path="NUMERODOCUMENTO"/>
+	</obj-entity>
+	<obj-entity name="SiliambEntidadeMail" className="org.addition.apa.sirapa.SiliambEntidadeMail" readOnly="true" dbEntityName="PG_SILIAMB_ENTIDADEMAIL">
+		<obj-attribute name="email" type="java.lang.String" db-attribute-path="Email"/>
+		<obj-attribute name="idApa" type="java.lang.String" db-attribute-path="ID_APA"/>
+		<obj-attribute name="nomeEntidade" type="java.lang.String" db-attribute-path="NomeEntidade"/>
+	</obj-entity>
+	<obj-entity name="SiliambEntidadeTelef" className="org.addition.apa.sirapa.SiliambEntidadeTelef" readOnly="true" dbEntityName="PG_SILIAMB_ENTIDADETELEF">
+		<obj-attribute name="nomeEntidade" type="java.lang.String" db-attribute-path="NomeEntidade"/>
+		<obj-attribute name="telefone" type="java.lang.String" db-attribute-path="Telefone"/>
+	</obj-entity>
+	<obj-entity name="SiliambEntidadeTelem" className="org.addition.apa.sirapa.SiliambEntidadeTelem" readOnly="true" dbEntityName="SILIAMB_ENTIDADE_TELEM">
+		<obj-attribute name="nomeEntidade" type="java.lang.String" db-attribute-path="NomeEntidade"/>
+		<obj-attribute name="telemovel" type="java.lang.String" db-attribute-path="Telemovel"/>
+	</obj-entity>
+	<obj-entity name="SiliambEstabel2" className="org.addition.apa.sirapa.SiliambEstabel2" readOnly="true" dbEntityName="PG_SILIAMB_ESTABEL">
+		<obj-attribute name="ID_APAEstabel" type="java.lang.String" db-attribute-path="ID_APAEstabel"/>
+		<obj-attribute name="cPostalEstabel" type="java.lang.String" db-attribute-path="CPostalEstabel"/>
+		<obj-attribute name="codNIA" type="java.lang.String" db-attribute-path="CodNIA"/>
+		<obj-attribute name="codSIPO" type="java.lang.String" db-attribute-path="CodSIPO"/>
+		<obj-attribute name="codSIRER" type="java.lang.String" db-attribute-path="CodSIRER"/>
+		<obj-attribute name="concelhoEstabel" type="java.lang.String" db-attribute-path="ConcelhoEstabel"/>
+		<obj-attribute name="dataInactivacaoEstabel" type="java.util.Date" db-attribute-path="DataInactivacaoEstabel"/>
+		<obj-attribute name="distritoEstabel" type="java.lang.String" db-attribute-path="DistritoEstabel"/>
+		<obj-attribute name="estado1Incompleto2Ativo3Inativo" type="java.lang.Integer" db-attribute-path="Estado1Incompleto2Ativo3Inativo"/>
+		<obj-attribute name="freguesiaEstabel" type="java.lang.String" db-attribute-path="FreguesiaEstabel"/>
+		<obj-attribute name="idOrgani2" type="java.lang.Integer" db-attribute-path="ID_ORGANI2"/>
+		<obj-attribute name="ineCod" type="java.lang.String" db-attribute-path="INE_COD"/>
+		<obj-attribute name="inicioLaboracaoEstabel" type="java.util.Date" db-attribute-path="InicioLaboracaoEstabel"/>
+		<obj-attribute name="latitudeCentroFreg" type="java.math.BigDecimal" db-attribute-path="LatitudeCentroFreg"/>
+		<obj-attribute name="latitudeEstabel" type="java.math.BigDecimal" db-attribute-path="LatitudeEstabel"/>
+		<obj-attribute name="localidadeEstabel" type="java.lang.String" db-attribute-path="LocalidadeEstabel"/>
+		<obj-attribute name="longitudeCentroFreg" type="java.math.BigDecimal" db-attribute-path="LongitudeCentroFreg"/>
+		<obj-attribute name="longitudeEstabel" type="java.math.BigDecimal" db-attribute-path="LongitudeEstabel"/>
+		<obj-attribute name="moradaEstabel" type="java.lang.String" db-attribute-path="MoradaEstabel"/>
+		<obj-attribute name="motivoInactivacaoEstabel" type="java.lang.String" db-attribute-path="MotivoInactivacaoEstabel"/>
+		<obj-attribute name="nIFOrganizacao" type="java.lang.String" db-attribute-path="NIFOrganizacao"/>
+		<obj-attribute name="nTrabalhadoresEstabel" type="java.lang.Integer" db-attribute-path="NTrabalhadoresEstabel"/>
+		<obj-attribute name="nomeEstabel" type="java.lang.String" db-attribute-path="NomeEstabel"/>
+		<obj-attribute name="nomeOrganizacao" type="java.lang.String" db-attribute-path="NomeOrganizacao"/>
+		<obj-attribute name="paisEstabel" type="java.lang.String" db-attribute-path="PaisEstabel"/>
+		<obj-attribute name="regimeLaboralEstabel" type="java.lang.String" db-attribute-path="RegimeLaboralEstabel"/>
+		<obj-attribute name="uploadExcelEstabel" type="java.lang.Boolean" db-attribute-path="UploadExcelEstabel"/>
+	</obj-entity>
+	<obj-entity name="SiliambEstabelCae" className="org.addition.apa.sirapa.SiliambEstabelCae" readOnly="true" dbEntityName="PG_SILIAMB_ESTABEL_CAE">
+		<obj-attribute name="cAECodigo" type="java.lang.String" db-attribute-path="CAECodigo"/>
+		<obj-attribute name="cAEDesignacao" type="java.lang.String" db-attribute-path="CAEDesignacao"/>
+		<obj-attribute name="cAEPrincipal" type="java.lang.Boolean" db-attribute-path="CAEPrincipal"/>
+	</obj-entity>
+	<obj-entity name="SiliambEstabelMirr2" className="org.addition.apa.sirapa.SiliambEstabelMirr2" readOnly="true" dbEntityName="PG_SILIAMB_ESTABEL_MIRR">
+		<obj-attribute name="ID_APAEstabel" type="java.lang.String" db-attribute-path="ID_APAEstabel"/>
+		<obj-attribute name="dataPerfilEstabel" type="java.util.Date" db-attribute-path="DataPerfilEstabel"/>
+		<obj-attribute name="perfilEstabel" type="java.lang.String" db-attribute-path="PerfilEstabel"/>
+		<obj-attribute name="visivelPerfilEstabel" type="java.lang.Boolean" db-attribute-path="VisivelPerfilEstabel"/>
+	</obj-entity>
+	<obj-entity name="SiliambEstabelRegistos" className="org.addition.apa.sirapa.SiliambEstabelRegistos" readOnly="true" dbEntityName="PG_SILIAMB_ESTABEL_REGISTOS">
+		<obj-attribute name="codEstabelcimento" type="java.lang.String" db-attribute-path="cod_estabelecimento"/>
+		<obj-attribute name="dataFimRegisto" type="java.util.Date" db-attribute-path="data_fim_registo"/>
+		<obj-attribute name="registoDia" type="java.lang.Boolean" db-attribute-path="registo_dia"/>
+	</obj-entity>
+	<obj-entity name="SiliambEstabelResponsavel2" className="org.addition.apa.sirapa.SiliambEstabelResponsavel2" readOnly="true" dbEntityName="PG_SILIAMB_ESTABEL_RESPONSAVEL">
+		<obj-attribute name="bIResponsavel" type="java.lang.String" db-attribute-path="BIResponsavel"/>
+		<obj-attribute name="emailResponsavel" type="java.lang.String" db-attribute-path="EmailResponsavel"/>
+		<obj-attribute name="estabelecimento" type="java.lang.String" db-attribute-path="Estabelecimento"/>
+		<obj-attribute name="idAPAEstab" type="java.lang.String" db-attribute-path="ID_APAEstab"/>
+		<obj-attribute name="loginResponsavel" type="java.lang.String" db-attribute-path="LoginResponsavel"/>
+		<obj-attribute name="nIFResponsavel" type="java.lang.String" db-attribute-path="NIFResponsavel"/>
+		<obj-attribute name="nomeResponsavel" type="java.lang.String" db-attribute-path="NomeResponsavel"/>
+		<obj-attribute name="paisResponsavel" type="java.lang.String" db-attribute-path="PaisResponsavel"/>
+		<obj-attribute name="telefoneResponsavel" type="java.lang.String" db-attribute-path="TelefoneResponsavel"/>
+		<obj-attribute name="telemovelResponsavel" type="java.lang.String" db-attribute-path="TelemovelResponsavel"/>
+	</obj-entity>
+	<obj-entity name="SiliambEstabelTodosEnq" className="org.addition.apa.sirapa.SiliambEstabelTodosEnq" readOnly="true" dbEntityName="PG_SILIAMB_ESTABEL_TODOS_ENQ">
+		<obj-attribute name="enquadramento" type="java.lang.String" db-attribute-path="Enquadramento"/>
+		<obj-attribute name="idAPAEstabel" type="java.lang.String" db-attribute-path="ID_APAEstabel"/>
+	</obj-entity>
+	<obj-entity name="SiliambIso3166A7lLocation" className="org.addition.apa.sirapa.SiliambIso3166A7lLocation" readOnly="true" dbEntityName="SILIAMB_ISO3166_A7L_LOCATION">
+		<obj-attribute name="iso3166Code" type="java.lang.String" db-attribute-path="ISO3166_Code"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	</obj-entity>
+	<obj-entity name="SiliambOrganiza" className="org.addition.apa.sirapa.SiliambOrganiza" readOnly="true" dbEntityName="PG_SILIAMB_ORGANIZA">
+		<obj-attribute name="cPostal" type="java.lang.String" db-attribute-path="CPostal"/>
+		<obj-attribute name="email" type="java.lang.String" db-attribute-path="Email"/>
+		<obj-attribute name="estado1Incompleto2Ativo3Inativo" type="java.lang.Integer" db-attribute-path="Estado_1Incompleto_2Ativo_3Inativo"/>
+		<obj-attribute name="idApa" type="java.lang.String" db-attribute-path="ID_APA"/>
+		<obj-attribute name="localidade" type="java.lang.String" db-attribute-path="Localidade"/>
+		<obj-attribute name="morada" type="java.lang.String" db-attribute-path="Morada"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="NIF"/>
+		<obj-attribute name="organizacao" type="java.lang.String" db-attribute-path="Organizacao"/>
+		<obj-attribute name="pais" type="java.lang.String" db-attribute-path="Pais"/>
+		<obj-attribute name="paisMorada" type="java.lang.String" db-attribute-path="PaisMorada"/>
+		<obj-attribute name="telefone" type="java.lang.String" db-attribute-path="Telefone"/>
+	</obj-entity>
+	<obj-entity name="SiliambOrganizaCae" className="org.addition.apa.sirapa.SiliambOrganizaCae" readOnly="true" dbEntityName="PG_SILIAMB_ORGANIZA_CAE">
+		<obj-attribute name="CAECodigo" type="java.lang.String" db-attribute-path="CAECodigo"/>
+		<obj-attribute name="ID_APAOrganizacao" type="java.lang.String" db-attribute-path="ID_APAOrganizacao"/>
+		<obj-attribute name="cAEDesignacao" type="java.lang.String" db-attribute-path="CAEDesignacao"/>
+		<obj-attribute name="cAEPrincipal" type="java.lang.Boolean" db-attribute-path="CAEPrincipal"/>
+		<obj-attribute name="nIFOrganizacao" type="java.lang.String" db-attribute-path="NIFOrganizacao"/>
+	</obj-entity>
+	<obj-entity name="SiliambOrganizaEstabel" className="org.addition.apa.sirapa.SiliambOrganizaEstabel" readOnly="true" dbEntityName="SILIAMB_ORGANIZA_ESTABEL">
+		<obj-attribute name="idOrgani2" type="java.lang.Integer" db-attribute-path="ID_ORGANI2"/>
+		<obj-attribute name="nIFOrganizacao" type="java.lang.String" db-attribute-path="NIFOrganizacao"/>
+		<obj-attribute name="nomeEstabel" type="java.lang.String" db-attribute-path="NomeEstabel"/>
+		<obj-attribute name="nomeOrganizacao" type="java.lang.String" db-attribute-path="NomeOrganizacao"/>
+		<obj-attribute name="relacao" type="java.lang.String" db-attribute-path="ID_APAEstabel"/>
+	</obj-entity>
+	<obj-entity name="SiliambOrganizaRepresenta2" className="org.addition.apa.sirapa.SiliambOrganizaRepresenta2" readOnly="true" dbEntityName="PG_SILIAMB_ORGANIZA_REPRESENTA">
+		<obj-attribute name="bIRepresentante" type="java.lang.String" db-attribute-path="BIRepresentante"/>
+		<obj-attribute name="emailRepresentante" type="java.lang.String" db-attribute-path="EmailRepresentante"/>
+		<obj-attribute name="loginRepresentante" type="java.lang.String" db-attribute-path="LoginRepresentante"/>
+		<obj-attribute name="nIFOrganizacao" type="java.lang.String" db-attribute-path="NIFOrganizacao"/>
+		<obj-attribute name="nIFRepresentante" type="java.lang.String" db-attribute-path="NIFRepresentante"/>
+		<obj-attribute name="nomeOrganizacao" type="java.lang.String" db-attribute-path="NomeOrganizacao"/>
+		<obj-attribute name="nomeRepresentante" type="java.lang.String" db-attribute-path="NomeRepresentante"/>
+		<obj-attribute name="paisRepresentante" type="java.lang.String" db-attribute-path="PaisRepresentante"/>
+		<obj-attribute name="telefoneRepresentante" type="java.lang.String" db-attribute-path="TelefoneRepresentante"/>
+		<obj-attribute name="telemovelRepresentante" type="java.lang.String" db-attribute-path="TelemovelRepresentante"/>
+	</obj-entity>
+	<obj-entity name="SiliambPagamentos" className="org.addition.apa.sirapa.SiliambPagamentos" readOnly="true" dbEntityName="PG_SILIAMB_PAGAMENTOS">
+		<obj-attribute name="anoEconomico" type="java.lang.Integer" db-attribute-path="ano_economico"/>
+		<obj-attribute name="codigoapa" type="java.lang.String" db-attribute-path="codigoapa"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataEmissao" type="java.util.Date" db-attribute-path="data_emissao"/>
+		<obj-attribute name="dataPagamento" type="java.util.Date" db-attribute-path="data_pagamento"/>
+		<obj-attribute name="estabelecimento" type="java.lang.String" db-attribute-path="estabelecimento"/>
+		<obj-attribute name="estabelecimentoid" type="java.lang.Integer" db-attribute-path="estabelecimentoid"/>
+		<obj-attribute name="estado" type="java.lang.String" db-attribute-path="estado"/>
+		<obj-attribute name="informacao" type="java.lang.String" db-attribute-path="informacao"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="numeroDocumento" type="java.lang.String" db-attribute-path="numero_documento"/>
+		<obj-attribute name="organizacao" type="java.lang.String" db-attribute-path="organizacao"/>
+		<obj-attribute name="organizacaoid" type="java.lang.Integer" db-attribute-path="organizacaoid"/>
+		<obj-attribute name="periodoRegisto" type="java.lang.String" db-attribute-path="periodo_registo"/>
+		<obj-attribute name="prazoLimite" type="java.lang.Integer" db-attribute-path="prazo_limite"/>
+		<obj-attribute name="processo" type="java.lang.String" db-attribute-path="processo"/>
+		<obj-attribute name="taxa" type="java.lang.String" db-attribute-path="taxa"/>
+		<obj-attribute name="taxaid" type="java.lang.Integer" db-attribute-path="taxaid"/>
+		<obj-attribute name="valorTaxa" type="java.lang.Double" db-attribute-path="valor_taxa"/>
+	</obj-entity>
+	<obj-entity name="SiliambUsers" className="org.addition.apa.sirapa.SiliambUsers" readOnly="true" dbEntityName="SILIAMB_USERS">
+		<obj-attribute name="idApaOrgEstabel" type="java.lang.String" db-attribute-path="ID_APA_Org_Estabel"/>
+		<obj-attribute name="loginUtilizador" type="java.lang.String" db-attribute-path="LoginUtilizador"/>
+		<obj-attribute name="nIFOrganizacao" type="java.lang.String" db-attribute-path="NIFOrganizacao"/>
+		<obj-attribute name="nIFUtilizador" type="java.lang.String" db-attribute-path="NIFUtilizador"/>
+		<obj-attribute name="nomeOrgEstabel" type="java.lang.String" db-attribute-path="Nome_Org_Estabel"/>
+		<obj-attribute name="nomeUtilizador" type="java.lang.String" db-attribute-path="NomeUtilizador"/>
+		<obj-attribute name="respRepr" type="java.lang.String" db-attribute-path="RESP_REPR"/>
+	</obj-entity>
+	<obj-entity name="SiliambUsersPaises" className="org.addition.apa.sirapa.SiliambUsersPaises" readOnly="true" dbEntityName="SILIAMB_USERS_PAISES">
+		<obj-attribute name="ocorrencias" type="java.lang.Integer" db-attribute-path="Ocorrencias"/>
+		<obj-attribute name="pais" type="java.lang.String" db-attribute-path="Pais"/>
+	</obj-entity>
+	<obj-entity name="SiliambViews" className="org.addition.apa.sirapa.SiliambViews" readOnly="true" dbEntityName="SILIAMB_VIEWS">
+		<obj-attribute name="createDate" type="java.util.Date" db-attribute-path="create_date"/>
+		<obj-attribute name="modifyDate" type="java.util.Date" db-attribute-path="modify_date"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+	</obj-entity>
+	<db-relationship name="estabelecimento" source="PG_SILIAMB_ENTIDADEMAIL" target="PG_SILIAMB_ESTABEL" toMany="true">
+		<db-attribute-pair source="ID_APA" target="ID_APAEstabel"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="PG_SILIAMB_ENTIDADETELEF" target="PG_SILIAMB_ESTABEL" toMany="true">
+		<db-attribute-pair source="ID_APA" target="ID_APAEstabel"/>
+	</db-relationship>
+	<db-relationship name="caes" source="PG_SILIAMB_ESTABEL" target="PG_SILIAMB_ESTABEL_CAE" toMany="true">
+		<db-attribute-pair source="ID_APAEstabel" target="ID_APAEstabel"/>
+	</db-relationship>
+	<db-relationship name="emails" source="PG_SILIAMB_ESTABEL" target="PG_SILIAMB_ENTIDADEMAIL" toMany="false">
+		<db-attribute-pair source="ID_APAEstabel" target="ID_APA"/>
+	</db-relationship>
+	<db-relationship name="enquadramentos" source="PG_SILIAMB_ESTABEL" target="PG_SILIAMB_ESTABEL_TODOS_ENQ" toMany="true">
+		<db-attribute-pair source="ID_APAEstabel" target="ID_APAEstabel"/>
+	</db-relationship>
+	<db-relationship name="organizacao" source="PG_SILIAMB_ESTABEL" target="PG_SILIAMB_ORGANIZA" toMany="false">
+		<db-attribute-pair source="ID_APAOrganizacao" target="ID_APA"/>
+	</db-relationship>
+	<db-relationship name="perfis_mirr" source="PG_SILIAMB_ESTABEL" target="PG_SILIAMB_ESTABEL_MIRR" toMany="true">
+		<db-attribute-pair source="ID_APAEstabel" target="ID_APAEstabel"/>
+	</db-relationship>
+	<db-relationship name="r_organizacao_estabelecimento" source="PG_SILIAMB_ESTABEL" target="SILIAMB_ORGANIZA_ESTABEL" toMany="true">
+		<db-attribute-pair source="ID_APAEstabel" target="ID_APAEstabel"/>
+	</db-relationship>
+	<db-relationship name="responsaveis" source="PG_SILIAMB_ESTABEL" target="PG_SILIAMB_ESTABEL_RESPONSAVEL" toMany="true">
+		<db-attribute-pair source="ID_APAEstabel" target="ID_APAEstab"/>
+	</db-relationship>
+	<db-relationship name="telefones" source="PG_SILIAMB_ESTABEL" target="PG_SILIAMB_ENTIDADETELEF" toMany="false">
+		<db-attribute-pair source="ID_APAEstabel" target="ID_APA"/>
+	</db-relationship>
+	<db-relationship name="telemoveis" source="PG_SILIAMB_ESTABEL" target="SILIAMB_ENTIDADE_TELEM" toMany="false">
+		<db-attribute-pair source="ID_APAEstabel" target="ID_APA"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="PG_SILIAMB_ESTABEL_CAE" target="PG_SILIAMB_ESTABEL" toMany="false">
+		<db-attribute-pair source="ID_APAEstabel" target="ID_APAEstabel"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="PG_SILIAMB_ESTABEL_MIRR" target="PG_SILIAMB_ESTABEL" toDependentPK="true" toMany="false">
+		<db-attribute-pair source="ID_APAEstabel" target="ID_APAEstabel"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento_resp" source="PG_SILIAMB_ESTABEL_RESPONSAVEL" target="PG_SILIAMB_ESTABEL" toMany="false">
+		<db-attribute-pair source="ID_APAEstab" target="ID_APAEstabel"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="PG_SILIAMB_ESTABEL_TODOS_ENQ" target="PG_SILIAMB_ESTABEL" toDependentPK="true" toMany="false">
+		<db-attribute-pair source="ID_APAEstabel" target="ID_APAEstabel"/>
+	</db-relationship>
+	<db-relationship name="caes" source="PG_SILIAMB_ORGANIZA" target="PG_SILIAMB_ORGANIZA_CAE" toMany="true">
+		<db-attribute-pair source="ID_APA" target="ID_APAOrganizacao"/>
+	</db-relationship>
+	<db-relationship name="estabelecimentos" source="PG_SILIAMB_ORGANIZA" target="PG_SILIAMB_ESTABEL" toMany="true">
+		<db-attribute-pair source="ID_APA" target="ID_APAOrganizacao"/>
+	</db-relationship>
+	<db-relationship name="pais_iso" source="PG_SILIAMB_ORGANIZA" target="SILIAMB_ISO3166_A7L_LOCATION" toMany="false">
+		<db-attribute-pair source="Pais" target="NAME"/>
+	</db-relationship>
+	<db-relationship name="r_organizacao_estabelecimento" source="PG_SILIAMB_ORGANIZA" target="SILIAMB_ORGANIZA_ESTABEL" toMany="false">
+		<db-attribute-pair source="ID_APA" target="ID_APAOrganizacaoID_APA"/>
+	</db-relationship>
+	<db-relationship name="representantes" source="PG_SILIAMB_ORGANIZA" target="PG_SILIAMB_ORGANIZA_REPRESENTA" toMany="true">
+		<db-attribute-pair source="ID_APA" target="ID_APAOrganizacao"/>
+	</db-relationship>
+	<db-relationship name="organizacao" source="PG_SILIAMB_ORGANIZA_CAE" target="PG_SILIAMB_ORGANIZA" toMany="false">
+		<db-attribute-pair source="ID_APAOrganizacao" target="ID_APA"/>
+	</db-relationship>
+	<db-relationship name="organizacao" source="PG_SILIAMB_ORGANIZA_REPRESENTA" target="PG_SILIAMB_ORGANIZA" toMany="false">
+		<db-attribute-pair source="ID_APAOrganizacao" target="ID_APA"/>
+	</db-relationship>
+	<db-relationship name="pais_iso" source="PG_SILIAMB_ORGANIZA_REPRESENTA" target="SILIAMB_ISO3166_A7L_LOCATION" toMany="true">
+		<db-attribute-pair source="PaisRepresentante" target="NAME"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="SILIAMB_ENTIDADE_TELEM" target="PG_SILIAMB_ESTABEL" toMany="true">
+		<db-attribute-pair source="ID_APA" target="ID_APAEstabel"/>
+	</db-relationship>
+	<db-relationship name="organizacao" source="SILIAMB_ISO3166_A7L_LOCATION" target="PG_SILIAMB_ORGANIZA" toMany="true">
+		<db-attribute-pair source="NAME" target="Pais"/>
+	</db-relationship>
+	<db-relationship name="representantes" source="SILIAMB_ISO3166_A7L_LOCATION" target="PG_SILIAMB_ORGANIZA_REPRESENTA" toMany="false">
+		<db-attribute-pair source="NAME" target="PaisRepresentante"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="SILIAMB_ORGANIZA_ESTABEL" target="PG_SILIAMB_ESTABEL" toMany="false">
+		<db-attribute-pair source="ID_APAEstabel" target="ID_APAEstabel"/>
+	</db-relationship>
+	<db-relationship name="organizacao" source="SILIAMB_ORGANIZA_ESTABEL" target="PG_SILIAMB_ORGANIZA" toMany="true">
+		<db-attribute-pair source="ID_APAOrganizacaoID_APA" target="ID_APA"/>
+	</db-relationship>
+	<obj-relationship name="estabelecimento" source="SiliambEntidadeMail" target="SiliambEstabel2" deleteRule="Deny" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="estabelecimento" source="SiliambEntidadeTelef" target="SiliambEstabel2" deleteRule="Deny" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="estabelecimento" source="SiliambEntidadeTelem" target="SiliambEstabel2" deleteRule="Deny" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="caes" source="SiliambEstabel2" target="SiliambEstabelCae" db-relationship-path="caes"/>
+	<obj-relationship name="emails" source="SiliambEstabel2" target="SiliambEntidadeMail" deleteRule="Nullify" db-relationship-path="emails"/>
+	<obj-relationship name="enquadramentos" source="SiliambEstabel2" target="SiliambEstabelTodosEnq" deleteRule="Deny" db-relationship-path="enquadramentos"/>
+	<obj-relationship name="organizacao" source="SiliambEstabel2" target="SiliambOrganiza" deleteRule="Nullify" db-relationship-path="organizacao"/>
+	<obj-relationship name="perfisMirr" source="SiliambEstabel2" target="SiliambEstabelMirr2" deleteRule="Deny" db-relationship-path="perfis_mirr"/>
+	<obj-relationship name="rOrganizacaoEstabelecimento" source="SiliambEstabel2" target="SiliambOrganizaEstabel" deleteRule="Deny" db-relationship-path="r_organizacao_estabelecimento"/>
+	<obj-relationship name="responsaveis" source="SiliambEstabel2" target="SiliambEstabelResponsavel2" deleteRule="Deny" db-relationship-path="responsaveis"/>
+	<obj-relationship name="telefones" source="SiliambEstabel2" target="SiliambEntidadeTelef" deleteRule="Nullify" db-relationship-path="telefones"/>
+	<obj-relationship name="telemoveis" source="SiliambEstabel2" target="SiliambEntidadeTelem" deleteRule="Nullify" db-relationship-path="telemoveis"/>
+	<obj-relationship name="estabelecimento" source="SiliambEstabelCae" target="SiliambEstabel2" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="estabelecimento" source="SiliambEstabelMirr2" target="SiliambEstabel2" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="estabelecimentoResp" source="SiliambEstabelResponsavel2" target="SiliambEstabel2" deleteRule="Nullify" db-relationship-path="estabelecimento_resp"/>
+	<obj-relationship name="estabelecimento" source="SiliambEstabelTodosEnq" target="SiliambEstabel2" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="organizacao" source="SiliambIso3166A7lLocation" target="SiliambOrganiza" deleteRule="Deny" db-relationship-path="organizacao"/>
+	<obj-relationship name="representantes" source="SiliambIso3166A7lLocation" target="SiliambOrganizaRepresenta2" deleteRule="Nullify" db-relationship-path="representantes"/>
+	<obj-relationship name="caes" source="SiliambOrganiza" target="SiliambOrganizaCae" deleteRule="Deny" db-relationship-path="caes"/>
+	<obj-relationship name="estabelecimentos" source="SiliambOrganiza" target="SiliambEstabel2" deleteRule="Deny" db-relationship-path="estabelecimentos"/>
+	<obj-relationship name="paisIso" source="SiliambOrganiza" target="SiliambIso3166A7lLocation" deleteRule="Nullify" db-relationship-path="pais_iso"/>
+	<obj-relationship name="rOrganizacaoEstabelecimento" source="SiliambOrganiza" target="SiliambOrganizaEstabel" deleteRule="Nullify" db-relationship-path="r_organizacao_estabelecimento"/>
+	<obj-relationship name="representantes" source="SiliambOrganiza" target="SiliambOrganizaRepresenta2" deleteRule="Deny" db-relationship-path="representantes"/>
+	<obj-relationship name="organizacao" source="SiliambOrganizaCae" target="SiliambOrganiza" deleteRule="Nullify" db-relationship-path="organizacao"/>
+	<obj-relationship name="estabelecimento" source="SiliambOrganizaEstabel" target="SiliambEstabel2" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="organizacao" source="SiliambOrganizaEstabel" target="SiliambOrganiza" deleteRule="Deny" db-relationship-path="organizacao"/>
+	<obj-relationship name="organizacao" source="SiliambOrganizaRepresenta2" target="SiliambOrganiza" deleteRule="Nullify" db-relationship-path="organizacao"/>
+	<query name="getInfoSiliEstabelecimentos" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="sirapa">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select 
+	ses_apa.ID_APAEstabel as cod_apa, 
+	(select max(DataRenovacao) from SILIAMB_ESTABEL_REGISTOEMDIA where ID_APAEstabel=se.ID_APAEstabel and DataRenovacao>DATEADD(dd, DATEDIFF(dd, 0, GETDATE()), 0)) as  registo_dia,
+	se.Estado1Incompleto2Ativo3Inativo as estado,
+	se.DataInactivacaoEstabel as data_inactivo
+from (
+	select e.ID_APAEstabel as ID_APAEstabel from SILIAMB_ESTABEL2 e join SILIAMB_ESTABEL_RESPONSAVEL2 er on e.ID_APAEstabel=er.ID_APAEstab and er.NIFResponsavel #bindEqual($nif)
+	union
+	select e.ID_APAEstabel as ID_APAEstabel from SILIAMB_ESTABEL2 e join SILIAMB_ORGANIZA o on e.ID_APAOrganizacao=o.ID_APA and o.NIF #bindEqual($nif)
+	union
+	select e.ID_APAEstabel as ID_APAEstabel from SILIAMB_ESTABEL2 e join SILIAMB_ORGANIZA_REPRESENTA2 sor on sor.ID_APAOrganizacao=e.ID_APAOrganizacao and sor.NIFRepresentante #bindEqual($nif)
+	) ses_apa 
+	join SILIAMB_ESTABEL2 se on se.ID_APAEstabel = ses_apa.ID_APAEstabel]]></sql>
+	</query>
+	<query name="getInfoSiliEstabelecimentosInactivos" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="sirapa">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select * from 
+(
+select 
+	ses_apa.ID_APAEstabel as cod_apa, 
+	(select max(DataRenovacao) from SILIAMB_ESTABEL_REGISTOEMDIA where ID_APAEstabel=se.ID_APAEstabel and DataRenovacao>getdate()) as  registo_dia,
+	se.Estado1Incompleto2Ativo3Inativo as estado,
+	case when se.Estado1Incompleto2Ativo3Inativo=1 then null else se.DataInactivacaoEstabel end as data_inactivo, 
+	se.NomeEstabel as nome,
+	se.NomeOrganizacao as organizacao,
+	se.NIFOrganizacao as nif_organizacao,
+	se.ConcelhoEstabel as concelho
+	
+from (
+	select e.ID_APAEstabel as ID_APAEstabel from SILIAMB_ESTABEL2 e join SILIAMB_ESTABEL_RESPONSAVEL2 er on e.ID_APAEstabel=er.ID_APAEstab and er.NIFResponsavel #bindEqual($nif)
+	union
+	select e.ID_APAEstabel as ID_APAEstabel from SILIAMB_ESTABEL2 e join SILIAMB_ORGANIZA o on e.ID_APAOrganizacao=o.ID_APA and o.NIF #bindEqual($nif)
+	union
+	select e.ID_APAEstabel as ID_APAEstabel from SILIAMB_ESTABEL2 e join SILIAMB_ORGANIZA_REPRESENTA2 sor on sor.ID_APAOrganizacao=e.ID_APAOrganizacao and sor.NIFRepresentante #bindEqual($nif)
+	) ses_apa 
+	join SILIAMB_ESTABEL2 se on se.ID_APAEstabel = ses_apa.ID_APAEstabel
+) estab
+where
+	estab.estado<>2 or estab.registo_dia is null]]></sql>
+	</query>
+	<query name="getNomePaisUtilizadorExterno" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="sirapa">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select o.Organizacao as nome, o.Pais as pais from  SILIAMB_ORGANIZA o  where o.NIF #bindEqual($nif)
+union
+select rep.NomeRepresentante as nome, rep.PaisRepresentante as pais from  SILIAMB_ORGANIZA_REPRESENTA2 rep  where rep.NIFRepresentante #bindEqual($nif)
+union
+select resp.NomeResponsavel as nome, PaisResponsavel as pais from SILIAMB_ESTABEL_RESPONSAVEL2 resp where resp.NIFResponsavel  #bindEqual($nif)]]></sql>
+	</query>
+	<query name="getSiliEstabelecimentosEntidade" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="sirapa">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select  
+	NomeEstabel, 	
+	ID_APAEstabel, 
+	ConcelhoEstabel, 
+	case when Estado1Incompleto2Ativo3Inativo=3 then convert(varchar,DataInactivacaoEstabel , 111) else null end as DataInactivacaoEstabel 
+from 
+	SILIAMB_ESTABEL2 e 
+	join SILIAMB_ORGANIZA o on o.ID_APA=e.ID_APAOrganizacao
+	join SILIAMB_ISO3166_A7L_LOCATION l on l.NAME=o.Pais
+where 
+	e.NIFOrganizacao #bindEqual($nif) 
+	and (e.Estado1Incompleto2Ativo3Inativo<>3 or e.DataInactivacaoEstabel > #bind($data))
+	and l.ISO3166_Code #bindEqual($pais)]]></sql>
+	</query>
+</data-map>

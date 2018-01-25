@@ -1,0 +1,56 @@
+${importUtils.setPackage($entityUtils.subPackageName)}##
+${importUtils.addReservedType("${entityUtils.subPackageName}.${entityUtils.subClassName}")}##
+${importUtils.addType("${entityUtils.superPackageName}.${entityUtils.superClassName}")}##
+${importUtils.generate()}
+import org.apache.cayenne.DataObjectUtils;
+import org.apache.cayenne.PersistenceState;
+import org.addition.apa.licenciamento.CloneUtil;
+#if(${entityUtils.primaryDataMap.defaultSchema} == 'lic_tabelas')
+import org.apache.cayenne.access.DataContext;
+import java.util.List;
+import org.addition.apa.helpers.CayenneRepository;
+#end
+
+/**
+ *
+ */
+public#if("true" == "${object.getIsAbstract()}") abstract#end class ${entityUtils.subClassName} extends ${entityUtils.superClassName}
+{
+    private static final long serialVersionUID = 1L;
+##callbacks
+#foreach($cbname in ${entityUtils.callbackNames})
+
+    @Override
+    protected void ${cbname}()
+    {
+        // TODO: implementar ${cbname}
+    }
+#end
+
+    public ${entityUtils.subClassName} clone() {
+        return CloneUtil.clona(this);
+    }
+
+    //region métodos utéis
+    public boolean isNew(){
+        return this.getPersistenceState() == PersistenceState.NEW || this.getPersistenceState() == PersistenceState.TRANSIENT;
+    }
+
+    public int getId() {
+        return isNew()? -1: (Integer) DataObjectUtils.pkForObject(this);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("${entityUtils.subClassName}[%d]",getId());
+    }
+    //endregion
+
+#if(${entityUtils.primaryDataMap.defaultSchema} == 'lic_tabelas')
+    //obter todos dados ativos em listas de valores
+    public List<${entityUtils.subClassName}> getAtivos() {
+        return CayenneRepository.obterListaDeObjectos(DataContext.createDataContext(), ${entityUtils.subClassName}.class);
+    }
+
+#end
+}

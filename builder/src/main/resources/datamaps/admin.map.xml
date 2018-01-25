@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.admin"/>
+	<property name="defaultSchema" value="lic_admin"/>
+	<db-entity name="administrador" schema="lic_admin">
+		<db-attribute name="active" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="ad_name" type="VARCHAR" length="200"/>
+		<db-attribute name="cargo" type="VARCHAR" length="1000"/>
+		<db-attribute name="email" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_departamento" type="INTEGER"/>
+		<db-attribute name="fk_divisao" type="INTEGER"/>
+		<db-attribute name="fk_organismo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="login" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="pw_md5" type="VARCHAR" length="100"/>
+	</db-entity>
+	<db-entity name="assinatura_administrador" schema="lic_admin">
+		<db-attribute name="cargo" type="VARCHAR" length="1000"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_administrador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" length="1000"/>
+	</db-entity>
+	<db-entity name="grupo" schema="lic_admin">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="200"/>
+	</db-entity>
+	<db-entity name="historico_adm" schema="lic_admin">
+		<db-attribute name="fk_processo" type="INTEGER"/>
+		<db-attribute name="fk_titulo" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="onde" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="oque" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="quando" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="quem" type="INTEGER" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="message_adm" schema="lic_admin">
+		<db-attribute name="data" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_registo" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_administrador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="message" type="VARCHAR" length="500"/>
+	</db-entity>
+	<db-entity name="permissao" schema="lic_admin">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="200"/>
+	</db-entity>
+	<db-entity name="r_admin_grupo" schema="lic_admin">
+		<db-attribute name="fk_admin" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="fk_grupo" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="r_grupo_permissao" schema="lic_admin">
+		<db-attribute name="fk_grupo" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="fk_permissao" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="relatorio" schema="lic_admin">
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="descricao" type="VARCHAR" length="512"/>
+		<db-attribute name="fk_admin" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="parametros_bytes" type="BINARY"/>
+		<db-attribute name="path_binary" type="BINARY" isMandatory="true" length="512"/>
+		<db-attribute name="path_xlsx" type="VARCHAR" isMandatory="true" length="512"/>
+		<db-attribute name="tempo_geracao" type="BIGINT" isMandatory="true"/>
+	</db-entity>
+	<obj-entity name="Administrador" className="org.addition.apa.admin.Administrador" dbEntityName="administrador">
+		<obj-attribute name="active" type="java.lang.Boolean" db-attribute-path="active"/>
+		<obj-attribute name="adName" type="java.lang.String" db-attribute-path="ad_name"/>
+		<obj-attribute name="cargo" type="java.lang.String" db-attribute-path="cargo"/>
+		<obj-attribute name="email" type="java.lang.String" db-attribute-path="email"/>
+		<obj-attribute name="login" type="java.lang.String" db-attribute-path="login"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="pwMd5" type="java.lang.String" db-attribute-path="pw_md5"/>
+	</obj-entity>
+	<obj-entity name="AssinaturaAdministrador" className="org.addition.apa.admin.AssinaturaAdministrador" dbEntityName="assinatura_administrador">
+		<obj-attribute name="cargo" type="java.lang.String" db-attribute-path="cargo"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="Grupo" className="org.addition.apa.admin.Grupo" dbEntityName="grupo">
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="HistoricoAdmin" className="org.addition.apa.admin.HistoricoAdmin" dbEntityName="historico_adm">
+		<obj-attribute name="onde" type="java.lang.String" db-attribute-path="onde"/>
+		<obj-attribute name="oque" type="java.lang.String" db-attribute-path="oque"/>
+		<obj-attribute name="quando" type="java.util.Date" db-attribute-path="quando"/>
+	</obj-entity>
+	<obj-entity name="MessageAdm" className="org.addition.apa.admin.MessageAdm" dbEntityName="message_adm">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="dataRegisto" type="java.util.Date" db-attribute-path="data_registo"/>
+		<obj-attribute name="message" type="java.lang.String" db-attribute-path="message"/>
+	</obj-entity>
+	<obj-entity name="Permissao" className="org.addition.apa.admin.Permissao" dbEntityName="permissao">
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="Relatorio" className="org.addition.apa.admin.Relatorio" dbEntityName="relatorio">
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="parametrosBytes" type="byte[]" db-attribute-path="parametros_bytes"/>
+		<obj-attribute name="pathBinary" type="java.lang.String" db-attribute-path="path_binary"/>
+		<obj-attribute name="pathXlsx" type="java.lang.String" db-attribute-path="path_xlsx"/>
+		<obj-attribute name="tempoGeracao" type="java.lang.Long" db-attribute-path="tempo_geracao"/>
+	</obj-entity>
+	<db-relationship name="PedidoAlteracaoDadosPerfil" source="administrador" target="pedido_alteracao_dados_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_avaliador"/>
+	</db-relationship>
+	<db-relationship name="alertas_com_data" source="administrador" target="alerta_com_data" toMany="true">
+		<db-attribute-pair source="id" target="fk_destinatario"/>
+	</db-relationship>
+	<db-relationship name="alertas_enviados" source="administrador" target="alerta" toMany="true">
+		<db-attribute-pair source="id" target="fk_remetente"/>
+	</db-relationship>
+	<db-relationship name="alertas_recebidos" source="administrador" target="alerta" toMany="true">
+		<db-attribute-pair source="id" target="fk_destinatario"/>
+	</db-relationship>
+	<db-relationship name="altera_perfis" source="administrador" target="perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin_alteracao"/>
+	</db-relationship>
+	<db-relationship name="altera_reporte_ac" source="administrador" target="ac_reporte" toMany="true">
+		<db-attribute-pair source="id" target="fk_adm_arh_altera"/>
+	</db-relationship>
+	<db-relationship name="assina_titulos" source="administrador" target="titulo" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin_assina"/>
+	</db-relationship>
+	<db-relationship name="assinaturas" source="administrador" target="assinatura_administrador" toMany="true">
+		<db-attribute-pair source="id" target="fk_administrador"/>
+	</db-relationship>
+	<db-relationship name="certificados" source="administrador" target="certificado" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin"/>
+	</db-relationship>
+	<db-relationship name="dados_gerais_estabelecimento_criados" source="administrador" target="dados_gerais_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador_adm"/>
+	</db-relationship>
+	<db-relationship name="dados_laborais_estabelecimento_criados" source="administrador" target="dados_laborais_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador_adm"/>
+	</db-relationship>
+	<db-relationship name="dados_perfil_criados" source="administrador" target="dados_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador_adm"/>
+	</db-relationship>
+	<db-relationship name="departamento" source="administrador" target="t_departamento" toMany="false">
+		<db-attribute-pair source="fk_departamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="distribuido_por" source="administrador" target="historico_distribuicao_processo" toMany="true">
+		<db-attribute-pair source="id" target="fk_administrador_distribui"/>
+	</db-relationship>
+	<db-relationship name="divisao" source="administrador" target="t_divisao" toMany="false">
+		<db-attribute-pair source="fk_divisao" target="id"/>
+	</db-relationship>
+	<db-relationship name="documentos_estabelecimento_criados" source="administrador" target="documento_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador_adm"/>
+	</db-relationship>
+	<db-relationship name="enquadramento_perfil_criados" source="administrador" target="enquadramento_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador_adm"/>
+	</db-relationship>
+	<db-relationship name="enquadramentos_estabelecimento_criados" source="administrador" target="enquadramento_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador_adm"/>
+	</db-relationship>
+	<db-relationship name="estado_titulo" source="administrador" target="titulo_estado" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin"/>
+	</db-relationship>
+	<db-relationship name="extensoes_prazo" source="administrador" target="extensao_prazo" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin"/>
+	</db-relationship>
+	<db-relationship name="fecha_processo" source="administrador" target="processos" toMany="true">
+		<db-attribute-pair source="id" target="fk_administrador_fecha"/>
+	</db-relationship>
+	<db-relationship name="guiaLiquidacaoAtualizadorPorArray" source="administrador" target="guia_liquidacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_atualizado_por"/>
+	</db-relationship>
+	<db-relationship name="guiaLiquidacaoCriadoPorArray" source="administrador" target="guia_liquidacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_criado_por"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoAtualizadorPorArray" source="administrador" target="guia_pagamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_atualizado_por"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoCriadoPorArray" source="administrador" target="guia_pagamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_criado_por"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoHistoricoCriadoPorArray" source="administrador" target="guia_pagamento_historico" toMany="true">
+		<db-attribute-pair source="id" target="fk_criado_por"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoObservacoesCriadoPorArray" source="administrador" target="guia_pagamento_observacoes" toMany="true">
+		<db-attribute-pair source="id" target="fk_criado_por"/>
+	</db-relationship>
+	<db-relationship name="historico_distribuicao" source="administrador" target="historico_distribuicao_processo" toMany="true">
+		<db-attribute-pair source="id" target="fk_administrador"/>
+	</db-relationship>
+	<db-relationship name="historicos" source="administrador" target="historico_adm" toMany="true">
+		<db-attribute-pair source="id" target="quem"/>
+	</db-relationship>
+	<db-relationship name="historicos_personificados" source="administrador" target="historico" toMany="true">
+		<db-attribute-pair source="id" target="quem_admin"/>
+	</db-relationship>
+	<db-relationship name="listPedidosRegisto" source="administrador" target="pedido_registo" toMany="true">
+		<db-attribute-pair source="id" target="fk_avaliador"/>
+	</db-relationship>
+	<db-relationship name="mensagens" source="administrador" target="mensagem" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin"/>
+	</db-relationship>
+	<db-relationship name="message_adm" source="administrador" target="message_adm" toMany="true">
+		<db-attribute-pair source="id" target="fk_administrador"/>
+	</db-relationship>
+	<db-relationship name="observacoesPagamentos" source="administrador" target="observacoes_pagamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin"/>
+	</db-relationship>
+	<db-relationship name="observacoes_processo" source="administrador" target="observacoes_processo" toMany="true">
+		<db-attribute-pair source="id" target="fk_administrador"/>
+	</db-relationship>
+	<db-relationship name="observacoes_titulo" source="administrador" target="observacoes_titulo" toMany="true">
+		<db-attribute-pair source="id" target="fk_administrador"/>
+	</db-relationship>
+	<db-relationship name="organismo" source="administrador" target="t_organismo" toMany="false">
+		<db-attribute-pair source="fk_organismo" target="id"/>
+	</db-relationship>
+	<db-relationship name="organismos_assina_titulo_rh" source="administrador" target="t_organismo" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin_assina_titulo_rh"/>
+	</db-relationship>
+	<db-relationship name="pedidos_alteracao_caes_perfil_avaliados" source="administrador" target="pedido_alteracao_cae_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_avaliador"/>
+	</db-relationship>
+	<db-relationship name="pedidos_alteracao_dados_gerais_estabelecimento" source="administrador" target="pedido_alteracao_dados_gerais_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_avaliador"/>
+	</db-relationship>
+	<db-relationship name="processos" source="administrador" target="processos" toMany="true">
+		<db-attribute-pair source="id" target="fk_administrador"/>
+	</db-relationship>
+	<db-relationship name="r_admin_grupos" source="administrador" target="r_admin_grupo" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin"/>
+	</db-relationship>
+	<db-relationship name="reaberturas_formulario_mirr" source="administrador" target="reabertura_formulario_mirr" toMany="true">
+		<db-attribute-pair source="id" target="fk_adm_reabre"/>
+	</db-relationship>
+	<db-relationship name="registo_entrada_anexos" source="administrador" target="anexo_requerimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_adm_registo_entrada"/>
+	</db-relationship>
+	<db-relationship name="rel_pli" source="administrador" target="processo_licenciamento_integrado" toMany="true">
+		<db-attribute-pair source="id" target="fk_tecnico"/>
+	</db-relationship>
+	<db-relationship name="rel_pli_regime" source="administrador" target="processo_licenciamento_integrado_regime" toMany="true">
+		<db-attribute-pair source="id" target="fk_tecnico"/>
+	</db-relationship>
+	<db-relationship name="rel_pli_tarefa" source="administrador" target="processo_licenciamento_integrado_tarefa" toMany="true">
+		<db-attribute-pair source="id" target="fk_tecnico"/>
+	</db-relationship>
+	<db-relationship name="relacoes_criadas" source="administrador" target="t_rel_titulo" toMany="true">
+		<db-attribute-pair source="id" target="adm_criacao"/>
+	</db-relationship>
+	<db-relationship name="relatorios" source="administrador" target="relatorio" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin"/>
+	</db-relationship>
+	<db-relationship name="requerimentos" source="administrador" target="requerimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin"/>
+	</db-relationship>
+	<db-relationship name="requerimentos_submetidos" source="administrador" target="requerimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin_submete"/>
+	</db-relationship>
+	<db-relationship name="suspensoes_reinicia" source="administrador" target="suspensao_processo" toMany="true">
+		<db-attribute-pair source="id" target="fk_adm_reinicia"/>
+	</db-relationship>
+	<db-relationship name="suspensoes_suspende" source="administrador" target="suspensao_processo" toMany="true">
+		<db-attribute-pair source="id" target="fk_adm_suspende"/>
+	</db-relationship>
+	<db-relationship name="taxaAtualizadorPorArray" source="administrador" target="taxa" toMany="true">
+		<db-attribute-pair source="id" target="fk_atualizado_por"/>
+	</db-relationship>
+	<db-relationship name="taxaCriadoPorArray" source="administrador" target="taxa" toMany="true">
+		<db-attribute-pair source="id" target="fk_criado_por"/>
+	</db-relationship>
+	<db-relationship name="titulos" source="administrador" target="titulo" toMany="true">
+		<db-attribute-pair source="id" target="fk_administrador"/>
+	</db-relationship>
+	<db-relationship name="toRelTaxaOrganismoArray" source="administrador" target="taxa_t_organismo" toMany="true">
+		<db-attribute-pair source="id" target="fk_criado_por"/>
+	</db-relationship>
+	<db-relationship name="untitledRel" source="administrador" target="submissao_autorizada" toMany="true">
+		<db-attribute-pair source="id" target="fk_admin"/>
+	</db-relationship>
+	<db-relationship name="administrador" source="assinatura_administrador" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_administrador" target="id"/>
+	</db-relationship>
+	<db-relationship name="r_admin_grupos" source="grupo" target="r_admin_grupo" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_grupo"/>
+	</db-relationship>
+	<db-relationship name="r_grupo_permissoes" source="grupo" target="r_grupo_permissao" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_grupo"/>
+	</db-relationship>
+	<db-relationship name="admin" source="historico_adm" target="administrador" toMany="false">
+		<db-attribute-pair source="quem" target="id"/>
+	</db-relationship>
+	<db-relationship name="processo" source="historico_adm" target="processos" toMany="false">
+		<db-attribute-pair source="fk_processo" target="id"/>
+	</db-relationship>
+	<db-relationship name="titulo" source="historico_adm" target="titulo" toMany="false">
+		<db-attribute-pair source="fk_titulo" target="id"/>
+	</db-relationship>
+	<db-relationship name="administrador" source="message_adm" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_administrador" target="id"/>
+	</db-relationship>
+	<db-relationship name="r_grupo_permissoes" source="permissao" target="r_grupo_permissao" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_permissao"/>
+	</db-relationship>
+	<db-relationship name="rel_pli_tarefa" source="permissao" target="processo_licenciamento_integrado_tarefa" toMany="true">
+		<db-attribute-pair source="id" target="fk_permissao"/>
+	</db-relationship>
+	<db-relationship name="admin" source="r_admin_grupo" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_admin" target="id"/>
+	</db-relationship>
+	<db-relationship name="grupo" source="r_admin_grupo" target="grupo" toMany="false">
+		<db-attribute-pair source="fk_grupo" target="id"/>
+	</db-relationship>
+	<db-relationship name="grupo" source="r_grupo_permissao" target="grupo" toMany="false">
+		<db-attribute-pair source="fk_grupo" target="id"/>
+	</db-relationship>
+	<db-relationship name="permissao" source="r_grupo_permissao" target="permissao" toMany="false">
+		<db-attribute-pair source="fk_permissao" target="id"/>
+	</db-relationship>
+	<db-relationship name="administrador" source="relatorio" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_admin" target="id"/>
+	</db-relationship>
+	<obj-relationship name="alertasComData" source="Administrador" target="AlertaComData" deleteRule="Deny" db-relationship-path="alertas_com_data"/>
+	<obj-relationship name="alertasEnviados" source="Administrador" target="Alerta" deleteRule="Deny" db-relationship-path="alertas_enviados"/>
+	<obj-relationship name="alertasRecebidos" source="Administrador" target="Alerta" deleteRule="Deny" db-relationship-path="alertas_recebidos"/>
+	<obj-relationship name="alteraPerfis" source="Administrador" target="Perfil" deleteRule="Deny" db-relationship-path="altera_perfis"/>
+	<obj-relationship name="alteraReporteAc" source="Administrador" target="AcReporte" deleteRule="Deny" db-relationship-path="altera_reporte_ac"/>
+	<obj-relationship name="assinaTitulos" source="Administrador" target="Titulo" deleteRule="Deny" db-relationship-path="assina_titulos"/>
+	<obj-relationship name="assinaturas" source="Administrador" target="AssinaturaAdministrador" deleteRule="Deny" db-relationship-path="assinaturas"/>
+	<obj-relationship name="certificados" source="Administrador" target="Certificado" deleteRule="Deny" db-relationship-path="certificados"/>
+	<obj-relationship name="dadosGeraisEstabelecimentoCriados" source="Administrador" target="DadosGeraisEstabelecimento" deleteRule="Deny" db-relationship-path="dados_gerais_estabelecimento_criados"/>
+	<obj-relationship name="dadosLaboraisEstabelecimentoCriados" source="Administrador" target="DadosLaboraisEstabelecimento" deleteRule="Deny" db-relationship-path="dados_laborais_estabelecimento_criados"/>
+	<obj-relationship name="dadosPerfilCriados" source="Administrador" target="DadosPerfil" deleteRule="Deny" db-relationship-path="dados_perfil_criados"/>
+	<obj-relationship name="departamento" source="Administrador" target="TDepartamento" deleteRule="Nullify" db-relationship-path="departamento"/>
+	<obj-relationship name="distribuidoPor" source="Administrador" target="HistoricoDistribuicaoProcesso" deleteRule="Deny" db-relationship-path="distribuido_por"/>
+	<obj-relationship name="divisao" source="Administrador" target="TDivisao" deleteRule="Nullify" db-relationship-path="divisao"/>
+	<obj-relationship name="documentosEstabelecimentoCriados" source="Administrador" target="DocumentoEstabelecimento" deleteRule="Deny" db-relationship-path="documentos_estabelecimento_criados"/>
+	<obj-relationship name="enquadramentoPerfilCriados" source="Administrador" target="EnquadramentoPerfil" deleteRule="Deny" db-relationship-path="enquadramento_perfil_criados"/>
+	<obj-relationship name="enquadramentosEstabelecimentoCriados" source="Administrador" target="EnquadramentoEstabelecimento" deleteRule="Deny" db-relationship-path="enquadramentos_estabelecimento_criados"/>
+	<obj-relationship name="estadoTitulo" source="Administrador" target="TituloEstado" deleteRule="Deny" db-relationship-path="estado_titulo"/>
+	<obj-relationship name="extensoesPrazo" source="Administrador" target="ExtensaoPrazo" deleteRule="Deny" db-relationship-path="extensoes_prazo"/>
+	<obj-relationship name="fechaProcesso" source="Administrador" target="Processos" deleteRule="Deny" db-relationship-path="fecha_processo"/>
+	<obj-relationship name="grupos" source="Administrador" target="Grupo" deleteRule="Nullify" db-relationship-path="r_admin_grupos.grupo"/>
+	<obj-relationship name="guiaLiquidacaoAtualizadorPorArray" source="Administrador" target="GuiaLiquidacao" deleteRule="Deny" db-relationship-path="guiaLiquidacaoAtualizadorPorArray"/>
+	<obj-relationship name="guiaLiquidacaoCriadoPorArray" source="Administrador" target="GuiaLiquidacao" deleteRule="Deny" db-relationship-path="guiaLiquidacaoCriadoPorArray"/>
+	<obj-relationship name="guiaPagamentoAtualizadorPorArray" source="Administrador" target="GuiaPagamento" deleteRule="Deny" db-relationship-path="guiaPagamentoAtualizadorPorArray"/>
+	<obj-relationship name="guiaPagamentoCriadoPorArray" source="Administrador" target="GuiaPagamento" deleteRule="Deny" db-relationship-path="guiaPagamentoCriadoPorArray"/>
+	<obj-relationship name="guiaPagamentoHistoricoCriadoPorArray" source="Administrador" target="GuiaPagamentoHistorico" deleteRule="Deny" db-relationship-path="guiaPagamentoHistoricoCriadoPorArray"/>
+	<obj-relationship name="guiaPagamentoObservacoesCriadoPorArray" source="Administrador" target="GuiaPagamentoObservacoes" deleteRule="Deny" db-relationship-path="guiaPagamentoObservacoesCriadoPorArray"/>
+	<obj-relationship name="historicoDistribuicao" source="Administrador" target="HistoricoDistribuicaoProcesso" deleteRule="Cascade" db-relationship-path="historico_distribuicao"/>
+	<obj-relationship name="historicos" source="Administrador" target="HistoricoAdmin" deleteRule="Cascade" db-relationship-path="historicos"/>
+	<obj-relationship name="historicosPersonificados" source="Administrador" target="Historico" deleteRule="Deny" db-relationship-path="historicos_personificados"/>
+	<obj-relationship name="listPedidosRegisto" source="Administrador" target="PedidoRegisto" deleteRule="Deny" db-relationship-path="listPedidosRegisto"/>
+	<obj-relationship name="mensagens" source="Administrador" target="Mensagem" deleteRule="Deny" db-relationship-path="mensagens"/>
+	<obj-relationship name="messageAdm" source="Administrador" target="MessageAdm" deleteRule="Deny" db-relationship-path="message_adm"/>
+	<obj-relationship name="observacoesPagamentos" source="Administrador" target="ObservacoesPagamento" deleteRule="Deny" db-relationship-path="observacoesPagamentos"/>
+	<obj-relationship name="observacoesProcesso" source="Administrador" target="ObservacoesProcesso" deleteRule="Deny" db-relationship-path="observacoes_processo"/>
+	<obj-relationship name="observacoesTitulo" source="Administrador" target="ObservacoesTitulo" deleteRule="Deny" db-relationship-path="observacoes_titulo"/>
+	<obj-relationship name="organismo" source="Administrador" target="TOrganismo" deleteRule="Nullify" db-relationship-path="organismo"/>
+	<obj-relationship name="organismosAssinaTituloRh" source="Administrador" target="TOrganismo" deleteRule="Deny" db-relationship-path="organismos_assina_titulo_rh"/>
+	<obj-relationship name="pedidoAlteracaoDadosPerfil" source="Administrador" target="PedidoAlteracaoDadosPerfil" deleteRule="Deny" db-relationship-path="PedidoAlteracaoDadosPerfil"/>
+	<obj-relationship name="pedidosAlteracaoCaesPerfilAvaliados" source="Administrador" target="PedidoAlteracaoCaePerfil" deleteRule="Deny" db-relationship-path="pedidos_alteracao_caes_perfil_avaliados"/>
+	<obj-relationship name="pedidosAlteracaoDadosGeraisEstabelecimento" source="Administrador" target="PedidoAlteracaoDadosGeraisEstabelecimento" deleteRule="Deny" db-relationship-path="pedidos_alteracao_dados_gerais_estabelecimento"/>
+	<obj-relationship name="permissoes" source="Administrador" target="Permissao" deleteRule="Nullify" db-relationship-path="r_admin_grupos.grupo.r_grupo_permissoes.permissao"/>
+	<obj-relationship name="processos" source="Administrador" target="Processos" deleteRule="Deny" db-relationship-path="processos"/>
+	<obj-relationship name="reaberturasFormularioMirr" source="Administrador" target="ReaberturaFormularioMirr" deleteRule="Deny" db-relationship-path="reaberturas_formulario_mirr"/>
+	<obj-relationship name="registoEntradaAnexos" source="Administrador" target="AnexoRequerimento" deleteRule="Deny" db-relationship-path="registo_entrada_anexos"/>
+	<obj-relationship name="relPli" source="Administrador" target="ProcessoLicenciamentoIntegrado" deleteRule="Deny" db-relationship-path="rel_pli"/>
+	<obj-relationship name="relPliRegime" source="Administrador" target="ProcessoLicenciamentoIntegradoRegime" deleteRule="Nullify" db-relationship-path="rel_pli_regime"/>
+	<obj-relationship name="relPliTarefa" source="Administrador" target="ProcessoLicenciamentoIntegradoTarefa" deleteRule="Nullify" db-relationship-path="rel_pli_tarefa"/>
+	<obj-relationship name="relacoesCriadas" source="Administrador" target="TRelTitulo" deleteRule="Deny" db-relationship-path="relacoes_criadas"/>
+	<obj-relationship name="relatorios" source="Administrador" target="Relatorio" deleteRule="Deny" db-relationship-path="relatorios"/>
+	<obj-relationship name="requerimentos" source="Administrador" target="Requerimento" deleteRule="Deny" db-relationship-path="requerimentos"/>
+	<obj-relationship name="requerimentosSubmetidos" source="Administrador" target="Requerimento" deleteRule="Deny" db-relationship-path="requerimentos_submetidos"/>
+	<obj-relationship name="suspensoesReinicia" source="Administrador" target="SuspensaoProcesso" deleteRule="Deny" db-relationship-path="suspensoes_reinicia"/>
+	<obj-relationship name="suspensoesSuspende" source="Administrador" target="SuspensaoProcesso" deleteRule="Deny" db-relationship-path="suspensoes_suspende"/>
+	<obj-relationship name="taxaAtualizadorPorArray" source="Administrador" target="Taxa" deleteRule="Deny" db-relationship-path="taxaAtualizadorPorArray"/>
+	<obj-relationship name="taxaCriadoPorArray" source="Administrador" target="Taxa" deleteRule="Deny" db-relationship-path="taxaCriadoPorArray"/>
+	<obj-relationship name="titulos" source="Administrador" target="Titulo" deleteRule="Deny" db-relationship-path="titulos"/>
+	<obj-relationship name="toRelTaxaOrganismoArray" source="Administrador" target="TaxaTOrganismo" deleteRule="Deny" db-relationship-path="toRelTaxaOrganismoArray"/>
+	<obj-relationship name="untitledRel" source="Administrador" target="SubmissaoAutorizada" deleteRule="Deny" db-relationship-path="untitledRel"/>
+	<obj-relationship name="administrador" source="AssinaturaAdministrador" target="Administrador" deleteRule="Nullify" db-relationship-path="administrador"/>
+	<obj-relationship name="admins" source="Grupo" target="Administrador" deleteRule="Deny" db-relationship-path="r_admin_grupos.admin"/>
+	<obj-relationship name="permissoes" source="Grupo" target="Permissao" deleteRule="Nullify" db-relationship-path="r_grupo_permissoes.permissao"/>
+	<obj-relationship name="admin" source="HistoricoAdmin" target="Administrador" deleteRule="Nullify" db-relationship-path="admin"/>
+	<obj-relationship name="processo" source="HistoricoAdmin" target="Processos" deleteRule="Nullify" db-relationship-path="processo"/>
+	<obj-relationship name="titulo" source="HistoricoAdmin" target="Titulo" deleteRule="Nullify" db-relationship-path="titulo"/>
+	<obj-relationship name="administrador" source="MessageAdm" target="Administrador" deleteRule="Nullify" db-relationship-path="administrador"/>
+	<obj-relationship name="grupos" source="Permissao" target="Grupo" deleteRule="Deny" db-relationship-path="r_grupo_permissoes.grupo"/>
+	<obj-relationship name="relPliTarefa" source="Permissao" target="ProcessoLicenciamentoIntegradoTarefa" deleteRule="Deny" db-relationship-path="rel_pli_tarefa"/>
+	<obj-relationship name="administrador" source="Relatorio" target="Administrador" deleteRule="Nullify" db-relationship-path="administrador"/>
+</data-map>

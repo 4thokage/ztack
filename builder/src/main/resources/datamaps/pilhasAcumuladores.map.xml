@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.licenciamento.pilhasAcumuladores"/>
+	<property name="defaultSchema" value="pilhas_acumuladores"/>
+	<db-entity name="caracterizacao" schema="pilhas_acumuladores">
+		<db-attribute name="fk_entidade_registo" type="INTEGER" length="4"/>
+		<db-attribute name="fk_requerimento" type="INTEGER" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="responsavel" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="site" type="VARCHAR" length="500"/>
+	</db-entity>
+	<db-entity name="entidade_registo" schema="pilhas_acumuladores">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="500"/>
+	</db-entity>
+	<obj-entity name="Caracterizacao" className="org.addition.apa.licenciamento.pilhasAcumuladores.Caracterizacao" dbEntityName="caracterizacao">
+		<obj-attribute name="responsavel" type="java.lang.String" db-attribute-path="responsavel"/>
+		<obj-attribute name="site" type="java.lang.String" db-attribute-path="site"/>
+	</obj-entity>
+	<obj-entity name="EntidadeRegisto" className="org.addition.apa.licenciamento.pilhasAcumuladores.EntidadeRegisto" dbEntityName="entidade_registo">
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<db-relationship name="toEntidadeRegisto" source="caracterizacao" target="entidade_registo" toMany="false">
+		<db-attribute-pair source="fk_entidade_registo" target="id"/>
+	</db-relationship>
+	<db-relationship name="caracterizacaos" source="entidade_registo" target="caracterizacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_entidade_registo"/>
+	</db-relationship>
+	<obj-relationship name="toEntidadeRegisto" source="Caracterizacao" target="EntidadeRegisto" deleteRule="Nullify" db-relationship-path="toEntidadeRegisto"/>
+	<obj-relationship name="caracterizacaos" source="EntidadeRegisto" target="Caracterizacao" deleteRule="Deny" db-relationship-path="caracterizacaos"/>
+</data-map>

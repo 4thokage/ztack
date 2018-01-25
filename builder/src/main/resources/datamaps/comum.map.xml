@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.comum"/>
+	<property name="defaultSchema" value="comum"/>
+	<db-entity name="auditoria_ws" schema="comum">
+		<db-attribute name="accao" type="VARCHAR" length="200"/>
+		<db-attribute name="dados_enviados" type="VARCHAR" length="2147483647"/>
+		<db-attribute name="dados_recebidos" type="VARCHAR" length="2147483647"/>
+		<db-attribute name="data" type="TIMESTAMP" length="29"/>
+		<db-attribute name="erro" type="VARCHAR" length="2147483647"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="tempo_ms" type="INTEGER" length="10"/>
+	</db-entity>
+	<db-entity name="caop" schema="comum">
+		<db-attribute name="area_t_ha" type="DOUBLE" length="8"/>
+		<db-attribute name="ativo" type="BIT" isMandatory="true" length="1"/>
+		<db-attribute name="des_simpli" type="VARCHAR" length="254"/>
+		<db-attribute name="di" type="VARCHAR" length="255"/>
+		<db-attribute name="dico" type="VARCHAR" length="255"/>
+		<db-attribute name="dicofre" type="VARCHAR" length="6"/>
+		<db-attribute name="distrito" type="VARCHAR" length="255"/>
+		<db-attribute name="freguesia" type="VARCHAR" length="254"/>
+		<db-attribute name="freguesia_caop2012" type="VARCHAR" length="255"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="municipio" type="VARCHAR" length="255"/>
+		<db-attribute name="nut1" type="VARCHAR" length="255"/>
+		<db-attribute name="nut1_cod" type="VARCHAR" length="50"/>
+		<db-attribute name="nut2" type="VARCHAR" length="255"/>
+		<db-attribute name="nut2_cod" type="VARCHAR" length="50"/>
+		<db-attribute name="nut3" type="VARCHAR" length="255"/>
+		<db-attribute name="nut3_cod" type="VARCHAR" length="50"/>
+		<db-attribute name="versao" type="VARCHAR" isMandatory="true" length="255"/>
+	</db-entity>
+	<db-entity name="casuistica" schema="comum">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP"/>
+		<db-attribute name="fk_periodo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mensagem_personalizada" type="VARCHAR" length="2000"/>
+		<db-attribute name="taxa_associada" type="BOOLEAN"/>
+		<db-attribute name="utilizador_alteracao" type="VARCHAR" length="150"/>
+		<db-attribute name="utilizador_criacao" type="VARCHAR" length="150"/>
+	</db-entity>
+	<db-entity name="casuistica_estabelecimento" schema="comum">
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP"/>
+		<db-attribute name="fk_casuistica" type="INTEGER"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_t_estado_casuistica" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="utilizador_alteracao" type="VARCHAR" length="150"/>
+		<db-attribute name="utilizador_criacao" type="VARCHAR" length="150"/>
+	</db-entity>
+	<db-entity name="casuistica_perfil" schema="comum">
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP"/>
+		<db-attribute name="fk_casuistica" type="INTEGER"/>
+		<db-attribute name="fk_perfil" type="INTEGER"/>
+		<db-attribute name="fk_t_estado_casuistica" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="utilizador_alteracao" type="VARCHAR" length="150"/>
+		<db-attribute name="utilizador_criacao" type="VARCHAR" length="150"/>
+	</db-entity>
+	<db-entity name="certificado" schema="comum">
+		<db-attribute name="atualizadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="40"/>
+		<db-attribute name="criadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_emissao" type="DATE" isMandatory="true"/>
+		<db-attribute name="data_validade" type="DATE" isMandatory="true"/>
+		<db-attribute name="descricao" type="VARCHAR" length="255"/>
+		<db-attribute name="fk_admin" type="INTEGER"/>
+		<db-attribute name="fk_estado_certificado" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_rel_entidade_certificado" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_t_tipo_certificado" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_tipologia" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="codigo_postal" schema="comum">
+		<db-attribute name="atualizadopor" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="criadopor" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" isMandatory="true" length="8"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true" length="8"/>
+		<db-attribute name="fk_t_tipo_codigo_postal" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="codigo_postal_estrangeiro" schema="comum">
+		<db-attribute name="atualizadopor" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="codigo_postal" type="VARCHAR" isMandatory="true" length="25"/>
+		<db-attribute name="criadopor" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" isMandatory="true" length="8"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true" length="8"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-key-generator>
+			<db-generator-type>ORACLE</db-generator-type>
+			<db-generator-name>comum.pk_codigo_postal</db-generator-name>
+			<db-key-cache-size>20</db-key-cache-size>
+		</db-key-generator>
+	</db-entity>
+	<db-entity name="codigo_postal_pt" schema="comum">
+		<db-attribute name="cp3" type="VARCHAR" isMandatory="true" length="5"/>
+		<db-attribute name="cp4" type="VARCHAR" isMandatory="true" length="6"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="contacto" schema="comum">
+		<db-attribute name="atualizadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="contacto" type="VARCHAR" length="100"/>
+		<db-attribute name="criadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="data_atualizacao" type="DATE"/>
+		<db-attribute name="data_criacao" type="DATE"/>
+		<db-attribute name="fk_t_tipo_contacto" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="documento" schema="comum">
+		<db-attribute name="atualizadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="criadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="descricao" type="VARCHAR" length="500"/>
+		<db-attribute name="documento_oid" type="BLOB" length="4"/>
+		<db-attribute name="fk_documento_tipo" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="nome_ficheiro" type="VARCHAR" length="255"/>
+		<db-attribute name="tamanho" type="INTEGER" length="4"/>
+		<db-attribute name="tipo_ficheiro" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="url" type="VARCHAR" length="255"/>
+	</db-entity>
+	<db-entity name="entidade" schema="comum">
+		<db-attribute name="atualizadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="criadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="fk_pais_nif" type="VARCHAR" isMandatory="true" length="2"/>
+		<db-attribute name="fk_t_tipo_entidade" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="nif" type="VARCHAR" length="20"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="255"/>
+	</db-entity>
+	<db-entity name="entidade_coordenadora" schema="comum">
+		<db-attribute name="ativo" type="BIT" isMandatory="true" length="1"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="email" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_tipo_entidade" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="login" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="1000"/>
+	</db-entity>
+	<db-entity name="entidade_morada_postal" schema="comum">
+		<db-attribute name="atualizadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="criadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="fk_ambito" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_caop" type="INTEGER" length="4"/>
+		<db-attribute name="fk_codigo_postal" type="INTEGER" length="4"/>
+		<db-attribute name="fk_entidade" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_pais" type="VARCHAR" isMandatory="true" length="2"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="localidade" type="VARCHAR" length="100"/>
+		<db-attribute name="morada" type="VARCHAR" isMandatory="true" length="500"/>
+	</db-entity>
+	<db-entity name="gas_fluorado" schema="comum">
+		<db-attribute name="ativo" type="BIT" isMandatory="true" length="1"/>
+		<db-attribute name="atualizadopor" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="codigo_pautal" type="VARCHAR" length="255"/>
+		<db-attribute name="data_atualizacao" type="DATE"/>
+		<db-attribute name="designacao_quimica" type="VARCHAR" length="255"/>
+		<db-attribute name="formula_quimica" type="VARCHAR" length="255"/>
+		<db-attribute name="gwp_antigo" type="DOUBLE" length="8"/>
+		<db-attribute name="gwp_novo" type="DOUBLE" length="8"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="n_cas" type="VARCHAR" length="255"/>
+		<db-attribute name="n_cus" type="VARCHAR" length="255"/>
+		<db-attribute name="n_einecs" type="VARCHAR" length="255"/>
+		<db-attribute name="substancias_constituem_mistura" type="VARCHAR" length="255"/>
+		<db-attribute name="tonco2_kg" type="NUMERIC" length="5" scale="2"/>
+	</db-entity>
+	<db-entity name="rel_entidade_certificado" schema="comum">
+		<db-attribute name="atualizadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="criadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="fk_ambito" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_entidade" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_t_tipo_entidade_certificada" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="rel_entidade_contacto" schema="comum">
+		<db-attribute name="criadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="fk_ambito" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="fk_contacto" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="fk_entidade" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="template" schema="comum">
+		<db-attribute name="descricao" type="VARCHAR" length="255"/>
+		<db-attribute name="fk_template_definicao" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="nome_ficheiro" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="tipo_conteudo" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="tipo_template" type="VARCHAR" length="2"/>
+	</db-entity>
+	<db-entity name="template_conteudo" schema="comum">
+		<db-attribute name="conteudo" type="LONGVARBINARY"/>
+		<db-attribute name="fk_template" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="template_definicao" schema="comum">
+		<db-attribute name="descricao" type="VARCHAR" length="255"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="255"/>
+	</db-entity>
+	<obj-entity name="AuditoriaWs" className="org.addition.apa.comum.AuditoriaWs" dbEntityName="auditoria_ws">
+		<obj-attribute name="accao" type="java.lang.String" db-attribute-path="accao"/>
+		<obj-attribute name="dadosEnviados" type="java.lang.String" db-attribute-path="dados_enviados"/>
+		<obj-attribute name="dadosRecebidos" type="java.lang.String" db-attribute-path="dados_recebidos"/>
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="erro" type="java.lang.String" db-attribute-path="erro"/>
+		<obj-attribute name="tempoMs" type="java.lang.Integer" db-attribute-path="tempo_ms"/>
+	</obj-entity>
+	<obj-entity name="Caop" className="org.addition.apa.comum.Caop" dbEntityName="caop">
+		<obj-attribute name="areaTHa" type="java.lang.Double" db-attribute-path="area_t_ha"/>
+		<obj-attribute name="ativo" type="java.lang.Boolean" db-attribute-path="ativo"/>
+		<obj-attribute name="desSimpli" type="java.lang.String" db-attribute-path="des_simpli"/>
+		<obj-attribute name="di" type="java.lang.String" db-attribute-path="di"/>
+		<obj-attribute name="dico" type="java.lang.String" db-attribute-path="dico"/>
+		<obj-attribute name="dicofre" type="java.lang.String" db-attribute-path="dicofre"/>
+		<obj-attribute name="distrito" type="java.lang.String" db-attribute-path="distrito"/>
+		<obj-attribute name="freguesia" type="java.lang.String" db-attribute-path="freguesia"/>
+		<obj-attribute name="freguesiaCaop2012" type="java.lang.String" db-attribute-path="freguesia_caop2012"/>
+		<obj-attribute name="municipio" type="java.lang.String" db-attribute-path="municipio"/>
+		<obj-attribute name="nut1" type="java.lang.String" db-attribute-path="nut1"/>
+		<obj-attribute name="nut1Cod" type="java.lang.String" db-attribute-path="nut1_cod"/>
+		<obj-attribute name="nut2" type="java.lang.String" db-attribute-path="nut2"/>
+		<obj-attribute name="nut2Cod" type="java.lang.String" db-attribute-path="nut2_cod"/>
+		<obj-attribute name="nut3" type="java.lang.String" db-attribute-path="nut3"/>
+		<obj-attribute name="nut3Cod" type="java.lang.String" db-attribute-path="nut3_cod"/>
+		<obj-attribute name="versao" type="java.lang.String" db-attribute-path="versao"/>
+	</obj-entity>
+	<obj-entity name="Casuistica" className="org.addition.apa.comum.Casuistica" dbEntityName="casuistica">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="mensagemPersonalizada" type="java.lang.String" db-attribute-path="mensagem_personalizada"/>
+		<obj-attribute name="taxaAssociada" type="java.lang.Boolean" db-attribute-path="taxa_associada"/>
+		<obj-attribute name="utilizadorAlteracao" type="java.lang.String" db-attribute-path="utilizador_alteracao"/>
+		<obj-attribute name="utilizadorCriacao" type="java.lang.String" db-attribute-path="utilizador_criacao"/>
+	</obj-entity>
+	<obj-entity name="CasuisticaEstabelecimento" className="org.addition.apa.comum.CasuisticaEstabelecimento" dbEntityName="casuistica_estabelecimento">
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="utilizadorAlteracao" type="java.lang.String" db-attribute-path="utilizador_alteracao"/>
+		<obj-attribute name="utilizadorCriacao" type="java.lang.String" db-attribute-path="utilizador_criacao"/>
+	</obj-entity>
+	<obj-entity name="CasuisticaPerfil" className="org.addition.apa.comum.CasuisticaPerfil" dbEntityName="casuistica_perfil">
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="utilizadorAlteracao" type="java.lang.String" db-attribute-path="utilizador_alteracao"/>
+		<obj-attribute name="utilizadorCriacao" type="java.lang.String" db-attribute-path="utilizador_criacao"/>
+	</obj-entity>
+	<obj-entity name="Certificado" className="org.addition.apa.comum.Certificado" dbEntityName="certificado">
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataEmissao" type="java.util.Date" db-attribute-path="data_emissao"/>
+		<obj-attribute name="dataValidade" type="java.util.Date" db-attribute-path="data_validade"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="CodigoPostal" className="org.addition.apa.comum.CodigoPostal" dbEntityName="codigo_postal">
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="fkTTipoCodigoPostal" type="java.lang.Integer" db-attribute-path="fk_t_tipo_codigo_postal"/>
+	</obj-entity>
+	<obj-entity name="CodigoPostalEstrangeiro" className="org.addition.apa.comum.CodigoPostalEstrangeiro" dbEntityName="codigo_postal_estrangeiro">
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="codigoPostal" type="java.lang.String" db-attribute-path="codigo_postal"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+	</obj-entity>
+	<obj-entity name="CodigoPostalPt" className="org.addition.apa.comum.CodigoPostalPt" readOnly="true" dbEntityName="codigo_postal_pt">
+		<obj-attribute name="cp3" type="java.lang.String" db-attribute-path="cp3"/>
+		<obj-attribute name="cp4" type="java.lang.String" db-attribute-path="cp4"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="Contacto" className="org.addition.apa.comum.Contacto" dbEntityName="contacto">
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="contacto" type="java.lang.String" db-attribute-path="contacto"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+	</obj-entity>
+	<obj-entity name="Documento" className="org.addition.apa.comum.Documento" dbEntityName="documento">
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="documentoOid" type="byte[]" db-attribute-path="documento_oid"/>
+		<obj-attribute name="nomeFicheiro" type="java.lang.String" db-attribute-path="nome_ficheiro"/>
+		<obj-attribute name="tamanho" type="java.lang.Integer" db-attribute-path="tamanho"/>
+		<obj-attribute name="tipoFicheiro" type="java.lang.String" db-attribute-path="tipo_ficheiro"/>
+		<obj-attribute name="url" type="java.lang.String" db-attribute-path="url"/>
+		<pre-remove method-name="onPreRemove"/>
+		<post-remove method-name="onPostRemove"/>
+	</obj-entity>
+	<obj-entity name="Entidade" className="org.addition.apa.comum.Entidade" dbEntityName="entidade">
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="EntidadeCoordenadora" className="org.addition.apa.comum.EntidadeCoordenadora" dbEntityName="entidade_coordenadora">
+		<obj-attribute name="ativo" type="java.lang.Boolean" db-attribute-path="ativo"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="email" type="java.lang.String" db-attribute-path="email"/>
+		<obj-attribute name="fkTipoEntidade" type="java.lang.Integer" db-attribute-path="fk_tipo_entidade"/>
+		<obj-attribute name="login" type="java.lang.String" db-attribute-path="login"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="EntidadeMoradaPostal" className="org.addition.apa.comum.EntidadeMoradaPostal" dbEntityName="entidade_morada_postal">
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="localidade" type="java.lang.String" db-attribute-path="localidade"/>
+		<obj-attribute name="morada" type="java.lang.String" db-attribute-path="morada"/>
+	</obj-entity>
+	<obj-entity name="GasFluorado" className="org.addition.apa.comum.GasFluorado" dbEntityName="gas_fluorado">
+		<obj-attribute name="ativo" type="java.lang.Boolean" db-attribute-path="ativo"/>
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="codigoPautal" type="java.lang.String" db-attribute-path="codigo_pautal"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="designacaoQuimica" type="java.lang.String" db-attribute-path="designacao_quimica"/>
+		<obj-attribute name="formulaQuimica" type="java.lang.String" db-attribute-path="formula_quimica"/>
+		<obj-attribute name="gwpAntigo" type="java.lang.Double" db-attribute-path="gwp_antigo"/>
+		<obj-attribute name="gwpNovo" type="java.lang.Double" db-attribute-path="gwp_novo"/>
+		<obj-attribute name="id" type="int" db-attribute-path="id"/>
+		<obj-attribute name="nCas" type="java.lang.String" db-attribute-path="n_cas"/>
+		<obj-attribute name="nCus" type="java.lang.String" db-attribute-path="n_cus"/>
+		<obj-attribute name="nEinecs" type="java.lang.String" db-attribute-path="n_einecs"/>
+		<obj-attribute name="substanciasConstituemMistura" type="java.lang.String" db-attribute-path="substancias_constituem_mistura"/>
+		<obj-attribute name="tonco2Kg" type="java.math.BigDecimal" db-attribute-path="tonco2_kg"/>
+	</obj-entity>
+	<obj-entity name="RelEntidadeCertificado" className="org.addition.apa.comum.RelEntidadeCertificado" dbEntityName="rel_entidade_certificado">
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+	</obj-entity>
+	<obj-entity name="RelEntidadeContacto" className="org.addition.apa.comum.RelEntidadeContacto" dbEntityName="rel_entidade_contacto">
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+	</obj-entity>
+	<obj-entity name="Template" className="org.addition.apa.comum.Template" dbEntityName="template">
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="nomeFicheiro" type="java.lang.String" db-attribute-path="nome_ficheiro"/>
+		<obj-attribute name="tipoConteudo" type="java.lang.String" db-attribute-path="tipo_conteudo"/>
+		<obj-attribute name="tipoTemplate" type="java.lang.String" db-attribute-path="tipo_template"/>
+	</obj-entity>
+	<obj-entity name="TemplateConteudo" className="org.addition.apa.comum.TemplateConteudo" dbEntityName="template_conteudo">
+		<obj-attribute name="conteudo" type="byte[]" db-attribute-path="conteudo"/>
+	</obj-entity>
+	<obj-entity name="TemplateDefinicao" className="org.addition.apa.comum.TemplateDefinicao" dbEntityName="template_definicao">
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<db-relationship name="rel_caop_t_organismo" source="caop" target="caop_t_organismo" toMany="false">
+		<db-attribute-pair source="id" target="fk_caop"/>
+	</db-relationship>
+	<db-relationship name="untitledRel" source="caop" target="entidade_morada_postal" toMany="true">
+		<db-attribute-pair source="id" target="fk_caop"/>
+	</db-relationship>
+	<db-relationship name="estabelecimentos" source="casuistica" target="casuistica_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_casuistica"/>
+	</db-relationship>
+	<db-relationship name="perfis" source="casuistica" target="casuistica_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_casuistica"/>
+	</db-relationship>
+	<db-relationship name="periodo" source="casuistica" target="periodo" toMany="false">
+		<db-attribute-pair source="fk_periodo" target="id"/>
+	</db-relationship>
+	<db-relationship name="reportesAviacao" source="casuistica" target="reporte_aviacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_casuistica"/>
+	</db-relationship>
+	<db-relationship name="reportesInstalacao" source="casuistica" target="reporte_instalacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_casuistica"/>
+	</db-relationship>
+	<db-relationship name="casuistica" source="casuistica_estabelecimento" target="casuistica" toMany="false">
+		<db-attribute-pair source="fk_casuistica" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="casuistica_estabelecimento" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="estado" source="casuistica_estabelecimento" target="t_estado_casuistica" toMany="false">
+		<db-attribute-pair source="fk_t_estado_casuistica" target="id"/>
+	</db-relationship>
+	<db-relationship name="casuistica" source="casuistica_perfil" target="casuistica" toMany="false">
+		<db-attribute-pair source="fk_casuistica" target="id"/>
+	</db-relationship>
+	<db-relationship name="estado" source="casuistica_perfil" target="t_estado_casuistica" toMany="false">
+		<db-attribute-pair source="fk_t_estado_casuistica" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="casuistica_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="RequerimentoGasesFluorados" source="certificado" target="requerimento_gases_fluorados" toMany="true">
+		<db-attribute-pair source="id" target="fk_certificado"/>
+	</db-relationship>
+	<db-relationship name="admin" source="certificado" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_admin" target="id"/>
+	</db-relationship>
+	<db-relationship name="toRelEntidadeCertificado" source="certificado" target="rel_entidade_certificado" toMany="false">
+		<db-attribute-pair source="fk_rel_entidade_certificado" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTEstadoCertificado" source="certificado" target="t_estado_certificado" toMany="false">
+		<db-attribute-pair source="fk_estado_certificado" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTTipoCertificado" source="certificado" target="t_tipo_certificado" toMany="false">
+		<db-attribute-pair source="fk_t_tipo_certificado" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTipologia" source="certificado" target="t_tipologia" toMany="false">
+		<db-attribute-pair source="fk_tipologia" target="id"/>
+	</db-relationship>
+	<db-relationship name="TipoCodigoPostal" source="codigo_postal" target="t_tipo_codigo_postal" toMany="false">
+		<db-attribute-pair source="fk_t_tipo_codigo_postal" target="id"/>
+	</db-relationship>
+	<db-relationship name="toCPEstrangeiro" source="codigo_postal" target="codigo_postal_estrangeiro" toDependentPK="true" toMany="false">
+		<db-attribute-pair source="id" target="id"/>
+	</db-relationship>
+	<db-relationship name="toCPPT" source="codigo_postal" target="codigo_postal_pt" toDependentPK="true" toMany="false">
+		<db-attribute-pair source="id" target="id"/>
+	</db-relationship>
+	<db-relationship name="toEntidadeMoradaPostal" source="codigo_postal" target="entidade_morada_postal" toMany="true">
+		<db-attribute-pair source="id" target="fk_codigo_postal"/>
+	</db-relationship>
+	<db-relationship name="toCodigoPostal" source="codigo_postal_estrangeiro" target="codigo_postal" toMany="false">
+		<db-attribute-pair source="id" target="id"/>
+	</db-relationship>
+	<db-relationship name="toCodigoPostal" source="codigo_postal_pt" target="codigo_postal" toMany="false">
+		<db-attribute-pair source="id" target="id"/>
+	</db-relationship>
+	<db-relationship name="toEntidadeMoradaPostal" source="codigo_postal_pt" target="entidade_morada_postal" toMany="true">
+		<db-attribute-pair source="id" target="fk_codigo_postal"/>
+	</db-relationship>
+	<db-relationship name="toRelEntidadeContacto" source="contacto" target="rel_entidade_contacto" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_contacto"/>
+	</db-relationship>
+	<db-relationship name="toTipoContacto" source="contacto" target="t_tipo_contacto" toMany="false">
+		<db-attribute-pair source="fk_t_tipo_contacto" target="id"/>
+	</db-relationship>
+	<db-relationship name="audiencias" source="documento" target="audiencia_documento" toMany="true">
+		<db-attribute-pair source="id" target="fk_documento"/>
+	</db-relationship>
+	<db-relationship name="consulta_publica_foto_capa" source="documento" target="consulta_publica" toMany="false">
+		<db-attribute-pair source="id" target="fk_foto_capa"/>
+	</db-relationship>
+	<db-relationship name="consulta_publica_regime_foto_capa" source="documento" target="consulta_publica_regime" toMany="false">
+		<db-attribute-pair source="id" target="fk_foto_capa"/>
+	</db-relationship>
+	<db-relationship name="documentosReporteAviacao" source="documento" target="reporte_aviacao_documentos" toMany="true">
+		<db-attribute-pair source="id" target="fk_doc_id"/>
+	</db-relationship>
+	<db-relationship name="documentosReporteInstalacao" source="documento" target="reporte_instalacao_documentos" toMany="true">
+		<db-attribute-pair source="id" target="fk_doc_id"/>
+	</db-relationship>
+	<db-relationship name="listDocumentoPerfil" source="documento" target="documento_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_documento"/>
+	</db-relationship>
+	<db-relationship name="movimentoDocumentoArray" source="documento" target="movimento_documento" toMany="true">
+		<db-attribute-pair source="id" target="fk_documento"/>
+	</db-relationship>
+	<db-relationship name="pedidosPorrogacaoAudiencia" source="documento" target="porrogacao_documento" toMany="true">
+		<db-attribute-pair source="id" target="fk_documento"/>
+	</db-relationship>
+	<db-relationship name="rel_documentos_vistoria" source="documento" target="vistoria_documento" toMany="true">
+		<db-attribute-pair source="id" target="fk_documento"/>
+	</db-relationship>
+	<db-relationship name="rel_ficheiro_adicional_administracao" source="documento" target="ficheiro_adicional_administracao" toMany="false">
+		<db-attribute-pair source="id" target="fk_documento"/>
+	</db-relationship>
+	<db-relationship name="rel_ficheiro_consulta_publica" source="documento" target="ficheiro_consulta_publica" toMany="true">
+		<db-attribute-pair source="id" target="fk_documento"/>
+	</db-relationship>
+	<db-relationship name="rel_ficheiro_decisao" source="documento" target="ficheiro_decisao" toMany="false">
+		<db-attribute-pair source="id" target="fk_documento"/>
+	</db-relationship>
+	<db-relationship name="rel_ficheiro_encerramento_processo" source="documento" target="ficheiro_encerramento_processo" toMany="false">
+		<db-attribute-pair source="id" target="fk_documento"/>
+	</db-relationship>
+	<db-relationship name="rel_ficheiro_pedido_elementos" source="documento" target="ficheiro_pedido_elementos" toMany="false">
+		<db-attribute-pair source="id" target="fk_documento"/>
+	</db-relationship>
+	<db-relationship name="rel_ficheiro_processo_licenciamento" source="documento" target="ficheiro_processo_licenciamento" toMany="false">
+		<db-attribute-pair source="id" target="fk_documento"/>
+	</db-relationship>
+	<db-relationship name="rel_resposta_pedido_elementos" source="documento" target="resposta_pedido_elementos" toMany="false">
+		<db-attribute-pair source="id" target="fk_documento"/>
+	</db-relationship>
+	<db-relationship name="toTipoDocumento" source="documento" target="t_tipo_documento" toMany="false">
+		<db-attribute-pair source="fk_documento_tipo" target="id"/>
+	</db-relationship>
+	<db-relationship name="toEntidadeMoradaPostalArray" source="entidade" target="entidade_morada_postal" toMany="true">
+		<db-attribute-pair source="id" target="fk_entidade"/>
+	</db-relationship>
+	<db-relationship name="toPaisNif" source="entidade" target="t_pais" toMany="false">
+		<db-attribute-pair source="fk_pais_nif" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="toRelEntidadeCertificado" source="entidade" target="rel_entidade_certificado" toMany="true">
+		<db-attribute-pair source="id" target="fk_entidade"/>
+	</db-relationship>
+	<db-relationship name="toRelEntidadeContacto" source="entidade" target="rel_entidade_contacto" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_entidade"/>
+	</db-relationship>
+	<db-relationship name="toTTipoEntidade" source="entidade" target="t_tipo_entidade" toMany="false">
+		<db-attribute-pair source="fk_t_tipo_entidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="rel_resultado_simulacao" source="entidade_coordenadora" target="resultado_simulacao" toMany="true">
+		<db-attribute-pair source="id" target="id_entidade_coordenadora"/>
+	</db-relationship>
+	<db-relationship name="toAmbito" source="entidade_morada_postal" target="t_ambito_mensagem" toMany="false">
+		<db-attribute-pair source="fk_ambito" target="id"/>
+	</db-relationship>
+	<db-relationship name="toCaop" source="entidade_morada_postal" target="caop" toMany="false">
+		<db-attribute-pair source="fk_caop" target="id"/>
+	</db-relationship>
+	<db-relationship name="toCodigoPostal" source="entidade_morada_postal" target="codigo_postal" toMany="false">
+		<db-attribute-pair source="fk_codigo_postal" target="id"/>
+	</db-relationship>
+	<db-relationship name="toEntidade" source="entidade_morada_postal" target="entidade" toMany="false">
+		<db-attribute-pair source="fk_entidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="toPais" source="entidade_morada_postal" target="t_pais" toMany="false">
+		<db-attribute-pair source="fk_pais" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="MovimentoGasFluorado" source="gas_fluorado" target="movimento_gf" toMany="true">
+		<db-attribute-pair source="id" target="fk_gas_fluorado"/>
+	</db-relationship>
+	<db-relationship name="certificadoArray" source="rel_entidade_certificado" target="certificado" toMany="true">
+		<db-attribute-pair source="id" target="fk_rel_entidade_certificado"/>
+	</db-relationship>
+	<db-relationship name="toAmbito" source="rel_entidade_certificado" target="t_ambito_mensagem" toMany="false">
+		<db-attribute-pair source="fk_ambito" target="id"/>
+	</db-relationship>
+	<db-relationship name="toEntidade" source="rel_entidade_certificado" target="entidade" toMany="false">
+		<db-attribute-pair source="fk_entidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTipoEntidadeCertificada" source="rel_entidade_certificado" target="t_tipo_entidade_certificada" toMany="false">
+		<db-attribute-pair source="fk_t_tipo_entidade_certificada" target="id"/>
+	</db-relationship>
+	<db-relationship name="toAmbito" source="rel_entidade_contacto" target="t_ambito_mensagem" toMany="false">
+		<db-attribute-pair source="fk_ambito" target="id"/>
+	</db-relationship>
+	<db-relationship name="toContacto" source="rel_entidade_contacto" target="contacto" toMany="false">
+		<db-attribute-pair source="fk_contacto" target="id"/>
+	</db-relationship>
+	<db-relationship name="toEntidade" source="rel_entidade_contacto" target="entidade" toMany="false">
+		<db-attribute-pair source="fk_entidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTemplateDefinicao" source="template" target="template_definicao" toMany="false">
+		<db-attribute-pair source="fk_template_definicao" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTemplateDefinicao" source="template_conteudo" target="template_definicao" toMany="false">
+		<db-attribute-pair source="fk_template" target="id"/>
+	</db-relationship>
+	<db-relationship name="templateArray" source="template_definicao" target="template" toMany="true">
+		<db-attribute-pair source="id" target="fk_template_definicao"/>
+	</db-relationship>
+	<db-relationship name="toTemplateDefinicao" source="template_definicao" target="template_conteudo" toDependentPK="true" toMany="false">
+		<db-attribute-pair source="id" target="fk_template"/>
+	</db-relationship>
+	<obj-relationship name="relCaopTOrganismo" source="Caop" target="CaopTOrganismo" deleteRule="Deny" db-relationship-path="rel_caop_t_organismo"/>
+	<obj-relationship name="estabelecimentos" source="Casuistica" target="CasuisticaEstabelecimento" deleteRule="Deny" db-relationship-path="estabelecimentos"/>
+	<obj-relationship name="perfis" source="Casuistica" target="CasuisticaPerfil" deleteRule="Deny" db-relationship-path="perfis"/>
+	<obj-relationship name="periodo" source="Casuistica" target="Periodo" deleteRule="Nullify" db-relationship-path="periodo"/>
+	<obj-relationship name="reportesAviacao" source="Casuistica" target="ReporteAviacao" deleteRule="Deny" db-relationship-path="reportesAviacao"/>
+	<obj-relationship name="reportesInstalacao" source="Casuistica" target="ReporteInstalacao" deleteRule="Deny" db-relationship-path="reportesInstalacao"/>
+	<obj-relationship name="casuistica" source="CasuisticaEstabelecimento" target="Casuistica" deleteRule="Nullify" db-relationship-path="casuistica"/>
+	<obj-relationship name="estabelecimento" source="CasuisticaEstabelecimento" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="estado" source="CasuisticaEstabelecimento" target="TEstadoCasuistica" deleteRule="Nullify" db-relationship-path="estado"/>
+	<obj-relationship name="casuistica" source="CasuisticaPerfil" target="Casuistica" deleteRule="Nullify" db-relationship-path="casuistica"/>
+	<obj-relationship name="estado" source="CasuisticaPerfil" target="TEstadoCasuistica" deleteRule="Nullify" db-relationship-path="estado"/>
+	<obj-relationship name="perfil" source="CasuisticaPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="admin" source="Certificado" target="Administrador" deleteRule="Nullify" db-relationship-path="admin"/>
+	<obj-relationship name="requerimentoGasesFluorados" source="Certificado" target="RequerimentoGasesFluorados" deleteRule="Deny" db-relationship-path="RequerimentoGasesFluorados"/>
+	<obj-relationship name="toRelEntidadeCertificado" source="Certificado" target="RelEntidadeCertificado" deleteRule="Deny" db-relationship-path="toRelEntidadeCertificado"/>
+	<obj-relationship name="toTEstadoCertificado" source="Certificado" target="TEstadoCertificado" deleteRule="Deny" db-relationship-path="toTEstadoCertificado"/>
+	<obj-relationship name="toTTipoCertificado" source="Certificado" target="TTipoCertificado" deleteRule="Deny" db-relationship-path="toTTipoCertificado"/>
+	<obj-relationship name="toTipologia" source="Certificado" target="TTipologia" deleteRule="Nullify" db-relationship-path="toTipologia"/>
+	<obj-relationship name="TipoCodigoPostal" source="CodigoPostal" target="TTipoCodigoPostal" deleteRule="Nullify" db-relationship-path="TipoCodigoPostal"/>
+	<obj-relationship name="toCPEstrangeiro" source="CodigoPostal" target="CodigoPostalEstrangeiro" deleteRule="Deny" db-relationship-path="toCPEstrangeiro"/>
+	<obj-relationship name="toCPPT" source="CodigoPostal" target="CodigoPostalPt" deleteRule="Deny" db-relationship-path="toCPPT"/>
+	<obj-relationship name="toEntidadeMoradaPostal" source="CodigoPostal" target="EntidadeMoradaPostal" deleteRule="Deny" db-relationship-path="toEntidadeMoradaPostal"/>
+	<obj-relationship name="toCodigoPostal" source="CodigoPostalEstrangeiro" target="CodigoPostal" deleteRule="Nullify" db-relationship-path="toCodigoPostal"/>
+	<obj-relationship name="toCodigoPostal" source="CodigoPostalPt" target="CodigoPostal" deleteRule="Nullify" db-relationship-path="toCodigoPostal"/>
+	<obj-relationship name="toEntidadeMoradaPostal" source="CodigoPostalPt" target="EntidadeMoradaPostal" deleteRule="Deny" db-relationship-path="toEntidadeMoradaPostal"/>
+	<obj-relationship name="toRelEntidadeContacto" source="Contacto" target="RelEntidadeContacto" deleteRule="Deny" db-relationship-path="toRelEntidadeContacto"/>
+	<obj-relationship name="toTipoContacto" source="Contacto" target="TTipoContacto" deleteRule="Nullify" db-relationship-path="toTipoContacto"/>
+	<obj-relationship name="audiencias" source="Documento" target="AudienciaDocumento" deleteRule="Deny" db-relationship-path="audiencias"/>
+	<obj-relationship name="consultaPublicaFotoCapa" source="Documento" target="ConsultaPublica" deleteRule="Deny" db-relationship-path="consulta_publica_foto_capa"/>
+	<obj-relationship name="consultaPublicaRegimeFotoCapa" source="Documento" target="ConsultaPublicaRegime" deleteRule="Deny" db-relationship-path="consulta_publica_regime_foto_capa"/>
+	<obj-relationship name="documentosReporteAviacao" source="Documento" target="ReporteAviacaoDocumentos" deleteRule="Deny" db-relationship-path="documentosReporteAviacao"/>
+	<obj-relationship name="documentosReporteInstalacao" source="Documento" target="ReporteInstalacaoDocumentos" deleteRule="Deny" db-relationship-path="documentosReporteInstalacao"/>
+	<obj-relationship name="listDocumentoPerfil" source="Documento" target="DocumentoPerfil" deleteRule="Deny" db-relationship-path="listDocumentoPerfil"/>
+	<obj-relationship name="movimentoDocumentoArray" source="Documento" target="MovimentoDocumento" deleteRule="Deny" db-relationship-path="movimentoDocumentoArray"/>
+	<obj-relationship name="pedidosPorrogacaoAudiencia" source="Documento" target="PorrogacaoDocumento" deleteRule="Deny" db-relationship-path="pedidosPorrogacaoAudiencia"/>
+	<obj-relationship name="relDocumentosVistoria" source="Documento" target="VistoriaDocumento" deleteRule="Deny" db-relationship-path="rel_documentos_vistoria"/>
+	<obj-relationship name="relFicheiroAdicionalAdministracao" source="Documento" target="FicheiroAdicionalAdministracao" deleteRule="Nullify" db-relationship-path="rel_ficheiro_adicional_administracao"/>
+	<obj-relationship name="relFicheiroConsultaPublica" source="Documento" target="FicheiroConsultaPublica" deleteRule="Deny" db-relationship-path="rel_ficheiro_consulta_publica"/>
+	<obj-relationship name="relFicheiroDecisao" source="Documento" target="FicheiroDecisao" deleteRule="Nullify" db-relationship-path="rel_ficheiro_decisao"/>
+	<obj-relationship name="relFicheiroEncerramentoProcesso" source="Documento" target="FicheiroEncerramentoProcesso" deleteRule="Nullify" db-relationship-path="rel_ficheiro_encerramento_processo"/>
+	<obj-relationship name="relFicheiroPedidoElementos" source="Documento" target="FicheiroPedidoElementos" deleteRule="Nullify" db-relationship-path="rel_ficheiro_pedido_elementos"/>
+	<obj-relationship name="relFicheiroProcessoLicenciamento" source="Documento" target="FicheiroProcessoLicenciamento" deleteRule="Nullify" db-relationship-path="rel_ficheiro_processo_licenciamento"/>
+	<obj-relationship name="relRespostaPedidoElementos" source="Documento" target="RespostaPedidoElementos" deleteRule="Nullify" db-relationship-path="rel_resposta_pedido_elementos"/>
+	<obj-relationship name="toTipoDocumento" source="Documento" target="TTipoDocumento" deleteRule="Nullify" db-relationship-path="toTipoDocumento"/>
+	<obj-relationship name="toEntidadeMoradaPostalArray" source="Entidade" target="EntidadeMoradaPostal" deleteRule="Deny" db-relationship-path="toEntidadeMoradaPostalArray"/>
+	<obj-relationship name="toPaisNif" source="Entidade" target="TPais" deleteRule="Deny" db-relationship-path="toPaisNif"/>
+	<obj-relationship name="toRelEntidadeCertificado" source="Entidade" target="RelEntidadeCertificado" deleteRule="Deny" db-relationship-path="toRelEntidadeCertificado"/>
+	<obj-relationship name="toRelEntidadeContacto" source="Entidade" target="RelEntidadeContacto" deleteRule="Deny" db-relationship-path="toRelEntidadeContacto"/>
+	<obj-relationship name="toTTipoEntidade" source="Entidade" target="TTipoEntidade" deleteRule="Deny" db-relationship-path="toTTipoEntidade"/>
+	<obj-relationship name="relResultadoSimulacao" source="EntidadeCoordenadora" target="ResultadoSimulacao" deleteRule="Deny" db-relationship-path="rel_resultado_simulacao"/>
+	<obj-relationship name="toAmbito" source="EntidadeMoradaPostal" target="TAmbitoMensagem" deleteRule="Deny" db-relationship-path="toAmbito"/>
+	<obj-relationship name="toCaop" source="EntidadeMoradaPostal" target="Caop" deleteRule="Deny" db-relationship-path="toCaop"/>
+	<obj-relationship name="toCodigoPostal" source="EntidadeMoradaPostal" target="CodigoPostal" deleteRule="Nullify" db-relationship-path="toCodigoPostal"/>
+	<obj-relationship name="toEntidade" source="EntidadeMoradaPostal" target="Entidade" deleteRule="Deny" db-relationship-path="toEntidade"/>
+	<obj-relationship name="toPais" source="EntidadeMoradaPostal" target="TPais" deleteRule="Deny" db-relationship-path="toPais"/>
+	<obj-relationship name="certificadoArray" source="RelEntidadeCertificado" target="Certificado" deleteRule="Deny" db-relationship-path="certificadoArray"/>
+	<obj-relationship name="toAmbito" source="RelEntidadeCertificado" target="TAmbitoMensagem" deleteRule="Deny" db-relationship-path="toAmbito"/>
+	<obj-relationship name="toEntidade" source="RelEntidadeCertificado" target="Entidade" deleteRule="Deny" db-relationship-path="toEntidade"/>
+	<obj-relationship name="toTipoEntidadeCertificada" source="RelEntidadeCertificado" target="TTipoEntidadeCertificada" deleteRule="Deny" db-relationship-path="toTipoEntidadeCertificada"/>
+	<obj-relationship name="toAmbito" source="RelEntidadeContacto" target="TAmbitoMensagem" deleteRule="Deny" db-relationship-path="toAmbito"/>
+	<obj-relationship name="toContacto" source="RelEntidadeContacto" target="Contacto" deleteRule="Deny" db-relationship-path="toContacto"/>
+	<obj-relationship name="toEntidade" source="RelEntidadeContacto" target="Entidade" deleteRule="Nullify" db-relationship-path="toEntidade"/>
+	<obj-relationship name="toTemplateDefinicao" source="Template" target="TemplateDefinicao" deleteRule="Deny" db-relationship-path="toTemplateDefinicao"/>
+	<obj-relationship name="toTemplateDefinicao" source="TemplateConteudo" target="TemplateDefinicao" deleteRule="Nullify" db-relationship-path="toTemplateDefinicao"/>
+	<obj-relationship name="templateArray" source="TemplateDefinicao" target="Template" deleteRule="Deny" db-relationship-path="templateArray"/>
+	<obj-relationship name="toTemplateDefinicao" source="TemplateDefinicao" target="TemplateConteudo" deleteRule="Deny" db-relationship-path="toTemplateDefinicao"/>
+</data-map>

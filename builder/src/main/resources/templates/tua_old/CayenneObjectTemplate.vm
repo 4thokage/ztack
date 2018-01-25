@@ -1,0 +1,123 @@
+#set ($invoke = "()" )
+package org.everis.apa.tua.entities;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.everis.apa.lua.enums.TipoEstadoCondicaoEnum;
+import org.everis.apa.tua.entities.auto._$entityName;
+import org.everis.apa.tua.interfaces.CondicaoTua;
+import org.everis.apa.tua.interfaces.CondicaoTuaHistorico;
+
+/**
+ * Class $entityName was generated.
+ * It is probably a good idea to avoid changing this class manually,
+ * since it may be overwritten next time code is regenerated.
+ */
+
+#if( $entity.getName().endsWith("Hist") )
+public class $entityName extends _$entityName implements CondicaoTuaHistorico, Cloneable {
+
+}
+#else
+public class $entityName extends _$entityName implements CondicaoTua {
+
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		$entityName newObj = new $entityName$invoke;
+		
+#foreach( $attribute in $objAttributes )
+#if( $attribute.columnName != "id" && $attribute.getUtilName() != "CodigoCondicao" )
+		newObj.set$attribute.(this.get$attribute.getUtilName()());
+#end
+#end
+#*
+#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+		newObj.set$attribute.getListValoresImport()(this.get$attribute.getUtilName()());
+#end
+#end
+*#
+
+
+		newObj.setEstado(this.getEstado());
+		newObj.setPli(this.getPli());
+		newObj.setPliOrigem(this.getPliOrigem());
+		newObj.setPrincipal(this.getPrincipal());
+		newObj.setRegime(this.getRegime());
+		newObj.setVersao(this.getVersao());
+		newObj.setCodigoCondicao(this.getCodigoCondicao());
+		#if($tipoTabela == 'PADRAO')
+			newObj.setDescritor(this.getDescritor());
+		#end
+
+		return newObj;
+		
+		//Uma vez que é um objeto cayenne, se for invocado o super.clone() e inserido o objeto "clonado" não é criado um novo...
+//		return super.clone();
+	}
+	
+	public List<String> getRegimesAssociados(){
+		if(this.getPrincipal() != null){ //se tiver pai
+			return this.getPrincipal().getRegimesAssociados();
+		}else{ //caso contrario
+			List<String> lstRegimesAssociados = new ArrayList<String>();
+			
+			if(this.getRegime() != null)
+				lstRegimesAssociados.add(this.getRegime().getCodigo());
+			if(this.getFilhos() != null){
+				for($entityName filho : this.getFilhos()){
+					if(filho.getRegime() != null && !lstRegimesAssociados.contains(filho.getRegime().getCodigo()))
+						lstRegimesAssociados.add(filho.getRegime().getCodigo());
+				}
+			}
+			
+			return lstRegimesAssociados;
+		}
+	}
+	
+	/**
+	 * Indica se o estado da condição é 'Conflito'
+	 * @return
+	 */
+	public boolean isConflito(){
+		if(this.getEstado() != null && StringUtils.isNotBlank(this.getEstado().getCodigo()))
+			return TipoEstadoCondicaoEnum.CONFLITO.getCodigo().equalsIgnoreCase(this.getEstado().getCodigo());
+			
+		return false;
+	}
+	
+	/**
+	 * Indica se a condição é Pai
+	 * @return
+	 */
+	public boolean isPai(){
+		return super.getFilhos() != null;
+	}
+	
+	/**
+	 * Indica se a condição é Filho
+	 * @return
+	 */
+	public boolean isFilho(){
+		return super.getPrincipal() != null;
+	}
+	
+	/**
+	 * Retorna lista com os Filhos
+	 */
+	public List<Object> getFilhosCond() {
+		List<Object> lst = new ArrayList<Object>();
+		lst.addAll(super.getFilhos());
+		return lst;
+	}
+	
+	@Override
+	public void setPrincipal(CondicaoTua condicao) {
+		super.setPrincipal(($entityName) condicao);
+	}
+	
+}
+#end

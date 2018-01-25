@@ -1,0 +1,21 @@
+#set( $class = ".class" )
+
+/**
+* Classe $className foi gerada atravéz do ficheiro $rootFile
+* È desaconselhado alterar este ficheiro manualmente pois
+* poderá ser gerado novamente, apagando as alterações que foram efetuadas.
+*/
+
+package org.apa.siliamb.lua.tua.service;
+
+
+/**
+ * Classe usada por default na geração de um Service,
+ * Contém os métodos de acesso á base de dados (CRUD).
+ */
+public class $className  {
+
+	private static final Logger log = LoggerFactory.getLogger($serviceName$class);
+
+
+}

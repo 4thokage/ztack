@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- parent coordinates -->
+	<parent>
+		<groupId>pt.zenit</groupId>
+		<artifactId>ztack</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<groupId>pt.zenit.ztack.cayenne</groupId>
+	<artifactId>modeler</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
+	<name>Cayenne Modeler</name>
+
+	<properties>
+		<fontawesomefx.version>8.9</fontawesomefx.version>
+		<jfxtras.version>8.0-r4</jfxtras.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>pt.zenit.ztack</groupId>
+			<artifactId>builder</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.cayenne</groupId>
+			<artifactId>cayenne-server</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.cayenne</groupId>
+            <artifactId>cayenne-jgroups</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cayenne</groupId>
+            <artifactId>cayenne-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cayenne</groupId>
+            <artifactId>cayenne-xmpp</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.cayenne</groupId>
+			<artifactId>cayenne-project</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.jensd</groupId>
+			<artifactId>fontawesomefx</artifactId>
+			<version>${fontawesomefx.version}</version>
+		</dependency>
+	</dependencies>
+</project>

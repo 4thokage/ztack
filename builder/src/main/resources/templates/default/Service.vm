@@ -1,0 +1,85 @@
+#set( $class = ".class" )
+/**
+* Classe $className foi gerada automaticamente
+* É desaconselhado alterar este ficheiro manualmente pois
+* poderá ser gerado novamente, apagando as alterações que foram efetuadas.
+*/
+
+package $packagePath;
+
+import java.util.List;
+
+import org.apache.cayenne.access.DataContext;
+import org.apache.cayenne.query.SelectQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Classe usada por default na geração de um Service,
+ * Contém os métodos de acesso á base de dados (CRUD).
+ */
+public class $className  {
+
+	private static final Logger logger = LoggerFactory.getLogger($className$class);
+
+    static final String DATA_INICIO_PROPERTY = "dataInicio";
+    static final String DATA_FIM_PROPERTY = "dataFim";
+
+    /**
+    * Adiciona um Objecto cayenne ao {@link DataContext} passado como parametros.
+    *
+    * @param context {@link DataContext} em que se regista o objecto
+    * @param dto {@link Class} tipo de objecto a registar, deve ser uma classe existente nos {@link DataMap} do projecto
+    */
+    public static void adicionarObjectoEmDataContext(DataContext context, Object dto) {
+        context.registerNewObject(dto);
+    }
+
+    /**
+    * Retorna a {@link List} de {@link CayenneDataObject} do tipo passado como parametro
+    *
+    * @param context {@link DataContext} onde se vai efetuar a query
+    * @param dtoClass {@link Object} Tipo de class que vai suportar os dados retornados
+    * @return {@link List<CayenneDataObject>}
+    */
+    @SuppressWarnings("unchecked")
+    public static <E> List<E> obterListaDeObjectos(DataContext context, Class<E> dtoClass) {
+        SelectQuery queryAll = new SelectQuery(dtoClass);
+        return context.performQuery(queryAll);
+    }
+
+    /**
+    * Retorna a {@link List} de {@link CayenneDataObject} do tipo passado como parametro
+    * Valida se os resultado estão entre a data de inicio e de fim:
+    * 	{@link CayenneRepository#DATA_INICIO_PROPERTY} e {@link CayenneRepository#DATA_FIM_PROPERTY}
+    *
+    * @param context {@link DataContext} onde se vai efetuar a query
+    * @param dtoClass {@link Object} Tipo de class que vai suportar os dados retornados
+    * @return {@link List<CayenneDataObject>} dados filtrados pelas datas de inicio e fim
+    */
+    @SuppressWarnings("unchecked")
+    public static <E> List<E> obterListaDeObjectosActivos(DataContext context, Class<E> dtoClass) {
+
+        try{
+            Timestamp instanteAtual = new Timestamp(Calendar.getInstance().getTime().getTime());
+            Expression expression = ExpressionFactory.greaterOrEqualExp("DATA_FIM_ROPERTY", instanteAtual);
+            expression = expression.andExp(ExpressionFactory.lessOrEqualExp("DATA_INICIO_PROPERTY", instanteAtual));
+
+            final SelectQuery queryActivos = new SelectQuery(dtoClass, expression);
+            return context.performQuery(queryActivos);
+        } catch (Exception e) {
+            log.error("Erro ao obter dados do tipo {} ativos: ", dtoClass.getName(), e);
+            return obterListaDeObjectos(context, dtoClass);
+        }
+    }
+
+    /**
+    * Apaga um Objecto cayenne do {@link DataContext} passado como parametros.
+    *
+    * @param context {@link DataContext} que contem o objecto
+    * @param dto {@link Class} tipo de objecto a remover, deve ser uma classe existente nos {@link DataMap} do projecto e no {@link DataContext}
+    */
+    public static void apagarObjectoEmDataContext(DataContext context, Object dto) {
+        context.deleteObject(dto);
+    }
+}

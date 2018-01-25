@@ -1,0 +1,1161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.utilizador"/>
+	<property name="defaultSchema" value="lic_utilizador"/>
+	<db-entity name="cae_primaria_perfil" schema="lic_utilizador">
+		<db-attribute name="actual" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_cae" type="VARCHAR" isMandatory="true" length="6"/>
+		<db-attribute name="fk_criador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="cae_secundaria_perfil" schema="lic_utilizador">
+		<db-attribute name="actual" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_criador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="dados_perfil" schema="lic_utilizador">
+		<db-attribute name="actual" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="cp7" type="VARCHAR" length="8"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="email" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="fax" type="VARCHAR" length="50"/>
+		<db-attribute name="fk_concelho" type="VARCHAR" length="10"/>
+		<db-attribute name="fk_criador" type="INTEGER"/>
+		<db-attribute name="fk_criador_adm" type="INTEGER"/>
+		<db-attribute name="fk_criador_atend" type="INTEGER"/>
+		<db-attribute name="fk_freguesia" type="VARCHAR" length="10"/>
+		<db-attribute name="fk_idioma" type="INTEGER"/>
+		<db-attribute name="fk_organismo" type="INTEGER"/>
+		<db-attribute name="fk_pais" type="VARCHAR" isMandatory="true" length="2"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo_documento" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="id_arquivo" type="VARCHAR" length="200"/>
+		<db-attribute name="id_emissao" type="DATE"/>
+		<db-attribute name="id_numero" type="VARCHAR" length="20"/>
+		<db-attribute name="id_validade" type="DATE"/>
+		<db-attribute name="localidade" type="VARCHAR" length="50"/>
+		<db-attribute name="morada" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="nif" type="VARCHAR" isMandatory="true" length="22"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="singular" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="telefone" type="VARCHAR" length="50"/>
+		<db-attribute name="x" type="DOUBLE"/>
+		<db-attribute name="y" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="enquadramento_perfil" schema="lic_utilizador">
+		<db-attribute name="actual" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_criador" type="INTEGER"/>
+		<db-attribute name="fk_criador_adm" type="INTEGER"/>
+		<db-attribute name="fk_criador_atend" type="INTEGER"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="is_emissoes_atmosfericas" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="is_mtr_ll" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="is_pa" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="is_rh" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="notificador_mtr" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="onga" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="proprietario_estabelecimentos" type="BOOLEAN" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="errLog" schema="lic_utilizador">
+		<db-attribute name="admin" type="INTEGER"/>
+		<db-attribute name="exception_type" type="VARCHAR" isMandatory="true" length="5000"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="ip" type="VARCHAR" isMandatory="true" length="25"/>
+		<db-attribute name="more_info" type="CLOB" isMandatory="true"/>
+		<db-attribute name="referrer" type="VARCHAR" isMandatory="true" length="5000"/>
+		<db-attribute name="stacktrace" type="CLOB" isMandatory="true"/>
+		<db-attribute name="utilizador" type="INTEGER"/>
+		<db-attribute name="whenon" type="TIMESTAMP" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="estado_perfil" schema="lic_utilizador">
+		<db-attribute name="activo" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="64"/>
+		<db-attribute name="codigo_label" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="estado_registo" schema="lic_utilizador">
+		<db-attribute name="activo" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="64"/>
+		<db-attribute name="codigo_label" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="historico" schema="lic_utilizador">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome_quem" type="VARCHAR" length="500"/>
+		<db-attribute name="onde" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="oque" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="quando" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="quem" type="INTEGER"/>
+		<db-attribute name="quem_admin" type="INTEGER"/>
+		<db-attribute name="quem_atend" type="INTEGER"/>
+		<db-attribute name="quem_proc" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="historico_responsavel" schema="lic_utilizador">
+		<db-attribute name="data_estado" type="TIMESTAMP"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP"/>
+		<db-attribute name="descricao_estado_responsavel" type="VARCHAR" length="255"/>
+		<db-attribute name="fk_perfil_representado" type="INTEGER"/>
+		<db-attribute name="fk_perfil_responsavel" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="id_estado_responsavel" type="INTEGER"/>
+		<db-attribute name="utilizador_estado" type="VARCHAR" length="255"/>
+	</db-entity>
+	<db-entity name="historico_responsavel_detalhe" schema="lic_utilizador">
+		<db-attribute name="cod_apa_estabelecimento" type="VARCHAR" length="20"/>
+		<db-attribute name="descricao_finalidade_estabelecimento" type="VARCHAR" length="255"/>
+		<db-attribute name="descricao_finalidade_requerente" type="VARCHAR" length="255"/>
+		<db-attribute name="fk_historico_responsavel" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="id_estabelecimento" type="INTEGER"/>
+		<db-attribute name="id_finalidade_estabelecimento" type="INTEGER"/>
+		<db-attribute name="id_finalidade_requerente" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="pedido_alteracao_cae_perfil" schema="lic_utilizador">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="32"/>
+		<db-attribute name="data_decisao" type="TIMESTAMP"/>
+		<db-attribute name="data_submissao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="decisao" type="BOOLEAN"/>
+		<db-attribute name="fk_avaliador" type="INTEGER"/>
+		<db-attribute name="fk_cae_primaria" type="VARCHAR" length="6"/>
+		<db-attribute name="fk_criador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="justificacao_indeferimento" type="VARCHAR" length="4000"/>
+	</db-entity>
+	<db-entity name="pedido_alteracao_dados_perfil" schema="lic_utilizador">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="32"/>
+		<db-attribute name="cp7" type="VARCHAR" length="8"/>
+		<db-attribute name="data_decisao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_submissao" type="TIMESTAMP" isMandatory="true" length="8"/>
+		<db-attribute name="decisao" type="BIT" length="1"/>
+		<db-attribute name="email" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="fax" type="VARCHAR" length="50"/>
+		<db-attribute name="fk_avaliador" type="INTEGER" length="4"/>
+		<db-attribute name="fk_concelho" type="VARCHAR" length="10"/>
+		<db-attribute name="fk_criador" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="justificacao_indeferimento" type="VARCHAR" length="4000"/>
+		<db-attribute name="localidade" type="VARCHAR" length="50"/>
+		<db-attribute name="morada" type="VARCHAR" isMandatory="true" length="150"/>
+		<db-attribute name="singular" type="BIT" isMandatory="true" length="1"/>
+		<db-attribute name="telefone" type="VARCHAR" length="50"/>
+	</db-entity>
+	<db-entity name="pedido_procuracao" schema="lic_utilizador">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="32"/>
+		<db-attribute name="data_decisao" type="TIMESTAMP"/>
+		<db-attribute name="data_submissao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="decisao" type="BOOLEAN"/>
+		<db-attribute name="fk_avaliador" type="INTEGER"/>
+		<db-attribute name="fk_criador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_procuracao" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="justificacao_indeferimento" type="VARCHAR" length="4000"/>
+	</db-entity>
+	<db-entity name="pedido_registo" schema="lic_utilizador">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="32"/>
+		<db-attribute name="cp7" type="VARCHAR" isMandatory="true" length="8"/>
+		<db-attribute name="data_decisao" type="TIMESTAMP"/>
+		<db-attribute name="data_submissao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="decisao" type="BOOLEAN"/>
+		<db-attribute name="fax" type="VARCHAR" length="50"/>
+		<db-attribute name="fk_avaliador" type="INTEGER"/>
+		<db-attribute name="fk_cae_primaria" type="VARCHAR" length="6"/>
+		<db-attribute name="fk_concelho" type="VARCHAR" length="10"/>
+		<db-attribute name="fk_criador" type="INTEGER"/>
+		<db-attribute name="fk_perfil" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="localidade" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="morada" type="VARCHAR" isMandatory="true" length="150"/>
+		<db-attribute name="proprietario" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="telefone" type="VARCHAR" length="50"/>
+	</db-entity>
+	<db-entity name="pedido_registo_caes_secundarias" schema="lic_utilizador">
+		<db-attribute name="fk_cae_secundaria" type="VARCHAR" isMandatory="true" length="6"/>
+		<db-attribute name="fk_pedido_registo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="perfil" schema="lic_utilizador">
+		<db-attribute name="cod_apa" type="VARCHAR" isMandatory="true" length="20"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_verificacao" type="TIMESTAMP"/>
+		<db-attribute name="fk_admin_alteracao" type="INTEGER"/>
+		<db-attribute name="fk_estado" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nif" type="VARCHAR" isMandatory="true" length="22"/>
+		<db-attribute name="tem_atendimento" type="BOOLEAN" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="predio" schema="lic_utilizador">
+		<db-attribute name="conservatoria" type="VARCHAR" length="200"/>
+		<db-attribute name="designacao" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="fk_freguesia" type="VARCHAR" isMandatory="true" length="10"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_qualidade" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="matriz" type="VARCHAR" length="200"/>
+		<db-attribute name="n_isip" type="VARCHAR" length="20"/>
+		<db-attribute name="numero" type="VARCHAR" length="50"/>
+		<db-attribute name="sistema_parcelar" type="BOOLEAN" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="procuracao" schema="lic_utilizador">
+		<db-attribute name="aceite" type="BOOLEAN"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_decisao" type="TIMESTAMP"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_fim_efetiva" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_inicio_efetiva" type="TIMESTAMP"/>
+		<db-attribute name="fk_criador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_decisor" type="INTEGER"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_perfil_procurador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil_representado" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil_revoga" type="INTEGER"/>
+		<db-attribute name="fk_procuracao_revoga" type="INTEGER"/>
+		<db-attribute name="fk_tipo_procuracao" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="r_cae_secundaria_perfil" schema="lic_utilizador">
+		<db-attribute name="fk_cae" type="VARCHAR" isMandatory="true" length="6"/>
+		<db-attribute name="fk_cae_secundaria_perfil" type="INTEGER"/>
+		<db-attribute name="fk_pedido_alteracao_caes_perfil" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="registo" schema="lic_utilizador">
+		<db-attribute name="dataRegisto" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="email" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="fk_estado" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_idioma" type="INTEGER"/>
+		<db-attribute name="fk_pais" type="VARCHAR" length="2"/>
+		<db-attribute name="fk_utilizador" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nif" type="VARCHAR" isMandatory="true" length="22"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="password" type="VARCHAR" isMandatory="true" length="100"/>
+	</db-entity>
+	<db-entity name="responsavel" schema="lic_utilizador">
+		<db-attribute name="data_estado" type="TIMESTAMP"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP"/>
+		<db-attribute name="fk_perfil_representado" type="INTEGER"/>
+		<db-attribute name="fk_perfil_responsavel" type="INTEGER"/>
+		<db-attribute name="fk_t_estado_responsavel" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="utilizador_estado" type="VARCHAR" length="255"/>
+	</db-entity>
+	<db-entity name="responsavel_estabelecimento" schema="lic_utilizador">
+		<db-attribute name="fk_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_responsavel" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="responsavel_estabelecimento_finalidade" schema="lic_utilizador">
+		<db-attribute name="fk_responsavel_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_t_finalidade_estabelecimento" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="responsavel_finalidade_requerente" schema="lic_utilizador">
+		<db-attribute name="fk_responsavel" type="INTEGER"/>
+		<db-attribute name="fk_t_finalidade_requerente" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="utilizador" schema="lic_utilizador">
+		<db-attribute name="active" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="login" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="pkid" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="pw_md5" type="VARCHAR" isMandatory="true" length="100"/>
+	</db-entity>
+	<obj-entity name="CaePrimariaPerfil" className="org.addition.apa.utilizador.CaePrimariaPerfil" dbEntityName="cae_primaria_perfil" superClassName="org.addition.versioning.AbstractCayenneVersioning">
+		<obj-attribute name="actual" type="java.lang.Boolean" db-attribute-path="actual"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+	</obj-entity>
+	<obj-entity name="CaeSecundariaPerfil" className="org.addition.apa.utilizador.CaeSecundariaPerfil" dbEntityName="cae_secundaria_perfil" superClassName="org.addition.versioning.AbstractCayenneVersioning">
+		<obj-attribute name="actual" type="java.lang.Boolean" db-attribute-path="actual"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+	</obj-entity>
+	<obj-entity name="DadosPerfil" className="org.addition.apa.utilizador.DadosPerfil" dbEntityName="dados_perfil" superClassName="org.addition.versioning.AbstractCayenneVersioning">
+		<obj-attribute name="actual" type="java.lang.Boolean" db-attribute-path="actual"/>
+		<obj-attribute name="cp7" type="java.lang.String" db-attribute-path="cp7"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="email" type="java.lang.String" db-attribute-path="email"/>
+		<obj-attribute name="fax" type="java.lang.String" db-attribute-path="fax"/>
+		<obj-attribute name="idArquivo" type="java.lang.String" db-attribute-path="id_arquivo"/>
+		<obj-attribute name="idEmissao" type="java.util.Date" db-attribute-path="id_emissao"/>
+		<obj-attribute name="idNumero" type="java.lang.String" db-attribute-path="id_numero"/>
+		<obj-attribute name="idValidade" type="java.util.Date" db-attribute-path="id_validade"/>
+		<obj-attribute name="localidade" type="java.lang.String" db-attribute-path="localidade"/>
+		<obj-attribute name="morada" type="java.lang.String" db-attribute-path="morada"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="singular" type="java.lang.Boolean" db-attribute-path="singular"/>
+		<obj-attribute name="telefone" type="java.lang.String" db-attribute-path="telefone"/>
+		<obj-attribute name="x" type="java.lang.Double" db-attribute-path="x"/>
+		<obj-attribute name="y" type="java.lang.Double" db-attribute-path="y"/>
+	</obj-entity>
+	<obj-entity name="EnquadramentoPerfil" className="org.addition.apa.utilizador.EnquadramentoPerfil" dbEntityName="enquadramento_perfil">
+		<obj-attribute name="actual" type="java.lang.Boolean" db-attribute-path="actual"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="isEmissoesAtmosfericas" type="java.lang.Boolean" db-attribute-path="is_emissoes_atmosfericas"/>
+		<obj-attribute name="isMtrLl" type="java.lang.Boolean" db-attribute-path="is_mtr_ll"/>
+		<obj-attribute name="isPa" type="java.lang.Boolean" db-attribute-path="is_pa"/>
+		<obj-attribute name="isRh" type="java.lang.Boolean" db-attribute-path="is_rh"/>
+		<obj-attribute name="notificadorMtr" type="java.lang.Boolean" db-attribute-path="notificador_mtr"/>
+		<obj-attribute name="onga" type="java.lang.Boolean" db-attribute-path="onga"/>
+		<obj-attribute name="proprietarioEstabelecimentos" type="java.lang.Boolean" db-attribute-path="proprietario_estabelecimentos"/>
+	</obj-entity>
+	<obj-entity name="ErrLog" className="org.addition.apa.utilizador.ErrLog" clientClassName="ErrLog" dbEntityName="errLog">
+		<obj-attribute name="admin" type="java.lang.Integer" db-attribute-path="admin"/>
+		<obj-attribute name="exceptionType" type="java.lang.String" db-attribute-path="exception_type"/>
+		<obj-attribute name="ip" type="java.lang.String" db-attribute-path="ip"/>
+		<obj-attribute name="moreInfo" type="java.lang.String" db-attribute-path="more_info"/>
+		<obj-attribute name="referrer" type="java.lang.String" db-attribute-path="referrer"/>
+		<obj-attribute name="stacktrace" type="java.lang.String" db-attribute-path="stacktrace"/>
+		<obj-attribute name="utilizador" type="java.lang.Integer" db-attribute-path="utilizador"/>
+		<obj-attribute name="when" type="java.util.Date" db-attribute-path="whenon"/>
+	</obj-entity>
+	<obj-entity name="EstadoPerfil" className="org.addition.apa.utilizador.EstadoPerfil" dbEntityName="estado_perfil">
+		<obj-attribute name="activo" type="java.lang.Boolean" db-attribute-path="activo"/>
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="codigoLabel" type="java.lang.String" db-attribute-path="codigo_label"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="EstadoRegisto" className="org.addition.apa.utilizador.EstadoRegisto" dbEntityName="estado_registo">
+		<obj-attribute name="activo" type="java.lang.Boolean" db-attribute-path="activo"/>
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="codigoLabel" type="java.lang.String" db-attribute-path="codigo_label"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="Historico" className="org.addition.apa.utilizador.Historico" clientClassName="Historico" dbEntityName="historico">
+		<obj-attribute name="nomeQuem" type="java.lang.String" db-attribute-path="nome_quem"/>
+		<obj-attribute name="onde" type="java.lang.String" db-attribute-path="onde"/>
+		<obj-attribute name="oque" type="java.lang.String" db-attribute-path="oque"/>
+		<obj-attribute name="quando" type="java.util.Date" db-attribute-path="quando"/>
+	</obj-entity>
+	<obj-entity name="HistoricoResponsavel" className="org.apa.siliamb.model.nomeacoes.HistoricoResponsavel" dbEntityName="historico_responsavel">
+		<obj-attribute name="dataEstado" type="java.util.Date" db-attribute-path="data_estado"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="descricaoEstadoResponsavel" type="java.lang.String" db-attribute-path="descricao_estado_responsavel"/>
+		<obj-attribute name="idEstadoResponsavel" type="java.lang.Integer" db-attribute-path="id_estado_responsavel"/>
+		<obj-attribute name="utilizadorEstado" type="java.lang.String" db-attribute-path="utilizador_estado"/>
+	</obj-entity>
+	<obj-entity name="HistoricoResponsavelDetalhe" className="org.apa.siliamb.model.nomeacoes.HistoricoResponsavelDetalhe" dbEntityName="historico_responsavel_detalhe">
+		<obj-attribute name="codApaEstabelecimento" type="java.lang.String" db-attribute-path="cod_apa_estabelecimento"/>
+		<obj-attribute name="descricaoFinalidadeEstabelecimento" type="java.lang.String" db-attribute-path="descricao_finalidade_estabelecimento"/>
+		<obj-attribute name="descricaoFinalidadeRequerente" type="java.lang.String" db-attribute-path="descricao_finalidade_requerente"/>
+		<obj-attribute name="idEstabelecimento" type="java.lang.Integer" db-attribute-path="id_estabelecimento"/>
+		<obj-attribute name="idFinalidadeEstabelecimento" type="java.lang.Integer" db-attribute-path="id_finalidade_estabelecimento"/>
+		<obj-attribute name="idFinalidadeRequerente" type="java.lang.Integer" db-attribute-path="id_finalidade_requerente"/>
+	</obj-entity>
+	<obj-entity name="PedidoAlteracaoCaePerfil" className="org.addition.apa.utilizador.PedidoAlteracaoCaePerfil" dbEntityName="pedido_alteracao_cae_perfil" superClassName="org.addition.apa.pedido.AbstractPedidoAlteracao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="dataDecisao" type="java.util.Date" db-attribute-path="data_decisao"/>
+		<obj-attribute name="dataSubmissao" type="java.util.Date" db-attribute-path="data_submissao"/>
+		<obj-attribute name="decisao" type="java.lang.Boolean" db-attribute-path="decisao"/>
+		<obj-attribute name="justificacaoIndeferimento" type="java.lang.String" db-attribute-path="justificacao_indeferimento"/>
+	</obj-entity>
+	<obj-entity name="PedidoAlteracaoDadosPerfil" className="org.addition.apa.utilizador.PedidoAlteracaoDadosPerfil" dbEntityName="pedido_alteracao_dados_perfil" superClassName="org.addition.apa.pedido.AbstractPedidoAlteracao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="cp7" type="java.lang.String" db-attribute-path="cp7"/>
+		<obj-attribute name="dataDecisao" type="java.util.Date" db-attribute-path="data_decisao"/>
+		<obj-attribute name="dataSubmissao" type="java.util.Date" db-attribute-path="data_submissao"/>
+		<obj-attribute name="decisao" type="java.lang.Boolean" db-attribute-path="decisao"/>
+		<obj-attribute name="email" type="java.lang.String" db-attribute-path="email"/>
+		<obj-attribute name="fax" type="java.lang.String" db-attribute-path="fax"/>
+		<obj-attribute name="justificacaoIndeferimento" type="java.lang.String" db-attribute-path="justificacao_indeferimento"/>
+		<obj-attribute name="localidade" type="java.lang.String" db-attribute-path="localidade"/>
+		<obj-attribute name="morada" type="java.lang.String" db-attribute-path="morada"/>
+		<obj-attribute name="singular" type="java.lang.Boolean" db-attribute-path="singular"/>
+		<obj-attribute name="telefone" type="java.lang.String" db-attribute-path="telefone"/>
+	</obj-entity>
+	<obj-entity name="PedidoProcuracao" className="org.addition.apa.utilizador.PedidoProcuracao" dbEntityName="pedido_procuracao" superClassName="org.addition.apa.pedido.AbstractPedidoAlteracao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="dataDecisao" type="java.util.Date" db-attribute-path="data_decisao"/>
+		<obj-attribute name="dataSubmissao" type="java.util.Date" db-attribute-path="data_submissao"/>
+		<obj-attribute name="decisao" type="java.lang.Boolean" db-attribute-path="decisao"/>
+		<obj-attribute name="justificacaoIndeferimento" type="java.lang.String" db-attribute-path="justificacao_indeferimento"/>
+	</obj-entity>
+	<obj-entity name="PedidoRegisto" className="org.addition.apa.utilizador.PedidoRegisto" dbEntityName="pedido_registo" superClassName="org.addition.apa.pedido.AbstractPedidoAlteracao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="cp7" type="java.lang.String" db-attribute-path="cp7"/>
+		<obj-attribute name="dataDecisao" type="java.util.Date" db-attribute-path="data_decisao"/>
+		<obj-attribute name="dataSubmissao" type="java.util.Date" db-attribute-path="data_submissao"/>
+		<obj-attribute name="decisao" type="java.lang.Boolean" db-attribute-path="decisao"/>
+		<obj-attribute name="fax" type="java.lang.String" db-attribute-path="fax"/>
+		<obj-attribute name="localidade" type="java.lang.String" db-attribute-path="localidade"/>
+		<obj-attribute name="morada" type="java.lang.String" db-attribute-path="morada"/>
+		<obj-attribute name="proprietario" type="java.lang.Boolean" db-attribute-path="proprietario"/>
+		<obj-attribute name="telefone" type="java.lang.String" db-attribute-path="telefone"/>
+	</obj-entity>
+	<obj-entity name="PedidoRegistoCaesSecundarias" className="org.addition.apa.utilizador.PedidoRegistoCaesSecundarias" dbEntityName="pedido_registo_caes_secundarias">
+	</obj-entity>
+	<obj-entity name="Perfil" className="org.addition.apa.utilizador.Perfil" clientClassName="Perfil" dbEntityName="perfil" superClassName="org.addition.apa.pedido.AbstractObjectoAlteracao">
+		<obj-attribute name="codApa" type="java.lang.String" db-attribute-path="cod_apa"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataVerificacao" type="java.util.Date" db-attribute-path="data_verificacao"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="temAtendimento" type="java.lang.Boolean" db-attribute-path="tem_atendimento"/>
+	</obj-entity>
+	<obj-entity name="Predio" className="org.addition.apa.utilizador.Predio" clientClassName="Predio" dbEntityName="predio">
+		<obj-attribute name="conservatoria" type="java.lang.String" db-attribute-path="conservatoria"/>
+		<obj-attribute name="designacao" type="java.lang.String" db-attribute-path="designacao"/>
+		<obj-attribute name="matriz" type="java.lang.String" db-attribute-path="matriz"/>
+		<obj-attribute name="nIsip" type="java.lang.String" db-attribute-path="n_isip"/>
+		<obj-attribute name="numero" type="java.lang.String" db-attribute-path="numero"/>
+		<obj-attribute name="sistemaParcelar" type="java.lang.Boolean" db-attribute-path="sistema_parcelar"/>
+	</obj-entity>
+	<obj-entity name="Procuracao" className="org.addition.apa.utilizador.Procuracao" lock-type="optimistic" dbEntityName="procuracao" superClassName="org.addition.apa.pedido.AbstractObjectoAlteracao">
+		<obj-attribute name="aceite" type="java.lang.Boolean" db-attribute-path="aceite"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataDecisao" type="java.util.Date" db-attribute-path="data_decisao"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataFimEfetiva" type="java.util.Date" db-attribute-path="data_fim_efetiva"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="dataInicioEfetiva" type="java.util.Date" db-attribute-path="data_inicio_efetiva"/>
+	</obj-entity>
+	<obj-entity name="RCaeSecundariaPerfil" className="org.addition.apa.utilizador.RCaeSecundariaPerfil" dbEntityName="r_cae_secundaria_perfil">
+	</obj-entity>
+	<obj-entity name="Registo" className="org.addition.apa.utilizador.Registo" dbEntityName="registo">
+		<obj-attribute name="dataRegisto" type="java.util.Date" db-attribute-path="dataRegisto"/>
+		<obj-attribute name="email" type="java.lang.String" db-attribute-path="email"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="password" type="java.lang.String" db-attribute-path="password"/>
+	</obj-entity>
+	<obj-entity name="Responsavel" className="org.apa.siliamb.model.nomeacoes.Responsavel" dbEntityName="responsavel">
+		<obj-attribute name="dataEstado" type="java.util.Date" db-attribute-path="data_estado"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="utilizadorEstado" type="java.lang.String" db-attribute-path="utilizador_estado"/>
+	</obj-entity>
+	<obj-entity name="ResponsavelEstabelecimento" className="org.apa.siliamb.model.nomeacoes.ResponsavelEstabelecimento" dbEntityName="responsavel_estabelecimento">
+	</obj-entity>
+	<obj-entity name="ResponsavelEstabelecimentoFinalidade" className="org.apa.siliamb.model.nomeacoes.ResponsavelEstabelecimentoFinalidade" dbEntityName="responsavel_estabelecimento_finalidade">
+	</obj-entity>
+	<obj-entity name="ResponsavelFinalidadeRequerente" className="org.apa.siliamb.model.nomeacoes.ResponsavelFinalidadeRequerente" dbEntityName="responsavel_finalidade_requerente">
+	</obj-entity>
+	<obj-entity name="Utilizador" className="org.addition.apa.utilizador.Utilizador" clientClassName="Utilizador" dbEntityName="utilizador">
+		<obj-attribute name="active" type="java.lang.Boolean" db-attribute-path="active"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="login" type="java.lang.String" db-attribute-path="login"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="pwMd5" type="java.lang.String" db-attribute-path="pw_md5"/>
+	</obj-entity>
+	<db-relationship name="cae_primaria" source="cae_primaria_perfil" target="t_cae" toMany="false">
+		<db-attribute-pair source="fk_cae" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="criador" source="cae_primaria_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="cae_primaria_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="caes_secundarias" source="cae_secundaria_perfil" target="r_cae_secundaria_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_cae_secundaria_perfil"/>
+	</db-relationship>
+	<db-relationship name="criador" source="cae_secundaria_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="cae_secundaria_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="concelho" source="dados_perfil" target="t_freguesia" toMany="false">
+		<db-attribute-pair source="fk_concelho" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="dados_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador_adm" source="dados_perfil" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criador_adm" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador_atend" source="dados_perfil" target="utilizador_atendimento" toMany="false">
+		<db-attribute-pair source="fk_criador_atend" target="id"/>
+	</db-relationship>
+	<db-relationship name="freguesia" source="dados_perfil" target="t_freguesia" toMany="false">
+		<db-attribute-pair source="fk_freguesia" target="id"/>
+	</db-relationship>
+	<db-relationship name="idioma" source="dados_perfil" target="t_idioma" toMany="false">
+		<db-attribute-pair source="fk_idioma" target="id"/>
+	</db-relationship>
+	<db-relationship name="organismo" source="dados_perfil" target="t_organismo" toMany="false">
+		<db-attribute-pair source="fk_organismo" target="id"/>
+	</db-relationship>
+	<db-relationship name="pais" source="dados_perfil" target="t_pais" toMany="false">
+		<db-attribute-pair source="fk_pais" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="dados_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_documento" source="dados_perfil" target="t_tipo_documento_identificacao" toMany="false">
+		<db-attribute-pair source="fk_tipo_documento" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="enquadramento_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador_adm" source="enquadramento_perfil" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criador_adm" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador_atend" source="enquadramento_perfil" target="utilizador_atendimento" toMany="false">
+		<db-attribute-pair source="fk_criador_atend" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="enquadramento_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="toListPerfil" source="estado_perfil" target="perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_estado"/>
+	</db-relationship>
+	<db-relationship name="listRegistos" source="estado_registo" target="registo" toMany="true">
+		<db-attribute-pair source="id" target="fk_estado"/>
+	</db-relationship>
+	<db-relationship name="administrador" source="historico" target="administrador" toMany="false">
+		<db-attribute-pair source="quem_admin" target="id"/>
+	</db-relationship>
+	<db-relationship name="atend" source="historico" target="utilizador_atendimento" toMany="false">
+		<db-attribute-pair source="quem_atend" target="id"/>
+	</db-relationship>
+	<db-relationship name="procurador" source="historico" target="perfil" toMany="false">
+		<db-attribute-pair source="quem_proc" target="id"/>
+	</db-relationship>
+	<db-relationship name="utilizador" source="historico" target="utilizador" toMany="false">
+		<db-attribute-pair source="quem" target="pkid"/>
+	</db-relationship>
+	<db-relationship name="historico_responsavel_detalhe" source="historico_responsavel" target="historico_responsavel_detalhe" toMany="true">
+		<db-attribute-pair source="id" target="fk_historico_responsavel"/>
+	</db-relationship>
+	<db-relationship name="perfil_representado" source="historico_responsavel" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_representado" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_responsavel" source="historico_responsavel" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_responsavel" target="id"/>
+	</db-relationship>
+	<db-relationship name="historico_responsavel" source="historico_responsavel_detalhe" target="historico_responsavel" toMany="false">
+		<db-attribute-pair source="fk_historico_responsavel" target="id"/>
+	</db-relationship>
+	<db-relationship name="avaliador" source="pedido_alteracao_cae_perfil" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_avaliador" target="id"/>
+	</db-relationship>
+	<db-relationship name="cae_primaria" source="pedido_alteracao_cae_perfil" target="t_cae" toMany="false">
+		<db-attribute-pair source="fk_cae_primaria" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="caes_secundarias" source="pedido_alteracao_cae_perfil" target="r_cae_secundaria_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_pedido_alteracao_caes_perfil"/>
+	</db-relationship>
+	<db-relationship name="criador" source="pedido_alteracao_cae_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="pedido_alteracao_cae_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="Avaliador" source="pedido_alteracao_dados_perfil" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_avaliador" target="id"/>
+	</db-relationship>
+	<db-relationship name="Concelho" source="pedido_alteracao_dados_perfil" target="t_freguesia" toMany="false">
+		<db-attribute-pair source="fk_concelho" target="id"/>
+	</db-relationship>
+	<db-relationship name="Criador" source="pedido_alteracao_dados_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="Perfil" source="pedido_alteracao_dados_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="anexos" source="pedido_procuracao" target="anexo_pedido_procuracao" toMany="true">
+		<db-attribute-pair source="id" target="fk_pedido"/>
+	</db-relationship>
+	<db-relationship name="avaliador" source="pedido_procuracao" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_avaliador" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="pedido_procuracao" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="pedido_procuracao" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="procuracao" source="pedido_procuracao" target="procuracao" toMany="false">
+		<db-attribute-pair source="fk_procuracao" target="id"/>
+	</db-relationship>
+	<db-relationship name="avaliador" source="pedido_registo" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_avaliador" target="id"/>
+	</db-relationship>
+	<db-relationship name="caePrimaria" source="pedido_registo" target="t_cae" toMany="false">
+		<db-attribute-pair source="fk_cae_primaria" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="concelho" source="pedido_registo" target="t_freguesia" toMany="false">
+		<db-attribute-pair source="fk_concelho" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="pedido_registo" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="listCaeSecundarias" source="pedido_registo" target="pedido_registo_caes_secundarias" toMany="true">
+		<db-attribute-pair source="id" target="fk_pedido_registo"/>
+	</db-relationship>
+	<db-relationship name="listDocumentosPedidoRegisto" source="pedido_registo" target="documento_pedido_registo" toMany="true">
+		<db-attribute-pair source="id" target="fk_pedido_registo"/>
+	</db-relationship>
+	<db-relationship name="listMensagensPedidoRegistos" source="pedido_registo" target="pedido_registo_mensagens" toMany="true">
+		<db-attribute-pair source="id" target="fk_pedido_registo"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="pedido_registo" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="caeSecundaria" source="pedido_registo_caes_secundarias" target="t_cae" toMany="false">
+		<db-attribute-pair source="fk_cae_secundaria" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="pedidoRegisto" source="pedido_registo_caes_secundarias" target="pedido_registo" toMany="false">
+		<db-attribute-pair source="fk_pedido_registo" target="id"/>
+	</db-relationship>
+	<db-relationship name="CriadorPedidoAlteracaoDadosPerfil" source="perfil" target="pedido_alteracao_dados_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="MovimentoGF" source="perfil" target="movimento_gf" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="MovimentoGFAssociado" source="perfil" target="movimento_gf" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_associado"/>
+	</db-relationship>
+	<db-relationship name="PedidoAlteracaoDadosPerfil" source="perfil" target="pedido_alteracao_dados_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="admin_alteracao" source="perfil" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_admin_alteracao" target="id"/>
+	</db-relationship>
+	<db-relationship name="atends" source="perfil" target="r_atend_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="caes_primarias" source="perfil" target="cae_primaria_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="caes_primarias_criadas" source="perfil" target="cae_primaria_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="caes_secundarias" source="perfil" target="cae_secundaria_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="caes_secundarias_criadas" source="perfil" target="cae_secundaria_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="captacoesEmpresaExecutora" source="perfil" target="captacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_empresa"/>
+	</db-relationship>
+	<db-relationship name="componentes_i" source="perfil" target="i_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="dados_gerais_estabelecimento_criados" source="perfil" target="dados_gerais_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="dados_laborais_estabelecimento_criados" source="perfil" target="dados_laborais_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="dados_perfil" source="perfil" target="dados_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="dados_perfil_criados" source="perfil" target="dados_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="documentos_estabelecimento_criados" source="perfil" target="documento_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="enquadramentoAviacao" source="perfil" target="enquadramento_aviacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="enquadramento_mrru" source="perfil" target="enquadramento_mrru" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="enquadramentos_estabelecimento_criados" source="perfil" target="enquadramento_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="enquadramentos_mirr_criados" source="perfil" target="enquadramento_mirr" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="enquadramentos_perfil" source="perfil" target="enquadramento_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="enquadramentos_perfil_criados" source="perfil" target="enquadramento_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="ficheiroMonitorizacao" source="perfil" target="ficheiro_monitorizacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_uploader_perfil"/>
+	</db-relationship>
+	<db-relationship name="formularios_mirr_alterados" source="perfil" target="formulario_mirr" toMany="true">
+		<db-attribute-pair source="id" target="fk_altera"/>
+	</db-relationship>
+	<db-relationship name="formularios_mirr_criados" source="perfil" target="formulario_mirr" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="formularios_mirr_reabertos" source="perfil" target="formulario_mirr" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_reabre"/>
+	</db-relationship>
+	<db-relationship name="formularios_mirr_submetidos" source="perfil" target="formulario_mirr" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_submete"/>
+	</db-relationship>
+	<db-relationship name="formularios_mrru_alterados" source="perfil" target="formulario_mrru" toMany="true">
+		<db-attribute-pair source="id" target="fk_altera"/>
+	</db-relationship>
+	<db-relationship name="formularios_mrru_criados" source="perfil" target="formulario_mrru" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="formularios_mrru_reabertos" source="perfil" target="formulario_mrru" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_reabre"/>
+	</db-relationship>
+	<db-relationship name="formularios_mrru_submetidos" source="perfil" target="formulario_mrru" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_submete"/>
+	</db-relationship>
+	<db-relationship name="formularios_mtr_anulados" source="perfil" target="formulario_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_anula"/>
+	</db-relationship>
+	<db-relationship name="formularios_mtr_concluidos" source="perfil" target="formulario_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_conclui"/>
+	</db-relationship>
+	<db-relationship name="formularios_mtr_enviados" source="perfil" target="formulario_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_envia"/>
+	</db-relationship>
+	<db-relationship name="formularios_mtr_submetidos" source="perfil" target="formulario_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_submete"/>
+	</db-relationship>
+	<db-relationship name="formularios_mtr_validados" source="perfil" target="formulario_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_valida"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoArray" source="perfil" target="guia_pagamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_entidade"/>
+	</db-relationship>
+	<db-relationship name="historicos_publicos_procurador" source="perfil" target="historico" toMany="true">
+		<db-attribute-pair source="id" target="quem_proc"/>
+	</db-relationship>
+	<db-relationship name="listDocumentosPerfil" source="perfil" target="documento_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="listEntidadesMtr" source="perfil" target="entidade_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="listPedidoRegisto" source="perfil" target="pedido_registo" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="listPedidosREgistoCriados" source="perfil" target="pedido_registo" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="mensagens" source="perfil" target="mensagem" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="mensagens_criadas" source="perfil" target="mensagem" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="nomeacoes_atribuidas" source="perfil" target="responsavel" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_representado"/>
+	</db-relationship>
+	<db-relationship name="nomeacoes_recebidas" source="perfil" target="responsavel" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_responsavel"/>
+	</db-relationship>
+	<db-relationship name="pagamentos_anuais" source="perfil" target="pagamento_anual" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="pagamentos_inferiores_1_ano" source="perfil" target="pagamento_inferior_1_ano" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="pedidos_alteracao_caes_perfil" source="perfil" target="pedido_alteracao_cae_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="pedidos_alteracao_caes_perfil_criados" source="perfil" target="pedido_alteracao_cae_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="pedidos_alteracao_dados_gerais_estabelecimento_criados" source="perfil" target="pedido_alteracao_dados_gerais_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="pedidos_procuracao" source="perfil" target="pedido_procuracao" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="perfil_residuos" source="perfil" target="perfil_residuos" toDependentPK="true" toMany="false">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="predios" source="perfil" target="predio" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="procuracaoes_revogadas" source="perfil" target="procuracao" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_revoga"/>
+	</db-relationship>
+	<db-relationship name="procuracoes_criadas" source="perfil" target="procuracao" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="procuracoes_decisao" source="perfil" target="procuracao" toMany="true">
+		<db-attribute-pair source="id" target="fk_decisor"/>
+	</db-relationship>
+	<db-relationship name="procuracoes_procurador" source="perfil" target="procuracao" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_procurador"/>
+	</db-relationship>
+	<db-relationship name="procuracoes_representado" source="perfil" target="procuracao" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_representado"/>
+	</db-relationship>
+	<db-relationship name="rel_simulacao" source="perfil" target="simulacao" toMany="true">
+		<db-attribute-pair source="id" target="id_perfil"/>
+	</db-relationship>
+	<db-relationship name="requerimentos" source="perfil" target="requerimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="requerimentos_submetidos_procurador" source="perfil" target="requerimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_procurador_submete"/>
+	</db-relationship>
+	<db-relationship name="titulos" source="perfil" target="titulo" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="titulos_historicos" source="perfil" target="titulo_historico" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="toEstadoPerfil" source="perfil" target="estado_perfil" toMany="false">
+		<db-attribute-pair source="fk_estado" target="id"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoD1" source="perfil" target="vw_integracao_anexo_d1" toMany="true">
+		<db-attribute-pair source="id" target="perfil_filter"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoD1Destinatario" source="perfil" target="vw_integracao_anexo_d1" toMany="true">
+		<db-attribute-pair source="cod_apa" target="nif_destinatario"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoD1Produtor" source="perfil" target="vw_integracao_anexo_d1" toMany="true">
+		<db-attribute-pair source="nif" target="nif_produtor"/>
+	</db-relationship>
+	<db-relationship name="untitledRel" source="perfil" target="vw_notificacoes_mtr_ll" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="untitledRel2" source="perfil" target="historico_responsavel" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_representado"/>
+	</db-relationship>
+	<db-relationship name="untitledRel3" source="perfil" target="historico_responsavel" toMany="true">
+		<db-attribute-pair source="id" target="fk_perfil_responsavel"/>
+	</db-relationship>
+	<db-relationship name="utilizador" source="perfil" target="utilizador" toMany="false">
+		<db-attribute-pair source="id" target="pkid"/>
+	</db-relationship>
+	<db-relationship name="utilizadores_atendimento" source="perfil" target="utilizador_atendimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_entidade"/>
+	</db-relationship>
+	<db-relationship name="captacao_pip" source="predio" target="captacao_pip" toMany="true">
+		<db-attribute-pair source="id" target="fk_predio"/>
+	</db-relationship>
+	<db-relationship name="captacoes" source="predio" target="captacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_predio"/>
+	</db-relationship>
+	<db-relationship name="construcao_pip" source="predio" target="construcao_pip" toMany="true">
+		<db-attribute-pair source="id" target="fk_predio"/>
+	</db-relationship>
+	<db-relationship name="construcoes" source="predio" target="construcao" toMany="true">
+		<db-attribute-pair source="id" target="fk_predio"/>
+	</db-relationship>
+	<db-relationship name="freguesia" source="predio" target="t_freguesia" toMany="false">
+		<db-attribute-pair source="fk_freguesia" target="id"/>
+	</db-relationship>
+	<db-relationship name="inertes" source="predio" target="inertes" toMany="true">
+		<db-attribute-pair source="id" target="fk_predio"/>
+	</db-relationship>
+	<db-relationship name="infra_estrutura_h" source="predio" target="infra_estrutura_h_ponto" toMany="true">
+		<db-attribute-pair source="id" target="fk_predio"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="predio" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="pips" source="predio" target="pip" toMany="true">
+		<db-attribute-pair source="id" target="fk_predio"/>
+	</db-relationship>
+	<db-relationship name="qualidade" source="predio" target="t_predio_qualidade" toMany="false">
+		<db-attribute-pair source="fk_qualidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="rarreu_armazenamentos" source="predio" target="rarreu_armazenamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_predio"/>
+	</db-relationship>
+	<db-relationship name="tipo" source="predio" target="t_predio_tipo" toMany="false">
+		<db-attribute-pair source="fk_tipo" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="procuracao" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="decisor" source="procuracao" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_decisor" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="procuracao" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="pedido_procuracao" source="procuracao" target="pedido_procuracao" toMany="false">
+		<db-attribute-pair source="id" target="fk_procuracao"/>
+	</db-relationship>
+	<db-relationship name="perfil_procurador" source="procuracao" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_procurador" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_representado" source="procuracao" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_representado" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_revoga" source="procuracao" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_revoga" target="id"/>
+	</db-relationship>
+	<db-relationship name="procuracao_revoga" source="procuracao" target="procuracao" toMany="false">
+		<db-attribute-pair source="fk_procuracao_revoga" target="id"/>
+	</db-relationship>
+	<db-relationship name="procuracoes_revogadas" source="procuracao" target="procuracao" toMany="true">
+		<db-attribute-pair source="id" target="fk_procuracao_revoga"/>
+	</db-relationship>
+	<db-relationship name="tipo_procuracao" source="procuracao" target="t_tipo_procuracao" toMany="false">
+		<db-attribute-pair source="fk_tipo_procuracao" target="id"/>
+	</db-relationship>
+	<db-relationship name="cae_secundaria" source="r_cae_secundaria_perfil" target="t_cae" toMany="false">
+		<db-attribute-pair source="fk_cae" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="cae_secundaria_perfil" source="r_cae_secundaria_perfil" target="cae_secundaria_perfil" toMany="false">
+		<db-attribute-pair source="fk_cae_secundaria_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="pedido_alteracao_caes_perfil" source="r_cae_secundaria_perfil" target="pedido_alteracao_cae_perfil" toMany="false">
+		<db-attribute-pair source="fk_pedido_alteracao_caes_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="estado" source="registo" target="estado_registo" toMany="false">
+		<db-attribute-pair source="fk_estado" target="id"/>
+	</db-relationship>
+	<db-relationship name="idioma" source="registo" target="t_idioma" toMany="false">
+		<db-attribute-pair source="fk_idioma" target="id"/>
+	</db-relationship>
+	<db-relationship name="pais" source="registo" target="t_pais" toMany="false">
+		<db-attribute-pair source="fk_pais" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="utilizador" source="registo" target="utilizador" toMany="false">
+		<db-attribute-pair source="fk_utilizador" target="pkid"/>
+	</db-relationship>
+	<db-relationship name="estado" source="responsavel" target="t_estado_responsavel" toMany="false">
+		<db-attribute-pair source="fk_t_estado_responsavel" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_representado" source="responsavel" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_representado" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_responsavel" source="responsavel" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_responsavel" target="id"/>
+	</db-relationship>
+	<db-relationship name="responsavel_estabelecimento" source="responsavel" target="responsavel_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_responsavel"/>
+	</db-relationship>
+	<db-relationship name="responsavel_finalidade_requerente" source="responsavel" target="responsavel_finalidade_requerente" toMany="true">
+		<db-attribute-pair source="id" target="fk_responsavel"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="responsavel_estabelecimento" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="responsavel" source="responsavel_estabelecimento" target="responsavel" toMany="false">
+		<db-attribute-pair source="fk_responsavel" target="id"/>
+	</db-relationship>
+	<db-relationship name="responsavel_estabelecimento_finalidade" source="responsavel_estabelecimento" target="responsavel_estabelecimento_finalidade" toMany="true">
+		<db-attribute-pair source="id" target="fk_responsavel_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="finalidade" source="responsavel_estabelecimento_finalidade" target="t_finalidade_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_t_finalidade_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="responsavel_estabelecimento" source="responsavel_estabelecimento_finalidade" target="responsavel_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_responsavel_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="finalidade" source="responsavel_finalidade_requerente" target="t_finalidade_requerente" toMany="false">
+		<db-attribute-pair source="fk_t_finalidade_requerente" target="id"/>
+	</db-relationship>
+	<db-relationship name="responsavel" source="responsavel_finalidade_requerente" target="responsavel" toMany="false">
+		<db-attribute-pair source="fk_responsavel" target="id"/>
+	</db-relationship>
+	<db-relationship name="fontes_estabelecimentos" source="utilizador" target="fonte_estabelecimento" toMany="true">
+		<db-attribute-pair source="pkid" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="historicos" source="utilizador" target="historico" toMany="true">
+		<db-attribute-pair source="pkid" target="quem"/>
+	</db-relationship>
+	<db-relationship name="historicos_atendimento" source="utilizador" target="historico_atend" toMany="true">
+		<db-attribute-pair source="pkid" target="quem_entidade"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="utilizador" target="perfil" toDependentPK="true" toMany="false">
+		<db-attribute-pair source="pkid" target="id"/>
+	</db-relationship>
+	<db-relationship name="registo" source="utilizador" target="registo" toMany="false">
+		<db-attribute-pair source="pkid" target="fk_utilizador"/>
+	</db-relationship>
+	<obj-relationship name="caePrimaria" source="CaePrimariaPerfil" target="TCae" deleteRule="Nullify" db-relationship-path="cae_primaria"/>
+	<obj-relationship name="criador" source="CaePrimariaPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="perfil" source="CaePrimariaPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="caesSecundarias" source="CaeSecundariaPerfil" target="RCaeSecundariaPerfil" deleteRule="Deny" db-relationship-path="caes_secundarias"/>
+	<obj-relationship name="criador" source="CaeSecundariaPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="perfil" source="CaeSecundariaPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="concelho" source="DadosPerfil" target="TFreguesia" deleteRule="Nullify" db-relationship-path="concelho"/>
+	<obj-relationship name="criador" source="DadosPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="criadorAdm" source="DadosPerfil" target="Administrador" deleteRule="Nullify" db-relationship-path="criador_adm"/>
+	<obj-relationship name="criadorAtend" source="DadosPerfil" target="UtilizadorAtendimento" deleteRule="Nullify" db-relationship-path="criador_atend"/>
+	<obj-relationship name="freguesia" source="DadosPerfil" target="TFreguesia" deleteRule="Nullify" db-relationship-path="freguesia"/>
+	<obj-relationship name="idioma" source="DadosPerfil" target="TIdioma" deleteRule="Nullify" db-relationship-path="idioma"/>
+	<obj-relationship name="organismo" source="DadosPerfil" target="TOrganismo" deleteRule="Nullify" db-relationship-path="organismo"/>
+	<obj-relationship name="pais" source="DadosPerfil" target="TPais" deleteRule="Nullify" db-relationship-path="pais"/>
+	<obj-relationship name="perfil" source="DadosPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="tipoDocumento" source="DadosPerfil" target="TTipoDocumentoIdentificacao" deleteRule="Nullify" db-relationship-path="tipo_documento"/>
+	<obj-relationship name="criador" source="EnquadramentoPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="criadorAdm" source="EnquadramentoPerfil" target="Administrador" deleteRule="Nullify" db-relationship-path="criador_adm"/>
+	<obj-relationship name="criadorAtend" source="EnquadramentoPerfil" target="UtilizadorAtendimento" deleteRule="Nullify" db-relationship-path="criador_atend"/>
+	<obj-relationship name="perfil" source="EnquadramentoPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="listRegistos" source="EstadoRegisto" target="Registo" deleteRule="Deny" db-relationship-path="listRegistos"/>
+	<obj-relationship name="administrador" source="Historico" target="Administrador" deleteRule="Nullify" db-relationship-path="administrador"/>
+	<obj-relationship name="atend" source="Historico" target="UtilizadorAtendimento" deleteRule="Nullify" db-relationship-path="atend"/>
+	<obj-relationship name="procurador" source="Historico" target="Perfil" deleteRule="Nullify" db-relationship-path="procurador"/>
+	<obj-relationship name="utilizador" source="Historico" target="Utilizador" deleteRule="Nullify" db-relationship-path="utilizador"/>
+	<obj-relationship name="historicoResponsavelDetalhe" source="HistoricoResponsavel" target="HistoricoResponsavelDetalhe" deleteRule="Cascade" db-relationship-path="historico_responsavel_detalhe"/>
+	<obj-relationship name="perfilRepresentado" source="HistoricoResponsavel" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_representado"/>
+	<obj-relationship name="perfilResponsavel" source="HistoricoResponsavel" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_responsavel"/>
+	<obj-relationship name="historicoResponsavel" source="HistoricoResponsavelDetalhe" target="HistoricoResponsavel" deleteRule="Nullify" db-relationship-path="historico_responsavel"/>
+	<obj-relationship name="avaliador" source="PedidoAlteracaoCaePerfil" target="Administrador" deleteRule="Nullify" db-relationship-path="avaliador"/>
+	<obj-relationship name="caePrimaria" source="PedidoAlteracaoCaePerfil" target="TCae" deleteRule="Nullify" db-relationship-path="cae_primaria"/>
+	<obj-relationship name="caesSecundarias" source="PedidoAlteracaoCaePerfil" target="RCaeSecundariaPerfil" deleteRule="Deny" db-relationship-path="caes_secundarias"/>
+	<obj-relationship name="criador" source="PedidoAlteracaoCaePerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="perfil" source="PedidoAlteracaoCaePerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="avaliador" source="PedidoAlteracaoDadosPerfil" target="Administrador" deleteRule="Nullify" db-relationship-path="Avaliador"/>
+	<obj-relationship name="concelho" source="PedidoAlteracaoDadosPerfil" target="TFreguesia" deleteRule="Nullify" db-relationship-path="Concelho"/>
+	<obj-relationship name="criador" source="PedidoAlteracaoDadosPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="Criador"/>
+	<obj-relationship name="perfil" source="PedidoAlteracaoDadosPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="Perfil"/>
+	<obj-relationship name="anexos" source="PedidoProcuracao" target="AnexoPedidoProcuracao" deleteRule="Deny" db-relationship-path="anexos"/>
+	<obj-relationship name="avaliador" source="PedidoProcuracao" target="Administrador" deleteRule="Nullify" db-relationship-path="avaliador"/>
+	<obj-relationship name="criador" source="PedidoProcuracao" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="perfil" source="PedidoProcuracao" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="procuracao" source="PedidoProcuracao" target="Procuracao" deleteRule="Nullify" db-relationship-path="procuracao"/>
+	<obj-relationship name="avaliador" source="PedidoRegisto" target="Administrador" deleteRule="Nullify" db-relationship-path="avaliador"/>
+	<obj-relationship name="caePrimaria" source="PedidoRegisto" target="TCae" deleteRule="Nullify" db-relationship-path="caePrimaria"/>
+	<obj-relationship name="concelho" source="PedidoRegisto" target="TFreguesia" deleteRule="Nullify" db-relationship-path="concelho"/>
+	<obj-relationship name="criador" source="PedidoRegisto" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="listCaeSecundarias" source="PedidoRegisto" target="PedidoRegistoCaesSecundarias" deleteRule="Deny" db-relationship-path="listCaeSecundarias"/>
+	<obj-relationship name="listDocumentosPedidoRegisto" source="PedidoRegisto" target="DocumentoPedidoRegisto" deleteRule="Deny" db-relationship-path="listDocumentosPedidoRegisto"/>
+	<obj-relationship name="listMensagensPedidoRegistos" source="PedidoRegisto" target="PedidoRegistoMensagens" deleteRule="Deny" db-relationship-path="listMensagensPedidoRegistos"/>
+	<obj-relationship name="perfil" source="PedidoRegisto" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="caeSecundaria" source="PedidoRegistoCaesSecundarias" target="TCae" deleteRule="Nullify" db-relationship-path="caeSecundaria"/>
+	<obj-relationship name="pedidoRegisto" source="PedidoRegistoCaesSecundarias" target="PedidoRegisto" deleteRule="Nullify" db-relationship-path="pedidoRegisto"/>
+	<obj-relationship name="adminAlteracao" source="Perfil" target="Administrador" deleteRule="Nullify" db-relationship-path="admin_alteracao"/>
+	<obj-relationship name="atends" source="Perfil" target="RAtendPerfil" deleteRule="Deny" db-relationship-path="atends"/>
+	<obj-relationship name="caesPrimarias" source="Perfil" target="CaePrimariaPerfil" deleteRule="Cascade" db-relationship-path="caes_primarias"/>
+	<obj-relationship name="caesPrimariasCriadas" source="Perfil" target="CaePrimariaPerfil" deleteRule="Deny" db-relationship-path="caes_primarias_criadas"/>
+	<obj-relationship name="caesSecundarias" source="Perfil" target="CaeSecundariaPerfil" deleteRule="Cascade" db-relationship-path="caes_secundarias"/>
+	<obj-relationship name="caesSecundariasCriadas" source="Perfil" target="CaeSecundariaPerfil" deleteRule="Deny" db-relationship-path="caes_secundarias_criadas"/>
+	<obj-relationship name="captacoesEmpresaExecutora" source="Perfil" target="Captacao" deleteRule="Deny" db-relationship-path="captacoesEmpresaExecutora"/>
+	<obj-relationship name="componentesI" source="Perfil" target="IValorTrh" deleteRule="Deny" db-relationship-path="componentes_i"/>
+	<obj-relationship name="criadorPedidoAlteracaoDadosPerfil" source="Perfil" target="PedidoAlteracaoDadosPerfil" deleteRule="Deny" db-relationship-path="CriadorPedidoAlteracaoDadosPerfil"/>
+	<obj-relationship name="dadosGeraisEstabelecimentoCriados" source="Perfil" target="DadosGeraisEstabelecimento" deleteRule="Deny" db-relationship-path="dados_gerais_estabelecimento_criados"/>
+	<obj-relationship name="dadosLaboraisEstabelecimentoCriados" source="Perfil" target="DadosLaboraisEstabelecimento" deleteRule="Deny" db-relationship-path="dados_laborais_estabelecimento_criados"/>
+	<obj-relationship name="dadosPerfil" source="Perfil" target="DadosPerfil" deleteRule="Cascade" db-relationship-path="dados_perfil"/>
+	<obj-relationship name="dadosPerfilCriados" source="Perfil" target="DadosPerfil" deleteRule="Nullify" db-relationship-path="dados_perfil_criados"/>
+	<obj-relationship name="documentosEstabelecimentoCriados" source="Perfil" target="DocumentoEstabelecimento" deleteRule="Deny" db-relationship-path="documentos_estabelecimento_criados"/>
+	<obj-relationship name="enquadramentoAviacao" source="Perfil" target="EnquadramentoAviacao" deleteRule="Deny" db-relationship-path="enquadramentoAviacao"/>
+	<obj-relationship name="enquadramentoMrru" source="Perfil" target="EnquadramentoMrru" deleteRule="Deny" db-relationship-path="enquadramento_mrru"/>
+	<obj-relationship name="enquadramentosEstabelecimentoCriados" source="Perfil" target="EnquadramentoEstabelecimento" deleteRule="Deny" db-relationship-path="enquadramentos_estabelecimento_criados"/>
+	<obj-relationship name="enquadramentosMirrCriados" source="Perfil" target="EnquadramentoMirr" deleteRule="Deny" db-relationship-path="enquadramentos_mirr_criados"/>
+	<obj-relationship name="enquadramentosPerfil" source="Perfil" target="EnquadramentoPerfil" deleteRule="Cascade" db-relationship-path="enquadramentos_perfil"/>
+	<obj-relationship name="enquadramentosPerfilCriados" source="Perfil" target="EnquadramentoPerfil" deleteRule="Deny" db-relationship-path="enquadramentos_perfil_criados"/>
+	<obj-relationship name="estabelecimentos" source="Perfil" target="Estabelecimento" deleteRule="Deny" db-relationship-path="perfil_residuos.estabelecimentos_organizacao"/>
+	<obj-relationship name="ficheiroMonitorizacao" source="Perfil" target="FicheiroMonitorizacao" deleteRule="Nullify" db-relationship-path="ficheiroMonitorizacao"/>
+	<obj-relationship name="formulariosMirrAlterados" source="Perfil" target="FormularioMirr" deleteRule="Deny" db-relationship-path="formularios_mirr_alterados"/>
+	<obj-relationship name="formulariosMirrCriados" source="Perfil" target="FormularioMirr" deleteRule="Deny" db-relationship-path="formularios_mirr_criados"/>
+	<obj-relationship name="formulariosMirrReabertos" source="Perfil" target="FormularioMirr" deleteRule="Deny" db-relationship-path="formularios_mirr_reabertos"/>
+	<obj-relationship name="formulariosMirrSubmetidos" source="Perfil" target="FormularioMirr" deleteRule="Deny" db-relationship-path="formularios_mirr_submetidos"/>
+	<obj-relationship name="formulariosMrruAlterados" source="Perfil" target="FormularioMrru" deleteRule="Deny" db-relationship-path="formularios_mrru_alterados"/>
+	<obj-relationship name="formulariosMrruCriados" source="Perfil" target="FormularioMrru" deleteRule="Deny" db-relationship-path="formularios_mrru_criados"/>
+	<obj-relationship name="formulariosMrruReabertos" source="Perfil" target="FormularioMrru" deleteRule="Deny" db-relationship-path="formularios_mrru_reabertos"/>
+	<obj-relationship name="formulariosMrruSubmetidos" source="Perfil" target="FormularioMrru" deleteRule="Deny" db-relationship-path="formularios_mrru_submetidos"/>
+	<obj-relationship name="formulariosMtrAnulados" source="Perfil" target="FormularioMtr" deleteRule="Deny" db-relationship-path="formularios_mtr_anulados"/>
+	<obj-relationship name="formulariosMtrConcluidos" source="Perfil" target="FormularioMtr" deleteRule="Deny" db-relationship-path="formularios_mtr_concluidos"/>
+	<obj-relationship name="formulariosMtrEnviados" source="Perfil" target="FormularioMtr" deleteRule="Deny" db-relationship-path="formularios_mtr_enviados"/>
+	<obj-relationship name="formulariosMtrSubmetidos" source="Perfil" target="FormularioMtr" deleteRule="Deny" db-relationship-path="formularios_mtr_submetidos"/>
+	<obj-relationship name="formulariosMtrValidados" source="Perfil" target="FormularioMtr" deleteRule="Deny" db-relationship-path="formularios_mtr_validados"/>
+	<obj-relationship name="guiaPagamentoArray" source="Perfil" target="GuiaPagamento" deleteRule="Deny" db-relationship-path="guiaPagamentoArray"/>
+	<obj-relationship name="historicosPublicosProcurador" source="Perfil" target="Historico" deleteRule="Deny" db-relationship-path="historicos_publicos_procurador"/>
+	<obj-relationship name="listDocumentosPerfil" source="Perfil" target="DocumentoPerfil" deleteRule="Deny" db-relationship-path="listDocumentosPerfil"/>
+	<obj-relationship name="listPedidoRegisto" source="Perfil" target="PedidoRegisto" deleteRule="Nullify" db-relationship-path="listPedidoRegisto"/>
+	<obj-relationship name="listPedidosREgistoCriados" source="Perfil" target="PedidoRegisto" deleteRule="Nullify" db-relationship-path="listPedidosREgistoCriados"/>
+	<obj-relationship name="mensagens" source="Perfil" target="Mensagem" deleteRule="Deny" db-relationship-path="mensagens"/>
+	<obj-relationship name="mensagensCriadas" source="Perfil" target="Mensagem" deleteRule="Deny" db-relationship-path="mensagens_criadas"/>
+	<obj-relationship name="movimentoGF" source="Perfil" target="MovimentoGf" deleteRule="Deny" db-relationship-path="MovimentoGF"/>
+	<obj-relationship name="movimentoGFAssociado" source="Perfil" target="MovimentoGf" deleteRule="Deny" db-relationship-path="MovimentoGFAssociado"/>
+	<obj-relationship name="nomeacoesAtribuidas" source="Perfil" target="Responsavel" deleteRule="Deny" db-relationship-path="nomeacoes_atribuidas"/>
+	<obj-relationship name="nomeacoesRecebidas" source="Perfil" target="Responsavel" deleteRule="Deny" db-relationship-path="nomeacoes_recebidas"/>
+	<obj-relationship name="pagamentosAnuais" source="Perfil" target="PagamentoAnual" deleteRule="Deny" db-relationship-path="pagamentos_anuais"/>
+	<obj-relationship name="pagamentosInferiores1Ano" source="Perfil" target="PagamentoInferior1Ano" deleteRule="Deny" db-relationship-path="pagamentos_inferiores_1_ano"/>
+	<obj-relationship name="pedidoAlteracaoDadosPerfil" source="Perfil" target="PedidoAlteracaoDadosPerfil" deleteRule="Deny" db-relationship-path="PedidoAlteracaoDadosPerfil"/>
+	<obj-relationship name="pedidosAlteracaoCaesPerfil" source="Perfil" target="PedidoAlteracaoCaePerfil" deleteRule="Deny" db-relationship-path="pedidos_alteracao_caes_perfil"/>
+	<obj-relationship name="pedidosAlteracaoCaesPerfilCriados" source="Perfil" target="PedidoAlteracaoCaePerfil" deleteRule="Deny" db-relationship-path="pedidos_alteracao_caes_perfil_criados"/>
+	<obj-relationship name="pedidosAlteracaoDadosGeraisEstabelecimentoCriados" source="Perfil" target="PedidoAlteracaoDadosGeraisEstabelecimento" deleteRule="Deny" db-relationship-path="pedidos_alteracao_dados_gerais_estabelecimento_criados"/>
+	<obj-relationship name="pedidosProcuracao" source="Perfil" target="PedidoProcuracao" deleteRule="Deny" db-relationship-path="pedidos_procuracao"/>
+	<obj-relationship name="perfilResiduos" source="Perfil" target="PerfilResiduos" deleteRule="Cascade" db-relationship-path="perfil_residuos"/>
+	<obj-relationship name="predios" source="Perfil" target="Predio" deleteRule="Deny" db-relationship-path="predios"/>
+	<obj-relationship name="processo" source="Perfil" target="Processos" deleteRule="Deny" db-relationship-path="requerimentos.processo"/>
+	<obj-relationship name="procuracaoesRevogadas" source="Perfil" target="Procuracao" deleteRule="Deny" db-relationship-path="procuracaoes_revogadas"/>
+	<obj-relationship name="procuracoesCriadas" source="Perfil" target="Procuracao" deleteRule="Deny" db-relationship-path="procuracoes_criadas"/>
+	<obj-relationship name="procuracoesDecisao" source="Perfil" target="Procuracao" deleteRule="Deny" db-relationship-path="procuracoes_decisao"/>
+	<obj-relationship name="procuracoesProcurador" source="Perfil" target="Procuracao" deleteRule="Deny" db-relationship-path="procuracoes_procurador"/>
+	<obj-relationship name="procuracoesRepresentado" source="Perfil" target="Procuracao" deleteRule="Deny" db-relationship-path="procuracoes_representado"/>
+	<obj-relationship name="relSimulacao" source="Perfil" target="Simulacao" deleteRule="Deny" db-relationship-path="rel_simulacao"/>
+	<obj-relationship name="requerimentoGasesFluorados" source="Perfil" target="RequerimentoGasesFluorados" deleteRule="Deny" db-relationship-path="requerimentos.RequerimentoGasesFluorados"/>
+	<obj-relationship name="requerimentos" source="Perfil" target="Requerimento" deleteRule="Deny" db-relationship-path="requerimentos"/>
+	<obj-relationship name="requerimentosSubmetidosProcurador" source="Perfil" target="Requerimento" deleteRule="Deny" db-relationship-path="requerimentos_submetidos_procurador"/>
+	<obj-relationship name="titulos" source="Perfil" target="Titulo" deleteRule="Deny" db-relationship-path="titulos"/>
+	<obj-relationship name="titulosHistoricos" source="Perfil" target="TituloHistorico" deleteRule="Deny" db-relationship-path="titulos_historicos"/>
+	<obj-relationship name="toEstadoPerfil" source="Perfil" target="EstadoPerfil" deleteRule="Nullify" db-relationship-path="toEstadoPerfil"/>
+	<obj-relationship name="untitledRel2" source="Perfil" target="HistoricoResponsavel" deleteRule="Deny" db-relationship-path="untitledRel2"/>
+	<obj-relationship name="untitledRel3" source="Perfil" target="HistoricoResponsavel" deleteRule="Deny" db-relationship-path="untitledRel3"/>
+	<obj-relationship name="utilizador" source="Perfil" target="Utilizador" deleteRule="Cascade" db-relationship-path="utilizador"/>
+	<obj-relationship name="utilizadoresAtendimento" source="Perfil" target="UtilizadorAtendimento" deleteRule="Deny" db-relationship-path="utilizadores_atendimento"/>
+	<obj-relationship name="captacaoPip" source="Predio" target="CaptacaoPip" deleteRule="Deny" db-relationship-path="captacao_pip"/>
+	<obj-relationship name="captacoes" source="Predio" target="Captacao" deleteRule="Deny" db-relationship-path="captacoes"/>
+	<obj-relationship name="construcaoPip" source="Predio" target="ConstrucaoPip" deleteRule="Deny" db-relationship-path="construcao_pip"/>
+	<obj-relationship name="construcoes" source="Predio" target="Construcao" deleteRule="Deny" db-relationship-path="construcoes"/>
+	<obj-relationship name="freguesia" source="Predio" target="TFreguesia" deleteRule="Nullify" db-relationship-path="freguesia"/>
+	<obj-relationship name="inertes" source="Predio" target="Inertes" deleteRule="Deny" db-relationship-path="inertes"/>
+	<obj-relationship name="infraEstruturaH" source="Predio" target="InfraEstruturaHPonto" deleteRule="Deny" db-relationship-path="infra_estrutura_h"/>
+	<obj-relationship name="perfil" source="Predio" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="pips" source="Predio" target="Pip" deleteRule="Deny" db-relationship-path="pips"/>
+	<obj-relationship name="qualidade" source="Predio" target="TPredioQualidade" deleteRule="Nullify" db-relationship-path="qualidade"/>
+	<obj-relationship name="rarreuArmazenamentos" source="Predio" target="RarreuArmazenamento" deleteRule="Deny" db-relationship-path="rarreu_armazenamentos"/>
+	<obj-relationship name="tipo" source="Predio" target="TPredioTipo" deleteRule="Nullify" db-relationship-path="tipo"/>
+	<obj-relationship name="criador" source="Procuracao" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="decisor" source="Procuracao" target="Perfil" deleteRule="Nullify" db-relationship-path="decisor"/>
+	<obj-relationship name="estabelecimento" source="Procuracao" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="pedidoProcuracao" source="Procuracao" target="PedidoProcuracao" deleteRule="Deny" db-relationship-path="pedido_procuracao"/>
+	<obj-relationship name="perfilProcurador" source="Procuracao" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_procurador"/>
+	<obj-relationship name="perfilRepresentado" source="Procuracao" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_representado"/>
+	<obj-relationship name="perfilRevoga" source="Procuracao" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_revoga"/>
+	<obj-relationship name="procuracaoRevoga" source="Procuracao" target="Procuracao" deleteRule="Nullify" db-relationship-path="procuracao_revoga"/>
+	<obj-relationship name="procuracoesRevogadas" source="Procuracao" target="Procuracao" deleteRule="Deny" db-relationship-path="procuracoes_revogadas"/>
+	<obj-relationship name="tipoProcuracao" source="Procuracao" target="TTipoProcuracao" deleteRule="Nullify" db-relationship-path="tipo_procuracao"/>
+	<obj-relationship name="caeSecundaria" source="RCaeSecundariaPerfil" target="TCae" deleteRule="Nullify" db-relationship-path="cae_secundaria"/>
+	<obj-relationship name="caeSecundariaPerfil" source="RCaeSecundariaPerfil" target="CaeSecundariaPerfil" deleteRule="Nullify" db-relationship-path="cae_secundaria_perfil"/>
+	<obj-relationship name="pedidoAlteracaoCaesPerfil" source="RCaeSecundariaPerfil" target="PedidoAlteracaoCaePerfil" deleteRule="Nullify" db-relationship-path="pedido_alteracao_caes_perfil"/>
+	<obj-relationship name="estado" source="Registo" target="EstadoRegisto" deleteRule="Nullify" db-relationship-path="estado"/>
+	<obj-relationship name="idioma" source="Registo" target="TIdioma" deleteRule="Nullify" db-relationship-path="idioma"/>
+	<obj-relationship name="pais" source="Registo" target="TPais" deleteRule="Nullify" db-relationship-path="pais"/>
+	<obj-relationship name="utilizador" source="Registo" target="Utilizador" deleteRule="Nullify" db-relationship-path="utilizador"/>
+	<obj-relationship name="estado" source="Responsavel" target="TEstadoResponsavel" deleteRule="Nullify" db-relationship-path="estado"/>
+	<obj-relationship name="perfilRepresentado" source="Responsavel" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_representado"/>
+	<obj-relationship name="perfilResponsavel" source="Responsavel" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_responsavel"/>
+	<obj-relationship name="responsavelEstabelecimento" source="Responsavel" target="ResponsavelEstabelecimento" deleteRule="Cascade" db-relationship-path="responsavel_estabelecimento"/>
+	<obj-relationship name="responsavelFinalidadeRequerente" source="Responsavel" target="ResponsavelFinalidadeRequerente" deleteRule="Cascade" db-relationship-path="responsavel_finalidade_requerente"/>
+	<obj-relationship name="estabelecimento" source="ResponsavelEstabelecimento" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="responsavel" source="ResponsavelEstabelecimento" target="Responsavel" deleteRule="Nullify" db-relationship-path="responsavel"/>
+	<obj-relationship name="responsavelEstabelecimentoFinalidade" source="ResponsavelEstabelecimento" target="ResponsavelEstabelecimentoFinalidade" deleteRule="Cascade" db-relationship-path="responsavel_estabelecimento_finalidade"/>
+	<obj-relationship name="finalidade" source="ResponsavelEstabelecimentoFinalidade" target="TFinalidadeEstabelecimento" deleteRule="Nullify" db-relationship-path="finalidade"/>
+	<obj-relationship name="responsavelEstabelecimento" source="ResponsavelEstabelecimentoFinalidade" target="ResponsavelEstabelecimento" deleteRule="Nullify" db-relationship-path="responsavel_estabelecimento"/>
+	<obj-relationship name="finalidade" source="ResponsavelFinalidadeRequerente" target="TFinalidadeRequerente" deleteRule="Nullify" db-relationship-path="finalidade"/>
+	<obj-relationship name="responsavel" source="ResponsavelFinalidadeRequerente" target="Responsavel" deleteRule="Nullify" db-relationship-path="responsavel"/>
+	<obj-relationship name="fontesEstabelecimentos" source="Utilizador" target="FonteEstabelecimento" deleteRule="Deny" db-relationship-path="fontes_estabelecimentos"/>
+	<obj-relationship name="historicos" source="Utilizador" target="Historico" deleteRule="Nullify" db-relationship-path="historicos"/>
+	<obj-relationship name="historicosAtendimento" source="Utilizador" target="HistoricoAtend" deleteRule="Nullify" db-relationship-path="historicos_atendimento"/>
+	<obj-relationship name="perfil" source="Utilizador" target="Perfil" deleteRule="Cascade" db-relationship-path="perfil"/>
+	<obj-relationship name="registo" source="Utilizador" target="Registo" deleteRule="Nullify" db-relationship-path="registo"/>
+</data-map>

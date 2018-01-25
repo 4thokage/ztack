@@ -1,0 +1,129 @@
+#set( $Form = "Form" )
+#set( $codigo = ".codigo" )
+#set( $descricao = ".descricao" )
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<table cellspacing="10">
+		<ui:include src="../CondicaoDetalheComum.xhtml">
+			<ui:param name="condicao" value="#{condicao}" />
+		</ui:include>
+		#foreach( $attribute in $objAttributes )
+			#if ($attribute.getDescription() != "data_criacao" && $attribute.getDescription() != "data_estado" && $attribute.getDescription() != "codigo_condicao" && $attribute.getDescription() != "utilizador_criacao" && $attribute.getDescription() != "utilizador_estado" && $attribute.getDescription() != "id" && !$attribute.getName().contains("Outro"))
+				#if($attribute.getListValoresImport() != "")
+		<tr>
+			<td align="left">
+				<b><h:outputLabel value="$attribute.getDescription()" /></b>
+			</td>
+			<td align="left">
+				<h:outputLabel value="#{condicao.$attribute.getName()$codigo != 'Outro' ? condicao.$attribute.getName()$descricao : 'Outro: '.concat(condicao.$attribute.getName()$descricao) }" />
+			</td>
+		</tr>
+				#elseif($attribute.getType() == "java.lang.Boolean" )
+		<tr>
+			<td align="left">
+				<b><h:outputLabel value="$attribute.getDescription()" /></b>
+			</td>
+			<td align="left">
+				<h:outputLabel value="#{condicao.$attribute.getName() ? 'Sim' : 'Não'}" />
+			</td>
+		</tr>
+				#elseif($attribute.getType() == "java.util.Date" )
+		<tr>
+			<td align="left">
+				<b><h:outputLabel value="$attribute.getDescription()" /></b>
+			</td>
+			<td align="left">
+				<h:outputLabel value="#{condicao.$attribute.getName()}" >
+					<f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+				</h:outputLabel>
+			</td>
+		</tr>
+				#elseif($attribute.getType() == "java.lang.String" || $attribute.getType() == "java.lang.Integer" )
+		<tr>
+			<td align="left">
+				<b><h:outputLabel value="$attribute.getDescription()" /></b>
+			</td>
+			<td align="left">
+				<h:outputLabel value="#{condicao.$attribute.getName()}" />
+			</td>
+		</tr>
+				#end
+			#end
+		#end
+		
+
+		</table>
+		<br/>
+		<p:panel rendered="#{!descritorTua.visibilidadeTua.modoConsulta}" styleClass="ui-panelgrid-blank">
+			<p:outputPanel styleClass="alinharDireita">
+			
+				<p:commandButton action="#{descritorTua.adicionarCondicaoRegime}"
+					rendered="#{descritorTua.visibilidadeTua.botaoAdicionarRegime and !condicao.regimesAssociados.contains(descritorTua.visibilidadeTua.codRegime)}"
+					update="#{caminhoTabela}#{descritorTua.prefixoComponentesUi}tabela$entityName #{caminhoTabela}#{descritorTua.prefixoComponentesUi}Msg$entityName" 
+					icon="fa fa-plus" title="Adicionar regime" value="Adicionar regime" onclick="PF('dialogDetalheCondicao').hide();">
+					<f:setPropertyActionListener value="#{condicao}" target="#{descritorTua.condicaoSelecionada}" />
+				</p:commandButton>
+				
+				<p:commandButton icon="fa fa-plus" title="Adicionar nova condição" value="Adicionar nova condição" 
+					rendered="#{descritorTua.visibilidadeTua.botaoAdicionarNovaCondicao and !condicao.regimesAssociados.contains(descritorTua.visibilidadeTua.codRegime)}" 
+					oncomplete="PF('dialogDetalheCondicao').hide(); PF('dialogNovaCondicaoConflito').show();"
+					update="@([id$=dialogNovaCondicaoConflito])">
+					<f:setPropertyActionListener value="#{condicao}" target="#{descritorTua.condicaoSelecionada}" />
+					<f:setPropertyActionListener value="#{descritorTua}" target="#{tuaBean.tvSelecionado}" />
+				</p:commandButton>
+				
+				<p:commandButton
+					oncomplete="PF('dialogDetalheCondicao').hide(); PF('dialogEditarCondicao').show();"
+					rendered="#{(descritorTua.visibilidadeTua.tecnicoRegime and (condicao.regime.codigo eq descritorTua.visibilidadeTua.codRegime)) or (descritorTua.visibilidadeTua.gestorProcesso and empty condicao.regime)}"
+					update="@([id$=dialogEditarCondicao])"
+					icon="fa fa-pencil" title="Editar" value="Editar">
+					<f:setPropertyActionListener value="#{condicao}" target="#{descritorTua.condicaoSelecionada}" />
+					<f:setPropertyActionListener value="#{descritorTua}" target="#{tuaBean.tvSelecionado}" />
+	#foreach( $attribute in $objAttributes )
+	#if($attribute.getListValoresImport() != "")
+				<f:setPropertyActionListener value="#{condicao.$attribute.getName()$codigo}"
+						target="#{descritorTua.$attribute.getListValoresCamelCase()Selecionado}" />
+	#end
+	#end
+				</p:commandButton>
+				
+				<p:commandButton action="#{descritorTua.apagarCondicao}"
+					oncomplete="PF('dialogDetalheCondicao').hide();"
+					rendered="#{(descritorTua.visibilidadeTua.tecnicoRegime and (condicao.regime.codigo eq descritorTua.visibilidadeTua.codRegime)) or (descritorTua.visibilidadeTua.gestorProcesso and empty condicao.regime)}"
+					update="#{caminhoTabela}#{descritorTua.prefixoComponentesUi}tabela$entityName #{caminhoTabela}#{descritorTua.prefixoComponentesUi}Msg$entityName #{caminhoTabela}#{descritorTua.prefixoComponentesUi}spanBtnsDescritor"  icon="fa fa-trash"
+					title="Eliminar Condição" value="Eliminar">
+					<f:setPropertyActionListener value="#{condicao}"
+						target="#{descritorTua.condicaoSelecionada}" />
+					<p:confirm header="Eliminar condição" message="Pretende eliminar?"
+						icon="fa fa-alert" />
+					<f:ajax execute="@form" render="@none" listener="#{tuaBean.detetarConflitoFase()}"/>
+				</p:commandButton>
+				
+				<p:commandButton action="#{descritorTua.marcarPrincipal}"
+					oncomplete="PF('dialogDetalheCondicao').hide();" 
+					rendered="#{descritorTua.visibilidadeTua.botaoPrincipal and ((condicao.pai and condicao.conflito) or condicao.filho)}"
+					update="#{caminhoTabela}#{descritorTua.prefixoComponentesUi}tabela$entityName #{caminhoTabela}#{descritorTua.prefixoComponentesUi}Msg$entityName"  icon="fa fa-star"
+					title="Principal" value="Principal">
+					<f:setPropertyActionListener value="#{condicao}" target="#{descritorTua.condicaoSelecionada}" />
+					
+					<f:ajax execute="@form" render="@none" listener="#{tuaBean.detetarConflitoFase()}"/>
+					
+				</p:commandButton>
+				
+				<p:commandButton icon="fa fa-wrench" title="Associar a condição" value="Associar a condição" 
+					rendered="#{descritorTua.visibilidadeTua.botaoAssociarACondicao and ((empty condicao.principal and empty condicao.filhosCond) or condicao.filho)}" 
+					oncomplete="PF('dialogDetalheCondicao').hide(); PF('dialogAssociarACondicao').show();"
+					update="@([id$=dialogAssociarACondicao])">
+					<f:setPropertyActionListener value="#{condicao}" target="#{descritorTua.condicaoSelecionada}" />
+					<f:setPropertyActionListener value="#{descritorTua}" target="#{tuaBean.tvSelecionado}" />
+				</p:commandButton>
+			</p:outputPanel>
+		</p:panel>
+	
+</ui:composition>

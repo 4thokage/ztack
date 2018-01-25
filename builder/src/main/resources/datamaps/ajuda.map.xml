@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.ajuda"/>
+	<property name="defaultSchema" value="lic_ajuda"/>
+	<db-entity name="agrupador" schema="lic_ajuda">
+		<db-attribute name="ambito_agrupador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="area_admin" type="BOOLEAN"/>
+		<db-attribute name="area_atend" type="BOOLEAN"/>
+		<db-attribute name="area_publica" type="BOOLEAN"/>
+		<db-attribute name="descricao" type="VARCHAR" length="500"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="100"/>
+	</db-entity>
+	<db-entity name="pagina" schema="lic_ajuda">
+		<db-attribute name="conteudo" type="CLOB"/>
+		<db-attribute name="descricao" type="VARCHAR" length="500"/>
+		<db-attribute name="fk_agrupador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" length="200"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<obj-entity name="Agrupador" className="org.addition.apa.ajuda.Agrupador" dbEntityName="agrupador">
+		<obj-attribute name="ambitoAgrupador" type="java.lang.Integer" db-attribute-path="ambito_agrupador"/>
+		<obj-attribute name="areaAdmin" type="java.lang.Boolean" db-attribute-path="area_admin"/>
+		<obj-attribute name="areaAtend" type="java.lang.Boolean" db-attribute-path="area_atend"/>
+		<obj-attribute name="areaPublica" type="java.lang.Boolean" db-attribute-path="area_publica"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="Pagina" className="org.addition.apa.ajuda.Pagina" dbEntityName="pagina">
+		<obj-attribute name="conteudo" type="java.lang.String" db-attribute-path="conteudo"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+		<post-update method-name="onPostPersist"/>
+	</obj-entity>
+	<db-relationship name="paginas" source="agrupador" target="pagina" toMany="true">
+		<db-attribute-pair source="id" target="fk_agrupador"/>
+	</db-relationship>
+	<db-relationship name="agrupador" source="pagina" target="agrupador" toMany="false">
+		<db-attribute-pair source="fk_agrupador" target="id"/>
+	</db-relationship>
+	<obj-relationship name="paginas" source="Agrupador" target="Pagina" deleteRule="Deny" db-relationship-path="paginas"/>
+	<obj-relationship name="agrupador" source="Pagina" target="Agrupador" deleteRule="Nullify" db-relationship-path="agrupador"/>
+</data-map>

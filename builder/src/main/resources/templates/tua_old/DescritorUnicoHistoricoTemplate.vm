@@ -1,0 +1,83 @@
+#set( $Form = "Form" )
+#set( $PForm = "PrincipalForm" )
+#set( $Detalhe = "Detalhe.xhtml" )
+#set( $FormView = "Form.xhtml" )
+#set( $conf = "Conflito" )
+#set( $Hist = "Historico" )
+#set( $WV = "WidgetVar" )
+#set( $Edit = "Edit" )
+#set( $Add = "Add" )
+#set( $AddReg = "AddReg" )
+#set( $AddDirimir = "AddDirimir" )
+#set( $descricao = ".descricao" )
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+	<p:dataTable id="#{descritorTua.prefixoComponentesUi}tabela$entityName$Hist"
+				widgetVar="#{descritorTua.prefixoComponentesUi}tabela$entityName$Hist$WV"
+				#if($tipoTabela == 'PADRAO')
+				value="#{descritorTua.historicoTabelaPadrao}"
+				#else
+				value="#{descritorTua.historico}"
+				#end
+				emptyMessage="Sem dados." var="condicao"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rows="10" paginator="true" rowsPerPageTemplate="5,10,15" 
+                currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords}">
+				
+				<p:column headerText="Código" styleClass="colunaDescritor">
+					<h:outputText value="#{condicao.codigoCondicao}" />
+				</p:column>
+#foreach( $attribute in $objAttributes )
+#if( $attribute.getName() != "id" && $attribute.getName() != "dataEstado" && $attribute.getName() != "dataCriacao" && $attribute.getName() != "utilizadorCriacao" && $attribute.getName() != "utilizadorEstado" && $attribute.getName() != "codigoCondicao" && !$attribute.getName().contains("Outro"))
+#if( $attribute.getType() == "java.util.Date" )
+				<p:column headerText="$attribute.getDescription() " styleClass="colunaDescritor">
+					<h:outputText value="#{condicao.$attribute.getName()}" rendered="#{not empty condicao.$attribute.getName() }">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+#elseif( $attribute.getType() == "java.lang.Boolean" )
+				<p:column headerText="$attribute.getDescription() " styleClass="colunaDescritor">
+					<h:outputText value="#{condicao.$attribute.getName() ? 'Sim' : 'Não'}" />
+				</p:column>
+#elseif( $attribute.getType() == "java.lang.String" || $attribute.getListaValores() != "")
+				<p:column headerText="$attribute.getDescription() " styleClass="colunaDescritor">
+					<h:outputText value="#{condicao.$attribute.getName() != 'Outro' ? condicao.$attribute.getName() : 'Outro: '.concat(condicao.$attribute.getName()Outro)}" />
+				</p:column>
+#else
+<p:column headerText="$attribute.getDescription() " styleClass="colunaDescritor">
+					<h:outputText value="#{condicao.$attribute.getName()}" >
+#if( $attribute.getType() == "java.math.BigDecimal" )
+						<f:convertNumber groupingUsed="true" minFractionDigits="2" />
+#end
+					</h:outputText>
+				</p:column>
+#end
+#end
+#end
+				<p:column headerText="Regime " styleClass="colunaDescritor">
+					<h:outputText value="#{condicao.codigoRegime}" />
+				</p:column>
+				<p:column headerText="Data Alteração " styleClass="colunaDescritor">
+					<h:outputText value="#{condicao.dataCriacao}" >
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Estado " styleClass="colunaDescritor">
+					<h:outputText value="#{condicao.descricaoEstado}" />
+				</p:column>
+				<p:column headerText="Utilizador Alteração " styleClass="colunaDescritor">
+					<h:outputText value="#{condicao.utilizadorCriacao}" />
+				</p:column>
+				<p:column headerText="Processo Origem " styleClass="colunaDescritor">
+					<h:outputText value="#{condicao.pli.codigoPli}" />
+				</p:column>				
+			</p:dataTable>
+	
+</ui:composition>

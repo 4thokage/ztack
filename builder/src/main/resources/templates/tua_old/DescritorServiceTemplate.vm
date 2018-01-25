@@ -1,0 +1,772 @@
+#set( $Hist = "Hist" )
+#set( $setEstado = ".setEstado(estadoCond);" )
+#set( $setEstadoSub = ".setEstado(TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.SUBMETIDO.getCodigo()));" )
+#set( $getPrincipal = ".getPrincipal()" )
+#set( $getFilhos = ".getFilhos()" )
+#set( $empty = ".isEmpty()" )
+#set( $setUtilizador = ".setUtilizadorEstado(utilizador);" )
+#set( $setDataEstado = ".setDataEstado(Calendar.getInstance().getTime());" )
+#set( $setPrincipal = ".setPrincipal" )
+#set( $size = ".size()" )
+#set( $getLast = ".get(0)" )
+#set( $desc = ".getDescricao()")
+#set( $set = ".set" )
+#set( $get = ".get" )
+#set( $VERSAO_PROPERTY = ".VERSAO_PROPERTY" )
+#set( $ESTADO_PROPERTY = ".ESTADO_PROPERTY" )
+#set( $DESCRITOR_PROPERTY = ".DESCRITOR_PROPERTY" )
+#set( $CONFIDENCIAL_PROPERTY = ".CONFIDENCIAL_PROPERTY" )
+#set( $class = ".class" )
+package org.apa.siliamb.lua.tua.service;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import org.apache.cayenne.ObjectContext;
+
+import org.everis.apa.lua.enums.TipoFaseTuaEnum;
+import org.addition.apa.licenciamento.tabelas.TDescritorTua;
+import org.addition.apa.licenciamento.tabelas.TEstadoCondicao;
+import org.addition.apa.licenciamento.tabelas.TFaseTua;
+//import org.addition.apa.licenciamento.tabelas.TPeriodRef;
+#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+import org.addition.apa.licenciamento.tabelas.$attribute.getListValoresImport();
+#end
+#end
+import org.apa.siliamb.lua.services.TuaService;
+import org.apa.siliamb.lua.tua.viewmodel.TableViewFilter;
+import org.apache.cayenne.access.DataContext;
+import org.apache.cayenne.exp.Expression;
+import org.apache.cayenne.exp.ExpressionFactory;
+import org.apache.cayenne.query.EJBQLQuery;
+import org.apache.cayenne.query.SelectQuery;
+import org.everis.apa.lua.entities.ProcessoLicenciamentoIntegrado;
+import org.everis.apa.lua.entities.TTRegime;
+import org.everis.apa.lua.entities.TuaVersao;
+import org.everis.apa.lua.enums.TipoEstadoCondicaoEnum;
+import $cayenneEntityPath;
+import $cayenneEntityPath$Hist;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.apache.cxf.common.util.CollectionUtils;
+
+/**
+ * Class $serviceName was generated.
+ * It is probably a good idea to avoid changing this class manually,
+ * since it may be overwritten next time code is regenerated.
+ */
+
+public class $serviceName  {
+
+	private static final Logger log = LoggerFactory.getLogger($serviceName$class);
+
+	public static DataContext getNewContext() {
+		return DataContext.createDataContext();
+	}
+	
+	private static boolean adicionarCondicao(DataContext ctx, $entityName condicao, TTRegime regime, ProcessoLicenciamentoIntegrado pli, TuaVersao tuaVersao, String utilizador,#if($tipoTabela == 'PADRAO')TDescritorTua descritorTua,#end #foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+$attribute.getListValoresImport() $attribute.getListValoresCamelCase(),
+#end
+#end 
+ProcessoLicenciamentoIntegrado pliOrigem, $entityName condicaoPrincipal) {
+		
+		try {			
+			condicao.setPli(pli);
+			condicao.setRegime(regime);
+			#if($tipoTabela == 'PADRAO')
+			condicao.setDescritor(descritorTua);
+			#end
+			//Adicionar a TuaVersao
+			condicao.setVersao(tuaVersao);
+			
+			condicao.setPrincipal(condicaoPrincipal);
+			
+			if(pliOrigem != null){
+				condicao.setPliOrigem(pliOrigem);
+			}
+			
+			if(condicao.getEstado() == null){
+				TEstadoCondicao estadoCond = TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.SUBMETIDO.getCodigo());
+				condicao.setEstado(estadoCond);
+			}
+
+#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+			condicao.set$attribute.getUtilName()($attribute.getListValoresCamelCase());
+#end
+#end
+			//condicao.setPeriodoRef(tPeriodoRef);
+			
+			//Campos de auditoria
+			condicao.setUtilizadorCriacao(utilizador);
+			condicao.setUtilizadorEstado(utilizador);
+			condicao.setDataCriacao(Calendar.getInstance().getTime());
+			condicao.setDataEstado(Calendar.getInstance().getTime());
+			condicao.setCodigoCondicao(TuaService.criarCodigoCondicao(ctx));
+			
+			ctx.registerNewObject(condicao);
+			
+			//Historico
+			if(adicionarLinhaHistorico(ctx, condicao, utilizador))
+				return true;
+			
+		} catch (Exception e) {
+			log.error("Ocorreum um erro a inserir uma nova condição", e);
+		}
+		
+		return false;
+	}
+	
+	private static boolean adicionarLinhaHistorico(DataContext ctx, $entityName condicao, String utilizador){
+		try{
+			$entityName$Hist cccHist = new $entityName$Hist();
+#foreach( $attribute in $objAttributes )
+#if( $attribute.getName() != "id" && $attribute.getName() != "dataEstado" && $attribute.getName() != "dataCriacao" && $attribute.getName() != "utilizadorEstado" && $attribute.getName() != "confidencial" && $attribute.getName() != "codigoCondicao" )
+#if($attribute.getListaValores() != "")
+			cccHist.set$attribute.getUtilName()(condicao.get$attribute.getUtilName()() != null ? condicao.get$attribute.getUtilName()().getCodigo() : "");
+#else
+			cccHist.set$attribute.getUtilName()(condicao.get$attribute.getUtilName()());
+#end
+#end
+#end
+			cccHist.setCodigoCondicao(condicao.getCodigoCondicao());
+			cccHist.setDataCriacao(Calendar.getInstance().getTime());
+			cccHist.setCodigoEstado(condicao.getEstado().getCodigo());
+			cccHist.setDescricaoEstado(condicao.getEstado().getDescricao());
+			cccHist.setUtilizadorCriacao(utilizador);
+			if(condicao.getRegime() != null){
+				cccHist.setCodigoRegime(condicao.getRegime().getCodigo());
+				cccHist.setDescricaoRegime(condicao.getRegime().getNome());
+			}
+			cccHist.setPli(condicao.getPli());
+			#if($tipoTabela == 'PADRAO')
+			cccHist.setDescritor(condicao.getDescritor());
+			#end
+			ctx.registerNewObject(cccHist);
+		}catch(Exception ex){
+			log.error("Ocorreu um erro a criar nova entrada no histórico", ex);
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public static boolean adicionarCondicao(DataContext ctx, $entityName condicao, TTRegime regime, ProcessoLicenciamentoIntegrado pli, TuaVersao tuaVersao, String utilizador#if($tipoTabela == 'PADRAO'), TDescritorTua descritorTua#end #foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+, $attribute.getListValoresImport() $attribute.getListValoresCamelCase()
+#end
+#end) {
+		return adicionarCondicao(ctx, condicao, regime, pli, tuaVersao, utilizador, #if($tipoTabela == 'PADRAO') descritorTua,#end #foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+	$attribute.getListValoresCamelCase(),
+#end
+#end null, null);
+	}
+	
+	/**
+	* Verifica se uma determinada condição já existe em base de dados
+	* @param ctx
+	* @param condicao
+	* @param regime
+	* @param tuaVersao
+	* @return
+	*/
+	
+	public static $entityName condicaoExiste(ObjectContext ctx, $entityName condicao, TuaVersao tuaVersao#if($tipoTabela == 'PADRAO'), TDescritorTua descritorTua#end) {
+		Expression expression = ExpressionFactory.matchExp($entityName$VERSAO_PROPERTY, tuaVersao);
+#if($tipoTabela == 'PADRAO')
+		expression = expression.andExp(ExpressionFactory.matchExp($entityName$DESCRITOR_PROPERTY, descritorTua));
+#end
+#foreach($attr in $objAttributes)
+#if($attr.getName() != "id" && $attr.getName() != "codigoCondicao" && $attr.getName() != "dataEstado" && $attr.getName() != "dataCriacao" && $attr.getName() != "utilizadorEstado" && $attr.getName() != "utilizadorCriacao")
+	 	expression = expression.andExp(ExpressionFactory.matchExp($entityName.$attr.getCayennePropertyName(), condicao$get$attr.getUtilName()()));
+#end
+#end
+		expression = expression.andExp(ExpressionFactory.matchExp($entityName$CONFIDENCIAL_PROPERTY, condicao.getConfidencial()));
+		expression = expression.andExp(ExpressionFactory.noMatchExp($entityName$ESTADO_PROPERTY, TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.APAGADO.getCodigo()))); 
+	 	final SelectQuery query = new SelectQuery($entityName$class, expression);
+	
+	
+	 	@SuppressWarnings("unchecked")
+	 	List <$entityName> listResult = (List <$entityName> ) ctx.performQuery(query);
+	
+	 	if (listResult != null && listResult.size() > 0) {
+			return listResult.get(0);
+		}
+		return null;	
+	
+	}
+	
+	
+	
+	
+	public static boolean adicionarCondicaoRegime(DataContext ctx, $entityName source, TTRegime regime, String utilizador){
+		$entityName com = null;
+		try {
+			com = ($entityName) source.clone();
+			
+			$entityName condPrincipal = source;
+			//Se condicao de origem tiver uma condicao principal, entao essa condicao deverá ser também a condicao principal da nova
+			if(source$getPrincipal != null)
+				condPrincipal = source$getPrincipal;
+			
+			if(adicionarCondicao(ctx, com, regime, com.getPli(), com.getVersao(), utilizador,#if($tipoTabela == 'PADRAO') com.getDescritor(),#end #foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+			com.get$attribute.getUtilName()(),
+#end
+#end com.getPliOrigem(), condPrincipal)){
+				//Se condPrincipal for != null, então a nova condição deverá ficar no estado em conflito
+//				if(condPrincipal != null){
+//					TEstadoCondicao estadoCond = TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.CONFLITO.getCodigo());
+//					//Atualizar estado da condicao principal
+//					condPrincipal.setEstado(estadoCond);
+//					if(!update(ctx,condPrincipal, utilizador, condPrincipal.getPeriodoRef())){
+//						log.error("Ocorreu um erro a atualizar a condição principal");
+//						return false;
+//					}
+//					
+//					//Atualizar estado da condicao dos filhos
+//					if(condPrincipal$getFilhos != null && !condPrincipal$getFilhos$empty){
+//						for($entityName ccc : condPrincipal$getFilhos){
+//							ccc.setEstado(estadoCond);
+//							if(!update(ctx,ccc, utilizador, ccc.getPeriodoRef())){
+//								log.error("Ocorreu um erro a atualizar o estado das condições filho");
+//								return false;
+//							}
+//							
+//						}
+//					}
+//				}
+				return true;
+			}
+		} catch (Exception e1) {
+			log.error("Ocorreu um erro a adicionar uma nova condição ao regime", e1);
+		}
+		
+		return false;
+	}
+	
+	public static boolean atualizarCondicao(DataContext ctx, $entityName $entityInstanceName, String utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,$attribute.getListValoresImport() $attribute.getListValoresCamelCase()
+#end
+#end) {
+		try {
+			
+			List<$entityName> lstCondConflito = new ArrayList<$entityName>();
+			
+			//Se condicao tiver filhos, entao passa para o estado em conflito
+			if($entityInstanceName$getFilhos != null && !$entityInstanceName$getFilhos$empty){
+				lstCondConflito.addAll($entityInstanceName$getFilhos);
+			}
+			//Se condicao tiver pai, entao passa para o estado em conflito
+			if($entityInstanceName$getPrincipal != null && $entityInstanceName$getPrincipal$getFilhos != null){
+				lstCondConflito.addAll($entityInstanceName$getPrincipal$getFilhos);
+				lstCondConflito.add($entityInstanceName$getPrincipal);
+			}
+			
+			//Se condicao editada é filha OU pai, então colocar todas as condicoes relacionadas em conflito
+			if(!lstCondConflito$empty){
+				TEstadoCondicao estadoCond = TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.CONFLITO.getCodigo());
+				$entityInstanceName$setEstado
+				
+				for($entityName ccc : lstCondConflito){
+					ccc.setEstado(estadoCond);
+					if(!update(ctx,$entityInstanceName, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+			,ccc$get$attribute.getUtilName()()
+#end
+#end)){
+						log.error("Ocorreu um erro a atualizar o estado das condições filho");
+						return false;
+					}
+				}
+			}
+			
+			//Atualizar condicao
+			if(update(ctx, $entityInstanceName, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,$attribute.getListValoresCamelCase()
+#end
+#end))
+				return true;
+			
+		} catch (Exception e ) {
+			log.error("Ocorreu um erro a atualizar a condicao", e);
+		}
+		
+		return false;
+	}
+	
+	private static boolean update(DataContext ctx, $entityName $entityInstanceName, String utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+, $attribute.getListValoresImport() $attribute.getListValoresCamelCase()
+#end
+#end) {
+		try {
+			//Atualizar campos de auditoria
+			$entityInstanceName$setUtilizador
+			$entityInstanceName$setDataEstado
+			#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+			$entityInstanceName$set$attribute.getUtilName()($attribute.getListValoresCamelCase());
+#end
+#end			
+			//Escrever historico
+			if(adicionarLinhaHistorico(ctx, $entityInstanceName, utilizador))
+				return true;
+			
+		} catch (Exception e ) {
+			log.error("Ocorreu um erro a atualizar a condicao", e);
+		}
+		
+		return false;
+	}
+	
+	public static boolean marcarPrincipal(DataContext ctx, $entityName $entityInstanceName, String utilizador) {
+		try {
+			TipoEstadoCondicaoEnum estadoCondicao = TipoEstadoCondicaoEnum.SUBMETIDO;
+			TEstadoCondicao estadoCond = TuaService.getTEstadoCondicaoByCodigo(ctx, estadoCondicao.getCodigo());
+			
+			$entityName principal = $entityInstanceName$getPrincipal;
+			if(principal != null){ //Condicao que vamos marcar como principal é filho!
+				principal.setEstado(estadoCond);
+				
+				//Atualizar filhos
+				if(principal.getFilhos() != null && !principal.getFilhos().isEmpty()){
+					//Evitar ConcurrentModificationException
+					List<$entityName> lstFilhos = new ArrayList<$entityName>();
+					lstFilhos.addAll(principal.getFilhos());
+					for($entityName ccc : lstFilhos){
+						ccc.setEstado(estadoCond);
+						ccc.setPrincipal($entityInstanceName);
+						if(!update(ctx, ccc, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,ccc.get$attribute.getUtilName()()
+#end
+#end)){
+							log.error("Ocorreu um erro a atualizar um dos filhos");
+							return false;
+						}
+					}
+				}
+				
+				principal.setPrincipal($entityInstanceName);
+				if(!update(ctx, principal, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,principal.get$attribute.getUtilName()()
+#end
+#end)){
+					log.error("Ocorreu um erro a atualizar a condicao principal anterior");
+					return false;
+				}
+			}
+			
+			if($entityInstanceName$getFilhos != null && !$entityInstanceName$getFilhos$empty){ //Condição selecionada Já é principal
+				for($entityName ccc : $entityInstanceName$getFilhos){
+					ccc.setEstado(estadoCond);
+					if(!update(ctx, ccc, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,ccc.get$attribute.getUtilName()()
+#end
+#end)){
+						log.error("Ocorreu um erro a atualizar um dos filhos");
+						return false;
+					}
+				}
+			}
+			
+			$entityInstanceName$setPrincipal(null);
+			$entityInstanceName$setEstado
+			if(!update(ctx, $entityInstanceName, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,$entityInstanceName$get$attribute.getUtilName()()
+#end
+#end)){
+				log.error("Ocorreu um erro a definir a condicao selecionada como principal");
+				return false;
+			}
+			
+			return true;
+		}catch(Exception ex){
+			log.error("Ocorreu um erro a marcar a condicao selecionada como principal", ex);
+		}
+		
+		return false;
+	}
+
+	public static boolean adicionarCondicaoConflito(DataContext ctx, $entityName condicao, TTRegime regime, ProcessoLicenciamentoIntegrado pli, String utilizador, $entityName condicaoPrincipal) {
+		
+		$entityName condPrincipal  = condicaoPrincipal;
+		try{
+			//condicaoPrincipal pode ser filho
+			if(condicaoPrincipal.getPrincipal() != null){
+				condPrincipal = condicaoPrincipal.getPrincipal();
+			}
+			
+			//Adicionar nova condicao
+			if(!adicionarCondicao(ctx, condicao, regime, pli, condPrincipal.getVersao(), utilizador#if($tipoTabela == 'PADRAO'), condPrincipal.getDescritor()#end#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,condicao.get$attribute.getUtilName()()
+#end
+#end, null, condPrincipal)){
+				log.error("Ocorreu um erro a adicionar a nova condicao");
+				return false;
+			}
+			
+			//Atualizar estado da condicao "base"
+			TEstadoCondicao estadoCond = TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.CONFLITO.getCodigo());
+			if(condPrincipal.getEstado() != null && !condPrincipal.getEstado().getCodigo().equalsIgnoreCase(estadoCond.getCodigo())){
+				//Atualizar condicao principal
+				condPrincipal.setEstado(estadoCond);
+				if(!update(ctx, condPrincipal, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,condPrincipal.get$attribute.getUtilName()()
+#end
+#end)){
+					return false;
+				}
+			}
+			
+			//Atualizar filhos
+			if(condPrincipal.getFilhos() != null && !condPrincipal.getFilhos().isEmpty()){
+				for($entityName ccc : condPrincipal.getFilhos()){
+					if(ccc.getEstado() != null && !ccc.getEstado().getCodigo().equalsIgnoreCase(estadoCond.getCodigo())){
+						ccc.setEstado(estadoCond);
+						if(!update(ctx, ccc, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,ccc.get$attribute.getUtilName()()
+#end
+#end)){
+							return false;
+						}
+					}
+				}
+			}
+			
+			return true;
+		}catch(Exception ex){
+			log.error("Ocorreu um erro a adicionar nova condição com conflito", ex);
+		}
+		
+		return false;
+	}
+	
+	public static boolean adicionarCondicaoDirimir(DataContext ctx, $entityName condicao, TTRegime regime, ProcessoLicenciamentoIntegrado pli, TuaVersao tuaVersao, String utilizador#if($tipoTabela == 'PADRAO'), TDescritorTua descritorTua#end #foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,$attribute.getListValoresImport() $attribute.getListValoresCamelCase()
+#end
+#end, $entityName condicaoPrincipal) {
+		
+		try{
+			//Adicionar nova condicao
+			if(!adicionarCondicao(ctx, condicao, regime, pli, tuaVersao, utilizador#if($tipoTabela == 'PADRAO'), descritorTua#end#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,$attribute.getListValoresCamelCase()
+#end
+#end, null, null)){
+				log.error("Ocorreu um erro a adicionar a nova condicao");
+				return false;
+			}
+			
+			$entityName condPrincipal  = condicaoPrincipal;
+			//condicaoPrincipal pode ser filho
+			if(condicaoPrincipal.getPrincipal() != null){
+				condPrincipal = condicaoPrincipal.getPrincipal();
+			}
+			
+			//Atualizar estado da condicao "base"
+			TEstadoCondicao estadoCond = TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.SUBMETIDO.getCodigo());
+			//Atualizar condicao principal
+			condPrincipal.setEstado(estadoCond);
+			condPrincipal.setPrincipal(condicao);
+			if(!update(ctx, condPrincipal, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,condPrincipal.get$attribute.getUtilName()()
+#end
+#end)){
+				return false;
+			}
+			
+			//Atualizar filhos
+			if(condPrincipal.getFilhos() != null && !condPrincipal.getFilhos().isEmpty()){
+				List<$entityName> lstComms = new ArrayList<$entityName>();
+				lstComms.addAll(condPrincipal.getFilhos());
+				
+				for($entityName ccc : lstComms){
+					if(ccc.getEstado() != null && !ccc.getEstado().getCodigo().equalsIgnoreCase(estadoCond.getCodigo())){
+						ccc.setPrincipal(condicao);
+						ccc.setEstado(estadoCond);
+						if(!update(ctx, ccc, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,ccc.get$attribute.getUtilName()()
+#end
+#end)){
+							return false;
+						}
+					}
+				}
+			}
+			
+			return true;
+		}catch(Exception ex){
+			log.error("Ocorreu um erro a adicionar nova condição com conflito", ex);
+		}
+		
+		return false;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<$entityName> getList(DataContext ctx, TableViewFilter filter, TuaVersao tuaVersao#if($tipoTabela == 'PADRAO'), TDescritorTua descritorTua#end) {
+		try {
+			String queryStatement = "select distinct cond " + 
+					"from $entityName cond " +
+					"left join cond.filhos filho " +
+					"where cond.versao = :versao ";
+			#if($tipoTabela == 'PADRAO')
+			queryStatement += "and cond.descritor = :descritor ";
+			#end
+			//Se filtro estado
+			if(filter.getSelectedEstadoCondicao() != null){
+				queryStatement += "and cond.estado = :estado ";
+			}
+			else {
+				queryStatement += "and cond.estado <> :estadoEliminado ";
+			}
+			
+			//Se filtro regime
+			if(filter.getSelectedRegime() != null){
+				queryStatement += "and ( (cond.regime = :regime and cond.principal is null) or (filho.regime = :regime and filho.principal is not null))";
+			}else{
+				queryStatement += "and cond.principal is null ";
+			}
+			
+			EJBQLQuery query = new EJBQLQuery(queryStatement);
+			if(filter.getSelectedEstadoCondicao() != null){
+				query.setParameter("estado", filter.getSelectedEstadoCondicao());
+			}else {
+				query.setParameter("estadoEliminado", TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.APAGADO.getCodigo()));
+			}
+			
+			if(filter.getSelectedRegime() != null){
+				query.setParameter("regime", filter.getSelectedRegime());
+			}
+			#if($tipoTabela == 'PADRAO')
+			query.setParameter("descritor", descritorTua);
+			#end
+			query.setParameter("versao", tuaVersao);
+			
+			@SuppressWarnings("unchecked")
+			List<$entityName> lstCondicoes = ctx.performQuery(query);
+			
+			return lstCondicoes;
+		} catch (Exception e ) {
+			log.error("Ocorreu um erro a obter a lista de condicoes", e);
+		}
+		return Collections.emptyList();
+	}
+		
+	public static boolean delete(DataContext ctx, $entityName $entityInstanceName, String utilizador) {
+		try {
+				
+			if($entityInstanceName$getFilhos$size == 1) {
+				//Se a condicao a apagar tiver apenas um filho
+				$entityName condicaoFilho = $entityInstanceName$getFilhos$getLast;
+				condicaoFilho.setEstado(TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.SUBMETIDO.getCodigo()));
+				condicaoFilho.setPrincipal(null);
+				if(!update(ctx, condicaoFilho, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,condicaoFilho.get$attribute.getUtilName()()
+#end
+#end))
+					return false;
+			}else if($entityInstanceName$getFilhos$size > 1 && $entityInstanceName$getPrincipal == null) {
+				//Se condicao a apagar tiver mais do que um filho
+				List<$entityName> lstComms = new ArrayList<$entityName>();
+				lstComms.addAll($entityInstanceName$getFilhos);
+				
+				Collections.sort(lstComms, new Comparator<$entityName>() {
+					@Override
+					public int compare($entityName o1, $entityName o2) {
+						return o1.getDataCriacao().compareTo(o2.getDataCriacao());
+					}
+				});
+				
+				$entityName ultimaInserida = lstComms.get(0);
+				for($entityName condicaoFilho : lstComms){
+					if(condicaoFilho.getEstado() != null){
+						condicaoFilho.setPrincipal(ultimaInserida);
+						condicaoFilho.setEstado(TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.CONFLITO.getCodigo()));
+						if(!update(ctx, condicaoFilho, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,condicaoFilho.get$attribute.getUtilName()()
+#end
+#end)){
+							return false;
+						}
+					}
+				}
+				
+				ultimaInserida.setEstado(TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.CONFLITO.getCodigo()));
+				ultimaInserida.setPrincipal(null);
+				if(!update(ctx, ultimaInserida, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,ultimaInserida.get$attribute.getUtilName()()
+#end
+#end)){
+					return false;
+				}
+			}else if(($entityInstanceName$getFilhos == null ||  $entityInstanceName$getFilhos$size==0) 
+					&& $entityInstanceName$getPrincipal != null
+					&& $entityInstanceName$getPrincipal$getFilhos$size == 1) {
+				//se condicao selecionada nao tiver filhos, tiver pai e é o unico filho
+				$entityInstanceName$getPrincipal$setEstadoSub
+			}
+			
+			
+			TipoEstadoCondicaoEnum estadoCondicao = TipoEstadoCondicaoEnum.APAGADO;
+			
+			TEstadoCondicao estadoCond = TuaService.getTEstadoCondicaoByCodigo(ctx, estadoCondicao.getCodigo());
+			$entityInstanceName$setEstado
+			$entityInstanceName$setPrincipal(null);
+			
+			if(!adicionarLinhaHistorico(ctx, $entityInstanceName, utilizador))
+				return false;
+			
+			//ctx.deleteObject($entityInstanceName);
+			return true;
+		} catch (Exception e) {
+			log.error("Erro ao apagar uma condição", e);
+
+		}
+		return false;
+	}
+	
+	public static int getNumCondicoes(ObjectContext ctx, TuaVersao tuaVersao, TableViewFilter filter, TDescritorTua tDescritor) {
+		String queryStatement = "select count(cond) " + 
+				"from $entityName cond " +
+				"where cond.versao = :versao ";
+				
+		if(filter != null && filter.getSelectedEstadoCondicao() != null){
+			queryStatement += "and cond.estado = :estado ";
+		}
+		else {
+			queryStatement += "and cond.estado <> :estado ";
+		}
+		
+		//Se filtro regime
+		if(filter != null && filter.getSelectedRegime() != null){
+			queryStatement += "and cond.regime = :regime ";
+		}
+		#if($tipoTabela == 'PADRAO')
+		if(tDescritor != null){
+			queryStatement += "and cond.descritor = :descritor ";
+		}
+		#end
+		EJBQLQuery query = new EJBQLQuery(queryStatement);
+		query.setParameter("versao", tuaVersao);
+		
+		if(filter != null && filter.getSelectedEstadoCondicao() != null){
+			query.setParameter("estado", filter.getSelectedEstadoCondicao());
+		}else {
+			query.setParameter("estado", TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.APAGADO.getCodigo()));
+		}
+		
+		if(filter != null && filter.getSelectedRegime() != null){
+			query.setParameter("regime", filter.getSelectedRegime());
+		}
+		#if($tipoTabela == 'PADRAO')
+		if(tDescritor != null){
+			query.setParameter("descritor", tDescritor);
+		}
+		#end
+		List<Object> lst = ctx.performQuery(query);
+		return ((Long) lst.get(0)).intValue();
+	}
+	
+	/**
+	 * Método responsável por definir o "pai" da condicao selecionada.
+	 * A condicao selecionada nao pode ter filhos 
+	 * 
+	 * @param ctx
+	 * @param condicaoSelecionada
+	 * @param novaCondicaoPai
+	 * @param utilizador
+	 * @return
+	 */
+	public static boolean associarACondicao(ObjectContext ctx, $entityName condicaoSelecionada, $entityName novaCondicaoPai, String utilizador){
+		//Tratar condicoes relacionadas com a condicao selecionada
+		if(condicaoSelecionada.getPrincipal() != null && condicaoSelecionada.getPrincipal().getFilhosCond().size() == 1){
+			//Condicao selecionada é o unico filho. É necessário resolver o conflito (se existir)
+			condicaoSelecionada.getPrincipal().setEstado(TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.SUBMETIDO.getCodigo()));
+			if(!update((DataContext) ctx, condicaoSelecionada.getPrincipal(), utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,condicaoSelecionada.getPrincipal().get$attribute.getUtilName()()
+#end
+#end)){
+				return false;
+			}
+		}
+		
+		//tratar da condicao selecionada
+		condicaoSelecionada.setPrincipal(novaCondicaoPai);
+		if(!update((DataContext) ctx, condicaoSelecionada, utilizador#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,condicaoSelecionada.get$attribute.getUtilName()()
+#end
+#end)){
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<$entityName> getListCondicoesRegimeDiferente(DataContext ctx, TableViewFilter filter, TuaVersao tuaVersao) {
+		try {
+			String queryStatement = "select distinct cond " + 
+					"from $entityName cond " +
+					"left join cond.filhos filho " +
+					"where cond.versao = :versao ";
+						//Se filtro estado
+			if(filter.getSelectedEstadoCondicao() != null){
+				queryStatement += "and cond.estado = :estado ";
+			}
+			else {
+				queryStatement += "and cond.estado <> :estadoEliminado ";
+			}
+			
+			//Se filtro regime
+			if(filter.getSelectedRegime() != null){
+				queryStatement += "and ( (cond.regime <> :regime and cond.principal is null) and (filho.codigoCondicao is null or (filho.regime <> :regime and filho.principal is not null)))";
+			}else{
+				queryStatement += "and cond.principal is null ";
+			}
+			
+			EJBQLQuery query = new EJBQLQuery(queryStatement);
+			if(filter.getSelectedEstadoCondicao() != null){
+				query.setParameter("estado", filter.getSelectedEstadoCondicao());
+			}else {
+				query.setParameter("estadoEliminado", TuaService.getTEstadoCondicaoByCodigo(ctx, TipoEstadoCondicaoEnum.APAGADO.getCodigo()));
+			}
+			
+			if(filter.getSelectedRegime() != null){
+				query.setParameter("regime", filter.getSelectedRegime());
+			}
+						query.setParameter("versao", tuaVersao);
+			
+			@SuppressWarnings("unchecked")
+			List<$entityName> lstCondicoes = ctx.performQuery(query);
+			
+			return lstCondicoes;
+		} catch (Exception e ) {
+			log.error("Ocorreu um erro a obter a lista de condicoes", e);
+		}
+		return Collections.emptyList();
+	}
+}

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.gasesFluorados"/>
+	<property name="defaultSchema" value="gases_fluorados"/>
+	<db-entity name="categoria_certificado" schema="gases_fluorados">
+		<db-attribute name="atualizadopor" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="criadopor" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" isMandatory="true" length="8"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true" length="8"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="300"/>
+		<db-attribute name="fk_tipologia" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="movimento_gf" schema="gases_fluorados">
+		<db-attribute name="atualizadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="criadopor" type="VARCHAR" length="255"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="8"/>
+		<db-attribute name="data_movimento" type="TIMESTAMP" isMandatory="true" length="8"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_gas_fluorado" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="fk_perfil_associado" type="INTEGER" isMandatory="true" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="num_fatura" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="500"/>
+		<db-attribute name="quantidade" type="REAL" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="movimento_gf_compra" schema="gases_fluorados">
+		<db-attribute name="fk_venda" type="INTEGER" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<db-entity name="movimento_gf_venda" schema="gases_fluorados">
+		<db-attribute name="fk_compra" type="INTEGER" length="4"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+	</db-entity>
+	<obj-entity name="CategoriaCertificado" className="org.addition.apa.gasesFluorados.CategoriaCertificado" dbEntityName="categoria_certificado">
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="MovimentoGf" className="org.addition.apa.gasesFluorados.MovimentoGf" dbEntityName="movimento_gf">
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataMovimento" type="java.util.Date" db-attribute-path="data_movimento"/>
+		<obj-attribute name="numFatura" type="java.lang.String" db-attribute-path="num_fatura"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="quantidade" type="java.lang.Float" db-attribute-path="quantidade"/>
+	</obj-entity>
+	<obj-entity name="MovimentoGfCompra" className="org.addition.apa.gasesFluorados.MovimentoGfCompra" dbEntityName="movimento_gf_compra">
+	</obj-entity>
+	<obj-entity name="MovimentoGfVenda" className="org.addition.apa.gasesFluorados.MovimentoGfVenda" dbEntityName="movimento_gf_venda">
+	</obj-entity>
+	<db-relationship name="tipologia" source="categoria_certificado" target="t_tipologia" toMany="false">
+		<db-attribute-pair source="fk_tipologia" target="id"/>
+	</db-relationship>
+	<db-relationship name="Estabelecimento" source="movimento_gf" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="GasFluorado" source="movimento_gf" target="gas_fluorado" toMany="false">
+		<db-attribute-pair source="fk_gas_fluorado" target="id"/>
+	</db-relationship>
+	<db-relationship name="MovimentoGFCompra" source="movimento_gf" target="movimento_gf_compra" toDependentPK="true" toMany="false">
+		<db-attribute-pair source="id" target="id"/>
+	</db-relationship>
+	<db-relationship name="MovimentoGFVenda" source="movimento_gf" target="movimento_gf_venda" toDependentPK="true" toMany="false">
+		<db-attribute-pair source="id" target="id"/>
+	</db-relationship>
+	<db-relationship name="Perfil" source="movimento_gf" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="PerfilAssociado" source="movimento_gf" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_associado" target="id"/>
+	</db-relationship>
+	<db-relationship name="MovimentoGF" source="movimento_gf_compra" target="movimento_gf" toMany="false">
+		<db-attribute-pair source="id" target="id"/>
+	</db-relationship>
+	<db-relationship name="MovimentoGFVenda" source="movimento_gf_compra" target="movimento_gf_venda" toMany="false">
+		<db-attribute-pair source="fk_venda" target="id"/>
+	</db-relationship>
+	<db-relationship name="ReverseRelMovimentoGFCompra" source="movimento_gf_compra" target="movimento_gf_venda" toMany="true">
+		<db-attribute-pair source="id" target="fk_compra"/>
+	</db-relationship>
+	<db-relationship name="MovimentoGF" source="movimento_gf_venda" target="movimento_gf" toMany="false">
+		<db-attribute-pair source="id" target="id"/>
+	</db-relationship>
+	<db-relationship name="MovimentoGFCompra" source="movimento_gf_venda" target="movimento_gf_compra" toMany="false">
+		<db-attribute-pair source="fk_compra" target="id"/>
+	</db-relationship>
+	<db-relationship name="ReverseRelMovimentoGFVenda" source="movimento_gf_venda" target="movimento_gf_compra" toMany="true">
+		<db-attribute-pair source="id" target="fk_venda"/>
+	</db-relationship>
+	<obj-relationship name="tipologia" source="CategoriaCertificado" target="TTipologia" deleteRule="Nullify" db-relationship-path="tipologia"/>
+	<obj-relationship name="estabelecimento" source="MovimentoGf" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="Estabelecimento"/>
+	<obj-relationship name="gasFluorado" source="MovimentoGf" target="GasFluorado" deleteRule="Nullify" db-relationship-path="GasFluorado"/>
+	<obj-relationship name="movimentoGFCompra" source="MovimentoGf" target="MovimentoGfCompra" deleteRule="Deny" db-relationship-path="MovimentoGFCompra"/>
+	<obj-relationship name="movimentoGFVenda" source="MovimentoGf" target="MovimentoGfVenda" deleteRule="Deny" db-relationship-path="MovimentoGFVenda"/>
+	<obj-relationship name="perfil" source="MovimentoGf" target="Perfil" deleteRule="Nullify" db-relationship-path="Perfil"/>
+	<obj-relationship name="perfilAssociado" source="MovimentoGf" target="Perfil" deleteRule="Nullify" db-relationship-path="PerfilAssociado"/>
+	<obj-relationship name="movimentoGF" source="MovimentoGfCompra" target="MovimentoGf" deleteRule="Nullify" db-relationship-path="MovimentoGF"/>
+	<obj-relationship name="movimentoGFVenda" source="MovimentoGfCompra" target="MovimentoGfVenda" deleteRule="Nullify" db-relationship-path="MovimentoGFVenda"/>
+	<obj-relationship name="reverseRelMovimentoGFCompra" source="MovimentoGfCompra" target="MovimentoGfVenda" deleteRule="Deny" db-relationship-path="ReverseRelMovimentoGFCompra"/>
+	<obj-relationship name="movimentoGF" source="MovimentoGfVenda" target="MovimentoGf" deleteRule="Nullify" db-relationship-path="MovimentoGF"/>
+	<obj-relationship name="movimentoGFCompra" source="MovimentoGfVenda" target="MovimentoGfCompra" deleteRule="Nullify" db-relationship-path="MovimentoGFCompra"/>
+	<obj-relationship name="reverseRelMovimentoGFVenda" source="MovimentoGfVenda" target="MovimentoGfCompra" deleteRule="Deny" db-relationship-path="ReverseRelMovimentoGFVenda"/>
+</data-map>

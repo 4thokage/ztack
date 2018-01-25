@@ -1,0 +1,66 @@
+#set( $class = ".class" )
+/**
+* Classe $mbName foi gerada atravéz do ficheiro $rootFile
+* È desaconselhado alterar este ficheiro manualmente pois
+* poderá ser gerado novamente, apagando as alterações que foram efetuadas.
+*/
+package $packagePath;
+
+#foreach($tableName in ${data})
+import org.apa.siliamb.${schema}.entities.$velocityUtils.upperCamel($tableName);
+#end
+
+import java.io.Serializable;
+
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.context.RequestContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@ManagedBean
+@ViewScoped
+public class ${mbName}Bean implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    private static final Logger logger = LoggerFactory.getLogger(RelatorioVerificacaoBean.class);
+
+
+#foreach($tableName in ${data})
+    private $velocityUtils.upperCamel($tableName) $tableName;
+#end
+
+    @PostConstruct
+    public void init() {
+
+       //TODO: jsr validar se ja existe entidades ou criar novas
+#foreach($tableName in ${data})
+        $tableName = new $velocityUtils.upperCamel($tableName)();
+#end
+    }
+
+    public ${mbName}Bean() {
+    }
+
+    //region Métodos
+    public void submeterReporte() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Submetido com sucesso"));
+    }
+    //endregion
+
+    //region Getters & Setters
+#foreach($tableName in ${data})
+    public $velocityUtils.upperCamel($tableName) get$velocityUtils.upperCamel($tableName)() {
+        return $tableName;
+    }
+
+    public void set$velocityUtils.upperCamel($tableName)($velocityUtils.upperCamel($tableName) $tableName) {
+        this.$tableName = $tableName;
+    }
+#end
+    //endregion
+}

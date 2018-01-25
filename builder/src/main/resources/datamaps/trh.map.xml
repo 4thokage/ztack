@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.licenciamento.trh"/>
+	<property name="defaultSchema" value="lic_trh"/>
+	<db-entity name="a_coef_escassez_bacia" schema="lic_trh">
+		<db-attribute name="cod_bacia" type="VARCHAR" isMandatory="true" length="20"/>
+		<db-attribute name="coef_escassez" type="DOUBLE" isMandatory="true"/>
+		<db-attribute name="data" type="DATE" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="a_u_valor_base_multiplicativo_tipologia_captacao" schema="lic_trh">
+		<db-attribute name="data" type="DATE" isMandatory="true"/>
+		<db-attribute name="fk_tipologia_captacao" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="multiplicativo_a_u" type="DOUBLE"/>
+		<db-attribute name="valor_base_a" type="DOUBLE"/>
+		<db-attribute name="valor_base_u" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="a_valor_trh" schema="lic_trh">
+		<db-attribute name="data" type="DATE"/>
+		<db-attribute name="fk_a_coef_escassez" type="INTEGER"/>
+		<db-attribute name="fk_a_multiplicativo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_a_valor_base" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_isencao" type="INTEGER"/>
+		<db-attribute name="fk_titulo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_valor_trh" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="valor_a" type="DOUBLE"/>
+		<db-attribute name="volume_captado" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="e_multiplicativo_tipologia_rejeicao" schema="lic_trh">
+		<db-attribute name="data" type="DATE" isMandatory="true"/>
+		<db-attribute name="fk_tipologia_rejeicao" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="multiplicativo_e" type="DOUBLE" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="e_valor_base_poluente" schema="lic_trh">
+		<db-attribute name="data" type="DATE" isMandatory="true"/>
+		<db-attribute name="fk_poluente" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="valor_base_e" type="DOUBLE" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="e_valor_trh" schema="lic_trh">
+		<db-attribute name="data" type="DATE"/>
+		<db-attribute name="fk_e_multicativo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_e_valor_base" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_isencao" type="INTEGER"/>
+		<db-attribute name="fk_titulo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_valor_trh" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="quantidade_poluente" type="DOUBLE"/>
+		<db-attribute name="valor_e" type="DOUBLE"/>
+		<db-attribute name="volume_rejeitado" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="i_valor_trh" schema="lic_trh">
+		<db-attribute name="data" type="DATE"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="valor_a" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="isencao" schema="lic_trh">
+		<db-attribute name="componentes" type="VARCHAR" isMandatory="true" length="4"/>
+		<db-attribute name="descricao" type="VARCHAR" length="500"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="100"/>
+	</db-entity>
+	<db-entity name="o_valor_base_multiplicativo_tipologias" schema="lic_trh">
+		<db-attribute name="data" type="DATE" isMandatory="true"/>
+		<db-attribute name="fk_tipo_ocupacao" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="multiplicativo_o" type="DOUBLE"/>
+		<db-attribute name="valor_base_o" type="DOUBLE"/>
+		<db-attribute name="valor_base_o_superior" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="o_valor_trh" schema="lic_trh">
+		<db-attribute name="data" type="DATE"/>
+		<db-attribute name="extensao" type="DOUBLE"/>
+		<db-attribute name="fk_isencao" type="INTEGER"/>
+		<db-attribute name="fk_o_multiplicativo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_o_valor_base" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_titulo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_valor_trh" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="valor_o" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="observacoes_pagamento" schema="lic_trh">
+		<db-attribute name="data" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_admin" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_pagamento_anual" type="INTEGER"/>
+		<db-attribute name="fk_pagamento_inferior_1_ano" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="texto" type="VARCHAR" isMandatory="true" length="700"/>
+	</db-entity>
+	<db-entity name="pagamento_anual" schema="lic_trh">
+		<db-attribute name="data" type="DATE" isMandatory="true"/>
+		<db-attribute name="data_conclusao" type="DATE"/>
+		<db-attribute name="data_fecho" type="DATE"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="valor_pago" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="pagamento_inferior_1_ano" schema="lic_trh">
+		<db-attribute name="data" type="DATE" isMandatory="true"/>
+		<db-attribute name="data_conclusao" type="DATE"/>
+		<db-attribute name="data_fecho" type="DATE"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="valor_pago" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="poluente" schema="lic_trh">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="limite_emissao" type="DOUBLE"/>
+		<db-attribute name="metodo_analitico" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="unidade" type="VARCHAR" isMandatory="true" length="50"/>
+	</db-entity>
+	<db-entity name="tipo_ocupacao" schema="lic_trh">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="10"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="tipologia_captacao" schema="lic_trh">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="tipologia_construcao" schema="lic_trh">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="tipologia_infra_estrutura" schema="lic_trh">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="tipologia_rejeicao" schema="lic_trh">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="255"/>
+	</db-entity>
+	<db-entity name="u_valor_trh" schema="lic_trh">
+		<db-attribute name="data" type="DATE"/>
+		<db-attribute name="fk_isencao" type="INTEGER"/>
+		<db-attribute name="fk_titulo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_u_multiplicativo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_u_valor_base" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_valor_trh" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="valor_u" type="DOUBLE"/>
+		<db-attribute name="volume_captado" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="valor_trh" schema="lic_trh">
+		<db-attribute name="data" type="DATE" isMandatory="true"/>
+		<db-attribute name="data_conclusao" type="DATE"/>
+		<db-attribute name="data_fecho" type="DATE"/>
+		<db-attribute name="fk_pagamento_1_ano" type="INTEGER"/>
+		<db-attribute name="fk_pagamento_anual" type="INTEGER"/>
+		<db-attribute name="fk_titulo" type="INTEGER"/>
+		<db-attribute name="fk_titulo_historico" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="valor" type="DOUBLE" isMandatory="true"/>
+	</db-entity>
+	<obj-entity name="ACoefEscassezBacia" className="org.addition.apa.licenciamento.trh.ACoefEscassezBacia" dbEntityName="a_coef_escassez_bacia">
+		<obj-attribute name="codBacia" type="java.lang.String" db-attribute-path="cod_bacia"/>
+		<obj-attribute name="coefEscassez" type="java.lang.Double" db-attribute-path="coef_escassez"/>
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+	</obj-entity>
+	<obj-entity name="AUValorBaseMultiplicativoTipologiaCaptacao" className="org.addition.apa.licenciamento.trh.AUValorBaseMultiplicativoTipologiaCaptacao" dbEntityName="a_u_valor_base_multiplicativo_tipologia_captacao">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="multiplicativoAU" type="java.lang.Double" db-attribute-path="multiplicativo_a_u"/>
+		<obj-attribute name="valorBaseA" type="java.lang.Double" db-attribute-path="valor_base_a"/>
+		<obj-attribute name="valorBaseU" type="java.lang.Double" db-attribute-path="valor_base_u"/>
+	</obj-entity>
+	<obj-entity name="AValorTrh" className="org.addition.apa.licenciamento.trh.AValorTrh" dbEntityName="a_valor_trh">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="valorA" type="java.lang.Double" db-attribute-path="valor_a"/>
+		<obj-attribute name="volumeCaptado" type="java.lang.Double" db-attribute-path="volume_captado"/>
+	</obj-entity>
+	<obj-entity name="EMultiplicativoTipologiaRejeicao" className="org.addition.apa.licenciamento.trh.EMultiplicativoTipologiaRejeicao" dbEntityName="e_multiplicativo_tipologia_rejeicao">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="multiplicativoE" type="java.lang.Double" db-attribute-path="multiplicativo_e"/>
+	</obj-entity>
+	<obj-entity name="EValorBasePoluente" className="org.addition.apa.licenciamento.trh.EValorBasePoluente" dbEntityName="e_valor_base_poluente">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="valorBaseE" type="java.lang.Double" db-attribute-path="valor_base_e"/>
+	</obj-entity>
+	<obj-entity name="EValorTrh" className="org.addition.apa.licenciamento.trh.EValorTrh" dbEntityName="e_valor_trh">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="quantidadePoluente" type="java.lang.Double" db-attribute-path="quantidade_poluente"/>
+		<obj-attribute name="valorE" type="java.lang.Double" db-attribute-path="valor_e"/>
+		<obj-attribute name="volumeRejeitado" type="java.lang.Double" db-attribute-path="volume_rejeitado"/>
+	</obj-entity>
+	<obj-entity name="IValorTrh" className="org.addition.apa.licenciamento.trh.IValorTrh" dbEntityName="i_valor_trh">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="valorI" type="java.lang.Double" db-attribute-path="valor_a"/>
+	</obj-entity>
+	<obj-entity name="Isencao" className="org.addition.apa.licenciamento.trh.Isencao" dbEntityName="isencao">
+		<obj-attribute name="componentes" type="java.lang.String" db-attribute-path="componentes"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="OValorBaseMultiplicativoTipologias" className="org.addition.apa.licenciamento.trh.OValorBaseMultiplicativoTipologias" dbEntityName="o_valor_base_multiplicativo_tipologias">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="multiplicativoO" type="java.lang.Double" db-attribute-path="multiplicativo_o"/>
+		<obj-attribute name="valorBaseO" type="java.lang.Double" db-attribute-path="valor_base_o"/>
+		<obj-attribute name="valorBaseOSuperior" type="java.lang.Double" db-attribute-path="valor_base_o_superior"/>
+	</obj-entity>
+	<obj-entity name="OValorTrh" className="org.addition.apa.licenciamento.trh.OValorTrh" dbEntityName="o_valor_trh">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="extensao" type="java.lang.Double" db-attribute-path="extensao"/>
+		<obj-attribute name="valorO" type="java.lang.Double" db-attribute-path="valor_o"/>
+	</obj-entity>
+	<obj-entity name="ObservacoesPagamento" className="org.addition.apa.licenciamento.trh.ObservacoesPagamento" dbEntityName="observacoes_pagamento">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="texto" type="java.lang.String" db-attribute-path="texto"/>
+	</obj-entity>
+	<obj-entity name="PagamentoAnual" className="org.addition.apa.licenciamento.trh.PagamentoAnual" dbEntityName="pagamento_anual">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="dataConclusao" type="java.util.Date" db-attribute-path="data_conclusao"/>
+		<obj-attribute name="dataFecho" type="java.util.Date" db-attribute-path="data_fecho"/>
+		<obj-attribute name="valorPago" type="java.lang.Double" db-attribute-path="valor_pago"/>
+	</obj-entity>
+	<obj-entity name="PagamentoInferior1Ano" className="org.addition.apa.licenciamento.trh.PagamentoInferior1Ano" dbEntityName="pagamento_inferior_1_ano">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="dataConclusao" type="java.util.Date" db-attribute-path="data_conclusao"/>
+		<obj-attribute name="dataFecho" type="java.util.Date" db-attribute-path="data_fecho"/>
+		<obj-attribute name="valorPago" type="java.lang.Double" db-attribute-path="valor_pago"/>
+	</obj-entity>
+	<obj-entity name="Poluente" className="org.addition.apa.licenciamento.trh.Poluente" dbEntityName="poluente">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="limiteEmissao" type="java.lang.Double" db-attribute-path="limite_emissao"/>
+		<obj-attribute name="metodoAnalitico" type="java.lang.String" db-attribute-path="metodo_analitico"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="unidade" type="java.lang.String" db-attribute-path="unidade"/>
+	</obj-entity>
+	<obj-entity name="TipoOcupacao" className="org.addition.apa.licenciamento.trh.TipoOcupacao" dbEntityName="tipo_ocupacao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="TipologiaCaptacao" className="org.addition.apa.licenciamento.trh.TipologiaCaptacao" dbEntityName="tipologia_captacao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="TipologiaConstrucao" className="org.addition.apa.licenciamento.trh.TipologiaConstrucao" dbEntityName="tipologia_construcao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="TipologiaInfraEstrutura" className="org.addition.apa.licenciamento.trh.TipologiaInfraEstrutura" dbEntityName="tipologia_infra_estrutura">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="TipologiaRejeicao" className="org.addition.apa.licenciamento.trh.TipologiaRejeicao" dbEntityName="tipologia_rejeicao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="UValorTrh" className="org.addition.apa.licenciamento.trh.UValorTrh" dbEntityName="u_valor_trh">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="valorU" type="java.lang.Double" db-attribute-path="valor_u"/>
+		<obj-attribute name="volumeCaptado" type="java.lang.Double" db-attribute-path="volume_captado"/>
+	</obj-entity>
+	<obj-entity name="ValorTrh" className="org.addition.apa.licenciamento.trh.ValorTrh" dbEntityName="valor_trh">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="dataConclusao" type="java.util.Date" db-attribute-path="data_conclusao"/>
+		<obj-attribute name="dataFecho" type="java.util.Date" db-attribute-path="data_fecho"/>
+		<obj-attribute name="valor" type="java.lang.Double" db-attribute-path="valor"/>
+	</obj-entity>
+	<db-relationship name="coef_escassez_a" source="a_coef_escassez_bacia" target="a_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_a_coef_escassez"/>
+	</db-relationship>
+	<db-relationship name="tipologia_captacao" source="a_u_valor_base_multiplicativo_tipologia_captacao" target="tipologia_captacao" toMany="false">
+		<db-attribute-pair source="fk_tipologia_captacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="valores_a_multiplicativo" source="a_u_valor_base_multiplicativo_tipologia_captacao" target="a_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_a_multiplicativo"/>
+	</db-relationship>
+	<db-relationship name="valores_a_valor_base" source="a_u_valor_base_multiplicativo_tipologia_captacao" target="a_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_a_valor_base"/>
+	</db-relationship>
+	<db-relationship name="valores_u_multiplicativo" source="a_u_valor_base_multiplicativo_tipologia_captacao" target="u_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_u_multiplicativo"/>
+	</db-relationship>
+	<db-relationship name="valores_u_valor_base" source="a_u_valor_base_multiplicativo_tipologia_captacao" target="u_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_u_valor_base"/>
+	</db-relationship>
+	<db-relationship name="coef_escassez" source="a_valor_trh" target="a_coef_escassez_bacia" toMany="false">
+		<db-attribute-pair source="fk_a_coef_escassez" target="id"/>
+	</db-relationship>
+	<db-relationship name="isencao" source="a_valor_trh" target="isencao" toMany="false">
+		<db-attribute-pair source="fk_isencao" target="id"/>
+	</db-relationship>
+	<db-relationship name="multiplicativo" source="a_valor_trh" target="a_u_valor_base_multiplicativo_tipologia_captacao" toMany="false">
+		<db-attribute-pair source="fk_a_multiplicativo" target="id"/>
+	</db-relationship>
+	<db-relationship name="titulo" source="a_valor_trh" target="titulo" toMany="false">
+		<db-attribute-pair source="fk_titulo" target="id"/>
+	</db-relationship>
+	<db-relationship name="valor_base" source="a_valor_trh" target="a_u_valor_base_multiplicativo_tipologia_captacao" toMany="false">
+		<db-attribute-pair source="fk_a_valor_base" target="id"/>
+	</db-relationship>
+	<db-relationship name="valor_trh" source="a_valor_trh" target="valor_trh" toMany="false">
+		<db-attribute-pair source="fk_valor_trh" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipologia_rejeicao" source="e_multiplicativo_tipologia_rejeicao" target="tipologia_rejeicao" toMany="false">
+		<db-attribute-pair source="fk_tipologia_rejeicao" target="id"/>
+	</db-relationship>
+	<db-relationship name="valores_e" source="e_multiplicativo_tipologia_rejeicao" target="e_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_e_multicativo"/>
+	</db-relationship>
+	<db-relationship name="poluente" source="e_valor_base_poluente" target="poluente" toMany="false">
+		<db-attribute-pair source="fk_poluente" target="id"/>
+	</db-relationship>
+	<db-relationship name="valores_e" source="e_valor_base_poluente" target="e_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_e_valor_base"/>
+	</db-relationship>
+	<db-relationship name="isencao" source="e_valor_trh" target="isencao" toMany="false">
+		<db-attribute-pair source="fk_isencao" target="id"/>
+	</db-relationship>
+	<db-relationship name="multiplicativo" source="e_valor_trh" target="e_multiplicativo_tipologia_rejeicao" toMany="false">
+		<db-attribute-pair source="fk_e_multicativo" target="id"/>
+	</db-relationship>
+	<db-relationship name="titulo" source="e_valor_trh" target="titulo" toMany="false">
+		<db-attribute-pair source="fk_titulo" target="id"/>
+	</db-relationship>
+	<db-relationship name="valor_base" source="e_valor_trh" target="e_valor_base_poluente" toMany="false">
+		<db-attribute-pair source="fk_e_valor_base" target="id"/>
+	</db-relationship>
+	<db-relationship name="valor_trh" source="e_valor_trh" target="valor_trh" toMany="false">
+		<db-attribute-pair source="fk_valor_trh" target="id"/>
+	</db-relationship>
+	<db-relationship name="documento" source="i_valor_trh" target="documento_comp_i" toMany="false">
+		<db-attribute-pair source="id" target="fk_valor_i"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="i_valor_trh" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="componentes_a" source="isencao" target="a_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_isencao"/>
+	</db-relationship>
+	<db-relationship name="componentes_e" source="isencao" target="e_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_isencao"/>
+	</db-relationship>
+	<db-relationship name="componentes_o" source="isencao" target="o_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_isencao"/>
+	</db-relationship>
+	<db-relationship name="componentes_u" source="isencao" target="u_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_isencao"/>
+	</db-relationship>
+	<db-relationship name="tipo_ocupacao" source="o_valor_base_multiplicativo_tipologias" target="tipo_ocupacao" toMany="false">
+		<db-attribute-pair source="fk_tipo_ocupacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="valores_o_trh_multiplicativo" source="o_valor_base_multiplicativo_tipologias" target="o_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_o_multiplicativo"/>
+	</db-relationship>
+	<db-relationship name="valores_o_trh_valor_base" source="o_valor_base_multiplicativo_tipologias" target="o_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_o_valor_base"/>
+	</db-relationship>
+	<db-relationship name="isencao" source="o_valor_trh" target="isencao" toMany="false">
+		<db-attribute-pair source="fk_isencao" target="id"/>
+	</db-relationship>
+	<db-relationship name="multiplicativo" source="o_valor_trh" target="o_valor_base_multiplicativo_tipologias" toMany="false">
+		<db-attribute-pair source="fk_o_multiplicativo" target="id"/>
+	</db-relationship>
+	<db-relationship name="titulo" source="o_valor_trh" target="titulo" toMany="false">
+		<db-attribute-pair source="fk_titulo" target="id"/>
+	</db-relationship>
+	<db-relationship name="valor_arh" source="o_valor_trh" target="valor_trh" toMany="false">
+		<db-attribute-pair source="fk_valor_trh" target="id"/>
+	</db-relationship>
+	<db-relationship name="valor_base" source="o_valor_trh" target="o_valor_base_multiplicativo_tipologias" toMany="false">
+		<db-attribute-pair source="fk_o_valor_base" target="id"/>
+	</db-relationship>
+	<db-relationship name="admin" source="observacoes_pagamento" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_admin" target="id"/>
+	</db-relationship>
+	<db-relationship name="pagamento_anual" source="observacoes_pagamento" target="pagamento_anual" toMany="false">
+		<db-attribute-pair source="fk_pagamento_anual" target="id"/>
+	</db-relationship>
+	<db-relationship name="pagamento_inferior_1_ano" source="observacoes_pagamento" target="pagamento_inferior_1_ano" toMany="false">
+		<db-attribute-pair source="fk_pagamento_inferior_1_ano" target="id"/>
+	</db-relationship>
+	<db-relationship name="observacoes" source="pagamento_anual" target="observacoes_pagamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_pagamento_anual"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="pagamento_anual" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="valores_trh" source="pagamento_anual" target="valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_pagamento_anual"/>
+	</db-relationship>
+	<db-relationship name="observacoes" source="pagamento_inferior_1_ano" target="observacoes_pagamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_pagamento_inferior_1_ano"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="pagamento_inferior_1_ano" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="valores_trh" source="pagamento_inferior_1_ano" target="valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_pagamento_1_ano"/>
+	</db-relationship>
+	<db-relationship name="valor_base_e" source="poluente" target="e_valor_base_poluente" toMany="true">
+		<db-attribute-pair source="id" target="fk_poluente"/>
+	</db-relationship>
+	<db-relationship name="parametros_o" source="tipo_ocupacao" target="o_valor_base_multiplicativo_tipologias" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_ocupacao"/>
+	</db-relationship>
+	<db-relationship name="parametros_a_u" source="tipologia_captacao" target="a_u_valor_base_multiplicativo_tipologia_captacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipologia_captacao"/>
+	</db-relationship>
+	<db-relationship name="multiplicativo_e" source="tipologia_rejeicao" target="e_multiplicativo_tipologia_rejeicao" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipologia_rejeicao"/>
+	</db-relationship>
+	<db-relationship name="isencao" source="u_valor_trh" target="isencao" toMany="false">
+		<db-attribute-pair source="fk_isencao" target="id"/>
+	</db-relationship>
+	<db-relationship name="titulo" source="u_valor_trh" target="titulo" toMany="false">
+		<db-attribute-pair source="fk_titulo" target="id"/>
+	</db-relationship>
+	<db-relationship name="valor_base" source="u_valor_trh" target="a_u_valor_base_multiplicativo_tipologia_captacao" toMany="false">
+		<db-attribute-pair source="fk_u_valor_base" target="id"/>
+	</db-relationship>
+	<db-relationship name="valor_trh" source="u_valor_trh" target="valor_trh" toMany="false">
+		<db-attribute-pair source="fk_valor_trh" target="id"/>
+	</db-relationship>
+	<db-relationship name="valores_u_multiplicativo" source="u_valor_trh" target="a_u_valor_base_multiplicativo_tipologia_captacao" toMany="false">
+		<db-attribute-pair source="fk_u_multiplicativo" target="id"/>
+	</db-relationship>
+	<db-relationship name="pagamento_anual" source="valor_trh" target="pagamento_anual" toMany="false">
+		<db-attribute-pair source="fk_pagamento_anual" target="id"/>
+	</db-relationship>
+	<db-relationship name="pagamentos_inferiores_1_ano" source="valor_trh" target="pagamento_inferior_1_ano" toMany="false">
+		<db-attribute-pair source="fk_pagamento_1_ano" target="id"/>
+	</db-relationship>
+	<db-relationship name="titulo" source="valor_trh" target="titulo" toMany="false">
+		<db-attribute-pair source="fk_titulo" target="id"/>
+	</db-relationship>
+	<db-relationship name="titulo_historico" source="valor_trh" target="titulo_historico" toMany="false">
+		<db-attribute-pair source="fk_titulo_historico" target="id"/>
+	</db-relationship>
+	<db-relationship name="valores_a" source="valor_trh" target="a_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_valor_trh"/>
+	</db-relationship>
+	<db-relationship name="valores_e" source="valor_trh" target="e_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_valor_trh"/>
+	</db-relationship>
+	<db-relationship name="valores_o" source="valor_trh" target="o_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_valor_trh"/>
+	</db-relationship>
+	<db-relationship name="valores_u" source="valor_trh" target="u_valor_trh" toMany="true">
+		<db-attribute-pair source="id" target="fk_valor_trh"/>
+	</db-relationship>
+	<obj-relationship name="coefEscassezA" source="ACoefEscassezBacia" target="AValorTrh" deleteRule="Deny" db-relationship-path="coef_escassez_a"/>
+	<obj-relationship name="multiplicativoA" source="AUValorBaseMultiplicativoTipologiaCaptacao" target="AValorTrh" deleteRule="Deny" db-relationship-path="valores_a_multiplicativo"/>
+	<obj-relationship name="multiplicativoU" source="AUValorBaseMultiplicativoTipologiaCaptacao" target="UValorTrh" deleteRule="Deny" db-relationship-path="valores_u_multiplicativo"/>
+	<obj-relationship name="tipologiaCaptacao" source="AUValorBaseMultiplicativoTipologiaCaptacao" target="TipologiaCaptacao" deleteRule="Nullify" db-relationship-path="tipologia_captacao"/>
+	<obj-relationship name="valoresAValorBase" source="AUValorBaseMultiplicativoTipologiaCaptacao" target="AValorTrh" deleteRule="Deny" db-relationship-path="valores_a_valor_base"/>
+	<obj-relationship name="valoresUValorBase" source="AUValorBaseMultiplicativoTipologiaCaptacao" target="UValorTrh" deleteRule="Deny" db-relationship-path="valores_u_valor_base"/>
+	<obj-relationship name="coefEscassez" source="AValorTrh" target="ACoefEscassezBacia" deleteRule="Nullify" db-relationship-path="coef_escassez"/>
+	<obj-relationship name="isencao" source="AValorTrh" target="Isencao" deleteRule="Nullify" db-relationship-path="isencao"/>
+	<obj-relationship name="multiplicativo" source="AValorTrh" target="AUValorBaseMultiplicativoTipologiaCaptacao" deleteRule="Nullify" db-relationship-path="multiplicativo"/>
+	<obj-relationship name="titulo" source="AValorTrh" target="Titulo" deleteRule="Nullify" db-relationship-path="titulo"/>
+	<obj-relationship name="valorBase" source="AValorTrh" target="AUValorBaseMultiplicativoTipologiaCaptacao" deleteRule="Nullify" db-relationship-path="valor_base"/>
+	<obj-relationship name="valorTrh" source="AValorTrh" target="ValorTrh" deleteRule="Nullify" db-relationship-path="valor_trh"/>
+	<obj-relationship name="tipologiaRejeicao" source="EMultiplicativoTipologiaRejeicao" target="TipologiaRejeicao" deleteRule="Nullify" db-relationship-path="tipologia_rejeicao"/>
+	<obj-relationship name="valoresE" source="EMultiplicativoTipologiaRejeicao" target="EValorTrh" deleteRule="Deny" db-relationship-path="valores_e"/>
+	<obj-relationship name="poluente" source="EValorBasePoluente" target="Poluente" deleteRule="Nullify" db-relationship-path="poluente"/>
+	<obj-relationship name="valoresE" source="EValorBasePoluente" target="EValorTrh" deleteRule="Deny" db-relationship-path="valores_e"/>
+	<obj-relationship name="isencao" source="EValorTrh" target="Isencao" deleteRule="Nullify" db-relationship-path="isencao"/>
+	<obj-relationship name="multiplicativo" source="EValorTrh" target="EMultiplicativoTipologiaRejeicao" deleteRule="Nullify" db-relationship-path="multiplicativo"/>
+	<obj-relationship name="titulo" source="EValorTrh" target="Titulo" deleteRule="Nullify" db-relationship-path="titulo"/>
+	<obj-relationship name="valorBase" source="EValorTrh" target="EValorBasePoluente" deleteRule="Nullify" db-relationship-path="valor_base"/>
+	<obj-relationship name="valorTrh" source="EValorTrh" target="ValorTrh" deleteRule="Nullify" db-relationship-path="valor_trh"/>
+	<obj-relationship name="documento" source="IValorTrh" target="DocumentoCompI" deleteRule="Nullify" db-relationship-path="documento"/>
+	<obj-relationship name="perfil" source="IValorTrh" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="componenteE" source="Isencao" target="EValorTrh" deleteRule="Deny" db-relationship-path="componentes_e"/>
+	<obj-relationship name="componentesA" source="Isencao" target="AValorTrh" deleteRule="Deny" db-relationship-path="componentes_a"/>
+	<obj-relationship name="componentesO" source="Isencao" target="OValorTrh" deleteRule="Deny" db-relationship-path="componentes_o"/>
+	<obj-relationship name="componentesU" source="Isencao" target="UValorTrh" deleteRule="Deny" db-relationship-path="componentes_u"/>
+	<obj-relationship name="tipoOcupacao" source="OValorBaseMultiplicativoTipologias" target="TipoOcupacao" deleteRule="Nullify" db-relationship-path="tipo_ocupacao"/>
+	<obj-relationship name="valoresOTrhMultiplicativo" source="OValorBaseMultiplicativoTipologias" target="OValorTrh" deleteRule="Deny" db-relationship-path="valores_o_trh_multiplicativo"/>
+	<obj-relationship name="valoresOTrhValorBase" source="OValorBaseMultiplicativoTipologias" target="OValorTrh" deleteRule="Deny" db-relationship-path="valores_o_trh_valor_base"/>
+	<obj-relationship name="isencao" source="OValorTrh" target="Isencao" deleteRule="Nullify" db-relationship-path="isencao"/>
+	<obj-relationship name="multiplicativo" source="OValorTrh" target="OValorBaseMultiplicativoTipologias" deleteRule="Nullify" db-relationship-path="multiplicativo"/>
+	<obj-relationship name="titulo" source="OValorTrh" target="Titulo" deleteRule="Nullify" db-relationship-path="titulo"/>
+	<obj-relationship name="valorBase" source="OValorTrh" target="OValorBaseMultiplicativoTipologias" deleteRule="Nullify" db-relationship-path="valor_base"/>
+	<obj-relationship name="valorTrh" source="OValorTrh" target="ValorTrh" deleteRule="Nullify" db-relationship-path="valor_arh"/>
+	<obj-relationship name="admin" source="ObservacoesPagamento" target="Administrador" deleteRule="Nullify" db-relationship-path="admin"/>
+	<obj-relationship name="pagamentoAnual" source="ObservacoesPagamento" target="PagamentoAnual" deleteRule="Nullify" db-relationship-path="pagamento_anual"/>
+	<obj-relationship name="pagamentoInferior1Ano" source="ObservacoesPagamento" target="PagamentoInferior1Ano" deleteRule="Nullify" db-relationship-path="pagamento_inferior_1_ano"/>
+	<obj-relationship name="observacoes" source="PagamentoAnual" target="ObservacoesPagamento" deleteRule="Deny" db-relationship-path="observacoes"/>
+	<obj-relationship name="perfil" source="PagamentoAnual" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="valoresTrh" source="PagamentoAnual" target="ValorTrh" deleteRule="Deny" db-relationship-path="valores_trh"/>
+	<obj-relationship name="observacoes" source="PagamentoInferior1Ano" target="ObservacoesPagamento" deleteRule="Deny" db-relationship-path="observacoes"/>
+	<obj-relationship name="perfil" source="PagamentoInferior1Ano" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="valoresTrh" source="PagamentoInferior1Ano" target="ValorTrh" deleteRule="Deny" db-relationship-path="valores_trh"/>
+	<obj-relationship name="valorBaseE" source="Poluente" target="EValorBasePoluente" deleteRule="Deny" db-relationship-path="valor_base_e"/>
+	<obj-relationship name="parametrosO" source="TipoOcupacao" target="OValorBaseMultiplicativoTipologias" deleteRule="Deny" db-relationship-path="parametros_o"/>
+	<obj-relationship name="parametrosAU" source="TipologiaCaptacao" target="AUValorBaseMultiplicativoTipologiaCaptacao" deleteRule="Deny" db-relationship-path="parametros_a_u"/>
+	<obj-relationship name="multiplicativoE" source="TipologiaRejeicao" target="EMultiplicativoTipologiaRejeicao" deleteRule="Deny" db-relationship-path="multiplicativo_e"/>
+	<obj-relationship name="isencao" source="UValorTrh" target="Isencao" deleteRule="Nullify" db-relationship-path="isencao"/>
+	<obj-relationship name="multiplicativo" source="UValorTrh" target="AUValorBaseMultiplicativoTipologiaCaptacao" deleteRule="Nullify" db-relationship-path="valores_u_multiplicativo"/>
+	<obj-relationship name="titulo" source="UValorTrh" target="Titulo" deleteRule="Nullify" db-relationship-path="titulo"/>
+	<obj-relationship name="valorBase" source="UValorTrh" target="AUValorBaseMultiplicativoTipologiaCaptacao" deleteRule="Nullify" db-relationship-path="valor_base"/>
+	<obj-relationship name="valorTrh" source="UValorTrh" target="ValorTrh" deleteRule="Nullify" db-relationship-path="valor_trh"/>
+	<obj-relationship name="pagamentoAnual" source="ValorTrh" target="PagamentoAnual" deleteRule="Nullify" db-relationship-path="pagamento_anual"/>
+	<obj-relationship name="pagamentosInferiores1Ano" source="ValorTrh" target="PagamentoInferior1Ano" deleteRule="Nullify" db-relationship-path="pagamentos_inferiores_1_ano"/>
+	<obj-relationship name="titulo" source="ValorTrh" target="Titulo" deleteRule="Nullify" db-relationship-path="titulo"/>
+	<obj-relationship name="tituloHistorico" source="ValorTrh" target="TituloHistorico" deleteRule="Nullify" db-relationship-path="titulo_historico"/>
+	<obj-relationship name="valoresA" source="ValorTrh" target="AValorTrh" deleteRule="Nullify" db-relationship-path="valores_a"/>
+	<obj-relationship name="valoresE" source="ValorTrh" target="EValorTrh" deleteRule="Nullify" db-relationship-path="valores_e"/>
+	<obj-relationship name="valoresO" source="ValorTrh" target="OValorTrh" deleteRule="Nullify" db-relationship-path="valores_o"/>
+	<obj-relationship name="valoresU" source="ValorTrh" target="UValorTrh" deleteRule="Nullify" db-relationship-path="valores_u"/>
+</data-map>

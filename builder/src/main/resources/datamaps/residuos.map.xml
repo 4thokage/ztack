@@ -1,0 +1,1325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.residuos"/>
+	<property name="defaultSchema" value="residuos"/>
+	<db-entity name="classe_onu" schema="residuos">
+		<db-attribute name="activo" type="BIT" length="1"/>
+		<db-attribute name="classe_onu" type="VARCHAR" isMandatory="true" length="5"/>
+		<db-attribute name="definicao" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="fk_parent" type="INTEGER" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="mtr_laranja" type="BIT" length="1"/>
+		<db-attribute name="nivel" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="numero_onu" type="BIT" length="1"/>
+		<db-attribute name="ordem" type="INTEGER" length="10"/>
+	</db-entity>
+	<db-entity name="codigo_cpa" schema="residuos">
+		<db-attribute name="activo" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="fk_parent" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nivel" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="2048"/>
+	</db-entity>
+	<db-entity name="codigo_h" schema="residuos">
+		<db-attribute name="activo" type="BOOLEAN" length="1"/>
+		<db-attribute name="caracteristica" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="codigo_h" type="VARCHAR" isMandatory="true" length="5"/>
+		<db-attribute name="fk_parent" type="INTEGER" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="mtr_laranja" type="BOOLEAN" length="1"/>
+		<db-attribute name="nivel" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="ordem" type="INTEGER" length="10"/>
+	</db-entity>
+	<db-entity name="dados_gerais_estabelecimento" schema="residuos">
+		<db-attribute name="actual" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="cp7" type="VARCHAR" length="20"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inactivacao" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_inicio_laboracao" type="TIMESTAMP"/>
+		<db-attribute name="email" type="VARCHAR" length="255"/>
+		<db-attribute name="fax" type="VARCHAR" length="50"/>
+		<db-attribute name="fk_cae_primaria" type="VARCHAR" length="6"/>
+		<db-attribute name="fk_criador" type="INTEGER"/>
+		<db-attribute name="fk_criador_adm" type="INTEGER"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_freguesia" type="VARCHAR" length="10"/>
+		<db-attribute name="fk_pais" type="VARCHAR" length="2"/>
+		<db-attribute name="fk_perfil_organizacao" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo_inactivacao" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="localidade" type="VARCHAR" length="255"/>
+		<db-attribute name="morada" type="VARCHAR" length="255"/>
+		<db-attribute name="motivo_inativacao" type="VARCHAR" length="1000"/>
+		<db-attribute name="nome" type="VARCHAR" length="255"/>
+		<db-attribute name="num_porta" type="VARCHAR" length="10"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="1000"/>
+		<db-attribute name="observacoes_apa" type="VARCHAR" length="1000"/>
+		<db-attribute name="telefones" type="VARCHAR" length="100"/>
+		<db-attribute name="x" type="DOUBLE"/>
+		<db-attribute name="y" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="dados_laborais_estabelecimento" schema="residuos">
+		<db-attribute name="actual" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_criador" type="INTEGER"/>
+		<db-attribute name="fk_criador_adm" type="INTEGER"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo_regime" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="num_trabalhadores" type="INTEGER"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="1000"/>
+	</db-entity>
+	<db-entity name="enquadramento_estabelecimento" schema="residuos">
+		<db-attribute name="actual" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="enquadrado" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="fk_criador" type="INTEGER"/>
+		<db-attribute name="fk_criador_adm" type="INTEGER"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_periodo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="entidade_mtr" schema="residuos">
+		<db-attribute name="cod_postal" type="VARCHAR" length="100"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="email_contacto" type="VARCHAR" length="255"/>
+		<db-attribute name="fax" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_criador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_pais" type="VARCHAR" length="2"/>
+		<db-attribute name="fk_perfil" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="morada" type="VARCHAR" length="500"/>
+		<db-attribute name="nif" type="VARCHAR" length="100"/>
+		<db-attribute name="nome" type="VARCHAR" length="255"/>
+		<db-attribute name="pais_nome" type="VARCHAR" length="200"/>
+		<db-attribute name="pessoa_contacto" type="VARCHAR" length="255"/>
+		<db-attribute name="telefone_contacto" type="VARCHAR" length="100"/>
+	</db-entity>
+	<db-entity name="estabelecimento" schema="residuos">
+		<db-attribute name="activo" type="BOOLEAN"/>
+		<db-attribute name="cod_apa" type="VARCHAR" length="20"/>
+		<db-attribute name="completo" type="BOOLEAN"/>
+		<db-attribute name="data_activacao" type="TIMESTAMP"/>
+		<db-attribute name="data_actualizacao_localizacao" type="TIMESTAMP"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP"/>
+		<db-attribute name="fk_perfil_organizacao" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="registo_dia" type="BOOLEAN"/>
+		<db-attribute name="visivel" type="BOOLEAN"/>
+	</db-entity>
+	<db-entity name="estado_activacao" schema="residuos">
+		<db-attribute name="activo" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="data" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil_altera" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="motivo" type="VARCHAR" isMandatory="true" length="500"/>
+	</db-entity>
+	<db-entity name="extensao_prazo" schema="residuos">
+		<db-attribute name="codigo" type="INTEGER"/>
+		<db-attribute name="corretor" type="BOOLEAN"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_fim" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="entidade_mtr_c_not" type="BOOLEAN"/>
+		<db-attribute name="entidade_mtr_s_not" type="BOOLEAN"/>
+		<db-attribute name="estado" type="INTEGER"/>
+		<db-attribute name="fk_admin" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_periodo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nif" type="VARCHAR" length="15"/>
+		<db-attribute name="operador_gestao_residuos_c_proc" type="BOOLEAN"/>
+		<db-attribute name="operador_gestao_residuos_s_proc" type="BOOLEAN"/>
+		<db-attribute name="produtor" type="BOOLEAN"/>
+		<db-attribute name="transportador" type="BOOLEAN"/>
+	</db-entity>
+	<db-entity name="historico_perfil_residuos_estabelecimento" schema="residuos">
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil_residuos" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="local_recolha_retoma" schema="residuos">
+		<db-attribute name="codigo_apa" type="VARCHAR" isMandatory="true" length="20"/>
+		<db-attribute name="codigo_interno" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="codigo_postal" type="VARCHAR" isMandatory="true" length="20"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="dicofre" type="VARCHAR" length="6"/>
+		<db-attribute name="fk_perfil_organizacao" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_t_tipo_fluxo_especifico" type="INTEGER" length="11"/>
+		<db-attribute name="fk_t_tipo_local_recolha_retoma" type="INTEGER" isMandatory="true" length="11"/>
+		<db-attribute name="fk_t_tipo_perfil_egar" type="INTEGER" isMandatory="true" length="11"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="11"/>
+		<db-attribute name="latitude" type="DOUBLE" scale="6"/>
+		<db-attribute name="localidade" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="longitude" type="DOUBLE" scale="6"/>
+		<db-attribute name="morada" type="VARCHAR" isMandatory="true" length="255"/>
+	</db-entity>
+	<db-entity name="pedido_alteracao_dados_gerais_estabelecimento" schema="residuos">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="32"/>
+		<db-attribute name="cp7" type="VARCHAR" length="20"/>
+		<db-attribute name="data_decisao" type="TIMESTAMP"/>
+		<db-attribute name="data_inactivacao" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio_laboracao" type="TIMESTAMP"/>
+		<db-attribute name="data_submissao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="decisao" type="BOOLEAN"/>
+		<db-attribute name="email" type="VARCHAR" length="255"/>
+		<db-attribute name="fax" type="VARCHAR" length="50"/>
+		<db-attribute name="fk_avaliador" type="INTEGER"/>
+		<db-attribute name="fk_cae_primaria" type="VARCHAR" length="6"/>
+		<db-attribute name="fk_criador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_freguesia" type="VARCHAR" length="10"/>
+		<db-attribute name="fk_pais" type="VARCHAR" length="2"/>
+		<db-attribute name="fk_perfil_residuos_organizacao" type="INTEGER"/>
+		<db-attribute name="fk_tipo_inactivacao" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="justificacao_indeferimento" type="VARCHAR" length="4000"/>
+		<db-attribute name="localidade" type="VARCHAR" length="255"/>
+		<db-attribute name="morada" type="VARCHAR" length="255"/>
+		<db-attribute name="motivo_inativacao" type="VARCHAR" length="1000"/>
+		<db-attribute name="nome" type="VARCHAR" length="255"/>
+		<db-attribute name="num_porta" type="VARCHAR" length="10"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="1000"/>
+		<db-attribute name="telefones" type="VARCHAR" length="100"/>
+		<db-attribute name="x" type="DOUBLE"/>
+		<db-attribute name="y" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="perfil_residuos" schema="residuos">
+		<db-attribute name="autorizacao_emissao_guias" type="BOOLEAN"/>
+		<db-attribute name="fk_cae_principal" type="VARCHAR" length="6"/>
+		<db-attribute name="fk_cae_secundaria" type="VARCHAR" length="6"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nif" type="VARCHAR" isMandatory="true" length="22"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="500"/>
+	</db-entity>
+	<db-entity name="periodo" schema="residuos">
+		<db-attribute name="codigo" type="VARCHAR" length="20"/>
+		<db-attribute name="data_fim" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_fim_referencia" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_inicio_referencia" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="designacao" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_t_ano_reporte" type="INTEGER"/>
+		<db-attribute name="fk_tipo_enquadramento" type="INTEGER"/>
+		<db-attribute name="fk_tipo_reporte" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="sinc_sirapa" type="BOOLEAN"/>
+		<db-attribute name="taxa_associada" type="BOOLEAN"/>
+	</db-entity>
+	<db-entity name="r_cae_estabelecimento" schema="residuos">
+		<db-attribute name="data" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_cae" type="VARCHAR" isMandatory="true" length="6"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil_altera" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="r_cae_secundaria_estabelecimento" schema="residuos">
+		<db-attribute name="fk_cae_secundaria" type="VARCHAR" isMandatory="true" length="6"/>
+		<db-attribute name="fk_dados_gerais_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_pedido_alteracao_dados_gerais_estabelecimento" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="r_entidade_tipo" schema="residuos">
+		<db-attribute name="fk_entidade" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="r_estabelecimento_enquadramento" schema="residuos">
+		<db-attribute name="data" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_enquadramento" type="INTEGER"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil_altera" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="residuos_basileia" schema="residuos">
+		<db-attribute name="activo" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="fk_parent" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mirr_eb1" type="BOOLEAN"/>
+		<db-attribute name="mirr_eb2" type="BOOLEAN"/>
+		<db-attribute name="mtr_verde" type="BOOLEAN"/>
+		<db-attribute name="nivel" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="2048"/>
+	</db-entity>
+	<db-entity name="residuos_beu" schema="residuos">
+		<db-attribute name="activo" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="fk_parent" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nivel" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="2048"/>
+	</db-entity>
+	<db-entity name="residuos_ler" schema="residuos">
+		<db-attribute name="activo" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="fk_parent" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nivel" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="2048"/>
+	</db-entity>
+	<db-entity name="residuos_ocde" schema="residuos">
+		<db-attribute name="activo" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="fk_parent" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mirr_eb1" type="BOOLEAN"/>
+		<db-attribute name="mirr_eb2" type="BOOLEAN"/>
+		<db-attribute name="mtr_verde" type="BOOLEAN"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="2048"/>
+	</db-entity>
+	<db-entity name="residuos_y" schema="residuos">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="nome" type="VARCHAR" length="255"/>
+	</db-entity>
+	<db-entity name="sistema_gestao_fluxos" schema="residuos">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="512"/>
+	</db-entity>
+	<db-entity name="tipo_autoridade" schema="residuos">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="255"/>
+	</db-entity>
+	<db-entity name="tipo_enquadramento" schema="residuos">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="editable" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="id_pai" type="INTEGER"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="255"/>
+	</db-entity>
+	<db-entity name="tipo_entidade" schema="residuos">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="512"/>
+		<db-attribute name="visivel" type="BOOLEAN" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="tipo_operacao" schema="residuos">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="4"/>
+		<db-attribute name="operacao" type="VARCHAR" isMandatory="true" length="255"/>
+	</db-entity>
+	<db-entity name="tipo_operacao_valorizacao" schema="residuos">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="512"/>
+		<db-attribute name="valor" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="tipo_regime" schema="residuos">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" length="255"/>
+	</db-entity>
+	<db-entity name="tipo_transporte" schema="residuos">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="512"/>
+	</db-entity>
+	<obj-entity name="ClasseOnu" className="org.addition.apa.residuos.ClasseOnu" dbEntityName="classe_onu">
+		<obj-attribute name="activo" type="java.lang.Boolean" db-attribute-path="activo"/>
+		<obj-attribute name="classeOnu" type="java.lang.String" db-attribute-path="classe_onu"/>
+		<obj-attribute name="definicao" type="java.lang.String" db-attribute-path="definicao"/>
+		<obj-attribute name="mtrLaranja" type="java.lang.Boolean" db-attribute-path="mtr_laranja"/>
+		<obj-attribute name="nivel" type="java.lang.Integer" db-attribute-path="nivel"/>
+		<obj-attribute name="numeroOnu" type="java.lang.Boolean" db-attribute-path="numero_onu"/>
+		<obj-attribute name="ordem" type="java.lang.Integer" db-attribute-path="ordem"/>
+	</obj-entity>
+	<obj-entity name="CodigoCpa" className="org.addition.apa.residuos.CodigoCpa" dbEntityName="codigo_cpa">
+		<obj-attribute name="activo" type="java.lang.Boolean" db-attribute-path="activo"/>
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="fkParent" type="java.lang.Integer" db-attribute-path="fk_parent"/>
+		<obj-attribute name="nivel" type="java.lang.Integer" db-attribute-path="nivel"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="CodigoH" className="org.addition.apa.residuos.CodigoH" dbEntityName="codigo_h">
+		<obj-attribute name="activo" type="java.lang.Boolean" db-attribute-path="activo"/>
+		<obj-attribute name="caracteristica" type="java.lang.String" db-attribute-path="caracteristica"/>
+		<obj-attribute name="codigoH" type="java.lang.String" db-attribute-path="codigo_h"/>
+		<obj-attribute name="mtrLaranja" type="java.lang.Boolean" db-attribute-path="mtr_laranja"/>
+		<obj-attribute name="nivel" type="java.lang.Integer" db-attribute-path="nivel"/>
+		<obj-attribute name="ordem" type="java.lang.Integer" db-attribute-path="ordem"/>
+	</obj-entity>
+	<obj-entity name="DadosGeraisEstabelecimento" className="org.addition.apa.residuos.DadosGeraisEstabelecimento" dbEntityName="dados_gerais_estabelecimento" superClassName="org.addition.versioning.AbstractCayenneVersioning">
+		<obj-attribute name="actual" type="java.lang.Boolean" db-attribute-path="actual"/>
+		<obj-attribute name="cp7" type="java.lang.String" db-attribute-path="cp7"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInactivacao" type="java.util.Date" db-attribute-path="data_inactivacao"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="dataInicioLaboracao" type="java.util.Date" db-attribute-path="data_inicio_laboracao"/>
+		<obj-attribute name="email" type="java.lang.String" db-attribute-path="email"/>
+		<obj-attribute name="fax" type="java.lang.String" db-attribute-path="fax"/>
+		<obj-attribute name="localidade" type="java.lang.String" db-attribute-path="localidade"/>
+		<obj-attribute name="morada" type="java.lang.String" db-attribute-path="morada"/>
+		<obj-attribute name="motivoInativacao" type="java.lang.String" db-attribute-path="motivo_inativacao"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="numPorta" type="java.lang.String" db-attribute-path="num_porta"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="observacoesApa" type="java.lang.String" db-attribute-path="observacoes_apa"/>
+		<obj-attribute name="telefones" type="java.lang.String" db-attribute-path="telefones"/>
+		<obj-attribute name="x" type="java.lang.Double" db-attribute-path="x"/>
+		<obj-attribute name="y" type="java.lang.Double" db-attribute-path="y"/>
+		<post-persist method-name="onPostPersist"/>
+		<post-update method-name="onPostUpdate"/>
+	</obj-entity>
+	<obj-entity name="DadosLaboraisEstabelecimento" className="org.addition.apa.residuos.DadosLaboraisEstabelecimento" dbEntityName="dados_laborais_estabelecimento" superClassName="org.addition.versioning.AbstractCayenneVersioning">
+		<obj-attribute name="actual" type="java.lang.Boolean" db-attribute-path="actual"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="numTrabalhadores" type="java.lang.Integer" db-attribute-path="num_trabalhadores"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+	</obj-entity>
+	<obj-entity name="EnquadramentoEstabelecimento" className="org.addition.apa.residuos.EnquadramentoEstabelecimento" dbEntityName="enquadramento_estabelecimento" superClassName="org.addition.versioning.AbstractCayenneVersioning">
+		<obj-attribute name="actual" type="java.lang.Boolean" db-attribute-path="actual"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="enquadrado" type="java.lang.Boolean" db-attribute-path="enquadrado"/>
+	</obj-entity>
+	<obj-entity name="EntidadeMtr" className="org.addition.apa.residuos.EntidadeMtr" dbEntityName="entidade_mtr">
+		<obj-attribute name="codPostal" type="java.lang.String" db-attribute-path="cod_postal"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="emailContacto" type="java.lang.String" db-attribute-path="email_contacto"/>
+		<obj-attribute name="fax" type="java.lang.String" db-attribute-path="fax"/>
+		<obj-attribute name="morada" type="java.lang.String" db-attribute-path="morada"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="paisNome" type="java.lang.String" db-attribute-path="pais_nome"/>
+		<obj-attribute name="pessoaContacto" type="java.lang.String" db-attribute-path="pessoa_contacto"/>
+		<obj-attribute name="telefoneContacto" type="java.lang.String" db-attribute-path="telefone_contacto"/>
+	</obj-entity>
+	<obj-entity name="Estabelecimento" className="org.addition.apa.residuos.Estabelecimento" dbEntityName="estabelecimento" superClassName="org.addition.apa.pedido.AbstractObjectoAlteracao">
+		<obj-attribute name="activo" type="java.lang.Boolean" db-attribute-path="activo"/>
+		<obj-attribute name="codApa" type="java.lang.String" db-attribute-path="cod_apa"/>
+		<obj-attribute name="completo" type="java.lang.Boolean" db-attribute-path="completo"/>
+		<obj-attribute name="dataActivacao" type="java.util.Date" db-attribute-path="data_activacao"/>
+		<obj-attribute name="dataActualizacaoLocalizacao" type="java.util.Date" db-attribute-path="data_actualizacao_localizacao"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="registoDia" type="java.lang.Boolean" db-attribute-path="registo_dia"/>
+		<obj-attribute name="visivel" type="java.lang.Boolean" db-attribute-path="visivel"/>
+	</obj-entity>
+	<obj-entity name="EstadoActivacao" className="org.addition.apa.residuos.EstadoActivacao" dbEntityName="estado_activacao">
+		<obj-attribute name="activo" type="java.lang.Boolean" db-attribute-path="activo"/>
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="motivo" type="java.lang.String" db-attribute-path="motivo"/>
+	</obj-entity>
+	<obj-entity name="ExtensaoPrazo" className="org.addition.apa.residuos.ExtensaoPrazo" dbEntityName="extensao_prazo">
+		<obj-attribute name="codigo" type="java.lang.Integer" db-attribute-path="codigo"/>
+		<obj-attribute name="corretor" type="java.lang.Boolean" db-attribute-path="corretor"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="entidadeMtrCNot" type="java.lang.Boolean" db-attribute-path="entidade_mtr_c_not"/>
+		<obj-attribute name="entidadeMtrSNot" type="java.lang.Boolean" db-attribute-path="entidade_mtr_s_not"/>
+		<obj-attribute name="estado" type="java.lang.Integer" db-attribute-path="estado"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="operadorGestaoResiduosCProc" type="java.lang.Boolean" db-attribute-path="operador_gestao_residuos_c_proc"/>
+		<obj-attribute name="operadorGestaoResiduosSProc" type="java.lang.Boolean" db-attribute-path="operador_gestao_residuos_s_proc"/>
+		<obj-attribute name="produtor" type="java.lang.Boolean" db-attribute-path="produtor"/>
+		<obj-attribute name="transportador" type="java.lang.Boolean" db-attribute-path="transportador"/>
+	</obj-entity>
+	<obj-entity name="HistoricoPerfilResiduosEstabelecimento" className="org.addition.apa.residuos.HistoricoPerfilResiduosEstabelecimento" dbEntityName="historico_perfil_residuos_estabelecimento">
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+	</obj-entity>
+	<obj-entity name="LocalRecolhaRetoma" className="org.addition.apa.residuos.LocalRecolhaRetoma" dbEntityName="local_recolha_retoma">
+		<obj-attribute name="codigoApa" type="java.lang.String" db-attribute-path="codigo_apa"/>
+		<obj-attribute name="codigoInterno" type="java.lang.String" db-attribute-path="codigo_interno"/>
+		<obj-attribute name="codigoPostal" type="java.lang.String" db-attribute-path="codigo_postal"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="dicofre" type="java.lang.String" db-attribute-path="dicofre"/>
+		<obj-attribute name="latitude" type="java.math.BigDecimal" db-attribute-path="latitude"/>
+		<obj-attribute name="localidade" type="java.lang.String" db-attribute-path="localidade"/>
+		<obj-attribute name="longitude" type="java.math.BigDecimal" db-attribute-path="longitude"/>
+		<obj-attribute name="morada" type="java.lang.String" db-attribute-path="morada"/>
+	</obj-entity>
+	<obj-entity name="PedidoAlteracaoDadosGeraisEstabelecimento" className="org.addition.apa.residuos.PedidoAlteracaoDadosGeraisEstabelecimento" dbEntityName="pedido_alteracao_dados_gerais_estabelecimento" superClassName="org.addition.apa.pedido.AbstractPedidoAlteracao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="cp7" type="java.lang.String" db-attribute-path="cp7"/>
+		<obj-attribute name="dataDecisao" type="java.util.Date" db-attribute-path="data_decisao"/>
+		<obj-attribute name="dataInactivacao" type="java.util.Date" db-attribute-path="data_inactivacao"/>
+		<obj-attribute name="dataInicioLaboracao" type="java.util.Date" db-attribute-path="data_inicio_laboracao"/>
+		<obj-attribute name="dataSubmissao" type="java.util.Date" db-attribute-path="data_submissao"/>
+		<obj-attribute name="decisao" type="java.lang.Boolean" db-attribute-path="decisao"/>
+		<obj-attribute name="email" type="java.lang.String" db-attribute-path="email"/>
+		<obj-attribute name="fax" type="java.lang.String" db-attribute-path="fax"/>
+		<obj-attribute name="justificacaoIndeferimento" type="java.lang.String" db-attribute-path="justificacao_indeferimento"/>
+		<obj-attribute name="localidade" type="java.lang.String" db-attribute-path="localidade"/>
+		<obj-attribute name="morada" type="java.lang.String" db-attribute-path="morada"/>
+		<obj-attribute name="motivoInativacao" type="java.lang.String" db-attribute-path="motivo_inativacao"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="numPorta" type="java.lang.String" db-attribute-path="num_porta"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="telefones" type="java.lang.String" db-attribute-path="telefones"/>
+		<obj-attribute name="x" type="java.lang.Double" db-attribute-path="x"/>
+		<obj-attribute name="y" type="java.lang.Double" db-attribute-path="y"/>
+	</obj-entity>
+	<obj-entity name="PerfilResiduos" className="org.addition.apa.residuos.PerfilResiduos" dbEntityName="perfil_residuos">
+		<obj-attribute name="autorizacaoEmissaoGuias" type="java.lang.Boolean" db-attribute-path="autorizacao_emissao_guias"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="Periodo" className="org.addition.apa.residuos.Periodo" dbEntityName="periodo">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataFimReferencia" type="java.util.Date" db-attribute-path="data_fim_referencia"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="dataInicioReferencia" type="java.util.Date" db-attribute-path="data_inicio_referencia"/>
+		<obj-attribute name="designacao" type="java.lang.String" db-attribute-path="designacao"/>
+		<obj-attribute name="sincSirapa" type="java.lang.Boolean" db-attribute-path="sinc_sirapa"/>
+		<obj-attribute name="taxaAssociada" type="java.lang.Boolean" db-attribute-path="taxa_associada"/>
+	</obj-entity>
+	<obj-entity name="RCaeEstabelecimento" className="org.addition.apa.residuos.RCaeEstabelecimento" dbEntityName="r_cae_estabelecimento">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+	</obj-entity>
+	<obj-entity name="RCaeSecundariaEstabelecimento" className="org.addition.apa.residuos.RCaeSecundariaEstabelecimento" dbEntityName="r_cae_secundaria_estabelecimento">
+	</obj-entity>
+	<obj-entity name="REntidadeTipo" className="org.addition.apa.residuos.REntidadeTipo" dbEntityName="r_entidade_tipo">
+	</obj-entity>
+	<obj-entity name="REstabelecimentoEnquadramento" className="org.addition.apa.residuos.REstabelecimentoEnquadramento" dbEntityName="r_estabelecimento_enquadramento">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+	</obj-entity>
+	<obj-entity name="ResiduosBasileia" className="org.addition.apa.residuos.ResiduosBasileia" dbEntityName="residuos_basileia">
+		<obj-attribute name="activo" type="java.lang.Boolean" db-attribute-path="activo"/>
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="mirrEb1" type="java.lang.Boolean" db-attribute-path="mirr_eb1"/>
+		<obj-attribute name="mirrEb2" type="java.lang.Boolean" db-attribute-path="mirr_eb2"/>
+		<obj-attribute name="mtrVerde" type="java.lang.Boolean" db-attribute-path="mtr_verde"/>
+		<obj-attribute name="nivel" type="java.lang.Integer" db-attribute-path="nivel"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="ResiduosBeu" className="org.addition.apa.residuos.ResiduosBeu" dbEntityName="residuos_beu">
+		<obj-attribute name="activo" type="java.lang.Boolean" db-attribute-path="activo"/>
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="nivel" type="java.lang.Integer" db-attribute-path="nivel"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="ResiduosLer" className="org.addition.apa.residuos.ResiduosLer" dbEntityName="residuos_ler">
+		<obj-attribute name="activo" type="java.lang.Boolean" db-attribute-path="activo"/>
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="nivel" type="java.lang.Integer" db-attribute-path="nivel"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="ResiduosOcde" className="org.addition.apa.residuos.ResiduosOcde" dbEntityName="residuos_ocde">
+		<obj-attribute name="activo" type="java.lang.Boolean" db-attribute-path="activo"/>
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="mirrEb1" type="java.lang.Boolean" db-attribute-path="mirr_eb1"/>
+		<obj-attribute name="mirrEb2" type="java.lang.Boolean" db-attribute-path="mirr_eb2"/>
+		<obj-attribute name="mtrVerde" type="java.lang.Boolean" db-attribute-path="mtr_verde"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="ResiduosY" className="org.addition.apa.residuos.ResiduosY" dbEntityName="residuos_y">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="SistemaGestaoFluxos" className="org.addition.apa.residuos.SistemaGestaoFluxos" dbEntityName="sistema_gestao_fluxos">
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="TipoAutoridade" className="org.addition.apa.residuos.TipoAutoridade" dbEntityName="tipo_autoridade">
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="TipoEnquadramento" className="org.addition.apa.residuos.TipoEnquadramento" dbEntityName="tipo_enquadramento">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="editable" type="java.lang.Boolean" db-attribute-path="editable"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="TipoEntidade" className="org.addition.apa.residuos.TipoEntidade" dbEntityName="tipo_entidade">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="visivel" type="java.lang.Boolean" db-attribute-path="visivel"/>
+	</obj-entity>
+	<obj-entity name="TipoOperacao" className="org.addition.apa.residuos.TipoOperacao" dbEntityName="tipo_operacao">
+		<obj-attribute name="operacao" type="java.lang.String" db-attribute-path="operacao"/>
+	</obj-entity>
+	<obj-entity name="TipoOperacaoValorizacao" className="org.addition.apa.residuos.TipoOperacaoValorizacao" dbEntityName="tipo_operacao_valorizacao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="valor" type="java.lang.Double" db-attribute-path="valor"/>
+	</obj-entity>
+	<obj-entity name="TipoRegime" className="org.addition.apa.residuos.TipoRegime" dbEntityName="tipo_regime">
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="TipoTransporte" className="org.addition.apa.residuos.TipoTransporte" dbEntityName="tipo_transporte">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<db-relationship name="classeOnuArray" source="classe_onu" target="classe_onu" toMany="true">
+		<db-attribute-pair source="id" target="fk_parent"/>
+	</db-relationship>
+	<db-relationship name="notificacaoClasseOnu" source="classe_onu" target="notificacao_classe_onu" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_classe_onu"/>
+	</db-relationship>
+	<db-relationship name="toClasseOnu" source="classe_onu" target="classe_onu" toMany="false">
+		<db-attribute-pair source="fk_parent" target="id"/>
+	</db-relationship>
+	<db-relationship name="fichas_mirr_a" source="codigo_cpa" target="ficha_formulario_mirr_a" toMany="true">
+		<db-attribute-pair source="id" target="fk_codigo_cpa"/>
+	</db-relationship>
+	<db-relationship name="codigoHArray" source="codigo_h" target="codigo_h" toMany="true">
+		<db-attribute-pair source="id" target="fk_parent"/>
+	</db-relationship>
+	<db-relationship name="notificacaoCodigoH" source="codigo_h" target="notificacao_codigo_h" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_codigo_h"/>
+	</db-relationship>
+	<db-relationship name="toCodigoH" source="codigo_h" target="codigo_h" toMany="false">
+		<db-attribute-pair source="fk_parent" target="id"/>
+	</db-relationship>
+	<db-relationship name="cae_primaria" source="dados_gerais_estabelecimento" target="t_cae" toMany="false">
+		<db-attribute-pair source="fk_cae_primaria" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="caes_secundarias" source="dados_gerais_estabelecimento" target="r_cae_secundaria_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_dados_gerais_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="criador" source="dados_gerais_estabelecimento" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador_adm" source="dados_gerais_estabelecimento" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criador_adm" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="dados_gerais_estabelecimento" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="freguesia" source="dados_gerais_estabelecimento" target="t_freguesia" toMany="false">
+		<db-attribute-pair source="fk_freguesia" target="id"/>
+	</db-relationship>
+	<db-relationship name="organizacao" source="dados_gerais_estabelecimento" target="perfil_residuos" toMany="false">
+		<db-attribute-pair source="fk_perfil_organizacao" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="pais" source="dados_gerais_estabelecimento" target="t_pais" toMany="false">
+		<db-attribute-pair source="fk_pais" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="tipo_inactivacao" source="dados_gerais_estabelecimento" target="t_tipo_inactivacao_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_tipo_inactivacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="dados_laborais_estabelecimento" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="criadorAdm" source="dados_laborais_estabelecimento" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criador_adm" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="dados_laborais_estabelecimento" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_regime" source="dados_laborais_estabelecimento" target="t_tipo_regime_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_tipo_regime" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="enquadramento_estabelecimento" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="criadorAdm" source="enquadramento_estabelecimento" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criador_adm" target="id"/>
+	</db-relationship>
+	<db-relationship name="enquadramentos_mirr" source="enquadramento_estabelecimento" target="enquadramento_mirr" toMany="true">
+		<db-attribute-pair source="id" target="fk_enquadramento"/>
+	</db-relationship>
+	<db-relationship name="enquadramentos_mrru" source="enquadramento_estabelecimento" target="enquadramento_mrru" toMany="true">
+		<db-attribute-pair source="id" target="fk_enquadramento"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="enquadramento_estabelecimento" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="periodo" source="enquadramento_estabelecimento" target="periodo" toMany="false">
+		<db-attribute-pair source="fk_periodo" target="id"/>
+	</db-relationship>
+	<db-relationship name="contratos_importacao" source="entidade_mtr" target="contrato" toMany="true">
+		<db-attribute-pair source="id" target="fk_importador"/>
+	</db-relationship>
+	<db-relationship name="criador" source="entidade_mtr" target="perfil_residuos" toMany="false">
+		<db-attribute-pair source="fk_criador" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="entidade_mtr" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="formularios_produtor_mtr" source="entidade_mtr" target="formulario_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_produtor"/>
+	</db-relationship>
+	<db-relationship name="formularios_sub_valorizador_mtr" source="entidade_mtr" target="r_formulario_residuos" toMany="true">
+		<db-attribute-pair source="id" target="fk_sub_valorizador"/>
+	</db-relationship>
+	<db-relationship name="formularios_valorizador_mtr" source="entidade_mtr" target="formulario_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_valorizador"/>
+	</db-relationship>
+	<db-relationship name="pais" source="entidade_mtr" target="t_pais" toMany="false">
+		<db-attribute-pair source="fk_pais" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="entidade_mtr" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipos" source="entidade_mtr" target="r_entidade_tipo" toMany="true">
+		<db-attribute-pair source="id" target="fk_entidade"/>
+	</db-relationship>
+	<db-relationship name="transportes" source="entidade_mtr" target="r_transporte" toMany="true">
+		<db-attribute-pair source="id" target="fk_entidade"/>
+	</db-relationship>
+	<db-relationship name="MovimentoGasFluorado" source="estabelecimento" target="movimento_gf" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="dados_gerais" source="estabelecimento" target="dados_gerais_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="dados_laborais_estabelecimento" source="estabelecimento" target="dados_laborais_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="documentos" source="estabelecimento" target="documento_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="emiss_atmos_requerimento" source="estabelecimento" target="emiss_atmos" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="enquadramentoInstalacao" source="estabelecimento" target="enquadramento_instalacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="enquadramentos" source="estabelecimento" target="enquadramento_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="enquadramentos2" source="estabelecimento" target="r_estabelecimento_enquadramento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="estabelecimentoTaxaArray" source="estabelecimento" target="estabelecimento_taxa" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="estados_activacao" source="estabelecimento" target="estado_activacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="extensoes_prazo" source="estabelecimento" target="extensao_prazo" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="ficheirosMonitorizacao" source="estabelecimento" target="ficheiro_monitorizacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="fontes_emissao" source="estabelecimento" target="fonte_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="formularios_mirr" source="estabelecimento" target="formulario_mirr" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="formularios_mrru" source="estabelecimento" target="formulario_mrru" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoArray" source="estabelecimento" target="guia_pagamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="historicos_perfil_residuos" source="estabelecimento" target="historico_perfil_residuos_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="listEntidadesMtr" source="estabelecimento" target="entidade_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="mensagens" source="estabelecimento" target="mensagem" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="pedidos_alteracao_dados_gerais_estabelecimento" source="estabelecimento" target="pedido_alteracao_dados_gerais_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="perfil_organizacao" source="estabelecimento" target="perfil_residuos" toMany="false">
+		<db-attribute-pair source="fk_perfil_organizacao" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="procuracoes" source="estabelecimento" target="procuracao" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="rCaeEstabelecimentoArray" source="estabelecimento" target="r_cae_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="rel_processo_licenciamento_integrado" source="estabelecimento" target="processo_licenciamento_integrado" toMany="true">
+		<db-attribute-pair source="id" target="id_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="rel_titulo_unico_ambiental" source="estabelecimento" target="titulo_unico_ambiental" toMany="false">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="submissoesAutorizadas" source="estabelecimento" target="submissao_autorizada" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoBDestinatario" source="estabelecimento" target="vw_integracao_anexo_b" toMany="true">
+		<db-attribute-pair source="cod_apa" target="codigo_estabelecimento_destinatario"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoBFilter" source="estabelecimento" target="vw_integracao_anexo_b" toMany="true">
+		<db-attribute-pair source="id" target="estabelecimento_filter"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoC1Filter" source="estabelecimento" target="vw_integracao_anexo_c1" toMany="true">
+		<db-attribute-pair source="id" target="estabelecimento_filter"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoC1Produtor" source="estabelecimento" target="vw_integracao_anexo_c1" toMany="true">
+		<db-attribute-pair source="cod_apa" target="codigo_estabelecimento_produtor"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoC2Destino" source="estabelecimento" target="vw_integracao_anexo_c2" toMany="true">
+		<db-attribute-pair source="cod_apa" target="codigo_estabelecimento_destinatario"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoC2Filter" source="estabelecimento" target="vw_integracao_anexo_c2" toMany="true">
+		<db-attribute-pair source="id" target="estabelecimento_filter"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoD1Destinatario" source="estabelecimento" target="vw_integracao_anexo_d1" toMany="true">
+		<db-attribute-pair source="cod_apa" target="codigo_estabelecimento_destinatario"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoD1Produtor" source="estabelecimento" target="vw_integracao_anexo_d1" toMany="true">
+		<db-attribute-pair source="cod_apa" target="codigo_estabelecimento_produtor"/>
+	</db-relationship>
+	<db-relationship name="untitledRel" source="estabelecimento" target="responsavel_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="estado_activacao" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_altera" source="estado_activacao" target="perfil_residuos" toMany="false">
+		<db-attribute-pair source="fk_perfil_altera" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="admin" source="extensao_prazo" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_admin" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="extensao_prazo" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="periodo" source="extensao_prazo" target="periodo" toMany="false">
+		<db-attribute-pair source="fk_periodo" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="historico_perfil_residuos_estabelecimento" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_residuos" source="historico_perfil_residuos_estabelecimento" target="perfil_residuos" toMany="false">
+		<db-attribute-pair source="fk_perfil_residuos" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="local_recolha_retoma" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_organizacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="remetentesAssociados" source="local_recolha_retoma" target="remetente_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_local_recolha_retoma"/>
+	</db-relationship>
+	<db-relationship name="tipo_fluxo_especifico" source="local_recolha_retoma" target="t_tipo_fluxo_especifico" toMany="false">
+		<db-attribute-pair source="fk_t_tipo_fluxo_especifico" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_local" source="local_recolha_retoma" target="t_tipo_local_recolha_retoma" toMany="false">
+		<db-attribute-pair source="fk_t_tipo_local_recolha_retoma" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_perfil_egar" source="local_recolha_retoma" target="t_tipo_perfil_egar" toMany="false">
+		<db-attribute-pair source="fk_t_tipo_perfil_egar" target="id"/>
+	</db-relationship>
+	<db-relationship name="anexos" source="pedido_alteracao_dados_gerais_estabelecimento" target="anexo_pedido_alteracao_dados_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_pedido"/>
+	</db-relationship>
+	<db-relationship name="avaliador" source="pedido_alteracao_dados_gerais_estabelecimento" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_avaliador" target="id"/>
+	</db-relationship>
+	<db-relationship name="cae_primaria" source="pedido_alteracao_dados_gerais_estabelecimento" target="t_cae" toMany="false">
+		<db-attribute-pair source="fk_cae_primaria" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="caes_secundarias" source="pedido_alteracao_dados_gerais_estabelecimento" target="r_cae_secundaria_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_pedido_alteracao_dados_gerais_estabelecimento"/>
+	</db-relationship>
+	<db-relationship name="criador" source="pedido_alteracao_dados_gerais_estabelecimento" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="pedido_alteracao_dados_gerais_estabelecimento" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="freguesia" source="pedido_alteracao_dados_gerais_estabelecimento" target="t_freguesia" toMany="false">
+		<db-attribute-pair source="fk_freguesia" target="id"/>
+	</db-relationship>
+	<db-relationship name="organizacao" source="pedido_alteracao_dados_gerais_estabelecimento" target="perfil_residuos" toMany="false">
+		<db-attribute-pair source="fk_perfil_residuos_organizacao" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="pais" source="pedido_alteracao_dados_gerais_estabelecimento" target="t_pais" toMany="false">
+		<db-attribute-pair source="fk_pais" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="tipo_inativacao" source="pedido_alteracao_dados_gerais_estabelecimento" target="t_tipo_inactivacao_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_tipo_inactivacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="altera_activacoes_estabelecimento" source="perfil_residuos" target="estado_activacao" toMany="true">
+		<db-attribute-pair source="fk_perfil" target="fk_perfil_altera"/>
+	</db-relationship>
+	<db-relationship name="altera_caes_estabelecimentos" source="perfil_residuos" target="r_cae_estabelecimento" toMany="true">
+		<db-attribute-pair source="fk_perfil" target="fk_perfil_altera"/>
+	</db-relationship>
+	<db-relationship name="altera_enquadramentos_estabelecimentos" source="perfil_residuos" target="r_estabelecimento_enquadramento" toMany="true">
+		<db-attribute-pair source="fk_perfil" target="fk_perfil_altera"/>
+	</db-relationship>
+	<db-relationship name="cae_principal" source="perfil_residuos" target="t_cae" toMany="false">
+		<db-attribute-pair source="fk_cae_principal" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="cae_secundaria" source="perfil_residuos" target="t_cae" toMany="false">
+		<db-attribute-pair source="fk_cae_secundaria" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="contratos_mtr" source="perfil_residuos" target="contrato" toMany="true">
+		<db-attribute-pair source="fk_perfil" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="dados_gerais_estabelecimentos" source="perfil_residuos" target="dados_gerais_estabelecimento" toMany="true">
+		<db-attribute-pair source="fk_perfil" target="fk_perfil_organizacao"/>
+	</db-relationship>
+	<db-relationship name="entidades_criadas" source="perfil_residuos" target="entidade_mtr" toMany="true">
+		<db-attribute-pair source="fk_perfil" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="estabelecimentos_organizacao" source="perfil_residuos" target="estabelecimento" toMany="true">
+		<db-attribute-pair source="fk_perfil" target="fk_perfil_organizacao"/>
+	</db-relationship>
+	<db-relationship name="formularios_mtr" source="perfil_residuos" target="formulario_mtr" toMany="true">
+		<db-attribute-pair source="fk_perfil" target="fk_criador"/>
+	</db-relationship>
+	<db-relationship name="historicos_estabelecimentos" source="perfil_residuos" target="historico_perfil_residuos_estabelecimento" toMany="true">
+		<db-attribute-pair source="fk_perfil" target="fk_perfil_residuos"/>
+	</db-relationship>
+	<db-relationship name="pedidos_alteracao_dados_gerais_estabelecimento" source="perfil_residuos" target="pedido_alteracao_dados_gerais_estabelecimento" toMany="true">
+		<db-attribute-pair source="fk_perfil" target="fk_perfil_residuos_organizacao"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="perfil_residuos" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="casuisticas" source="periodo" target="casuistica" toMany="true">
+		<db-attribute-pair source="id" target="fk_periodo"/>
+	</db-relationship>
+	<db-relationship name="declaracaoFe" source="periodo" target="declaracao_produtor" toMany="true">
+		<db-attribute-pair source="id" target="fk_periodo"/>
+	</db-relationship>
+	<db-relationship name="enquadramentos_estabelecimento" source="periodo" target="enquadramento_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_periodo"/>
+	</db-relationship>
+	<db-relationship name="extensoes_prazo" source="periodo" target="extensao_prazo" toMany="true">
+		<db-attribute-pair source="id" target="fk_periodo"/>
+	</db-relationship>
+	<db-relationship name="formularios_mirr" source="periodo" target="formulario_mirr" toMany="true">
+		<db-attribute-pair source="id" target="fk_periodo"/>
+	</db-relationship>
+	<db-relationship name="formularios_mrru" source="periodo" target="formulario_mrru" toMany="true">
+		<db-attribute-pair source="id" target="fk_periodo"/>
+	</db-relationship>
+	<db-relationship name="periodo_tipo_formulario_eg" source="periodo" target="periodo_tipo_formulario_eg" toMany="true">
+		<db-attribute-pair source="id" target="fk_periodo"/>
+	</db-relationship>
+	<db-relationship name="reportesAviacao" source="periodo" target="reporte_aviacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_periodo"/>
+	</db-relationship>
+	<db-relationship name="reportesInstalacao" source="periodo" target="reporte_instalacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_periodo"/>
+	</db-relationship>
+	<db-relationship name="tipoReportes" source="periodo" target="t_tipo_reporte" toMany="false">
+		<db-attribute-pair source="fk_tipo_reporte" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_enquadramento" source="periodo" target="tipo_enquadramento" toMany="false">
+		<db-attribute-pair source="fk_tipo_enquadramento" target="id"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoB" source="periodo" target="vw_integracao_anexo_b" toMany="true">
+		<db-attribute-pair source="id" target="periodo_id"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoC1" source="periodo" target="vw_integracao_anexo_c1" toMany="true">
+		<db-attribute-pair source="id" target="periodo_id"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoC2" source="periodo" target="vw_integracao_anexo_c2" toMany="true">
+		<db-attribute-pair source="id" target="periodo_id"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoD1" source="periodo" target="vw_integracao_anexo_d1" toMany="true">
+		<db-attribute-pair source="id" target="periodo_id"/>
+	</db-relationship>
+	<db-relationship name="toTAno" source="periodo" target="t_ano" toMany="false">
+		<db-attribute-pair source="fk_t_ano_reporte" target="id"/>
+	</db-relationship>
+	<db-relationship name="cae" source="r_cae_estabelecimento" target="t_cae" toMany="false">
+		<db-attribute-pair source="fk_cae" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="r_cae_estabelecimento" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_altera" source="r_cae_estabelecimento" target="perfil_residuos" toMany="false">
+		<db-attribute-pair source="fk_perfil_altera" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="cae_secundaria" source="r_cae_secundaria_estabelecimento" target="t_cae" toMany="false">
+		<db-attribute-pair source="fk_cae_secundaria" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="dados_gerais_estabelecimento" source="r_cae_secundaria_estabelecimento" target="dados_gerais_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_dados_gerais_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="pedido_alteracao_dados_gerais_estabelecimento" source="r_cae_secundaria_estabelecimento" target="pedido_alteracao_dados_gerais_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_pedido_alteracao_dados_gerais_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="entidade" source="r_entidade_tipo" target="entidade_mtr" toMany="false">
+		<db-attribute-pair source="fk_entidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo" source="r_entidade_tipo" target="tipo_entidade" toMany="false">
+		<db-attribute-pair source="fk_tipo" target="id"/>
+	</db-relationship>
+	<db-relationship name="enquadramento" source="r_estabelecimento_enquadramento" target="tipo_enquadramento" toMany="false">
+		<db-attribute-pair source="fk_enquadramento" target="id"/>
+	</db-relationship>
+	<db-relationship name="enquadramento_mirr" source="r_estabelecimento_enquadramento" target="enquadramento_mirr" toMany="false">
+		<db-attribute-pair source="id" target="fk_r_estabelecimento_enquadramento"/>
+	</db-relationship>
+	<db-relationship name="enquadramento_mrru" source="r_estabelecimento_enquadramento" target="enquadramento_mrru" toMany="true">
+		<db-attribute-pair source="id" target="fk_r_estabelecimento_enquadramento"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="r_estabelecimento_enquadramento" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_altera" source="r_estabelecimento_enquadramento" target="perfil_residuos" toMany="false">
+		<db-attribute-pair source="fk_perfil_altera" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="children" source="residuos_basileia" target="residuos_basileia" toMany="true">
+		<db-attribute-pair source="id" target="fk_parent"/>
+	</db-relationship>
+	<db-relationship name="formulario_mirr_residuo" source="residuos_basileia" target="formulario_mirr_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_cod_basileia"/>
+	</db-relationship>
+	<db-relationship name="formularios" source="residuos_basileia" target="r_formulario_residuos" toMany="true">
+		<db-attribute-pair source="id" target="fk_basileia"/>
+	</db-relationship>
+	<db-relationship name="notificacaoBasileia" source="residuos_basileia" target="notificacao_basileia" toMany="false">
+		<db-attribute-pair source="id" target="fk_basileia"/>
+	</db-relationship>
+	<db-relationship name="parent" source="residuos_basileia" target="residuos_basileia" toMany="false">
+		<db-attribute-pair source="fk_parent" target="id"/>
+	</db-relationship>
+	<db-relationship name="children" source="residuos_beu" target="residuos_beu" toMany="true">
+		<db-attribute-pair source="id" target="fk_parent"/>
+	</db-relationship>
+	<db-relationship name="formularios" source="residuos_beu" target="r_formulario_residuos" toMany="true">
+		<db-attribute-pair source="id" target="fk_beu"/>
+	</db-relationship>
+	<db-relationship name="parent" source="residuos_beu" target="residuos_beu" toMany="false">
+		<db-attribute-pair source="fk_parent" target="id"/>
+	</db-relationship>
+	<db-relationship name="children" source="residuos_ler" target="residuos_ler" toMany="true">
+		<db-attribute-pair source="id" target="fk_parent"/>
+	</db-relationship>
+	<db-relationship name="formulario_mirr_residuo" source="residuos_ler" target="formulario_mirr_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_codigo_ler"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuo" source="residuos_ler" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_residuos_ler"/>
+	</db-relationship>
+	<db-relationship name="formularios" source="residuos_ler" target="r_formulario_residuos" toMany="true">
+		<db-attribute-pair source="id" target="fk_ler"/>
+	</db-relationship>
+	<db-relationship name="notificacaoCodigoLer" source="residuos_ler" target="notificacao_ler" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_ler"/>
+	</db-relationship>
+	<db-relationship name="parent" source="residuos_ler" target="residuos_ler" toMany="false">
+		<db-attribute-pair source="fk_parent" target="id"/>
+	</db-relationship>
+	<db-relationship name="rel_ep_spa_produzidos" source="residuos_ler" target="ep_spa_produzidos" toMany="true">
+		<db-attribute-pair source="id" target="fk_residuos_ler"/>
+	</db-relationship>
+	<db-relationship name="rel_residuos_armazenados" source="residuos_ler" target="residuos_armazenados" toMany="true">
+		<db-attribute-pair source="id" target="fk_residuos_ler"/>
+	</db-relationship>
+	<db-relationship name="rel_residuos_gerados" source="residuos_ler" target="residuos_gerados" toMany="true">
+		<db-attribute-pair source="id" target="fk_residuos_ler"/>
+	</db-relationship>
+	<db-relationship name="rel_residuos_produzidos" source="residuos_ler" target="residuos_produzidos" toMany="true">
+		<db-attribute-pair source="id" target="fk_residuos_ler"/>
+	</db-relationship>
+	<db-relationship name="rel_residuos_tratar_instalacao" source="residuos_ler" target="residuos_tratar_instalacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_residuo_ler"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoB" source="residuos_ler" target="vw_integracao_anexo_b" toMany="true">
+		<db-attribute-pair source="id" target="residuo_ler_id"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoC1" source="residuos_ler" target="vw_integracao_anexo_c1" toMany="true">
+		<db-attribute-pair source="id" target="residuo_ler_id"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoC2" source="residuos_ler" target="vw_integracao_anexo_c2" toMany="true">
+		<db-attribute-pair source="id" target="residuo_ler_id"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoD1" source="residuos_ler" target="vw_integracao_anexo_d1" toMany="true">
+		<db-attribute-pair source="id" target="residuo_ler_id"/>
+	</db-relationship>
+	<db-relationship name="children" source="residuos_ocde" target="residuos_ocde" toMany="true">
+		<db-attribute-pair source="id" target="fk_parent"/>
+	</db-relationship>
+	<db-relationship name="formulario_mirr_residuo" source="residuos_ocde" target="formulario_mirr_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_cod_ocde"/>
+	</db-relationship>
+	<db-relationship name="formularios" source="residuos_ocde" target="r_formulario_residuos" toMany="true">
+		<db-attribute-pair source="id" target="fk_ocde"/>
+	</db-relationship>
+	<db-relationship name="notificacaoCodigoOcde" source="residuos_ocde" target="notificacao_ocde" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_ocde"/>
+	</db-relationship>
+	<db-relationship name="parent" source="residuos_ocde" target="residuos_ocde" toMany="false">
+		<db-attribute-pair source="fk_parent" target="id"/>
+	</db-relationship>
+	<db-relationship name="notificacaoResiduosY" source="residuos_y" target="notificacao_residuos_y" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_residuo_y"/>
+	</db-relationship>
+	<db-relationship name="fichas_mirr_a" source="sistema_gestao_fluxos" target="ficha_formulario_mirr_a" toMany="true">
+		<db-attribute-pair source="id" target="fk_sistema_gestao_fluxos"/>
+	</db-relationship>
+	<db-relationship name="listTiposPA" source="sistema_gestao_fluxos" target="entidade_gestora_tipo_pilhas_acumuladores" toMany="true">
+		<db-attribute-pair source="id" target="fk_entidade_gestora"/>
+	</db-relationship>
+	<db-relationship name="toCaracTiposMarcasPilhas" source="sistema_gestao_fluxos" target="carac_tipos_marcas_pilhas" toMany="true">
+		<db-attribute-pair source="id" target="fk_sistema_gestao_fluxos"/>
+	</db-relationship>
+	<db-relationship name="notificacaoAutoridadeArray" source="tipo_autoridade" target="notificacao_autoridade" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_autoridade"/>
+	</db-relationship>
+	<db-relationship name="estabelecimentos" source="tipo_enquadramento" target="r_estabelecimento_enquadramento" toMany="true">
+		<db-attribute-pair source="id" target="fk_enquadramento"/>
+	</db-relationship>
+	<db-relationship name="fk_tipo_enquadramento_pai" source="tipo_enquadramento" target="tipo_enquadramento" toMany="false">
+		<db-attribute-pair source="id_pai" target="id"/>
+	</db-relationship>
+	<db-relationship name="periodos" source="tipo_enquadramento" target="periodo" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_enquadramento"/>
+	</db-relationship>
+	<db-relationship name="reportes" source="tipo_enquadramento" target="t_tipo_reporte" toMany="true">
+		<db-attribute-pair source="id" target="fk_enquadramento"/>
+	</db-relationship>
+	<db-relationship name="taxaTipoEnquadramentoArray" source="tipo_enquadramento" target="taxa_tipo_enquadramento" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_enquadramento"/>
+	</db-relationship>
+	<db-relationship name="entidades" source="tipo_entidade" target="r_entidade_tipo" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo"/>
+	</db-relationship>
+	<db-relationship name="notificacaoArray" source="tipo_operacao" target="notificacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_operacao"/>
+	</db-relationship>
+	<db-relationship name="ficha_mtr_mirr_eb1" source="tipo_operacao_valorizacao" target="ficha_mtr_mirr_eb1" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_operacao_valorizacao"/>
+	</db-relationship>
+	<db-relationship name="formularios" source="tipo_operacao_valorizacao" target="r_formulario_residuos" toMany="true">
+		<db-attribute-pair source="id" target="fk_operacao"/>
+	</db-relationship>
+	<db-relationship name="formularios_sub" source="tipo_operacao_valorizacao" target="r_formulario_residuos" toMany="true">
+		<db-attribute-pair source="id" target="fk_sub_operacao"/>
+	</db-relationship>
+	<db-relationship name="operacao_mirr" source="tipo_operacao_valorizacao" target="operacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_operacao"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoB" source="tipo_operacao_valorizacao" target="vw_integracao_anexo_b" toMany="true">
+		<db-attribute-pair source="id" target="tipo_operacao_valorizacao_id"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoC1" source="tipo_operacao_valorizacao" target="vw_integracao_anexo_c1" toMany="true">
+		<db-attribute-pair source="id" target="tipo_operacao_valorizacao_id"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoC2" source="tipo_operacao_valorizacao" target="vw_integracao_anexo_c2" toMany="true">
+		<db-attribute-pair source="id" target="tipo_operacao_valorizacao_id"/>
+	</db-relationship>
+	<db-relationship name="toIntegracaoAnexoD1" source="tipo_operacao_valorizacao" target="vw_integracao_anexo_d1" toMany="true">
+		<db-attribute-pair source="id" target="tipo_operacao_valorizacao_id"/>
+	</db-relationship>
+	<db-relationship name="untitledRel" source="tipo_operacao_valorizacao" target="valor_tgr" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_operacao_valorizacao"/>
+	</db-relationship>
+	<db-relationship name="transportadores_formularios_mirr_residuos" source="tipo_transporte" target="transportador" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_transporte"/>
+	</db-relationship>
+	<db-relationship name="transportes" source="tipo_transporte" target="r_transporte" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_transporte"/>
+	</db-relationship>
+	<obj-relationship name="classeOnuArray" source="ClasseOnu" target="ClasseOnu" deleteRule="Deny" db-relationship-path="classeOnuArray"/>
+	<obj-relationship name="notificacaoClasseOnu" source="ClasseOnu" target="NotificacaoClasseOnu" deleteRule="Deny" db-relationship-path="notificacaoClasseOnu"/>
+	<obj-relationship name="toClasseOnu" source="ClasseOnu" target="ClasseOnu" deleteRule="Nullify" db-relationship-path="toClasseOnu"/>
+	<obj-relationship name="fichasMirrA" source="CodigoCpa" target="FichaFormularioMirrA" deleteRule="Deny" db-relationship-path="fichas_mirr_a"/>
+	<obj-relationship name="codigoHArray" source="CodigoH" target="CodigoH" deleteRule="Deny" db-relationship-path="codigoHArray"/>
+	<obj-relationship name="notificacaoCodigoH" source="CodigoH" target="NotificacaoCodigoH" deleteRule="Deny" db-relationship-path="notificacaoCodigoH"/>
+	<obj-relationship name="toCodigoH" source="CodigoH" target="CodigoH" deleteRule="Nullify" db-relationship-path="toCodigoH"/>
+	<obj-relationship name="caePrimaria" source="DadosGeraisEstabelecimento" target="TCae" deleteRule="Nullify" db-relationship-path="cae_primaria"/>
+	<obj-relationship name="caesSecundarias" source="DadosGeraisEstabelecimento" target="RCaeSecundariaEstabelecimento" deleteRule="Cascade" db-relationship-path="caes_secundarias"/>
+	<obj-relationship name="criador" source="DadosGeraisEstabelecimento" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="criadorAdm" source="DadosGeraisEstabelecimento" target="Administrador" deleteRule="Nullify" db-relationship-path="criador_adm"/>
+	<obj-relationship name="estabelecimento" source="DadosGeraisEstabelecimento" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="freguesia" source="DadosGeraisEstabelecimento" target="TFreguesia" deleteRule="Nullify" db-relationship-path="freguesia"/>
+	<obj-relationship name="organizacao" source="DadosGeraisEstabelecimento" target="PerfilResiduos" deleteRule="Nullify" db-relationship-path="organizacao"/>
+	<obj-relationship name="pais" source="DadosGeraisEstabelecimento" target="TPais" deleteRule="Nullify" db-relationship-path="pais"/>
+	<obj-relationship name="tipoInactivacao" source="DadosGeraisEstabelecimento" target="TTipoInactivacaoEstabelecimento" deleteRule="Nullify" db-relationship-path="tipo_inactivacao"/>
+	<obj-relationship name="criador" source="DadosLaboraisEstabelecimento" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="criadorAdm" source="DadosLaboraisEstabelecimento" target="Administrador" deleteRule="Nullify" db-relationship-path="criadorAdm"/>
+	<obj-relationship name="estabelecimento" source="DadosLaboraisEstabelecimento" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="tipoRegime" source="DadosLaboraisEstabelecimento" target="TTipoRegimeEstabelecimento" deleteRule="Nullify" db-relationship-path="tipo_regime"/>
+	<obj-relationship name="criador" source="EnquadramentoEstabelecimento" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="criadorAdm" source="EnquadramentoEstabelecimento" target="Administrador" deleteRule="Nullify" db-relationship-path="criadorAdm"/>
+	<obj-relationship name="enquadramentosMirr" source="EnquadramentoEstabelecimento" target="EnquadramentoMirr" deleteRule="Deny" db-relationship-path="enquadramentos_mirr"/>
+	<obj-relationship name="enquadramentosMrru" source="EnquadramentoEstabelecimento" target="EnquadramentoMrru" deleteRule="Cascade" db-relationship-path="enquadramentos_mrru"/>
+	<obj-relationship name="estabelecimento" source="EnquadramentoEstabelecimento" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="periodo" source="EnquadramentoEstabelecimento" target="Periodo" deleteRule="Nullify" db-relationship-path="periodo"/>
+	<obj-relationship name="contratosImportacao" source="EntidadeMtr" target="Contrato" deleteRule="Deny" db-relationship-path="contratos_importacao"/>
+	<obj-relationship name="criador" source="EntidadeMtr" target="PerfilResiduos" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="estabelecimento" source="EntidadeMtr" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="formulariosProdutorMtr" source="EntidadeMtr" target="FormularioMtr" deleteRule="Deny" db-relationship-path="formularios_produtor_mtr"/>
+	<obj-relationship name="formulariosSubValorizadorMtr" source="EntidadeMtr" target="RFormularioResiduos" deleteRule="Deny" db-relationship-path="formularios_sub_valorizador_mtr"/>
+	<obj-relationship name="formulariosValorizadorMtr" source="EntidadeMtr" target="FormularioMtr" deleteRule="Deny" db-relationship-path="formularios_valorizador_mtr"/>
+	<obj-relationship name="pais" source="EntidadeMtr" target="TPais" deleteRule="Nullify" db-relationship-path="pais"/>
+	<obj-relationship name="perfil" source="EntidadeMtr" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="tipos" source="EntidadeMtr" target="REntidadeTipo" deleteRule="Deny" db-relationship-path="tipos"/>
+	<obj-relationship name="transportes" source="EntidadeMtr" target="RTransporte" deleteRule="Deny" db-relationship-path="transportes"/>
+	<obj-relationship name="dadosGeraisEstabelecimento" source="Estabelecimento" target="DadosGeraisEstabelecimento" deleteRule="Cascade" db-relationship-path="dados_gerais"/>
+	<obj-relationship name="dadosLaboraisEstabelecimento" source="Estabelecimento" target="DadosLaboraisEstabelecimento" deleteRule="Cascade" db-relationship-path="dados_laborais_estabelecimento"/>
+	<obj-relationship name="documentos" source="Estabelecimento" target="DocumentoEstabelecimento" deleteRule="Cascade" db-relationship-path="documentos"/>
+	<obj-relationship name="emissAtmosRequerimento" source="Estabelecimento" target="EmissAtmos" deleteRule="Deny" db-relationship-path="emiss_atmos_requerimento"/>
+	<obj-relationship name="enquadramentoInstalacao" source="Estabelecimento" target="EnquadramentoInstalacao" deleteRule="Deny" db-relationship-path="enquadramentoInstalacao"/>
+	<obj-relationship name="enquadramentos" source="Estabelecimento" target="EnquadramentoEstabelecimento" deleteRule="Cascade" db-relationship-path="enquadramentos"/>
+	<obj-relationship name="enquadramentos2" source="Estabelecimento" target="REstabelecimentoEnquadramento" deleteRule="Cascade" db-relationship-path="enquadramentos2"/>
+	<obj-relationship name="estabelecimentoTaxaArray" source="Estabelecimento" target="EstabelecimentoTaxa" deleteRule="Deny" db-relationship-path="estabelecimentoTaxaArray"/>
+	<obj-relationship name="estadosActivacao" source="Estabelecimento" target="EstadoActivacao" deleteRule="Cascade" db-relationship-path="estados_activacao"/>
+	<obj-relationship name="extensoesPrazo" source="Estabelecimento" target="ExtensaoPrazo" deleteRule="Deny" db-relationship-path="extensoes_prazo"/>
+	<obj-relationship name="ficheirosMonitorizacao" source="Estabelecimento" target="FicheiroMonitorizacao" deleteRule="Nullify" db-relationship-path="ficheirosMonitorizacao"/>
+	<obj-relationship name="fontesEmissao" source="Estabelecimento" target="FonteEstabelecimento" deleteRule="Deny" db-relationship-path="fontes_emissao"/>
+	<obj-relationship name="formulariosMirr" source="Estabelecimento" target="FormularioMirr" deleteRule="Deny" db-relationship-path="formularios_mirr"/>
+	<obj-relationship name="formulariosMrru" source="Estabelecimento" target="FormularioMrru" deleteRule="Deny" db-relationship-path="formularios_mrru"/>
+	<obj-relationship name="guiaPagamentoArray" source="Estabelecimento" target="GuiaPagamento" deleteRule="Deny" db-relationship-path="guiaPagamentoArray"/>
+	<obj-relationship name="historicosPerfilResiduos" source="Estabelecimento" target="HistoricoPerfilResiduosEstabelecimento" deleteRule="Cascade" db-relationship-path="historicos_perfil_residuos"/>
+	<obj-relationship name="mensagens" source="Estabelecimento" target="Mensagem" deleteRule="Deny" db-relationship-path="mensagens"/>
+	<obj-relationship name="movimentoGasFluorado" source="Estabelecimento" target="MovimentoGf" deleteRule="Deny" db-relationship-path="MovimentoGasFluorado"/>
+	<obj-relationship name="pedidosAlteracaoDadosGeraisEstabelecimento" source="Estabelecimento" target="PedidoAlteracaoDadosGeraisEstabelecimento" deleteRule="Deny" db-relationship-path="pedidos_alteracao_dados_gerais_estabelecimento"/>
+	<obj-relationship name="perfilOrganizacao" source="Estabelecimento" target="PerfilResiduos" deleteRule="Nullify" db-relationship-path="perfil_organizacao"/>
+	<obj-relationship name="procuracoes" source="Estabelecimento" target="Procuracao" deleteRule="Deny" db-relationship-path="procuracoes"/>
+	<obj-relationship name="rCaeEstabelecimentoArray" source="Estabelecimento" target="RCaeEstabelecimento" deleteRule="Cascade" db-relationship-path="rCaeEstabelecimentoArray"/>
+	<obj-relationship name="relProcessoLicenciamentoIntegrado" source="Estabelecimento" target="ProcessoLicenciamentoIntegrado" deleteRule="Deny" db-relationship-path="rel_processo_licenciamento_integrado"/>
+	<obj-relationship name="relTituloUnicoAmbiental" source="Estabelecimento" target="TituloUnicoAmbiental" deleteRule="Deny" db-relationship-path="rel_titulo_unico_ambiental"/>
+	<obj-relationship name="submissoesAutorizadas" source="Estabelecimento" target="SubmissaoAutorizada" deleteRule="Cascade" db-relationship-path="submissoesAutorizadas"/>
+	<obj-relationship name="estabelecimento" source="EstadoActivacao" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="perfilAltera" source="EstadoActivacao" target="PerfilResiduos" deleteRule="Nullify" db-relationship-path="perfil_altera"/>
+	<obj-relationship name="admin" source="ExtensaoPrazo" target="Administrador" deleteRule="Nullify" db-relationship-path="admin"/>
+	<obj-relationship name="estabelecimento" source="ExtensaoPrazo" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="periodo" source="ExtensaoPrazo" target="Periodo" deleteRule="Nullify" db-relationship-path="periodo"/>
+	<obj-relationship name="estabelecimento" source="HistoricoPerfilResiduosEstabelecimento" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="perfilResiduos" source="HistoricoPerfilResiduosEstabelecimento" target="PerfilResiduos" deleteRule="Nullify" db-relationship-path="perfil_residuos"/>
+	<obj-relationship name="perfil" source="LocalRecolhaRetoma" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="remetentesAssociados" source="LocalRecolhaRetoma" target="RemetenteResiduo" deleteRule="Deny" db-relationship-path="remetentesAssociados"/>
+	<obj-relationship name="tipoFluxoEspecifico" source="LocalRecolhaRetoma" target="TTipoFluxoEspecifico" deleteRule="Nullify" db-relationship-path="tipo_fluxo_especifico"/>
+	<obj-relationship name="tipoLocal" source="LocalRecolhaRetoma" target="TTipoLocalRecolhaRetoma" deleteRule="Nullify" db-relationship-path="tipo_local"/>
+	<obj-relationship name="tipoPerfilEgar" source="LocalRecolhaRetoma" target="TTipoPerfilEgar" deleteRule="Nullify" db-relationship-path="tipo_perfil_egar"/>
+	<obj-relationship name="anexos" source="PedidoAlteracaoDadosGeraisEstabelecimento" target="AnexoPedidoAlteracaoDadosEstabelecimento" deleteRule="Cascade" db-relationship-path="anexos"/>
+	<obj-relationship name="avaliador" source="PedidoAlteracaoDadosGeraisEstabelecimento" target="Administrador" deleteRule="Nullify" db-relationship-path="avaliador"/>
+	<obj-relationship name="caePrimaria" source="PedidoAlteracaoDadosGeraisEstabelecimento" target="TCae" deleteRule="Nullify" db-relationship-path="cae_primaria"/>
+	<obj-relationship name="caesSecundarias" source="PedidoAlteracaoDadosGeraisEstabelecimento" target="RCaeSecundariaEstabelecimento" deleteRule="Cascade" db-relationship-path="caes_secundarias"/>
+	<obj-relationship name="criador" source="PedidoAlteracaoDadosGeraisEstabelecimento" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="estabelecimento" source="PedidoAlteracaoDadosGeraisEstabelecimento" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="freguesia" source="PedidoAlteracaoDadosGeraisEstabelecimento" target="TFreguesia" deleteRule="Nullify" db-relationship-path="freguesia"/>
+	<obj-relationship name="organizacao" source="PedidoAlteracaoDadosGeraisEstabelecimento" target="PerfilResiduos" deleteRule="Nullify" db-relationship-path="organizacao"/>
+	<obj-relationship name="pais" source="PedidoAlteracaoDadosGeraisEstabelecimento" target="TPais" deleteRule="Nullify" db-relationship-path="pais"/>
+	<obj-relationship name="tipoInactivacao" source="PedidoAlteracaoDadosGeraisEstabelecimento" target="TTipoInactivacaoEstabelecimento" deleteRule="Nullify" db-relationship-path="tipo_inativacao"/>
+	<obj-relationship name="alteraActivacoesEstabelecimento" source="PerfilResiduos" target="EstadoActivacao" deleteRule="Deny" db-relationship-path="altera_activacoes_estabelecimento"/>
+	<obj-relationship name="alteraCaesEstabelecimentos" source="PerfilResiduos" target="RCaeEstabelecimento" deleteRule="Deny" db-relationship-path="altera_caes_estabelecimentos"/>
+	<obj-relationship name="alteraEnquadramentosEstabelecimentos" source="PerfilResiduos" target="REstabelecimentoEnquadramento" deleteRule="Deny" db-relationship-path="altera_enquadramentos_estabelecimentos"/>
+	<obj-relationship name="caePrincipal" source="PerfilResiduos" target="TCae" deleteRule="Nullify" db-relationship-path="cae_principal"/>
+	<obj-relationship name="caeSecundaria" source="PerfilResiduos" target="TCae" deleteRule="Nullify" db-relationship-path="cae_secundaria"/>
+	<obj-relationship name="contratosMtr" source="PerfilResiduos" target="Contrato" deleteRule="Deny" db-relationship-path="contratos_mtr"/>
+	<obj-relationship name="dadosGeraisEstabelecimentos" source="PerfilResiduos" target="DadosGeraisEstabelecimento" deleteRule="Deny" db-relationship-path="dados_gerais_estabelecimentos"/>
+	<obj-relationship name="entidadesCriadas" source="PerfilResiduos" target="EntidadeMtr" deleteRule="Deny" db-relationship-path="entidades_criadas"/>
+	<obj-relationship name="estabelecimentosOrganizacao" source="PerfilResiduos" target="Estabelecimento" deleteRule="Deny" db-relationship-path="estabelecimentos_organizacao"/>
+	<obj-relationship name="formulariosMtr" source="PerfilResiduos" target="FormularioMtr" deleteRule="Deny" db-relationship-path="formularios_mtr"/>
+	<obj-relationship name="historicosEstabelecimentos" source="PerfilResiduos" target="HistoricoPerfilResiduosEstabelecimento" deleteRule="Deny" db-relationship-path="historicos_estabelecimentos"/>
+	<obj-relationship name="pedidosAlteracaoDadosGeraisEstabelecimento" source="PerfilResiduos" target="PedidoAlteracaoDadosGeraisEstabelecimento" deleteRule="Deny" db-relationship-path="pedidos_alteracao_dados_gerais_estabelecimento"/>
+	<obj-relationship name="perfil" source="PerfilResiduos" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="casuisticas" source="Periodo" target="Casuistica" deleteRule="Deny" db-relationship-path="casuisticas"/>
+	<obj-relationship name="declaracaoFe" source="Periodo" target="DeclaracaoProdutor" deleteRule="Deny" db-relationship-path="declaracaoFe"/>
+	<obj-relationship name="enquadramentosEstabelecimento" source="Periodo" target="EnquadramentoEstabelecimento" deleteRule="Cascade" db-relationship-path="enquadramentos_estabelecimento"/>
+	<obj-relationship name="extensoesPrazo" source="Periodo" target="ExtensaoPrazo" deleteRule="Deny" db-relationship-path="extensoes_prazo"/>
+	<obj-relationship name="formulariosMirr" source="Periodo" target="FormularioMirr" deleteRule="Deny" db-relationship-path="formularios_mirr"/>
+	<obj-relationship name="formulariosMrru" source="Periodo" target="FormularioMrru" deleteRule="Cascade" db-relationship-path="formularios_mrru"/>
+	<obj-relationship name="periodoTipoFormularioEg" source="Periodo" target="PeriodoTipoFormularioEg" deleteRule="Deny" db-relationship-path="periodo_tipo_formulario_eg"/>
+	<obj-relationship name="reportesAviacao" source="Periodo" target="ReporteAviacao" deleteRule="Deny" db-relationship-path="reportesAviacao"/>
+	<obj-relationship name="reportesInstalacao" source="Periodo" target="ReporteInstalacao" deleteRule="Deny" db-relationship-path="reportesInstalacao"/>
+	<obj-relationship name="tipoEnquadramento" source="Periodo" target="TipoEnquadramento" deleteRule="Nullify" db-relationship-path="tipo_enquadramento"/>
+	<obj-relationship name="tipoReportes" source="Periodo" target="TTipoReporte" deleteRule="Nullify" db-relationship-path="tipoReportes"/>
+	<obj-relationship name="toIntegracaoAnexoB" source="Periodo" target="VwIntegracaoAnexoB" deleteRule="Deny" db-relationship-path="toIntegracaoAnexoB"/>
+	<obj-relationship name="toIntegracaoAnexoC1" source="Periodo" target="VwIntegracaoAnexoC1" deleteRule="Deny" db-relationship-path="toIntegracaoAnexoC1"/>
+	<obj-relationship name="toIntegracaoAnexoC2" source="Periodo" target="VwIntegracaoAnexoC2" deleteRule="Deny" db-relationship-path="toIntegracaoAnexoC2"/>
+	<obj-relationship name="toIntegracaoAnexoD1" source="Periodo" target="VwIntegracaoAnexoD1" deleteRule="Deny" db-relationship-path="toIntegracaoAnexoD1"/>
+	<obj-relationship name="toTAno" source="Periodo" target="TAno" deleteRule="Nullify" db-relationship-path="toTAno"/>
+	<obj-relationship name="cae" source="RCaeEstabelecimento" target="TCae" deleteRule="Nullify" db-relationship-path="cae"/>
+	<obj-relationship name="estabelecimento" source="RCaeEstabelecimento" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="perfilAltera" source="RCaeEstabelecimento" target="PerfilResiduos" deleteRule="Nullify" db-relationship-path="perfil_altera"/>
+	<obj-relationship name="caeSecundaria" source="RCaeSecundariaEstabelecimento" target="TCae" deleteRule="Nullify" db-relationship-path="cae_secundaria"/>
+	<obj-relationship name="dadosGeraisEstabelecimento" source="RCaeSecundariaEstabelecimento" target="DadosGeraisEstabelecimento" deleteRule="Nullify" db-relationship-path="dados_gerais_estabelecimento"/>
+	<obj-relationship name="pedidoAlteracaoDadosGeraisEstabelecimento" source="RCaeSecundariaEstabelecimento" target="PedidoAlteracaoDadosGeraisEstabelecimento" deleteRule="Nullify" db-relationship-path="pedido_alteracao_dados_gerais_estabelecimento"/>
+	<obj-relationship name="entidade" source="REntidadeTipo" target="EntidadeMtr" deleteRule="Nullify" db-relationship-path="entidade"/>
+	<obj-relationship name="tipo" source="REntidadeTipo" target="TipoEntidade" deleteRule="Nullify" db-relationship-path="tipo"/>
+	<obj-relationship name="enquadramento" source="REstabelecimentoEnquadramento" target="TipoEnquadramento" deleteRule="Nullify" db-relationship-path="enquadramento"/>
+	<obj-relationship name="enquadramentoMirr" source="REstabelecimentoEnquadramento" target="EnquadramentoMirr" deleteRule="Cascade" db-relationship-path="enquadramento_mirr"/>
+	<obj-relationship name="enquadramentoMrru" source="REstabelecimentoEnquadramento" target="EnquadramentoMrru" deleteRule="Cascade" db-relationship-path="enquadramento_mrru"/>
+	<obj-relationship name="estabelecimento" source="REstabelecimentoEnquadramento" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="perfilAltera" source="REstabelecimentoEnquadramento" target="PerfilResiduos" deleteRule="Nullify" db-relationship-path="perfil_altera"/>
+	<obj-relationship name="children" source="ResiduosBasileia" target="ResiduosBasileia" deleteRule="Deny" db-relationship-path="children"/>
+	<obj-relationship name="formularioMirrResiduo" source="ResiduosBasileia" target="FormularioMirrResiduo" deleteRule="Deny" db-relationship-path="formulario_mirr_residuo"/>
+	<obj-relationship name="formularios" source="ResiduosBasileia" target="RFormularioResiduos" deleteRule="Deny" db-relationship-path="formularios"/>
+	<obj-relationship name="notificacaoBasileia" source="ResiduosBasileia" target="NotificacaoBasileia" deleteRule="Nullify" db-relationship-path="notificacaoBasileia"/>
+	<obj-relationship name="parent" source="ResiduosBasileia" target="ResiduosBasileia" deleteRule="Nullify" db-relationship-path="parent"/>
+	<obj-relationship name="children" source="ResiduosBeu" target="ResiduosBeu" deleteRule="Deny" db-relationship-path="children"/>
+	<obj-relationship name="formularios" source="ResiduosBeu" target="RFormularioResiduos" deleteRule="Deny" db-relationship-path="formularios"/>
+	<obj-relationship name="parent" source="ResiduosBeu" target="ResiduosBeu" deleteRule="Nullify" db-relationship-path="parent"/>
+	<obj-relationship name="children" source="ResiduosLer" target="ResiduosLer" deleteRule="Deny" db-relationship-path="children"/>
+	<obj-relationship name="formularioMirrResiduo" source="ResiduosLer" target="FormularioMirrResiduo" deleteRule="Deny" db-relationship-path="formulario_mirr_residuo"/>
+	<obj-relationship name="formularioMrruResiduo" source="ResiduosLer" target="FormularioMrruResiduo" deleteRule="Deny" db-relationship-path="formulario_mrru_residuo"/>
+	<obj-relationship name="formularios" source="ResiduosLer" target="RFormularioResiduos" deleteRule="Deny" db-relationship-path="formularios"/>
+	<obj-relationship name="notificacaoCodigoLer" source="ResiduosLer" target="NotificacaoLer" deleteRule="Deny" db-relationship-path="notificacaoCodigoLer"/>
+	<obj-relationship name="parent" source="ResiduosLer" target="ResiduosLer" deleteRule="Nullify" db-relationship-path="parent"/>
+	<obj-relationship name="relEpSpaProduzidos" source="ResiduosLer" target="EpSpaProduzidos" deleteRule="Deny" db-relationship-path="rel_ep_spa_produzidos"/>
+	<obj-relationship name="relResiduosArmazenados" source="ResiduosLer" target="ResiduosArmazenados" deleteRule="Deny" db-relationship-path="rel_residuos_armazenados"/>
+	<obj-relationship name="relResiduosGerados" source="ResiduosLer" target="ResiduosGerados" deleteRule="Deny" db-relationship-path="rel_residuos_gerados"/>
+	<obj-relationship name="relResiduosProduzidos" source="ResiduosLer" target="ResiduosProduzidos" deleteRule="Deny" db-relationship-path="rel_residuos_produzidos"/>
+	<obj-relationship name="relResiduosTratarInstalacao" source="ResiduosLer" target="ResiduosTratarInstalacao" deleteRule="Deny" db-relationship-path="rel_residuos_tratar_instalacao"/>
+	<obj-relationship name="toIntegracaoAnexoB" source="ResiduosLer" target="VwIntegracaoAnexoB" deleteRule="Deny" db-relationship-path="toIntegracaoAnexoB"/>
+	<obj-relationship name="toIntegracaoAnexoC1" source="ResiduosLer" target="VwIntegracaoAnexoC1" deleteRule="Deny" db-relationship-path="toIntegracaoAnexoC1"/>
+	<obj-relationship name="toIntegracaoAnexoC2" source="ResiduosLer" target="VwIntegracaoAnexoC2" deleteRule="Deny" db-relationship-path="toIntegracaoAnexoC2"/>
+	<obj-relationship name="toIntegracaoAnexoD1" source="ResiduosLer" target="VwIntegracaoAnexoD1" deleteRule="Deny" db-relationship-path="toIntegracaoAnexoD1"/>
+	<obj-relationship name="children" source="ResiduosOcde" target="ResiduosOcde" deleteRule="Deny" db-relationship-path="children"/>
+	<obj-relationship name="formularioMirrResiduo" source="ResiduosOcde" target="FormularioMirrResiduo" deleteRule="Deny" db-relationship-path="formulario_mirr_residuo"/>
+	<obj-relationship name="formularios" source="ResiduosOcde" target="RFormularioResiduos" deleteRule="Deny" db-relationship-path="formularios"/>
+	<obj-relationship name="notificacaoCodigoOcde" source="ResiduosOcde" target="NotificacaoOcde" deleteRule="Deny" db-relationship-path="notificacaoCodigoOcde"/>
+	<obj-relationship name="parent" source="ResiduosOcde" target="ResiduosOcde" deleteRule="Nullify" db-relationship-path="parent"/>
+	<obj-relationship name="notificacaoResiduosY" source="ResiduosY" target="NotificacaoResiduosY" deleteRule="Deny" db-relationship-path="notificacaoResiduosY"/>
+	<obj-relationship name="fichasMirrA" source="SistemaGestaoFluxos" target="FichaFormularioMirrA" deleteRule="Deny" db-relationship-path="fichas_mirr_a"/>
+	<obj-relationship name="listTiposPA" source="SistemaGestaoFluxos" target="EntidadeGestoraTipoPilhasAcumuladores" deleteRule="Deny" db-relationship-path="listTiposPA"/>
+	<obj-relationship name="toCaracTiposMarcasPilhas" source="SistemaGestaoFluxos" target="CaracTiposMarcasPilhas" deleteRule="Deny" db-relationship-path="toCaracTiposMarcasPilhas"/>
+	<obj-relationship name="estabelecimentos" source="TipoEnquadramento" target="REstabelecimentoEnquadramento" deleteRule="Deny" db-relationship-path="estabelecimentos"/>
+	<obj-relationship name="fkTipoEnquadramentoPai" source="TipoEnquadramento" target="TipoEnquadramento" deleteRule="Nullify" db-relationship-path="fk_tipo_enquadramento_pai"/>
+	<obj-relationship name="periodos" source="TipoEnquadramento" target="Periodo" deleteRule="Deny" db-relationship-path="periodos"/>
+	<obj-relationship name="reportes" source="TipoEnquadramento" target="TTipoReporte" deleteRule="Deny" db-relationship-path="reportes"/>
+	<obj-relationship name="taxaTipoEnquadramentoArray" source="TipoEnquadramento" target="TaxaTipoEnquadramento" deleteRule="Deny" db-relationship-path="taxaTipoEnquadramentoArray"/>
+	<obj-relationship name="entidades" source="TipoEntidade" target="REntidadeTipo" deleteRule="Deny" db-relationship-path="entidades"/>
+	<obj-relationship name="notificacaoArray" source="TipoOperacao" target="Notificacao" deleteRule="Deny" db-relationship-path="notificacaoArray"/>
+	<obj-relationship name="fichaMtrMirrEb1" source="TipoOperacaoValorizacao" target="FichaMtrMirrEb1" deleteRule="Deny" db-relationship-path="ficha_mtr_mirr_eb1"/>
+	<obj-relationship name="formularios" source="TipoOperacaoValorizacao" target="RFormularioResiduos" deleteRule="Deny" db-relationship-path="formularios"/>
+	<obj-relationship name="formulariosSub" source="TipoOperacaoValorizacao" target="RFormularioResiduos" deleteRule="Deny" db-relationship-path="formularios_sub"/>
+	<obj-relationship name="operacaoMirr" source="TipoOperacaoValorizacao" target="Operacao" deleteRule="Deny" db-relationship-path="operacao_mirr"/>
+	<obj-relationship name="toIntegracaoAnexoB" source="TipoOperacaoValorizacao" target="VwIntegracaoAnexoB" deleteRule="Deny" db-relationship-path="toIntegracaoAnexoB"/>
+	<obj-relationship name="toIntegracaoAnexoC1" source="TipoOperacaoValorizacao" target="VwIntegracaoAnexoC1" deleteRule="Deny" db-relationship-path="toIntegracaoAnexoC1"/>
+	<obj-relationship name="toIntegracaoAnexoC2" source="TipoOperacaoValorizacao" target="VwIntegracaoAnexoC2" deleteRule="Deny" db-relationship-path="toIntegracaoAnexoC2"/>
+	<obj-relationship name="toIntegracaoAnexoD1" source="TipoOperacaoValorizacao" target="VwIntegracaoAnexoD1" deleteRule="Deny" db-relationship-path="toIntegracaoAnexoD1"/>
+	<obj-relationship name="untitledRel" source="TipoOperacaoValorizacao" target="ValorTgr" deleteRule="Deny" db-relationship-path="untitledRel"/>
+	<obj-relationship name="transportadoresFormulariosMirrResiduos" source="TipoTransporte" target="Transportador" deleteRule="Deny" db-relationship-path="transportadores_formularios_mirr_residuos"/>
+	<obj-relationship name="transportes" source="TipoTransporte" target="RTransporte" deleteRule="Deny" db-relationship-path="transportes"/>
+	<query name="findFonteEstabelecimentoPoluenteId" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="residuos">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select fEstabPol.id
+ from inventario.fonte_estabelecimento_poluente as fEstabPol
+ join tabelas.t_poluente as poluente on poluente.id = fEstabPol.fk_poluente
+ join inventario.fonte_estabelecimento as fEstab on fEstab.id = fEstabPol.fk_fonte_estabelecimento and fEstab.actual
+ join residuos.estabelecimento as estab on estab.id = fEstab.fk_estabelecimento
+ where fEstab.identificacao like '$fonteEstabelecimentoIdentificacao' and poluente.codigo like '$poluenteCodigo' and estab.cod_apa like '$estabelecimentoCodApa'
+ and ((fEstabPol.fk_regime_monitorizacao = 'CONT' and 'true'='$isContinua') or (fEstabPol.fk_regime_monitorizacao != 'CONT' and 'false'='$isContinua'))]]></sql>
+	</query>
+	<query name="latestEAProcesso" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="residuos">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select est.id idEstabelecimento, em.fk_organismo as idEntidadeCompetente, req.id idRequerimento, proc.id as idProcesso, em.id as idemissatmos, emc.id as idemissatmoscov
+ from lic_processo.processos proc
+			  join lic_processo.requerimento req on req.fk_processo = proc.id
+			  join lic_processo.emiss_atmos em on em.fk_requerimento = req.id
+			  join residuos.estabelecimento as est on est.id = em.fk_estabelecimento
+			  left join lic_processo.emiss_atmos_cov as emc on emc.fk_emiss_atmos = em.id
+
+ where proc.positivo = true and est.id = $estabelecimentoId
+ and     proc.data_conclusao_processo = (
+			select max(proc2.data_conclusao_processo)
+			 from lic_processo.processos as proc2
+			  join lic_processo.requerimento req2 on req2.fk_processo = proc2.id
+			  join lic_processo.emiss_atmos em2 on em2.fk_requerimento = req2.id
+			  join residuos.estabelecimento as est2 on est2.id = em2.fk_estabelecimento
+			 where proc2.data_conclusao_processo is not null and est2.id = est.id and proc2.positivo
+			)]]></sql>
+	</query>
+</data-map>

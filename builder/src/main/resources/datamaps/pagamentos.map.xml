@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.pagamentos"/>
+	<property name="defaultSchema" value="pagamentos"/>
+	<db-entity name="alertas_guias_pagamento" schema="pagamentos">
+		<db-attribute name="assunto" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="fk_estado_pagamento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_taxa" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mensagem" type="LONGVARCHAR" isMandatory="true"/>
+		<db-attribute name="tipo_destinatario" type="VARCHAR" isMandatory="true" length="100"/>
+	</db-entity>
+	<db-entity name="estabelecimento_taxa" schema="pagamentos">
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="fk_t_ano_reporte" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="fk_taxa" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="estado_pagamento" schema="pagamentos">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="ordem" type="INTEGER" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="guia_liquidacao" schema="pagamentos">
+		<db-attribute name="balcao_cobrador" type="VARCHAR" length="100"/>
+		<db-attribute name="data_anulacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_disponivel" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_ficheiro_igcp" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_liquidacao" type="TIMESTAMP" isMandatory="true" length="35"/>
+		<db-attribute name="data_movimento" type="TIMESTAMP" length="35"/>
+		<db-attribute name="entidade_cobradora" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_atualizado_por" type="INTEGER" length="10"/>
+		<db-attribute name="fk_criado_por" type="INTEGER" length="10"/>
+		<db-attribute name="fk_guia_pagamento" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="fk_tipo_pagamento" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="informacao_complementar" type="VARCHAR" length="2000"/>
+		<db-attribute name="motivo_anulacao" type="VARCHAR" length="2000"/>
+		<db-attribute name="motivo_liquidacao" type="VARCHAR" length="2000"/>
+		<db-attribute name="visivel" type="BIT" isMandatory="true" length="1"/>
+	</db-entity>
+	<db-entity name="guia_pagamento" schema="pagamentos">
+		<db-attribute name="ano_economico" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="codigo_postal" type="VARCHAR" length="15"/>
+		<db-attribute name="coima" type="BIT" length="1"/>
+		<db-attribute name="custas" type="BIT" length="1"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_emissao" type="TIMESTAMP" isMandatory="true" length="35"/>
+		<db-attribute name="decreto_lei" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_atualizado_por" type="INTEGER" length="10"/>
+		<db-attribute name="fk_criado_por" type="INTEGER" length="10"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" length="10"/>
+		<db-attribute name="fk_estabelecimento_taxa" type="INTEGER"/>
+		<db-attribute name="fk_estado_pagamento" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="fk_perfil_entidade" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="fk_tipo_guia_pagamento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="informacao" type="VARCHAR" length="150"/>
+		<db-attribute name="localidade" type="VARCHAR" length="60"/>
+		<db-attribute name="morada" type="VARCHAR" length="500"/>
+		<db-attribute name="motivo_reativacao" type="VARCHAR" length="2000"/>
+		<db-attribute name="nif" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="nome_entidade" type="VARCHAR" length="500"/>
+		<db-attribute name="nome_estabelecimento" type="VARCHAR" length="500"/>
+		<db-attribute name="nome_perfil_entidade" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="numero_documento" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="1024"/>
+		<db-attribute name="pais_morada" type="VARCHAR" length="50"/>
+		<db-attribute name="prazo_limite_pagamento" type="INTEGER" length="10"/>
+		<db-attribute name="processo" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="taxa" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="valor_taxa" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
+		<db-attribute name="visivel" type="BIT" isMandatory="true" length="1"/>
+	</db-entity>
+	<db-entity name="guia_pagamento_historico" schema="pagamentos">
+		<db-attribute name="data_ocorrencia" type="TIMESTAMP" isMandatory="true" length="35"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="fk_criado_por" type="INTEGER" length="10"/>
+		<db-attribute name="fk_guia_pagamento" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="fk_tipo_ocorrencia" type="INTEGER" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="guia_pagamento_linha" schema="pagamentos">
+		<db-attribute name="codigo_taxa" type="VARCHAR" length="50"/>
+		<db-attribute name="fk_guia_pagamento" type="INTEGER"/>
+		<db-attribute name="fk_taxa" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="quantidade" type="INTEGER"/>
+		<db-attribute name="valor" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="guia_pagamento_observacoes" schema="pagamentos">
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="fk_criado_por" type="INTEGER" length="10"/>
+		<db-attribute name="fk_guia_pagamento" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="observacao" type="VARCHAR" isMandatory="true" length="500"/>
+	</db-entity>
+	<db-entity name="submissao_autorizada" schema="pagamentos">
+		<db-attribute name="fk_admin" type="INTEGER" length="10"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" length="10"/>
+		<db-attribute name="fk_perfil" type="INTEGER" length="10"/>
+		<db-attribute name="fk_periodo" type="INTEGER" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="4000"/>
+	</db-entity>
+	<db-entity name="taxa" schema="pagamentos">
+		<db-attribute name="aia" type="BIT" isMandatory="true" length="1"/>
+		<db-attribute name="cobranca_coerciva" type="BIT" isMandatory="true" length="1"/>
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="50"/>
+		<db-attribute name="coima" type="BIT" isMandatory="true" length="1"/>
+		<db-attribute name="data_atualizacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_fim" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" length="35"/>
+		<db-attribute name="decreto_lei" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="designacao" type="VARCHAR" length="500"/>
+		<db-attribute name="fk_atualizado_por" type="INTEGER" length="10"/>
+		<db-attribute name="fk_criado_por" type="INTEGER" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="1000"/>
+		<db-attribute name="prazo_pagamento" type="INTEGER" length="10"/>
+		<db-attribute name="valor" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
+		<db-attribute name="valor_custas" type="DOUBLE" length="17" scale="17"/>
+		<db-attribute name="versao" type="VARCHAR" length="50"/>
+		<db-attribute name="visivel" type="BIT" isMandatory="true" length="1"/>
+	</db-entity>
+	<db-entity name="taxa_t_organismo" schema="pagamentos">
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_criado_por" type="INTEGER"/>
+		<db-attribute name="fk_taxa" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo_organismo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="taxa_tipo_enquadramento" schema="pagamentos">
+		<db-attribute name="fk_taxa" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="fk_tipo_enquadramento" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="tipo_guia_pagamento" schema="pagamentos">
+		<db-attribute name="codigo" type="VARCHAR" length="50"/>
+		<db-attribute name="descricao" type="VARCHAR" length="255"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="tipo_ocorrencia" schema="pagamentos">
+		<db-attribute name="descricao" type="VARCHAR" length="100"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="50"/>
+	</db-entity>
+	<db-entity name="tipo_pagamento" schema="pagamentos">
+		<db-attribute name="automatico" type="BIT" isMandatory="true" length="1"/>
+		<db-attribute name="descricao" type="VARCHAR" length="100"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="50"/>
+	</db-entity>
+	<obj-entity name="AlertasGuiasPagamento" className="org.addition.apa.pagamentos.AlertasGuiasPagamento" dbEntityName="alertas_guias_pagamento">
+		<obj-attribute name="assunto" type="java.lang.String" db-attribute-path="assunto"/>
+		<obj-attribute name="mensagem" type="java.lang.String" db-attribute-path="mensagem"/>
+		<obj-attribute name="tipoDestinatario" type="java.lang.String" db-attribute-path="tipo_destinatario"/>
+	</obj-entity>
+	<obj-entity name="EstabelecimentoTaxa" className="org.addition.apa.pagamentos.EstabelecimentoTaxa" dbEntityName="estabelecimento_taxa">
+	</obj-entity>
+	<obj-entity name="EstadoPagamento" className="org.addition.apa.pagamentos.EstadoPagamento" dbEntityName="estado_pagamento">
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="ordem" type="java.lang.Integer" db-attribute-path="ordem"/>
+	</obj-entity>
+	<obj-entity name="GuiaLiquidacao" className="org.addition.apa.pagamentos.GuiaLiquidacao" dbEntityName="guia_liquidacao">
+		<obj-attribute name="balcaoCobrador" type="java.lang.String" db-attribute-path="balcao_cobrador"/>
+		<obj-attribute name="dataAnulacao" type="java.util.Date" db-attribute-path="data_anulacao"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataDisponivel" type="java.util.Date" db-attribute-path="data_disponivel"/>
+		<obj-attribute name="dataFicheiroIgcp" type="java.util.Date" db-attribute-path="data_ficheiro_igcp"/>
+		<obj-attribute name="dataLiquidacao" type="java.util.Date" db-attribute-path="data_liquidacao"/>
+		<obj-attribute name="dataMovimento" type="java.util.Date" db-attribute-path="data_movimento"/>
+		<obj-attribute name="entidadeCobradora" type="java.lang.String" db-attribute-path="entidade_cobradora"/>
+		<obj-attribute name="informacaoComplementar" type="java.lang.String" db-attribute-path="informacao_complementar"/>
+		<obj-attribute name="motivoAnulacao" type="java.lang.String" db-attribute-path="motivo_anulacao"/>
+		<obj-attribute name="motivoLiquidacao" type="java.lang.String" db-attribute-path="motivo_liquidacao"/>
+		<obj-attribute name="visivel" type="java.lang.Boolean" db-attribute-path="visivel"/>
+	</obj-entity>
+	<obj-entity name="GuiaPagamento" className="org.addition.apa.pagamentos.GuiaPagamento" dbEntityName="guia_pagamento">
+		<obj-attribute name="anoEconomico" type="java.lang.Integer" db-attribute-path="ano_economico"/>
+		<obj-attribute name="codigoPostal" type="java.lang.String" db-attribute-path="codigo_postal"/>
+		<obj-attribute name="coima" type="java.lang.Boolean" db-attribute-path="coima"/>
+		<obj-attribute name="custas" type="java.lang.Boolean" db-attribute-path="custas"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataEmissao" type="java.util.Date" db-attribute-path="data_emissao"/>
+		<obj-attribute name="decretoLei" type="java.lang.String" db-attribute-path="decreto_lei"/>
+		<obj-attribute name="informacao" type="java.lang.String" db-attribute-path="informacao"/>
+		<obj-attribute name="localidade" type="java.lang.String" db-attribute-path="localidade"/>
+		<obj-attribute name="morada" type="java.lang.String" db-attribute-path="morada"/>
+		<obj-attribute name="motivoReativacao" type="java.lang.String" db-attribute-path="motivo_reativacao"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="nomeEntidade" type="java.lang.String" db-attribute-path="nome_entidade"/>
+		<obj-attribute name="nomeEstabelecimento" type="java.lang.String" db-attribute-path="nome_estabelecimento"/>
+		<obj-attribute name="nomePerfilEntidade" type="java.lang.String" db-attribute-path="nome_perfil_entidade"/>
+		<obj-attribute name="numeroDocumento" type="java.lang.String" db-attribute-path="numero_documento"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="paisMorada" type="java.lang.String" db-attribute-path="pais_morada"/>
+		<obj-attribute name="prazoLimitePagamento" type="java.lang.Integer" db-attribute-path="prazo_limite_pagamento"/>
+		<obj-attribute name="processo" type="java.lang.String" db-attribute-path="processo"/>
+		<obj-attribute name="taxa" type="java.lang.String" db-attribute-path="taxa"/>
+		<obj-attribute name="valorTaxa" type="java.lang.Double" db-attribute-path="valor_taxa"/>
+		<obj-attribute name="visivel" type="java.lang.Boolean" db-attribute-path="visivel"/>
+	</obj-entity>
+	<obj-entity name="GuiaPagamentoHistorico" className="org.addition.apa.pagamentos.GuiaPagamentoHistorico" dbEntityName="guia_pagamento_historico">
+		<obj-attribute name="dataOcorrencia" type="java.util.Date" db-attribute-path="data_ocorrencia"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="GuiaPagamentoLinha" className="org.addition.apa.pagamentos.GuiaPagamentoLinha" dbEntityName="guia_pagamento_linha">
+		<obj-attribute name="codigoTaxa" type="java.lang.String" db-attribute-path="codigo_taxa"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+		<obj-attribute name="quantidade" type="java.lang.Integer" db-attribute-path="quantidade"/>
+		<obj-attribute name="valor" type="java.lang.Double" db-attribute-path="valor"/>
+	</obj-entity>
+	<obj-entity name="GuiaPagamentoObservacoes" className="org.addition.apa.pagamentos.GuiaPagamentoObservacoes" dbEntityName="guia_pagamento_observacoes">
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="observacao" type="java.lang.String" db-attribute-path="observacao"/>
+	</obj-entity>
+	<obj-entity name="SubmissaoAutorizada" className="org.addition.apa.pagamentos.SubmissaoAutorizada" dbEntityName="submissao_autorizada">
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+	</obj-entity>
+	<obj-entity name="Taxa" className="org.addition.apa.pagamentos.Taxa" dbEntityName="taxa">
+		<obj-attribute name="aia" type="java.lang.Boolean" db-attribute-path="aia"/>
+		<obj-attribute name="cobrancaCoerciva" type="java.lang.Boolean" db-attribute-path="cobranca_coerciva"/>
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="coima" type="java.lang.Boolean" db-attribute-path="coima"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="data_atualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="decretoLei" type="java.lang.String" db-attribute-path="decreto_lei"/>
+		<obj-attribute name="designacao" type="java.lang.String" db-attribute-path="designacao"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="prazoPagamento" type="java.lang.Integer" db-attribute-path="prazo_pagamento"/>
+		<obj-attribute name="valor" type="java.lang.Double" db-attribute-path="valor"/>
+		<obj-attribute name="valorCustas" type="java.lang.Double" db-attribute-path="valor_custas"/>
+		<obj-attribute name="versao" type="java.lang.String" db-attribute-path="versao"/>
+		<obj-attribute name="visivel" type="java.lang.Boolean" db-attribute-path="visivel"/>
+	</obj-entity>
+	<obj-entity name="TaxaTOrganismo" className="org.addition.apa.pagamentos.TaxaTOrganismo" dbEntityName="taxa_t_organismo">
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+	</obj-entity>
+	<obj-entity name="TaxaTipoEnquadramento" className="org.addition.apa.pagamentos.TaxaTipoEnquadramento" dbEntityName="taxa_tipo_enquadramento">
+	</obj-entity>
+	<obj-entity name="TipoGuiaPagamento" className="org.addition.apa.pagamentos.TipoGuiaPagamento" dbEntityName="tipo_guia_pagamento">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="TipoOcorrencia" className="org.addition.apa.pagamentos.TipoOcorrencia" dbEntityName="tipo_ocorrencia">
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="TipoPagamento" className="org.addition.apa.pagamentos.TipoPagamento" dbEntityName="tipo_pagamento">
+		<obj-attribute name="automatico" type="java.lang.Boolean" db-attribute-path="automatico"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<db-relationship name="to_estado_pagamento" source="alertas_guias_pagamento" target="estado_pagamento" toMany="false">
+		<db-attribute-pair source="fk_estado_pagamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="to_taxa" source="alertas_guias_pagamento" target="taxa" toMany="false">
+		<db-attribute-pair source="fk_taxa" target="id"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoArray" source="estabelecimento_taxa" target="guia_pagamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estabelecimento_taxa"/>
+	</db-relationship>
+	<db-relationship name="toEstabelecimento" source="estabelecimento_taxa" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTAno" source="estabelecimento_taxa" target="t_ano" toMany="false">
+		<db-attribute-pair source="fk_t_ano_reporte" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTaxa" source="estabelecimento_taxa" target="taxa" toMany="false">
+		<db-attribute-pair source="fk_taxa" target="id"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoArray" source="estado_pagamento" target="guia_pagamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estado_pagamento"/>
+	</db-relationship>
+	<db-relationship name="to_alerta_guia_pagamento" source="estado_pagamento" target="alertas_guias_pagamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_estado_pagamento"/>
+	</db-relationship>
+	<db-relationship name="toAtualizadoPor" source="guia_liquidacao" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_atualizado_por" target="id"/>
+	</db-relationship>
+	<db-relationship name="toCriadoPor" source="guia_liquidacao" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criado_por" target="id"/>
+	</db-relationship>
+	<db-relationship name="toGuiaPagamento" source="guia_liquidacao" target="guia_pagamento" toMany="false">
+		<db-attribute-pair source="fk_guia_pagamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTipoPagamento" source="guia_liquidacao" target="tipo_pagamento" toMany="false">
+		<db-attribute-pair source="fk_tipo_pagamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="guiaLiquidacaoArray" source="guia_pagamento" target="guia_liquidacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_guia_pagamento"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoHistoricoArray" source="guia_pagamento" target="guia_pagamento_historico" toMany="true">
+		<db-attribute-pair source="id" target="fk_guia_pagamento"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoLinhasArray" source="guia_pagamento" target="guia_pagamento_linha" toMany="true">
+		<db-attribute-pair source="id" target="fk_guia_pagamento"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoObservacoesArray" source="guia_pagamento" target="guia_pagamento_observacoes" toMany="true">
+		<db-attribute-pair source="id" target="fk_guia_pagamento"/>
+	</db-relationship>
+	<db-relationship name="reportes_aviacao" source="guia_pagamento" target="reporte_aviacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_guia_pagamento"/>
+	</db-relationship>
+	<db-relationship name="reportes_instalacao" source="guia_pagamento" target="reporte_instalacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_guia_pagamento"/>
+	</db-relationship>
+	<db-relationship name="submissoesDeclaracaoProdutor" source="guia_pagamento" target="submissao_declaracao_produtor" toMany="true">
+		<db-attribute-pair source="id" target="fk_guia_pagamento"/>
+	</db-relationship>
+	<db-relationship name="toAtualizadoPor" source="guia_pagamento" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_atualizado_por" target="id"/>
+	</db-relationship>
+	<db-relationship name="toCriadoPor" source="guia_pagamento" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criado_por" target="id"/>
+	</db-relationship>
+	<db-relationship name="toEstabelecimento" source="guia_pagamento" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="toEstabelecimentoTaxa" source="guia_pagamento" target="estabelecimento_taxa" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento_taxa" target="id"/>
+	</db-relationship>
+	<db-relationship name="toEstadoPagamento" source="guia_pagamento" target="estado_pagamento" toMany="false">
+		<db-attribute-pair source="fk_estado_pagamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="toPerfilEntidade" source="guia_pagamento" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_entidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="toProcessoLicenciamentoIntegradoGuia" source="guia_pagamento" target="processo_licenciamento_integrado_guia" toMany="false">
+		<db-attribute-pair source="id" target="id_guia_pagamento"/>
+	</db-relationship>
+	<db-relationship name="toTipoGuiaPagamento" source="guia_pagamento" target="tipo_guia_pagamento" toMany="false">
+		<db-attribute-pair source="fk_tipo_guia_pagamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="to_processo_guia_pagamento" source="guia_pagamento" target="processo_guia_pagamento" toMany="false">
+		<db-attribute-pair source="id" target="fk_guia_pagamento"/>
+	</db-relationship>
+	<db-relationship name="toCriadoPor" source="guia_pagamento_historico" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criado_por" target="id"/>
+	</db-relationship>
+	<db-relationship name="toGuiaPagamento" source="guia_pagamento_historico" target="guia_pagamento" toMany="false">
+		<db-attribute-pair source="fk_guia_pagamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTipoOcorrencia" source="guia_pagamento_historico" target="tipo_ocorrencia" toMany="false">
+		<db-attribute-pair source="fk_tipo_ocorrencia" target="id"/>
+	</db-relationship>
+	<db-relationship name="toGuiaPagamento" source="guia_pagamento_linha" target="guia_pagamento" toMany="false">
+		<db-attribute-pair source="fk_guia_pagamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTaxa" source="guia_pagamento_linha" target="taxa" toMany="false">
+		<db-attribute-pair source="fk_taxa" target="id"/>
+	</db-relationship>
+	<db-relationship name="toCriadoPor" source="guia_pagamento_observacoes" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criado_por" target="id"/>
+	</db-relationship>
+	<db-relationship name="toGuiaPagamento" source="guia_pagamento_observacoes" target="guia_pagamento" toMany="false">
+		<db-attribute-pair source="fk_guia_pagamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="toAdmin" source="submissao_autorizada" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_admin" target="id"/>
+	</db-relationship>
+	<db-relationship name="toEstabelecimento" source="submissao_autorizada" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="toPerfil" source="submissao_autorizada" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="toPeriodo" source="submissao_autorizada" target="periodo" toMany="false">
+		<db-attribute-pair source="fk_periodo" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimentoTaxaArray" source="taxa" target="estabelecimento_taxa" toMany="true">
+		<db-attribute-pair source="id" target="fk_taxa"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoLinhaArray" source="taxa" target="guia_pagamento_linha" toMany="true">
+		<db-attribute-pair source="id" target="fk_taxa"/>
+	</db-relationship>
+	<db-relationship name="taxaTipoEnquadramentoArray" source="taxa" target="taxa_tipo_enquadramento" toMany="true">
+		<db-attribute-pair source="id" target="fk_taxa"/>
+	</db-relationship>
+	<db-relationship name="taxas_reporte_cele" source="taxa" target="t_cele_taxa_tipo_reporte" toMany="true">
+		<db-attribute-pair source="id" target="fk_taxa"/>
+	</db-relationship>
+	<db-relationship name="tipoFluxoTipoReporte" source="taxa" target="taxa_tipo_fluxo_especifico_tipo_reporte" toMany="true">
+		<db-attribute-pair source="id" target="fk_taxa"/>
+	</db-relationship>
+	<db-relationship name="toAtualizadorPor" source="taxa" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_atualizado_por" target="id"/>
+	</db-relationship>
+	<db-relationship name="toCriadoPor" source="taxa" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criado_por" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTaxaOrganismoList" source="taxa" target="taxa_t_organismo" toMany="true">
+		<db-attribute-pair source="id" target="fk_taxa"/>
+	</db-relationship>
+	<db-relationship name="to_alerta_guia_pagamento" source="taxa" target="alertas_guias_pagamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_taxa"/>
+	</db-relationship>
+	<db-relationship name="to_list_tipo_processo" source="taxa" target="taxa_processo" toMany="true">
+		<db-attribute-pair source="id" target="fk_taxa"/>
+	</db-relationship>
+	<db-relationship name="vistorias" source="taxa" target="pli_regime_vistoria_taxa" toMany="true">
+		<db-attribute-pair source="id" target="fk_taxa"/>
+	</db-relationship>
+	<db-relationship name="toCriadoPor" source="taxa_t_organismo" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criado_por" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTOrganismo" source="taxa_t_organismo" target="t_organismo" toMany="false">
+		<db-attribute-pair source="fk_tipo_organismo" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTaxa" source="taxa_t_organismo" target="taxa" toMany="false">
+		<db-attribute-pair source="fk_taxa" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTaxa" source="taxa_tipo_enquadramento" target="taxa" toMany="false">
+		<db-attribute-pair source="fk_taxa" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTipoEnquadramento" source="taxa_tipo_enquadramento" target="tipo_enquadramento" toMany="false">
+		<db-attribute-pair source="fk_tipo_enquadramento" target="id"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoArray" source="tipo_guia_pagamento" target="guia_pagamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_guia_pagamento"/>
+	</db-relationship>
+	<db-relationship name="guiaPagamentoHistoricoArray" source="tipo_ocorrencia" target="guia_pagamento_historico" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_ocorrencia"/>
+	</db-relationship>
+	<db-relationship name="guiaLiquidacaoArray" source="tipo_pagamento" target="guia_liquidacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_pagamento"/>
+	</db-relationship>
+	<obj-relationship name="toEstadoPagamento" source="AlertasGuiasPagamento" target="EstadoPagamento" deleteRule="Nullify" db-relationship-path="to_estado_pagamento"/>
+	<obj-relationship name="toTaxa" source="AlertasGuiasPagamento" target="Taxa" deleteRule="Nullify" db-relationship-path="to_taxa"/>
+	<obj-relationship name="guiaPagamentoArray" source="EstabelecimentoTaxa" target="GuiaPagamento" deleteRule="Deny" db-relationship-path="guiaPagamentoArray"/>
+	<obj-relationship name="toEstabelecimento" source="EstabelecimentoTaxa" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="toEstabelecimento"/>
+	<obj-relationship name="toTAno" source="EstabelecimentoTaxa" target="TAno" deleteRule="Nullify" db-relationship-path="toTAno"/>
+	<obj-relationship name="toTaxa" source="EstabelecimentoTaxa" target="Taxa" deleteRule="Nullify" db-relationship-path="toTaxa"/>
+	<obj-relationship name="guiaPagamentoArray" source="EstadoPagamento" target="GuiaPagamento" deleteRule="Deny" db-relationship-path="guiaPagamentoArray"/>
+	<obj-relationship name="toAtualizadoPor" source="GuiaLiquidacao" target="Administrador" deleteRule="Nullify" db-relationship-path="toAtualizadoPor"/>
+	<obj-relationship name="toCriadoPor" source="GuiaLiquidacao" target="Administrador" deleteRule="Nullify" db-relationship-path="toCriadoPor"/>
+	<obj-relationship name="toGuiaPagamento" source="GuiaLiquidacao" target="GuiaPagamento" deleteRule="Nullify" db-relationship-path="toGuiaPagamento"/>
+	<obj-relationship name="toTipoPagamento" source="GuiaLiquidacao" target="TipoPagamento" deleteRule="Nullify" db-relationship-path="toTipoPagamento"/>
+	<obj-relationship name="guiaLiquidacaoArray" source="GuiaPagamento" target="GuiaLiquidacao" deleteRule="Deny" db-relationship-path="guiaLiquidacaoArray"/>
+	<obj-relationship name="guiaPagamentoHistoricoArray" source="GuiaPagamento" target="GuiaPagamentoHistorico" deleteRule="Deny" db-relationship-path="guiaPagamentoHistoricoArray"/>
+	<obj-relationship name="guiaPagamentoLinhasArray" source="GuiaPagamento" target="GuiaPagamentoLinha" deleteRule="Cascade" db-relationship-path="guiaPagamentoLinhasArray"/>
+	<obj-relationship name="guiaPagamentoObservacoesArray" source="GuiaPagamento" target="GuiaPagamentoObservacoes" deleteRule="Deny" db-relationship-path="guiaPagamentoObservacoesArray"/>
+	<obj-relationship name="reportesAviacao" source="GuiaPagamento" target="ReporteAviacao" deleteRule="Deny" db-relationship-path="reportes_aviacao"/>
+	<obj-relationship name="reportesInstalacao" source="GuiaPagamento" target="ReporteInstalacao" deleteRule="Deny" db-relationship-path="reportes_instalacao"/>
+	<obj-relationship name="submissoesDeclaracaoProdutor" source="GuiaPagamento" target="SubmissaoDeclaracaoProdutor" deleteRule="Deny" db-relationship-path="submissoesDeclaracaoProdutor"/>
+	<obj-relationship name="toAtualizadoPor" source="GuiaPagamento" target="Administrador" deleteRule="Nullify" db-relationship-path="toAtualizadoPor"/>
+	<obj-relationship name="toCriadoPor" source="GuiaPagamento" target="Administrador" deleteRule="Nullify" db-relationship-path="toCriadoPor"/>
+	<obj-relationship name="toEstabelecimento" source="GuiaPagamento" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="toEstabelecimento"/>
+	<obj-relationship name="toEstabelecimentoTaxa" source="GuiaPagamento" target="EstabelecimentoTaxa" deleteRule="Nullify" db-relationship-path="toEstabelecimentoTaxa"/>
+	<obj-relationship name="toEstadoPagamento" source="GuiaPagamento" target="EstadoPagamento" deleteRule="Nullify" db-relationship-path="toEstadoPagamento"/>
+	<obj-relationship name="toPerfilEntidade" source="GuiaPagamento" target="Perfil" deleteRule="Nullify" db-relationship-path="toPerfilEntidade"/>
+	<obj-relationship name="toProcessoGuiaPagamento" source="GuiaPagamento" target="ProcessoGuiaPagamento" deleteRule="Deny" db-relationship-path="to_processo_guia_pagamento"/>
+	<obj-relationship name="toProcessoLicenciamentoIntegradoGuia" source="GuiaPagamento" target="ProcessoLicenciamentoIntegradoGuia" deleteRule="Deny" db-relationship-path="toProcessoLicenciamentoIntegradoGuia"/>
+	<obj-relationship name="toTipoGuiaPagamento" source="GuiaPagamento" target="TipoGuiaPagamento" deleteRule="Nullify" db-relationship-path="toTipoGuiaPagamento"/>
+	<obj-relationship name="toCriadoPor" source="GuiaPagamentoHistorico" target="Administrador" deleteRule="Nullify" db-relationship-path="toCriadoPor"/>
+	<obj-relationship name="toGuiaPagamento" source="GuiaPagamentoHistorico" target="GuiaPagamento" deleteRule="Nullify" db-relationship-path="toGuiaPagamento"/>
+	<obj-relationship name="toTipoOcorrencia" source="GuiaPagamentoHistorico" target="TipoOcorrencia" deleteRule="Nullify" db-relationship-path="toTipoOcorrencia"/>
+	<obj-relationship name="toGuiaPagamento" source="GuiaPagamentoLinha" target="GuiaPagamento" deleteRule="Nullify" db-relationship-path="toGuiaPagamento"/>
+	<obj-relationship name="toTaxa" source="GuiaPagamentoLinha" target="Taxa" deleteRule="Nullify" db-relationship-path="toTaxa"/>
+	<obj-relationship name="toCriadoPor" source="GuiaPagamentoObservacoes" target="Administrador" deleteRule="Nullify" db-relationship-path="toCriadoPor"/>
+	<obj-relationship name="toGuiaPagamento" source="GuiaPagamentoObservacoes" target="GuiaPagamento" deleteRule="Nullify" db-relationship-path="toGuiaPagamento"/>
+	<obj-relationship name="toAdmin" source="SubmissaoAutorizada" target="Administrador" deleteRule="Nullify" db-relationship-path="toAdmin"/>
+	<obj-relationship name="toEstabelecimento" source="SubmissaoAutorizada" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="toEstabelecimento"/>
+	<obj-relationship name="toPerfil" source="SubmissaoAutorizada" target="Perfil" deleteRule="Nullify" db-relationship-path="toPerfil"/>
+	<obj-relationship name="toPeriodo" source="SubmissaoAutorizada" target="Periodo" deleteRule="Nullify" db-relationship-path="toPeriodo"/>
+	<obj-relationship name="estabelecimentoTaxaArray" source="Taxa" target="EstabelecimentoTaxa" deleteRule="Deny" db-relationship-path="estabelecimentoTaxaArray"/>
+	<obj-relationship name="guiaPagamentoLinhaArray" source="Taxa" target="GuiaPagamentoLinha" deleteRule="Deny" db-relationship-path="guiaPagamentoLinhaArray"/>
+	<obj-relationship name="taxaTipoEnquadramentoArray" source="Taxa" target="TaxaTipoEnquadramento" deleteRule="Deny" db-relationship-path="taxaTipoEnquadramentoArray"/>
+	<obj-relationship name="taxasReporteCele" source="Taxa" target="TCeleTaxaTipoReporte" deleteRule="Deny" db-relationship-path="taxas_reporte_cele"/>
+	<obj-relationship name="tipoFluxoTipoReporte" source="Taxa" target="TaxaTipoFluxoEspecificoTipoReporte" deleteRule="Deny" db-relationship-path="tipoFluxoTipoReporte"/>
+	<obj-relationship name="toAlertaGuiaPagamento" source="Taxa" target="AlertasGuiasPagamento" deleteRule="Deny" db-relationship-path="to_alerta_guia_pagamento"/>
+	<obj-relationship name="toAtualizadorPor" source="Taxa" target="Administrador" deleteRule="Nullify" db-relationship-path="toAtualizadorPor"/>
+	<obj-relationship name="toCriadoPor" source="Taxa" target="Administrador" deleteRule="Nullify" db-relationship-path="toCriadoPor"/>
+	<obj-relationship name="toListTipoProcesso" source="Taxa" target="TaxaProcesso" deleteRule="Deny" db-relationship-path="to_list_tipo_processo"/>
+	<obj-relationship name="toTaxaOrganismoList" source="Taxa" target="TaxaTOrganismo" deleteRule="Deny" db-relationship-path="toTaxaOrganismoList"/>
+	<obj-relationship name="vistorias" source="Taxa" target="PliRegimeVistoriaTaxa" deleteRule="Deny" db-relationship-path="vistorias"/>
+	<obj-relationship name="toCriadoPor" source="TaxaTOrganismo" target="Administrador" deleteRule="Nullify" db-relationship-path="toCriadoPor"/>
+	<obj-relationship name="toTOrganismo" source="TaxaTOrganismo" target="TOrganismo" deleteRule="Nullify" db-relationship-path="toTOrganismo"/>
+	<obj-relationship name="toTaxa" source="TaxaTOrganismo" target="Taxa" deleteRule="Nullify" db-relationship-path="toTaxa"/>
+	<obj-relationship name="toTaxa" source="TaxaTipoEnquadramento" target="Taxa" deleteRule="Nullify" db-relationship-path="toTaxa"/>
+	<obj-relationship name="toTipoEnquadramento" source="TaxaTipoEnquadramento" target="TipoEnquadramento" deleteRule="Nullify" db-relationship-path="toTipoEnquadramento"/>
+	<obj-relationship name="guiaPagamentoArray" source="TipoGuiaPagamento" target="GuiaPagamento" deleteRule="Deny" db-relationship-path="guiaPagamentoArray"/>
+	<obj-relationship name="guiaPagamentoHistoricoArray" source="TipoOcorrencia" target="GuiaPagamentoHistorico" deleteRule="Deny" db-relationship-path="guiaPagamentoHistoricoArray"/>
+	<obj-relationship name="guiaLiquidacaoArray" source="TipoPagamento" target="GuiaLiquidacao" deleteRule="Deny" db-relationship-path="guiaLiquidacaoArray"/>
+</data-map>

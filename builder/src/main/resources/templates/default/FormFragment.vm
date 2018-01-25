@@ -1,0 +1,69 @@
+#set( $info = '.info')
+#set( $Ativos = 'Ativos')
+<!--
+ O Ficheiro $fileName foi gerado com dados do ficheiro $rootFile
+ È desaconselhado alterar este ficheiro manualmente pois
+ poderá ser gerado novamente, apagando as alterações que foram efetuadas.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+        <div class="card card-w-title">
+            <h3>
+                <p:outputLabel value="#{msg_$schema['$velocityUtils.labelCodeForValue(${data.get(0).tableName})']}" />
+            </h3>
+        <p:panelGrid id="$velocityUtils.convertToCamelCase(${data.get(0).tableName})PanelGridId" columns="2" columnClasses="fifty-percent, fifty-percent" styleClass="ui-panelgrid-blank panelgrid-std-width" >
+#foreach($component in ${data})
+                    <h:panelGroup id="$component.columnName.trim()_label">
+                        <p:outputLabel  for="$component.columnName.trim()" $velocityUtils.createValidationRule($component, $mbName)
+                                   value="#{msg_$schema['$velocityUtils.labelCodeForValue(${component.tableName}).$velocityUtils.labelCodeForValue(${component.columnName})']}" >
+#if($component.ptInfoText != '')
+                            <p:outputPanel id="info_$component.columnName.trim()" styleClass="tooltipInfoIcon">
+                                <i class="fa fa-fw fa-info-circle" />
+                            </p:outputPanel>
+                            <p:overlayPanel id="info_panel_$component.columnName.trim()" for="@([id$=info_$component.columnName.trim()])" hideEffect="fade" styleClass="tooltipInfoPanel">
+                                <h:outputText value="#{msg_$schema['$velocityUtils.labelCodeForValue(${component.tableName}).$velocityUtils.labelCodeForValue(${component.columnName})$info']}" escape="false" />
+                            </p:overlayPanel>
+#end
+                        </p:outputLabel>
+                    </h:panelGroup>
+#if($component.columnType == 'Boolean')
+                    <p:selectOneMenu id="$component.columnName.trim()" value="#{$mbName.$velocityUtils.convertToCamelCase($component.tableName.trim()).$velocityUtils.convertToCamelCase($component.columnName.trim())}"
+                                     required="#{not empty param['${schema}RvFormId:submeterReporte']}" appendTo="@this">
+                        <f:selectItem itemLabel="#{msg_$schema['selecione.um']}" itemValue="" noSelectionOption="true"  />
+                        <f:selectItem itemLabel="#{msg_comum['confirmDialog.botaoSim']}" itemValue="true"/>
+                        <f:selectItem itemLabel="#{msg_comum['confirmDialog.botaoNao']}" itemValue="false"/>
+                        $velocityUtils.createRenderRule($component)
+                    </p:selectOneMenu>
+#elseif($component.targetTable != '')
+                    <p:selectOneMenu id="$component.columnName.trim()" value="#{$mbName.$velocityUtils.convertToCamelCase($component.tableName.trim()).$velocityUtils.convertToCamelCase($component.targetTable.trim())Selecionado}"
+                                     required="#{not empty param['${schema}RvFormId:submeterReporte']}" autoWidth="false" appendTo="@this">
+                        <f:selectItem itemLabel="#{msg_$schema['selecione.um']}" itemValue="" noSelectionOption="true"  />
+                        <f:selectItems value="#{$mbName.$velocityUtils.convertToCamelCase($component.tableName.trim()).$velocityUtils.upperCamel($velocityUtils.convertToCamelCase($component.targetTable.trim()))$Ativos}"
+                            var="opcao" itemLabel="#{msg_$schema['${velocityUtils.labelCodeForValue($component.targetTable)}.'.concat(opcao.label)]}" itemValue="#{opcao.codigo}"/>
+                    </p:selectOneMenu>
+#elseif($component.columnType == 'Data')
+                    <p:calendar id="$component.columnName.trim()" navigator="true" $velocityUtils.createValidationRule($component, $mbName)
+                                required="#{not empty param['${schema}RvFormId:submeterReporte']}" value="#{$mbName.$velocityUtils.convertToCamelCase($component.tableName.trim()).$velocityUtils.convertToCamelCase($component.columnName.trim())}" appendTo="@this" />
+#elseif($component.columnType == 'Número inteiro' || $component.columnType == 'Número decimal')
+                    <p:inputNumber id="$component.columnName.trim()" $velocityUtils.createValidationRule($component, $mbName) value="#{$mbName.$velocityUtils.convertToCamelCase($component.tableName.trim()).$velocityUtils.convertToCamelCase($component.columnName.trim())}"
+                                   #if($component.columnType == 'Decinal')decimalPlaces="$velocityUtils.convertExcelStringToInt($component.columnSize)"#end />
+#else
+                    <h:panelGroup id="$component.columnName.trim()_panel">
+                        <p:outputPanel $velocityUtils.createValidationRule($component, $mbName)>
+                            <p:inputTextarea rows="1" id="$component.columnName.trim()" value="#{$mbName.$velocityUtils.convertToCamelCase($component.tableName.trim()).$velocityUtils.convertToCamelCase($component.columnName.trim())}" maxlength="$velocityUtils.convertExcelStringToInt($component.columnSize)"
+                                         styleClass="full-width" required="#{not empty param['${schema}RvFormId:submeterReporte']}"/>
+                        </p:outputPanel>
+                    </h:panelGroup>
+#end
+#end
+        </p:panelGrid>
+    </div>
+
+</ui:composition>

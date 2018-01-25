@@ -1,0 +1,75 @@
+#set( $ext = 'Form.xhtml')
+#set( $info = 'Info.xhtml')
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        template="/pages/private/comum/templates/template.xhtml">
+
+    <ui:define name="conteudo">
+        <div class="ui-fluid">
+            <h:form id="${schema}RvFormId" prependId="false" method="POST">
+                <p:panel
+                        id="${schema}RvPanelId"
+                        header="#{msg_${schema}['relatorio.verificacao']}">
+                    <a name="top"></a>
+                    <p:messages autoUpdate="true" id="${schema}MessagesId" closable="true"/>
+                    <p:tabView rendered="#{${mbName}.tipoReporte eq 'A'}">
+                        <p:tab title="#{msg_${schema}['rv.parecer.aviacao']}">
+#foreach($file in ${data})
+                            <ui:include src="./$file$ext" />
+                            <ui:include src="./$file$info" />
+#end
+                        </p:tab>
+                        <p:tab title="#{msg_${schema}['anexo.um']}">
+                            #{msg_${schema}['anexo.um']}
+                        </p:tab>
+                        <p:tab title="#{msg_${schema}['anexo.dois']}">
+                            #{msg_${schema}['anexo.dois']}
+                        </p:tab>
+                        <p:tab title="#{msg_${schema}['anexo.tres']}">
+                            #{msg_${schema}['anexo.tres']}
+                        </p:tab>
+                    </p:tabView>
+                    <p:tabView rendered="#{!${mbName}.tipoReporte eq 'A'}">
+                        <p:tab title="#{msg_${schema}['rv.parecer.aviacao']}">
+                            #foreach($file in ${data})
+                                <ui:include src="./$file$ext" />
+                            #end
+                        </p:tab>
+                        <p:tab title="#{msg_${schema}['anexo.um']}">
+                            #{msg_${schema}['anexo.um']}
+                        </p:tab>
+                        <p:tab title="#{msg_${schema}['anexo.dois']}">
+                            #{msg_${schema}['anexo.dois']}
+                        </p:tab>
+                        <p:tab title="#{msg_${schema}['anexo.tres']}">
+                            #{msg_${schema}['anexo.tres']}
+                        </p:tab>
+                    </p:tabView>
+                    <br />
+                    <div class="ui-grid">
+                        <div class="ui-grid-col-9">&nbsp;</div>
+                        <div class="ui-grid-col-1">
+                            <p:commandButton value="#{msg_comum['btn.fechar']}" action="index.jsp?faces-redirect=true" title="#{msg_comum['btn.fechar']}" icon="fa fa-close" />
+                        </div>
+                        <div class="ui-grid-col-1">
+                            <p:commandButton value="#{msg_comum['btn.guardar']}" process="@form" onclick="window.location = $('#linkTopoPagina').attr('href');"
+                                             action="#{${mbName}.guardarReporte}" title="#{msg_comum['btn.guardar']}" icon="fa fa-save"/>
+                        </div>
+                        <div class="ui-grid-col-1">
+                            <p:commandButton value="#{msg_comum['btn.submeter']}" process="@form" onclick="window.location = $('#linkTopoPagina').attr('href');"
+                                             action="#{${mbName}.submeterReporte}" title="#{msg_comum['btn.submeter']}" icon="fa fa-check"/>
+                        </div>
+                    </div>
+                    <a id="linkTopoPagina" href="#top" style="display: none;">Navegar topo da página</a>
+                </p:panel>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.residuos.mtr"/>
+	<property name="defaultSchema" value="mtr"/>
+	<db-entity name="contrato" schema="mtr">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="contrato_tacitamente_renovavel" type="BOOLEAN"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_validade" type="TIMESTAMP"/>
+		<db-attribute name="fk_criador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_importador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_pdf" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="destinos_proibidos_basileia" schema="mtr">
+		<db-attribute name="cod_pais" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="2"/>
+	</db-entity>
+	<db-entity name="destinos_proibidos_ocde" schema="mtr">
+		<db-attribute name="cod_pais" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="2"/>
+	</db-entity>
+	<db-entity name="formulario_mtr" schema="mtr">
+		<db-attribute name="codigo" type="INTEGER"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_anulacao" type="TIMESTAMP"/>
+		<db-attribute name="data_conclusao" type="TIMESTAMP"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_envio" type="TIMESTAMP"/>
+		<db-attribute name="data_submissao" type="TIMESTAMP"/>
+		<db-attribute name="data_transferencia" type="TIMESTAMP"/>
+		<db-attribute name="data_validacao" type="TIMESTAMP"/>
+		<db-attribute name="dau" type="VARCHAR" length="26"/>
+		<db-attribute name="descricao_comercial_residuos" type="VARCHAR" length="50"/>
+		<db-attribute name="email_contacto_importador" type="VARCHAR" length="255"/>
+		<db-attribute name="email_contacto_notificador" type="VARCHAR" length="255"/>
+		<db-attribute name="email_contacto_produtor" type="VARCHAR" length="255"/>
+		<db-attribute name="email_contacto_valorizador" type="VARCHAR" length="255"/>
+		<db-attribute name="fax_importador" type="VARCHAR" length="100"/>
+		<db-attribute name="fax_notificador" type="VARCHAR" length="100"/>
+		<db-attribute name="fax_produtor" type="VARCHAR" length="100"/>
+		<db-attribute name="fax_valorizador" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_contrato" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_criador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_form_parent" type="INTEGER"/>
+		<db-attribute name="fk_motivo_anulacao" type="INTEGER"/>
+		<db-attribute name="fk_perfil_anula" type="INTEGER"/>
+		<db-attribute name="fk_perfil_conclui" type="INTEGER"/>
+		<db-attribute name="fk_perfil_envia" type="INTEGER"/>
+		<db-attribute name="fk_perfil_submete" type="INTEGER"/>
+		<db-attribute name="fk_perfil_valida" type="INTEGER"/>
+		<db-attribute name="fk_produtor" type="INTEGER"/>
+		<db-attribute name="fk_valorizador" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="morada_importador" type="VARCHAR" length="500"/>
+		<db-attribute name="morada_notificador" type="VARCHAR" length="500"/>
+		<db-attribute name="morada_produtor" type="VARCHAR" length="500"/>
+		<db-attribute name="morada_valorizador" type="VARCHAR" length="500"/>
+		<db-attribute name="motivo_anulacao" type="VARCHAR" length="1000"/>
+		<db-attribute name="n_contentor" type="VARCHAR" length="11"/>
+		<db-attribute name="nif_notificador" type="VARCHAR" isMandatory="true" length="15"/>
+		<db-attribute name="nome_importador" type="VARCHAR" length="255"/>
+		<db-attribute name="nome_notificador" type="VARCHAR" length="255"/>
+		<db-attribute name="nome_produtor" type="VARCHAR" length="255"/>
+		<db-attribute name="nome_valorizador" type="VARCHAR" length="255"/>
+		<db-attribute name="peso_recebido" type="DOUBLE"/>
+		<db-attribute name="peso_ton" type="DOUBLE"/>
+		<db-attribute name="pessoa_contacto_importador" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto_notificador" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto_produtor" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto_valorizador" type="VARCHAR" length="255"/>
+		<db-attribute name="produtor_confidencial" type="BOOLEAN"/>
+		<db-attribute name="telefone_contacto_importador" type="VARCHAR" length="100"/>
+		<db-attribute name="telefone_contacto_notificador" type="VARCHAR" length="100"/>
+		<db-attribute name="telefone_contacto_produtor" type="VARCHAR" length="100"/>
+		<db-attribute name="telefone_contacto_valorizador" type="VARCHAR" length="100"/>
+		<db-attribute name="valorizador_confidencial" type="BOOLEAN"/>
+		<db-attribute name="versao" type="INTEGER"/>
+		<db-attribute name="volume_l" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="formulario_mtr_correccoes" schema="mtr">
+		<db-attribute name="codigo_ler" type="VARCHAR" length="256"/>
+		<db-attribute name="fk_formulario_mtr" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="observacoes_adm" type="VARCHAR" length="1000"/>
+		<db-attribute name="peso_recebido" type="DOUBLE"/>
+		<db-attribute name="peso_ton" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="formularios_ontem_hoje" schema="mtr">
+		<db-attribute name="codigo" type="INTEGER" length="10"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_anulacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_conclusao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_envio" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_submissao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_transferencia" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_validacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="dau" type="VARCHAR" length="26"/>
+		<db-attribute name="descricao_comercial_residuos" type="VARCHAR" length="512"/>
+		<db-attribute name="email_contacto_importador" type="VARCHAR" length="255"/>
+		<db-attribute name="email_contacto_notificador" type="VARCHAR" length="255"/>
+		<db-attribute name="email_contacto_produtor" type="VARCHAR" length="255"/>
+		<db-attribute name="email_contacto_valorizador" type="VARCHAR" length="255"/>
+		<db-attribute name="fax_importador" type="VARCHAR" length="100"/>
+		<db-attribute name="fax_notificador" type="VARCHAR" length="100"/>
+		<db-attribute name="fax_produtor" type="VARCHAR" length="100"/>
+		<db-attribute name="fax_valorizador" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_contrato" type="INTEGER" length="10"/>
+		<db-attribute name="fk_criador" type="INTEGER" length="10"/>
+		<db-attribute name="fk_motivo_anulacao" type="INTEGER" length="10"/>
+		<db-attribute name="fk_produtor" type="INTEGER" length="10"/>
+		<db-attribute name="fk_valorizador" type="INTEGER" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="morada_importador" type="VARCHAR" length="500"/>
+		<db-attribute name="morada_notificador" type="VARCHAR" length="500"/>
+		<db-attribute name="morada_produtor" type="VARCHAR" length="500"/>
+		<db-attribute name="morada_valorizador" type="VARCHAR" length="500"/>
+		<db-attribute name="motivo_anulacao" type="VARCHAR" length="1000"/>
+		<db-attribute name="n_contentor" type="VARCHAR" length="11"/>
+		<db-attribute name="nif_notificador" type="VARCHAR" length="9"/>
+		<db-attribute name="nome_importador" type="VARCHAR" length="255"/>
+		<db-attribute name="nome_notificador" type="VARCHAR" length="255"/>
+		<db-attribute name="nome_produtor" type="VARCHAR" length="255"/>
+		<db-attribute name="nome_valorizador" type="VARCHAR" length="255"/>
+		<db-attribute name="peso_ton" type="DOUBLE" length="17"/>
+		<db-attribute name="pessoa_contacto_importador" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto_notificador" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto_produtor" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto_valorizador" type="VARCHAR" length="255"/>
+		<db-attribute name="produtor_confidencial" type="BIT" length="1"/>
+		<db-attribute name="telefone_contacto_importador" type="VARCHAR" length="100"/>
+		<db-attribute name="telefone_contacto_notificador" type="VARCHAR" length="100"/>
+		<db-attribute name="telefone_contacto_produtor" type="VARCHAR" length="100"/>
+		<db-attribute name="telefone_contacto_valorizador" type="VARCHAR" length="100"/>
+		<db-attribute name="valorizador_confidencial" type="BIT" length="1"/>
+		<db-attribute name="volume_l" type="DOUBLE" length="17"/>
+	</db-entity>
+	<db-entity name="formularios_semana" schema="mtr">
+		<db-attribute name="codigo" type="INTEGER" length="10"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_anulacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_conclusao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_envio" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_submissao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_transferencia" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_validacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="dau" type="VARCHAR" length="26"/>
+		<db-attribute name="descricao_comercial_residuos" type="VARCHAR" length="512"/>
+		<db-attribute name="email_contacto_importador" type="VARCHAR" length="255"/>
+		<db-attribute name="email_contacto_notificador" type="VARCHAR" length="255"/>
+		<db-attribute name="email_contacto_produtor" type="VARCHAR" length="255"/>
+		<db-attribute name="email_contacto_valorizador" type="VARCHAR" length="255"/>
+		<db-attribute name="fax_importador" type="VARCHAR" length="100"/>
+		<db-attribute name="fax_notificador" type="VARCHAR" length="100"/>
+		<db-attribute name="fax_produtor" type="VARCHAR" length="100"/>
+		<db-attribute name="fax_valorizador" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_contrato" type="INTEGER" length="10"/>
+		<db-attribute name="fk_criador" type="INTEGER" length="10"/>
+		<db-attribute name="fk_motivo_anulacao" type="INTEGER" length="10"/>
+		<db-attribute name="fk_produtor" type="INTEGER" length="10"/>
+		<db-attribute name="fk_valorizador" type="INTEGER" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="morada_importador" type="VARCHAR" length="500"/>
+		<db-attribute name="morada_notificador" type="VARCHAR" length="500"/>
+		<db-attribute name="morada_produtor" type="VARCHAR" length="500"/>
+		<db-attribute name="morada_valorizador" type="VARCHAR" length="500"/>
+		<db-attribute name="motivo_anulacao" type="VARCHAR" length="1000"/>
+		<db-attribute name="n_contentor" type="VARCHAR" length="11"/>
+		<db-attribute name="nif_notificador" type="VARCHAR" length="9"/>
+		<db-attribute name="nome_importador" type="VARCHAR" length="255"/>
+		<db-attribute name="nome_notificador" type="VARCHAR" length="255"/>
+		<db-attribute name="nome_produtor" type="VARCHAR" length="255"/>
+		<db-attribute name="nome_valorizador" type="VARCHAR" length="255"/>
+		<db-attribute name="peso_ton" type="DOUBLE" length="17"/>
+		<db-attribute name="pessoa_contacto_importador" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto_notificador" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto_produtor" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto_valorizador" type="VARCHAR" length="255"/>
+		<db-attribute name="produtor_confidencial" type="BIT" length="1"/>
+		<db-attribute name="telefone_contacto_importador" type="VARCHAR" length="100"/>
+		<db-attribute name="telefone_contacto_notificador" type="VARCHAR" length="100"/>
+		<db-attribute name="telefone_contacto_produtor" type="VARCHAR" length="100"/>
+		<db-attribute name="telefone_contacto_valorizador" type="VARCHAR" length="100"/>
+		<db-attribute name="valorizador_confidencial" type="BIT" length="1"/>
+		<db-attribute name="volume_l" type="DOUBLE" length="17" scale="17"/>
+	</db-entity>
+	<db-entity name="formularios_todos" schema="mtr">
+		<db-attribute name="codigo" type="INTEGER" length="10"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_anulacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_conclusao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_envio" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_submissao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_transferencia" type="TIMESTAMP" length="35"/>
+		<db-attribute name="data_validacao" type="TIMESTAMP" length="35"/>
+		<db-attribute name="dau" type="VARCHAR" length="26"/>
+		<db-attribute name="descricao_comercial_residuos" type="VARCHAR" length="512"/>
+		<db-attribute name="email_contacto_importador" type="VARCHAR" length="255"/>
+		<db-attribute name="email_contacto_notificador" type="VARCHAR" length="255"/>
+		<db-attribute name="email_contacto_produtor" type="VARCHAR" length="255"/>
+		<db-attribute name="email_contacto_valorizador" type="VARCHAR" length="255"/>
+		<db-attribute name="fax_importador" type="VARCHAR" length="100"/>
+		<db-attribute name="fax_notificador" type="VARCHAR" length="100"/>
+		<db-attribute name="fax_produtor" type="VARCHAR" length="100"/>
+		<db-attribute name="fax_valorizador" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_contrato" type="INTEGER" length="10"/>
+		<db-attribute name="fk_criador" type="INTEGER" length="10"/>
+		<db-attribute name="fk_motivo_anulacao" type="INTEGER" length="10"/>
+		<db-attribute name="fk_produtor" type="INTEGER" length="10"/>
+		<db-attribute name="fk_valorizador" type="INTEGER" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="morada_importador" type="VARCHAR" length="500"/>
+		<db-attribute name="morada_notificador" type="VARCHAR" length="500"/>
+		<db-attribute name="morada_produtor" type="VARCHAR" length="500"/>
+		<db-attribute name="morada_valorizador" type="VARCHAR" length="500"/>
+		<db-attribute name="motivo_anulacao" type="VARCHAR" length="1000"/>
+		<db-attribute name="n_contentor" type="VARCHAR" length="11"/>
+		<db-attribute name="nif_notificador" type="VARCHAR" length="9"/>
+		<db-attribute name="nome_importador" type="VARCHAR" length="255"/>
+		<db-attribute name="nome_notificador" type="VARCHAR" length="255"/>
+		<db-attribute name="nome_produtor" type="VARCHAR" length="255"/>
+		<db-attribute name="nome_valorizador" type="VARCHAR" length="255"/>
+		<db-attribute name="peso_ton" type="DOUBLE" length="17"/>
+		<db-attribute name="pessoa_contacto_importador" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto_notificador" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto_produtor" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto_valorizador" type="VARCHAR" length="255"/>
+		<db-attribute name="produtor_confidencial" type="BIT" length="1"/>
+		<db-attribute name="telefone_contacto_importador" type="VARCHAR" length="100"/>
+		<db-attribute name="telefone_contacto_notificador" type="VARCHAR" length="100"/>
+		<db-attribute name="telefone_contacto_produtor" type="VARCHAR" length="100"/>
+		<db-attribute name="telefone_contacto_valorizador" type="VARCHAR" length="100"/>
+		<db-attribute name="valorizador_confidencial" type="BIT" length="1"/>
+		<db-attribute name="volume_l" type="DOUBLE" length="17" scale="17"/>
+	</db-entity>
+	<db-entity name="motivo_anulacao" schema="mtr">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="512"/>
+	</db-entity>
+	<db-entity name="proibicoes_basileia" schema="mtr">
+		<db-attribute name="cod_basileia" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="20"/>
+		<db-attribute name="cod_pais" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="2"/>
+	</db-entity>
+	<db-entity name="proibicoes_ocde" schema="mtr">
+		<db-attribute name="cod_ocde" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="cod_pais" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="2"/>
+	</db-entity>
+	<db-entity name="r_formulario_residuos" schema="mtr">
+		<db-attribute name="fk_basileia" type="INTEGER"/>
+		<db-attribute name="fk_beu" type="INTEGER"/>
+		<db-attribute name="fk_formulario" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_ler" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_ocde" type="INTEGER"/>
+		<db-attribute name="fk_operacao" type="INTEGER"/>
+		<db-attribute name="fk_sub_operacao" type="INTEGER"/>
+		<db-attribute name="fk_sub_valorizador" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="outros_desc" type="VARCHAR" length="512"/>
+		<db-attribute name="percentagem" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="r_pais_formulario" schema="mtr">
+		<db-attribute name="fk_formulario" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_pais" type="VARCHAR" isMandatory="true" length="2"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="ordinal" type="INTEGER" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="r_transporte" schema="mtr">
+		<db-attribute name="data_alteracao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_transferencia" type="TIMESTAMP"/>
+		<db-attribute name="email_contacto" type="VARCHAR" length="255"/>
+		<db-attribute name="fax" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_entidade" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_formulario" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo_transporte" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="matricula" type="VARCHAR" length="50"/>
+		<db-attribute name="morada" type="VARCHAR" length="500"/>
+		<db-attribute name="nome" type="VARCHAR" length="255"/>
+		<db-attribute name="pessoa_contacto" type="VARCHAR" length="255"/>
+		<db-attribute name="telefone_contacto" type="VARCHAR" length="100"/>
+	</db-entity>
+	<db-entity name="tipo_anexo" schema="mtr">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="512"/>
+	</db-entity>
+	<obj-entity name="Contrato" className="org.addition.apa.residuos.mtr.Contrato" dbEntityName="contrato">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="contratoTacitamenteRenovavel" type="java.lang.Boolean" db-attribute-path="contrato_tacitamente_renovavel"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="dataValidade" type="java.util.Date" db-attribute-path="data_validade"/>
+	</obj-entity>
+	<obj-entity name="DestinosProibidosBasileia" className="org.addition.apa.residuos.mtr.DestinosProibidosBasileia" readOnly="true" dbEntityName="destinos_proibidos_basileia">
+		<obj-attribute name="codPais" type="java.lang.String" db-attribute-path="cod_pais"/>
+	</obj-entity>
+	<obj-entity name="DestinosProibidosOcde" className="org.addition.apa.residuos.mtr.DestinosProibidosOcde" readOnly="true" dbEntityName="destinos_proibidos_ocde">
+		<obj-attribute name="codPais" type="java.lang.String" db-attribute-path="cod_pais"/>
+	</obj-entity>
+	<obj-entity name="FormularioMtr" className="org.addition.apa.residuos.mtr.FormularioMtr" dbEntityName="formulario_mtr">
+		<obj-attribute name="codigo" type="java.lang.Integer" db-attribute-path="codigo"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataAnulacao" type="java.util.Date" db-attribute-path="data_anulacao"/>
+		<obj-attribute name="dataConclusao" type="java.util.Date" db-attribute-path="data_conclusao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataEnvio" type="java.util.Date" db-attribute-path="data_envio"/>
+		<obj-attribute name="dataSubmissao" type="java.util.Date" db-attribute-path="data_submissao"/>
+		<obj-attribute name="dataTransferencia" type="java.util.Date" db-attribute-path="data_transferencia"/>
+		<obj-attribute name="dataValidacao" type="java.util.Date" db-attribute-path="data_validacao"/>
+		<obj-attribute name="dau" type="java.lang.String" db-attribute-path="dau"/>
+		<obj-attribute name="descricaoComercialResiduos" type="java.lang.String" db-attribute-path="descricao_comercial_residuos"/>
+		<obj-attribute name="emailContactoImportador" type="java.lang.String" db-attribute-path="email_contacto_importador"/>
+		<obj-attribute name="emailContactoNotificador" type="java.lang.String" db-attribute-path="email_contacto_notificador"/>
+		<obj-attribute name="emailContactoProdutor" type="java.lang.String" db-attribute-path="email_contacto_produtor"/>
+		<obj-attribute name="emailContactoValorizador" type="java.lang.String" db-attribute-path="email_contacto_valorizador"/>
+		<obj-attribute name="faxImportador" type="java.lang.String" db-attribute-path="fax_importador"/>
+		<obj-attribute name="faxNotificador" type="java.lang.String" db-attribute-path="fax_notificador"/>
+		<obj-attribute name="faxProdutor" type="java.lang.String" db-attribute-path="fax_produtor"/>
+		<obj-attribute name="faxValorizador" type="java.lang.String" db-attribute-path="fax_valorizador"/>
+		<obj-attribute name="fkFormParent" type="java.lang.Integer" db-attribute-path="fk_form_parent"/>
+		<obj-attribute name="moradaImportador" type="java.lang.String" db-attribute-path="morada_importador"/>
+		<obj-attribute name="moradaNotificador" type="java.lang.String" db-attribute-path="morada_notificador"/>
+		<obj-attribute name="moradaProdutor" type="java.lang.String" db-attribute-path="morada_produtor"/>
+		<obj-attribute name="moradaValorizador" type="java.lang.String" db-attribute-path="morada_valorizador"/>
+		<obj-attribute name="motivoAnulacao" type="java.lang.String" db-attribute-path="motivo_anulacao"/>
+		<obj-attribute name="nContentor" type="java.lang.String" db-attribute-path="n_contentor"/>
+		<obj-attribute name="nifNotificador" type="java.lang.String" db-attribute-path="nif_notificador"/>
+		<obj-attribute name="nomeImportador" type="java.lang.String" db-attribute-path="nome_importador"/>
+		<obj-attribute name="nomeNotificador" type="java.lang.String" db-attribute-path="nome_notificador"/>
+		<obj-attribute name="nomeProdutor" type="java.lang.String" db-attribute-path="nome_produtor"/>
+		<obj-attribute name="nomeValorizador" type="java.lang.String" db-attribute-path="nome_valorizador"/>
+		<obj-attribute name="pesoRecebido" type="java.lang.Double" db-attribute-path="peso_recebido"/>
+		<obj-attribute name="pesoTon" type="java.lang.Double" db-attribute-path="peso_ton"/>
+		<obj-attribute name="pessoaContactoImportador" type="java.lang.String" db-attribute-path="pessoa_contacto_importador"/>
+		<obj-attribute name="pessoaContactoNotificador" type="java.lang.String" db-attribute-path="pessoa_contacto_notificador"/>
+		<obj-attribute name="pessoaContactoProdutor" type="java.lang.String" db-attribute-path="pessoa_contacto_produtor"/>
+		<obj-attribute name="pessoaContactoValorizador" type="java.lang.String" db-attribute-path="pessoa_contacto_valorizador"/>
+		<obj-attribute name="produtorConfidencial" type="java.lang.Boolean" db-attribute-path="produtor_confidencial"/>
+		<obj-attribute name="telefoneContactoImportador" type="java.lang.String" db-attribute-path="telefone_contacto_importador"/>
+		<obj-attribute name="telefoneContactoNotificador" type="java.lang.String" db-attribute-path="telefone_contacto_notificador"/>
+		<obj-attribute name="telefoneContactoProdutor" type="java.lang.String" db-attribute-path="telefone_contacto_produtor"/>
+		<obj-attribute name="telefoneContactoValorizador" type="java.lang.String" db-attribute-path="telefone_contacto_valorizador"/>
+		<obj-attribute name="valorizadorConfidencial" type="java.lang.Boolean" db-attribute-path="valorizador_confidencial"/>
+		<obj-attribute name="versao" type="java.lang.Integer" db-attribute-path="versao"/>
+		<obj-attribute name="volumeL" type="java.lang.Double" db-attribute-path="volume_l"/>
+	</obj-entity>
+	<obj-entity name="FormularioMtrCorreccoes" className="org.addition.apa.residuos.mtr.FormularioMtrCorreccoes" dbEntityName="formulario_mtr_correccoes">
+		<obj-attribute name="codigoLer" type="java.lang.String" db-attribute-path="codigo_ler"/>
+		<obj-attribute name="observacoesAdm" type="java.lang.String" db-attribute-path="observacoes_adm"/>
+		<obj-attribute name="pesoRecebido" type="java.lang.Double" db-attribute-path="peso_recebido"/>
+		<obj-attribute name="pesoTon" type="java.lang.Double" db-attribute-path="peso_ton"/>
+	</obj-entity>
+	<obj-entity name="FormulariosOntemHoje" className="org.addition.apa.residuos.mtr.FormulariosOntemHoje" readOnly="true" dbEntityName="formularios_ontem_hoje">
+		<obj-attribute name="codigo" type="java.lang.Integer" db-attribute-path="codigo"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataAnulacao" type="java.util.Date" db-attribute-path="data_anulacao"/>
+		<obj-attribute name="dataConclusao" type="java.util.Date" db-attribute-path="data_conclusao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataEnvio" type="java.util.Date" db-attribute-path="data_envio"/>
+		<obj-attribute name="dataSubmissao" type="java.util.Date" db-attribute-path="data_submissao"/>
+		<obj-attribute name="dataTransferencia" type="java.util.Date" db-attribute-path="data_transferencia"/>
+		<obj-attribute name="dataValidacao" type="java.util.Date" db-attribute-path="data_validacao"/>
+		<obj-attribute name="dau" type="java.lang.String" db-attribute-path="dau"/>
+		<obj-attribute name="descricaoComercialResiduos" type="java.lang.String" db-attribute-path="descricao_comercial_residuos"/>
+		<obj-attribute name="emailContactoImportador" type="java.lang.String" db-attribute-path="email_contacto_importador"/>
+		<obj-attribute name="emailContactoNotificador" type="java.lang.String" db-attribute-path="email_contacto_notificador"/>
+		<obj-attribute name="emailContactoProdutor" type="java.lang.String" db-attribute-path="email_contacto_produtor"/>
+		<obj-attribute name="emailContactoValorizador" type="java.lang.String" db-attribute-path="email_contacto_valorizador"/>
+		<obj-attribute name="faxImportador" type="java.lang.String" db-attribute-path="fax_importador"/>
+		<obj-attribute name="faxNotificador" type="java.lang.String" db-attribute-path="fax_notificador"/>
+		<obj-attribute name="faxProdutor" type="java.lang.String" db-attribute-path="fax_produtor"/>
+		<obj-attribute name="faxValorizador" type="java.lang.String" db-attribute-path="fax_valorizador"/>
+		<obj-attribute name="fkContrato" type="java.lang.Integer" db-attribute-path="fk_contrato"/>
+		<obj-attribute name="fkCriador" type="java.lang.Integer" db-attribute-path="fk_criador"/>
+		<obj-attribute name="fkMotivoAnulacao" type="java.lang.Integer" db-attribute-path="fk_motivo_anulacao"/>
+		<obj-attribute name="fkProdutor" type="java.lang.Integer" db-attribute-path="fk_produtor"/>
+		<obj-attribute name="fkValorizador" type="java.lang.Integer" db-attribute-path="fk_valorizador"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+		<obj-attribute name="moradaImportador" type="java.lang.String" db-attribute-path="morada_importador"/>
+		<obj-attribute name="moradaNotificador" type="java.lang.String" db-attribute-path="morada_notificador"/>
+		<obj-attribute name="moradaProdutor" type="java.lang.String" db-attribute-path="morada_produtor"/>
+		<obj-attribute name="moradaValorizador" type="java.lang.String" db-attribute-path="morada_valorizador"/>
+		<obj-attribute name="motivoAnulacao" type="java.lang.String" db-attribute-path="motivo_anulacao"/>
+		<obj-attribute name="nContentor" type="java.lang.String" db-attribute-path="n_contentor"/>
+		<obj-attribute name="nifNotificador" type="java.lang.String" db-attribute-path="nif_notificador"/>
+		<obj-attribute name="nomeImportador" type="java.lang.String" db-attribute-path="nome_importador"/>
+		<obj-attribute name="nomeNotificador" type="java.lang.String" db-attribute-path="nome_notificador"/>
+		<obj-attribute name="nomeProdutor" type="java.lang.String" db-attribute-path="nome_produtor"/>
+		<obj-attribute name="nomeValorizador" type="java.lang.String" db-attribute-path="nome_valorizador"/>
+		<obj-attribute name="pesoTon" type="java.lang.Double" db-attribute-path="peso_ton"/>
+		<obj-attribute name="pessoaContactoImportador" type="java.lang.String" db-attribute-path="pessoa_contacto_importador"/>
+		<obj-attribute name="pessoaContactoNotificador" type="java.lang.String" db-attribute-path="pessoa_contacto_notificador"/>
+		<obj-attribute name="pessoaContactoProdutor" type="java.lang.String" db-attribute-path="pessoa_contacto_produtor"/>
+		<obj-attribute name="pessoaContactoValorizador" type="java.lang.String" db-attribute-path="pessoa_contacto_valorizador"/>
+		<obj-attribute name="produtorConfidencial" type="java.lang.Boolean" db-attribute-path="produtor_confidencial"/>
+		<obj-attribute name="telefoneContactoImportador" type="java.lang.String" db-attribute-path="telefone_contacto_importador"/>
+		<obj-attribute name="telefoneContactoNotificador" type="java.lang.String" db-attribute-path="telefone_contacto_notificador"/>
+		<obj-attribute name="telefoneContactoProdutor" type="java.lang.String" db-attribute-path="telefone_contacto_produtor"/>
+		<obj-attribute name="telefoneContactoValorizador" type="java.lang.String" db-attribute-path="telefone_contacto_valorizador"/>
+		<obj-attribute name="valorizadorConfidencial" type="java.lang.Boolean" db-attribute-path="valorizador_confidencial"/>
+		<obj-attribute name="volumeL" type="java.lang.Double" db-attribute-path="volume_l"/>
+	</obj-entity>
+	<obj-entity name="FormulariosSemana" className="org.addition.apa.residuos.mtr.FormulariosSemana" readOnly="true" dbEntityName="formularios_semana">
+		<obj-attribute name="codigo" type="java.lang.Integer" db-attribute-path="codigo"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataAnulacao" type="java.util.Date" db-attribute-path="data_anulacao"/>
+		<obj-attribute name="dataConclusao" type="java.util.Date" db-attribute-path="data_conclusao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataEnvio" type="java.util.Date" db-attribute-path="data_envio"/>
+		<obj-attribute name="dataSubmissao" type="java.util.Date" db-attribute-path="data_submissao"/>
+		<obj-attribute name="dataTransferencia" type="java.util.Date" db-attribute-path="data_transferencia"/>
+		<obj-attribute name="dataValidacao" type="java.util.Date" db-attribute-path="data_validacao"/>
+		<obj-attribute name="dau" type="java.lang.String" db-attribute-path="dau"/>
+		<obj-attribute name="descricaoComercialResiduos" type="java.lang.String" db-attribute-path="descricao_comercial_residuos"/>
+		<obj-attribute name="emailContactoImportador" type="java.lang.String" db-attribute-path="email_contacto_importador"/>
+		<obj-attribute name="emailContactoNotificador" type="java.lang.String" db-attribute-path="email_contacto_notificador"/>
+		<obj-attribute name="emailContactoProdutor" type="java.lang.String" db-attribute-path="email_contacto_produtor"/>
+		<obj-attribute name="emailContactoValorizador" type="java.lang.String" db-attribute-path="email_contacto_valorizador"/>
+		<obj-attribute name="faxImportador" type="java.lang.String" db-attribute-path="fax_importador"/>
+		<obj-attribute name="faxNotificador" type="java.lang.String" db-attribute-path="fax_notificador"/>
+		<obj-attribute name="faxProdutor" type="java.lang.String" db-attribute-path="fax_produtor"/>
+		<obj-attribute name="faxValorizador" type="java.lang.String" db-attribute-path="fax_valorizador"/>
+		<obj-attribute name="fkContrato" type="java.lang.Integer" db-attribute-path="fk_contrato"/>
+		<obj-attribute name="fkCriador" type="java.lang.Integer" db-attribute-path="fk_criador"/>
+		<obj-attribute name="fkMotivoAnulacao" type="java.lang.Integer" db-attribute-path="fk_motivo_anulacao"/>
+		<obj-attribute name="fkProdutor" type="java.lang.Integer" db-attribute-path="fk_produtor"/>
+		<obj-attribute name="fkValorizador" type="java.lang.Integer" db-attribute-path="fk_valorizador"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+		<obj-attribute name="moradaImportador" type="java.lang.String" db-attribute-path="morada_importador"/>
+		<obj-attribute name="moradaNotificador" type="java.lang.String" db-attribute-path="morada_notificador"/>
+		<obj-attribute name="moradaProdutor" type="java.lang.String" db-attribute-path="morada_produtor"/>
+		<obj-attribute name="moradaValorizador" type="java.lang.String" db-attribute-path="morada_valorizador"/>
+		<obj-attribute name="motivoAnulacao" type="java.lang.String" db-attribute-path="motivo_anulacao"/>
+		<obj-attribute name="nContentor" type="java.lang.String" db-attribute-path="n_contentor"/>
+		<obj-attribute name="nifNotificador" type="java.lang.String" db-attribute-path="nif_notificador"/>
+		<obj-attribute name="nomeImportador" type="java.lang.String" db-attribute-path="nome_importador"/>
+		<obj-attribute name="nomeNotificador" type="java.lang.String" db-attribute-path="nome_notificador"/>
+		<obj-attribute name="nomeProdutor" type="java.lang.String" db-attribute-path="nome_produtor"/>
+		<obj-attribute name="nomeValorizador" type="java.lang.String" db-attribute-path="nome_valorizador"/>
+		<obj-attribute name="pesoTon" type="java.lang.Double" db-attribute-path="peso_ton"/>
+		<obj-attribute name="pessoaContactoImportador" type="java.lang.String" db-attribute-path="pessoa_contacto_importador"/>
+		<obj-attribute name="pessoaContactoNotificador" type="java.lang.String" db-attribute-path="pessoa_contacto_notificador"/>
+		<obj-attribute name="pessoaContactoProdutor" type="java.lang.String" db-attribute-path="pessoa_contacto_produtor"/>
+		<obj-attribute name="pessoaContactoValorizador" type="java.lang.String" db-attribute-path="pessoa_contacto_valorizador"/>
+		<obj-attribute name="produtorConfidencial" type="java.lang.Boolean" db-attribute-path="produtor_confidencial"/>
+		<obj-attribute name="telefoneContactoImportador" type="java.lang.String" db-attribute-path="telefone_contacto_importador"/>
+		<obj-attribute name="telefoneContactoNotificador" type="java.lang.String" db-attribute-path="telefone_contacto_notificador"/>
+		<obj-attribute name="telefoneContactoProdutor" type="java.lang.String" db-attribute-path="telefone_contacto_produtor"/>
+		<obj-attribute name="telefoneContactoValorizador" type="java.lang.String" db-attribute-path="telefone_contacto_valorizador"/>
+		<obj-attribute name="valorizadorConfidencial" type="java.lang.Boolean" db-attribute-path="valorizador_confidencial"/>
+		<obj-attribute name="volumeL" type="java.lang.Double" db-attribute-path="volume_l"/>
+	</obj-entity>
+	<obj-entity name="FormulariosTodos" className="org.addition.apa.residuos.mtr.FormulariosTodos" readOnly="true" dbEntityName="formularios_todos">
+		<obj-attribute name="codigo" type="java.lang.Integer" db-attribute-path="codigo"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataAnulacao" type="java.util.Date" db-attribute-path="data_anulacao"/>
+		<obj-attribute name="dataConclusao" type="java.util.Date" db-attribute-path="data_conclusao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataEnvio" type="java.util.Date" db-attribute-path="data_envio"/>
+		<obj-attribute name="dataSubmissao" type="java.util.Date" db-attribute-path="data_submissao"/>
+		<obj-attribute name="dataTransferencia" type="java.util.Date" db-attribute-path="data_transferencia"/>
+		<obj-attribute name="dataValidacao" type="java.util.Date" db-attribute-path="data_validacao"/>
+		<obj-attribute name="descricaoComercialResiduos" type="java.lang.String" db-attribute-path="descricao_comercial_residuos"/>
+		<obj-attribute name="emailContactoImportador" type="java.lang.String" db-attribute-path="email_contacto_importador"/>
+		<obj-attribute name="emailContactoNotificador" type="java.lang.String" db-attribute-path="email_contacto_notificador"/>
+		<obj-attribute name="emailContactoProdutor" type="java.lang.String" db-attribute-path="email_contacto_produtor"/>
+		<obj-attribute name="emailContactoValorizador" type="java.lang.String" db-attribute-path="email_contacto_valorizador"/>
+		<obj-attribute name="faxImportador" type="java.lang.String" db-attribute-path="fax_importador"/>
+		<obj-attribute name="faxNotificador" type="java.lang.String" db-attribute-path="fax_notificador"/>
+		<obj-attribute name="faxProdutor" type="java.lang.String" db-attribute-path="fax_produtor"/>
+		<obj-attribute name="faxValorizador" type="java.lang.String" db-attribute-path="fax_valorizador"/>
+		<obj-attribute name="fkContrato" type="java.lang.Integer" db-attribute-path="fk_contrato"/>
+		<obj-attribute name="fkCriador" type="java.lang.Integer" db-attribute-path="fk_criador"/>
+		<obj-attribute name="fkMotivoAnulacao" type="java.lang.Integer" db-attribute-path="fk_motivo_anulacao"/>
+		<obj-attribute name="fkProdutor" type="java.lang.Integer" db-attribute-path="fk_produtor"/>
+		<obj-attribute name="fkValorizador" type="java.lang.Integer" db-attribute-path="fk_valorizador"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+		<obj-attribute name="moradaImportador" type="java.lang.String" db-attribute-path="morada_importador"/>
+		<obj-attribute name="moradaNotificador" type="java.lang.String" db-attribute-path="morada_notificador"/>
+		<obj-attribute name="moradaProdutor" type="java.lang.String" db-attribute-path="morada_produtor"/>
+		<obj-attribute name="moradaValorizador" type="java.lang.String" db-attribute-path="morada_valorizador"/>
+		<obj-attribute name="motivoAnulacao" type="java.lang.String" db-attribute-path="motivo_anulacao"/>
+		<obj-attribute name="nifNotificador" type="java.lang.String" db-attribute-path="nif_notificador"/>
+		<obj-attribute name="nomeImportador" type="java.lang.String" db-attribute-path="nome_importador"/>
+		<obj-attribute name="nomeNotificador" type="java.lang.String" db-attribute-path="nome_notificador"/>
+		<obj-attribute name="nomeProdutor" type="java.lang.String" db-attribute-path="nome_produtor"/>
+		<obj-attribute name="nomeValorizador" type="java.lang.String" db-attribute-path="nome_valorizador"/>
+		<obj-attribute name="pesoTon" type="java.lang.Double" db-attribute-path="peso_ton"/>
+		<obj-attribute name="pessoaContactoImportador" type="java.lang.String" db-attribute-path="pessoa_contacto_importador"/>
+		<obj-attribute name="pessoaContactoNotificador" type="java.lang.String" db-attribute-path="pessoa_contacto_notificador"/>
+		<obj-attribute name="pessoaContactoProdutor" type="java.lang.String" db-attribute-path="pessoa_contacto_produtor"/>
+		<obj-attribute name="pessoaContactoValorizador" type="java.lang.String" db-attribute-path="pessoa_contacto_valorizador"/>
+		<obj-attribute name="produtorConfidencial" type="java.lang.Boolean" db-attribute-path="produtor_confidencial"/>
+		<obj-attribute name="telefoneContactoImportador" type="java.lang.String" db-attribute-path="telefone_contacto_importador"/>
+		<obj-attribute name="telefoneContactoNotificador" type="java.lang.String" db-attribute-path="telefone_contacto_notificador"/>
+		<obj-attribute name="telefoneContactoProdutor" type="java.lang.String" db-attribute-path="telefone_contacto_produtor"/>
+		<obj-attribute name="telefoneContactoValorizador" type="java.lang.String" db-attribute-path="telefone_contacto_valorizador"/>
+		<obj-attribute name="valorizadorConfidencial" type="java.lang.Boolean" db-attribute-path="valorizador_confidencial"/>
+		<obj-attribute name="volumeL" type="java.lang.Double" db-attribute-path="volume_l"/>
+	</obj-entity>
+	<obj-entity name="MotivoAnulacao" className="org.addition.apa.residuos.mtr.MotivoAnulacao" dbEntityName="motivo_anulacao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="ProibicoesBasileia" className="org.addition.apa.residuos.mtr.ProibicoesBasileia" readOnly="true" dbEntityName="proibicoes_basileia">
+		<obj-attribute name="codBasileia" type="java.lang.String" db-attribute-path="cod_basileia"/>
+		<obj-attribute name="codPais" type="java.lang.String" db-attribute-path="cod_pais"/>
+	</obj-entity>
+	<obj-entity name="ProibicoesOcde" className="org.addition.apa.residuos.mtr.ProibicoesOcde" readOnly="true" dbEntityName="proibicoes_ocde">
+		<obj-attribute name="codOcde" type="java.lang.String" db-attribute-path="cod_ocde"/>
+		<obj-attribute name="codPais" type="java.lang.String" db-attribute-path="cod_pais"/>
+	</obj-entity>
+	<obj-entity name="RFormularioResiduos" className="org.addition.apa.residuos.mtr.RFormularioResiduos" dbEntityName="r_formulario_residuos">
+		<obj-attribute name="outrosDesc" type="java.lang.String" db-attribute-path="outros_desc"/>
+		<obj-attribute name="percentagem" type="java.lang.Double" db-attribute-path="percentagem"/>
+	</obj-entity>
+	<obj-entity name="RPaisFormulario" className="org.addition.apa.residuos.mtr.RPaisFormulario" dbEntityName="r_pais_formulario">
+		<obj-attribute name="ordinal" type="java.lang.Integer" db-attribute-path="ordinal"/>
+	</obj-entity>
+	<obj-entity name="RTransporte" className="org.addition.apa.residuos.mtr.RTransporte" dbEntityName="r_transporte">
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataTransferencia" type="java.util.Date" db-attribute-path="data_transferencia"/>
+		<obj-attribute name="emailContacto" type="java.lang.String" db-attribute-path="email_contacto"/>
+		<obj-attribute name="fax" type="java.lang.String" db-attribute-path="fax"/>
+		<obj-attribute name="matricula" type="java.lang.String" db-attribute-path="matricula"/>
+		<obj-attribute name="morada" type="java.lang.String" db-attribute-path="morada"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="pessoaContacto" type="java.lang.String" db-attribute-path="pessoa_contacto"/>
+		<obj-attribute name="telefoneContacto" type="java.lang.String" db-attribute-path="telefone_contacto"/>
+	</obj-entity>
+	<obj-entity name="TipoAnexo" className="org.addition.apa.residuos.mtr.TipoAnexo" dbEntityName="tipo_anexo">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<db-relationship name="criador" source="contrato" target="perfil_residuos" toMany="false">
+		<db-attribute-pair source="fk_criador" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="formularios" source="contrato" target="formulario_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_contrato"/>
+	</db-relationship>
+	<db-relationship name="importador" source="contrato" target="entidade_mtr" toMany="false">
+		<db-attribute-pair source="fk_importador" target="id"/>
+	</db-relationship>
+	<db-relationship name="pdf" source="contrato" target="contrato_pdf" toMany="false">
+		<db-attribute-pair source="fk_pdf" target="id"/>
+	</db-relationship>
+	<db-relationship name="anexos" source="formulario_mtr" target="anexo_formulario_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario"/>
+	</db-relationship>
+	<db-relationship name="assunto_motivo_anulacao" source="formulario_mtr" target="motivo_anulacao" toMany="false">
+		<db-attribute-pair source="fk_motivo_anulacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="contrato" source="formulario_mtr" target="contrato" toMany="false">
+		<db-attribute-pair source="fk_contrato" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="formulario_mtr" target="perfil_residuos" toMany="false">
+		<db-attribute-pair source="fk_criador" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="ficha_mtr_mirr_eb1" source="formulario_mtr" target="ficha_mtr_mirr_eb1" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mtr"/>
+	</db-relationship>
+	<db-relationship name="formulario_mtr_correccoes" source="formulario_mtr" target="formulario_mtr_correccoes" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mtr"/>
+	</db-relationship>
+	<db-relationship name="mensagens" source="formulario_mtr" target="mensagem" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mtr"/>
+	</db-relationship>
+	<db-relationship name="paises" source="formulario_mtr" target="r_pais_formulario" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario"/>
+	</db-relationship>
+	<db-relationship name="perfil_anula" source="formulario_mtr" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_anula" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_conclui" source="formulario_mtr" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_conclui" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_envia" source="formulario_mtr" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_envia" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_submete" source="formulario_mtr" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_submete" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_valida" source="formulario_mtr" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_valida" target="id"/>
+	</db-relationship>
+	<db-relationship name="produtor" source="formulario_mtr" target="entidade_mtr" toMany="false">
+		<db-attribute-pair source="fk_produtor" target="id"/>
+	</db-relationship>
+	<db-relationship name="residuos" source="formulario_mtr" target="r_formulario_residuos" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario"/>
+	</db-relationship>
+	<db-relationship name="transportes" source="formulario_mtr" target="r_transporte" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario"/>
+	</db-relationship>
+	<db-relationship name="valorizador" source="formulario_mtr" target="entidade_mtr" toMany="false">
+		<db-attribute-pair source="fk_valorizador" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mtr" source="formulario_mtr_correccoes" target="formulario_mtr" toMany="false">
+		<db-attribute-pair source="fk_formulario_mtr" target="id"/>
+	</db-relationship>
+	<db-relationship name="formularios" source="motivo_anulacao" target="formulario_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_motivo_anulacao"/>
+	</db-relationship>
+	<db-relationship name="basileia" source="r_formulario_residuos" target="residuos_basileia" toMany="false">
+		<db-attribute-pair source="fk_basileia" target="id"/>
+	</db-relationship>
+	<db-relationship name="beu" source="r_formulario_residuos" target="residuos_beu" toMany="false">
+		<db-attribute-pair source="fk_beu" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario" source="r_formulario_residuos" target="formulario_mtr" toMany="false">
+		<db-attribute-pair source="fk_formulario" target="id"/>
+	</db-relationship>
+	<db-relationship name="ler" source="r_formulario_residuos" target="residuos_ler" toMany="false">
+		<db-attribute-pair source="fk_ler" target="id"/>
+	</db-relationship>
+	<db-relationship name="ocde" source="r_formulario_residuos" target="residuos_ocde" toMany="false">
+		<db-attribute-pair source="fk_ocde" target="id"/>
+	</db-relationship>
+	<db-relationship name="operacao" source="r_formulario_residuos" target="tipo_operacao_valorizacao" toMany="false">
+		<db-attribute-pair source="fk_operacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="sub_operacao" source="r_formulario_residuos" target="tipo_operacao_valorizacao" toMany="false">
+		<db-attribute-pair source="fk_sub_operacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="sub_valorizador" source="r_formulario_residuos" target="entidade_mtr" toMany="false">
+		<db-attribute-pair source="fk_sub_valorizador" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario" source="r_pais_formulario" target="formulario_mtr" toMany="false">
+		<db-attribute-pair source="fk_formulario" target="id"/>
+	</db-relationship>
+	<db-relationship name="pais" source="r_pais_formulario" target="t_pais" toMany="false">
+		<db-attribute-pair source="fk_pais" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="entidade" source="r_transporte" target="entidade_mtr" toMany="false">
+		<db-attribute-pair source="fk_entidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario" source="r_transporte" target="formulario_mtr" toMany="false">
+		<db-attribute-pair source="fk_formulario" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo" source="r_transporte" target="tipo_transporte" toMany="false">
+		<db-attribute-pair source="fk_tipo_transporte" target="id"/>
+	</db-relationship>
+	<db-relationship name="anexos" source="tipo_anexo" target="anexo_formulario_mtr" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo"/>
+	</db-relationship>
+	<obj-relationship name="criador" source="Contrato" target="PerfilResiduos" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="formularios" source="Contrato" target="FormularioMtr" deleteRule="Deny" db-relationship-path="formularios"/>
+	<obj-relationship name="importador" source="Contrato" target="EntidadeMtr" deleteRule="Nullify" db-relationship-path="importador"/>
+	<obj-relationship name="pdf" source="Contrato" target="ContratoPdf" deleteRule="Cascade" db-relationship-path="pdf"/>
+	<obj-relationship name="anexos" source="FormularioMtr" target="AnexoFormularioMtr" deleteRule="Cascade" db-relationship-path="anexos"/>
+	<obj-relationship name="assuntoMotivoAnulacao" source="FormularioMtr" target="MotivoAnulacao" deleteRule="Nullify" db-relationship-path="assunto_motivo_anulacao"/>
+	<obj-relationship name="contrato" source="FormularioMtr" target="Contrato" deleteRule="Nullify" db-relationship-path="contrato"/>
+	<obj-relationship name="criador" source="FormularioMtr" target="PerfilResiduos" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="fichaMtrMirrEb1" source="FormularioMtr" target="FichaMtrMirrEb1" deleteRule="Deny" db-relationship-path="ficha_mtr_mirr_eb1"/>
+	<obj-relationship name="formularioMtrCorreccoes" source="FormularioMtr" target="FormularioMtrCorreccoes" deleteRule="Deny" db-relationship-path="formulario_mtr_correccoes"/>
+	<obj-relationship name="mensagens" source="FormularioMtr" target="Mensagem" deleteRule="Nullify" db-relationship-path="mensagens"/>
+	<obj-relationship name="paises" source="FormularioMtr" target="RPaisFormulario" deleteRule="Cascade" db-relationship-path="paises"/>
+	<obj-relationship name="perfilAnula" source="FormularioMtr" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_anula"/>
+	<obj-relationship name="perfilConclui" source="FormularioMtr" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_conclui"/>
+	<obj-relationship name="perfilEnvia" source="FormularioMtr" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_envia"/>
+	<obj-relationship name="perfilSubmete" source="FormularioMtr" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_submete"/>
+	<obj-relationship name="perfilValida" source="FormularioMtr" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_valida"/>
+	<obj-relationship name="produtor" source="FormularioMtr" target="EntidadeMtr" deleteRule="Nullify" db-relationship-path="produtor"/>
+	<obj-relationship name="residuos" source="FormularioMtr" target="RFormularioResiduos" deleteRule="Cascade" db-relationship-path="residuos"/>
+	<obj-relationship name="transportes" source="FormularioMtr" target="RTransporte" deleteRule="Cascade" db-relationship-path="transportes"/>
+	<obj-relationship name="valorizador" source="FormularioMtr" target="EntidadeMtr" deleteRule="Nullify" db-relationship-path="valorizador"/>
+	<obj-relationship name="formularioMtr" source="FormularioMtrCorreccoes" target="FormularioMtr" deleteRule="Nullify" db-relationship-path="formulario_mtr"/>
+	<obj-relationship name="formularios" source="MotivoAnulacao" target="FormularioMtr" deleteRule="Deny" db-relationship-path="formularios"/>
+	<obj-relationship name="basileia" source="RFormularioResiduos" target="ResiduosBasileia" deleteRule="Nullify" db-relationship-path="basileia"/>
+	<obj-relationship name="beu" source="RFormularioResiduos" target="ResiduosBeu" deleteRule="Nullify" db-relationship-path="beu"/>
+	<obj-relationship name="formulario" source="RFormularioResiduos" target="FormularioMtr" deleteRule="Nullify" db-relationship-path="formulario"/>
+	<obj-relationship name="ler" source="RFormularioResiduos" target="ResiduosLer" deleteRule="Nullify" db-relationship-path="ler"/>
+	<obj-relationship name="ocde" source="RFormularioResiduos" target="ResiduosOcde" deleteRule="Nullify" db-relationship-path="ocde"/>
+	<obj-relationship name="operacao" source="RFormularioResiduos" target="TipoOperacaoValorizacao" deleteRule="Nullify" db-relationship-path="operacao"/>
+	<obj-relationship name="subOperacao" source="RFormularioResiduos" target="TipoOperacaoValorizacao" deleteRule="Nullify" db-relationship-path="sub_operacao"/>
+	<obj-relationship name="subValorizador" source="RFormularioResiduos" target="EntidadeMtr" deleteRule="Nullify" db-relationship-path="sub_valorizador"/>
+	<obj-relationship name="formulario" source="RPaisFormulario" target="FormularioMtr" deleteRule="Nullify" db-relationship-path="formulario"/>
+	<obj-relationship name="pais" source="RPaisFormulario" target="TPais" deleteRule="Nullify" db-relationship-path="pais"/>
+	<obj-relationship name="entidade" source="RTransporte" target="EntidadeMtr" deleteRule="Nullify" db-relationship-path="entidade"/>
+	<obj-relationship name="formulario" source="RTransporte" target="FormularioMtr" deleteRule="Nullify" db-relationship-path="formulario"/>
+	<obj-relationship name="tipo" source="RTransporte" target="TipoTransporte" deleteRule="Nullify" db-relationship-path="tipo"/>
+	<obj-relationship name="anexos" source="TipoAnexo" target="AnexoFormularioMtr" deleteRule="Deny" db-relationship-path="anexos"/>
+</data-map>

@@ -1,0 +1,364 @@
+#set( $adicionarCondicaoConflito = ".adicionarCondicaoConflito(super.getCtx(), super.getCondicaoSelecionada(), super.getRegimeUtilizador(), super.getPli(), super.getUtilizadorAuditoria(), super.getCondicaoSelecionada());" )
+#set( $adicionarCondicaoNovaConflito = ".adicionarCondicaoConflito(super.getCtx(), super.getCondicaoNova(), super.getRegimeUtilizador(), super.getPli(), super.getUtilizadorAuditoria(), super.getCondicaoSelecionada())" )
+#set( $adicionarCondicao = ".adicionarCondicao(super.getCtx(), super.getCondicaoNova(), super.getRegimeUtilizador(), super.getPli(), super.getUtilizadorAuditoria());" )
+#set( $getList = ".getList(super.getCtx(),super.getTableViewFilter(), super.getTuaVersao()#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#end)" )
+#set( $getCondicoesDeferidasList = ".getCondicoesDeferidasList(super.getCtx(),lstRegimes, super.getTuaVersao()#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#end)" )
+#set( $adicionarCondicaoRegime = ".adicionarCondicaoRegime(super.getCtx(), super.getCondicaoSelecionada(), super.getRegimeUtilizador(), super.getUtilizadorAuditoria())" )
+#set( $deleteMethod = ".delete(super.getCtx(), super.getCondicaoSelecionada(), super.getUtilizadorAuditoria())" )
+#set( $updateMethod = ".update(super.getCtx(), super.getCondicaoSelecionada(), super.getUtilizadorAuditoria());" )
+#set( $condicaoExiste = ".condicaoExiste(super.getCtx(), super.getCondicaoSelecionada(), super.getTuaVersao()#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#end)" )
+#set( $condicaoNovaExiste = ".condicaoExiste(super.getCtx(), super.getCondicaoNova(), super.getTuaVersao()#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#end)" )
+#set( $condicaoExisteService = ".condicaoExiste" )
+#set( $getNumCondicoes = ".getNumCondicoes" )
+#set( $associarACondicao = ".associarACondicao" )
+#set( $getListCondicoesRegimeDiferente = ".getListCondicoesRegimeDiferente" )
+
+#set( $Hist = "Hist" )
+#set( $invoke = "()" )
+#set( $adicionarCondicao = ".adicionarCondicao" )
+#set( $atualizarCondicao = ".atualizarCondicao" )
+#set( $marcarPrincipal = ".marcarPrincipal" )
+#set( $adicionarCondicaoDirimir = ".adicionarCondicaoDirimir" )
+#set( $class = ".class" )
+
+package org.apa.siliamb.lua.tua.tableview;
+
+import org.addition.apa.licenciamento.tabelas.TFaseTua;
+#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+import org.addition.apa.licenciamento.tabelas.$attribute.getListValoresImport();
+#end
+#end
+import org.apa.siliamb.lua.services.TuaService;
+import org.apa.siliamb.comum.MessageAlertUtils;
+import org.apache.cayenne.ObjectContext;
+import org.apa.siliamb.lua.tua.viewmodel.VisibilidadeTuaView;
+import org.apa.siliamb.lua.tua.service.$serviceName;
+import org.everis.apa.tua.interfaces.CondicaoTua;
+import org.apa.siliamb.lua.tua.viewmodel.TableViewFilter;
+import org.apa.siliamb.lua.tua.viewmodel.TuaTableView;
+import org.apache.cayenne.access.DataContext;
+import org.everis.apa.lua.entities.ProcessoLicenciamentoIntegrado;
+import org.everis.apa.lua.entities.TTRegime;
+import org.addition.apa.licenciamento.tabelas.TDescritorTua;
+import org.everis.apa.lua.entities.TuaVersao;
+import org.everis.apa.lua.enums.TipoEstadoCondicaoEnum;
+import org.everis.apa.tua.entities.$entityName;
+import org.everis.apa.tua.entities.$entityName$Hist;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.List;
+
+/**
+ * Class $beanName was generated.
+ * It is probably a good idea to avoid changing this class manually,
+ * since it may be overwritten next time code is regenerated.
+ */
+
+public class $beanName extends TuaTableView<$entityName, $entityName$Hist> {
+
+	private static final long serialVersionUID = 1L;
+	
+	private static final String MSG_$entityName.toUpperCase()_SUFFIX = "Msg$entityName";
+	private String MSG_$entityName.toUpperCase() = "";
+	static final Logger log = LoggerFactory.getLogger($beanName$class);
+	
+#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+	private String $attribute.getListValoresCamelCase()Selecionado;
+#end
+#end
+
+	public $beanName(DataContext ctx, TableViewFilter filter, ProcessoLicenciamentoIntegrado pli, TuaVersao tuaVersao,
+		String utilizador, TDescritorTua descritorTua, String prefixoCompUi, VisibilidadeTuaView visibilidadeTua) {
+		super(ctx, filter, pli, tuaVersao, utilizador, descritorTua, prefixoCompUi, visibilidadeTua);
+		MSG_$entityName.toUpperCase() = prefixoCompUi + MSG_$entityName.toUpperCase()_SUFFIX;
+	}
+	
+	public $beanName(DataContext ctx, TableViewFilter tableViewFilter, TuaVersao tuaVersao) {
+		super(ctx, tableViewFilter, tuaVersao);
+	}
+	
+	@Override
+	public void adicionarCondicaoNova() {
+#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+		$attribute.getListValoresImport() $attribute.getListValoresCamelCase() = TuaService.get$attribute.getListValoresImport()ByCodigo($attribute.getListValoresCamelCase()Selecionado, super.getCtx());
+		super.getCondicaoNova().set$attribute.getUtilName()($attribute.getListValoresCamelCase());
+#end
+#end		
+		//verifica se a condicao introduzida nao esta em duplicado
+		if($serviceName$condicaoExisteService(super.getCtx(), super.getCondicaoNova(), super.getTuaVersao()#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#end) == null){
+
+			if($serviceName$adicionarCondicao(super.getCtx(), super.getCondicaoNova(), super.getVisibilidadeTua().isDadosGerais()?null:super.getRegimeUtilizador(), super.getPli(), super.getTuaVersao(), super.getUtilizadorAuditoria()#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#end #foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,$attribute.getListValoresCamelCase()
+#end
+#end)){
+				try{
+					super.getCtx().commitChanges();
+					MessageAlertUtils.addInfoMessage(MSG_$entityName.toUpperCase(),"msg.info.condicao.adicionada.sucesso", "", "msg_tua", null);
+				}catch(Exception ex){
+					log.error("Ocorreu um erro a adicionar uma nova condição", ex);
+					super.getCtx().rollbackChanges();
+					MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.adicionar.condicao", "", "msg_tua", null);
+					return;
+				}
+			}else{
+				super.getCtx().rollbackChanges();
+				MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.adicionar.condicao", "", "msg_tua", null);
+			}
+		}else{
+			super.getCtx().rollbackChanges();
+			MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.condicao.ja.existe", "", "msg_tua", null);
+		}
+		
+		setCondicaoNova(new $entityName$invoke);
+	}
+
+	@Override
+	public void adicionarCondicaoRegime(){
+		if($serviceName$adicionarCondicaoRegime){
+			try{
+				super.getCtx().commitChanges();
+				MessageAlertUtils.addInfoMessage(MSG_$entityName.toUpperCase(),"msg.info.condicao.regime.adicionada.sucesso", "", "msg_tua", null);
+			}catch(Exception ex){
+				log.error("Ocorreu um erro a adicionar uma condição ao regime", ex);
+				super.getCtx().rollbackChanges();
+				MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.adicionar.condicao.regime", "", "msg_tua", null);
+				return;
+			}
+		}else{
+			super.getCtx().rollbackChanges();
+			MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.adicionar.condicao.regime", "", "msg_tua", null);
+		}
+		
+		setCondicaoSelecionada(new $entityName$invoke);
+	}
+	
+	@Override
+	public void editarCondicao() {
+#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+		$attribute.getListValoresImport() $attribute.getListValoresCamelCase() = TuaService.get$attribute.getListValoresImport()ByCodigo($attribute.getListValoresCamelCase()Selecionado, super.getCtx());
+		super.getCondicaoSelecionada().set$attribute.getUtilName()($attribute.getListValoresCamelCase());
+#end
+#end
+		if($serviceName$condicaoExisteService(super.getCtx(), super.getCondicaoSelecionada(), super.getTuaVersao()#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#end) == null){
+			if($serviceName$atualizarCondicao(super.getCtx(), super.getCondicaoSelecionada(), super.getUtilizadorAuditoria()#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,$attribute.getListValoresCamelCase()
+#end
+#end)){
+				try{
+					super.getCtx().commitChanges();
+					MessageAlertUtils.addInfoMessage(MSG_$entityName.toUpperCase(),"msg.info.condicao.editada.sucesso", "", "msg_tua", null);
+				}catch(Exception ex){
+					log.error("Ocorreu um erro a editar a condição", ex);
+					super.getCtx().rollbackChanges();
+					MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.editar.condicao", "", "msg_tua", null);
+					return;
+				}
+			}else{
+				super.getCtx().rollbackChanges();
+				MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.editar.condicao", "", "msg_tua", null);
+			}
+		}else{
+			super.getCtx().rollbackChanges();
+			MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.condicao.ja.existe", "", "msg_tua", null);
+		}
+		
+		setCondicaoSelecionada(new $entityName$invoke);
+	}
+	
+	@Override
+	public void marcarPrincipal() {
+		if($serviceName$marcarPrincipal(super.getCtx(), super.getCondicaoSelecionada(), super.getUtilizadorAuditoria())){
+			try{
+				super.getCtx().commitChanges();
+				MessageAlertUtils.addInfoMessage(MSG_$entityName.toUpperCase(),"msg.info.condicao.marcada.principal", "", "msg_tua", null);
+			}catch(Exception ex){
+				log.error("Ocorreu um erro a marcar uma condição como principal", ex);
+				super.getCtx().rollbackChanges();
+				MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.marcar.condicao.principal", "", "msg_tua", null);
+				return;
+			}
+		}else{
+			super.getCtx().rollbackChanges();
+			MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.marcar.condicao.principal", "", "msg_tua", null);
+		}
+	}
+	
+	@Override
+	public void adicionarCondicaoConflito() {
+#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+			$attribute.getListValoresImport() $attribute.getListValoresCamelCase() = TuaService.get$attribute.getListValoresImport()ByCodigo($attribute.getListValoresCamelCase()Selecionado, super.getCtx());
+			super.getCondicaoNova().set$attribute.getUtilName()($attribute.getListValoresCamelCase());
+#end
+#end
+		if($serviceName$condicaoExisteService(super.getCtx(), super.getCondicaoNova(), super.getTuaVersao()#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#end) == null){
+			if($serviceName$adicionarCondicaoNovaConflito){
+				try{
+					super.getCtx().commitChanges();
+					MessageAlertUtils.addInfoMessage(MSG_$entityName.toUpperCase(),"msg.info.condicao.adicionada.sucesso", "", "msg_tua", null);
+				}catch(Exception ex){
+					log.error("Ocorreu um erro a adicionar uma condição com conflito", ex);
+					super.getCtx().rollbackChanges();
+					MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.adicionar.condicao", "", "msg_tua", null);
+					return;
+				}
+			}else{
+				super.getCtx().rollbackChanges();
+				MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.adicionar.condicao", "", "msg_tua", null);
+			}
+		}else{
+			super.getCtx().rollbackChanges();
+			MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.condicao.ja.existe", "", "msg_tua", null);
+		}
+		setCondicaoNova(new $entityName$invoke);
+	}
+	
+	@Override
+	public void adicionarCondicaoDirimir() {
+#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+		$attribute.getListValoresImport() $attribute.getListValoresCamelCase() = TuaService.get$attribute.getListValoresImport()ByCodigo($attribute.getListValoresCamelCase()Selecionado, super.getCtx());
+#end
+#end
+		if($serviceName$adicionarCondicaoDirimir(super.getCtx(), super.getCondicaoNova(), super.getRegimeUtilizador(), super.getPli(), super.getTuaVersao(), super.getUtilizadorAuditoria()#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#end #foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+,$attribute.getListValoresCamelCase()
+#end
+#end, super.getCondicaoSelecionada())){
+			try{
+				super.getCtx().commitChanges();
+				MessageAlertUtils.addInfoMessage(MSG_$entityName.toUpperCase(),"msg.info.condicao.adicionada.sucesso", "", "msg_tua", null);
+			}catch(Exception ex){
+				log.error("Ocorreu um erro a adicionar condição dirimir", ex);
+				super.getCtx().rollbackChanges();
+				MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.adicionar.condicao", "", "msg_tua", null);
+				return;
+			}
+		}else{
+			super.getCtx().rollbackChanges();
+			MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.adicionar.condicao", "", "msg_tua", null);
+		}
+		
+		setCondicaoNova(new $entityName$invoke);
+	}
+	
+	@Override
+	public List<$entityName> getResultList() {
+		return $serviceName$getList;
+	}
+	
+	@Override
+	public void apagarCondicao() {
+		if($serviceName$deleteMethod){
+			super.getCtx().commitChanges();
+			MessageAlertUtils.addInfoMessage(MSG_$entityName.toUpperCase(),"msg.info.condicao.apagada.sucesso", "", "msg_tua", null);
+		}else{
+			super.getCtx().rollbackChanges();
+			MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.apagar.condicao", "", "msg_tua", null);
+		}
+		setCondicaoSelecionada(new $entityName$invoke);
+	}
+	
+	@Override
+	public CondicaoTua condicaoExiste(ObjectContext context, CondicaoTua condicao, TuaVersao tuaVersao) {
+		return $serviceName$condicaoExisteService(context, ($entityName) condicao, tuaVersao#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#end);
+	}
+	
+	@Override
+	public int getNumCondicoes() {
+		return $serviceName$getNumCondicoes(super.getCtx(), super.getTuaVersao(), null#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#else,null#end);
+	}
+	
+	@Override
+	public int getNumCondicoesRegime() {
+		TableViewFilter tvf = new TableViewFilter(null, null);
+		tvf.setSelectedRegime(super.getTableViewFilter().getSelectedRegime());
+		return $serviceName$getNumCondicoes(super.getCtx(), super.getTuaVersao(), tvf#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#else,null#end);
+	}
+	
+	@Override
+	public int getNumCondicoesConflito() {
+		TableViewFilter tvf = new TableViewFilter(null, null);
+		tvf.setSelectedEstadoCondicao(TuaService.getTEstadoCondicaoByCodigo(super.getCtx(), TipoEstadoCondicaoEnum.CONFLITO.getCodigo()));
+		return $serviceName$getNumCondicoes(super.getCtx(), super.getTuaVersao(), tvf#if($tipoTabela == 'PADRAO'), super.getDescritorTua()#else,null#end);
+	}
+	
+	@Override
+	public void associarACondicao(){
+		
+		String codigoNovaCondicaoPrincipal = super.getNovaCondicaoPrincipal();
+		$entityName novaCondPai = null;
+		try {
+			novaCondPai = ($entityName) TuaService.getCondicaoByCodigo(super.getCtx(), super.getDescritorTua().getEntidadeName(), super.getTuaVersao(), null, null, codigoNovaCondicaoPrincipal);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(novaCondPai != null){
+			if($serviceName$associarACondicao(super.getCtx(), super.getCondicaoSelecionada(), novaCondPai, super.getUtilizadorAuditoria())){
+				try{
+					super.getCtx().commitChanges();
+					MessageAlertUtils.addInfoMessage(MSG_$entityName.toUpperCase(),"msg.info.associacao.com.sucesso", "", "msg_tua", null);
+				}catch(Exception ex){
+					log.error("Ocorreu um erro a associar uma condição", ex);
+					super.getCtx().rollbackChanges();
+					MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.associar.a.condicao", "", "msg_tua", null);
+					return;
+				}
+			}else{
+				MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.associar.a.condicao", "", "msg_tua", null);
+			}
+		}else{
+			MessageAlertUtils.addErrorMessage(MSG_$entityName.toUpperCase(),"msg.erro.associar.obter.condicao.selecionada", "", "msg_tua", null);
+		}
+		//Fazer reset à condicao selecionada
+		super.setNovaCondicaoPrincipal("");
+	}
+	
+	@Override	
+	public List<$entityName> getListCondicoesRegimeDiferente(){
+		TableViewFilter tvf = new TableViewFilter(null, null);
+		if(super.getCondicaoSelecionada() != null && super.getCondicaoSelecionada().getRegime() != null)
+			tvf.setSelectedRegime(super.getCondicaoSelecionada().getRegime());
+			
+		return $serviceName$getListCondicoesRegimeDiferente(super.getCtx(), tvf, super.getTuaVersao());
+	}
+
+#foreach( $attribute in $objAttributes )
+#if($attribute.getListValoresImport() != "")
+
+	public boolean getMudar$attribute.getName()Outro() {
+		return "Outro".equalsIgnoreCase($attribute.getListValoresCamelCase()Selecionado) ? true : false;
+	}
+
+	public List<$attribute.getListValoresImport()> getLs$attribute.getListValoresCamelCase()() {
+	
+		#if($beanName == 'TabelaDemonstracaoCumprimentoTableView' && $attribute.getListValoresImport() == 'TMedidaCondicaoCumprir')
+			return TuaService.getLstMedidaCondicaoCumprirByDescritorAndRegime(super.getCtx(), super.getDescritorTua(), super.getRegimeUtilizador());
+		#else
+			#if($attribute.getListValoresCamelCase().contains("1"))
+				#set($length = $attribute.getListValoresCamelCase().length() - 1 )
+				return TuaService.getLs$attribute.getListValoresCamelCase().substring(0, $length)(super.getCtx());
+			#else
+				return TuaService.getLs$attribute.getListValoresCamelCase()(super.getCtx());
+			#end
+		#end
+	}
+
+	public String get$attribute.getListValoresCamelCase()Selecionado() {
+		return $attribute.getListValoresCamelCase()Selecionado;
+	}
+	
+	public void set$attribute.getListValoresCamelCase()Selecionado(String $attribute.getListValoresCamelCase()) {
+		this.$attribute.getListValoresCamelCase()Selecionado = $attribute.getListValoresCamelCase();
+	}
+#end
+#end
+
+}

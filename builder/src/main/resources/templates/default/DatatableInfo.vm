@@ -1,0 +1,27 @@
+<!--
+ O Ficheiro $fileName foi gerado com dados do ficheiro $rootFile
+ È desaconselhado alterar este ficheiro manualmente pois
+ poderá ser gerado novamente, apagando as alterações que foram efetuadas.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+        <div class="card card-w-title">
+            <h3>
+                <p:outputLabel value="#{msg_$schema['$velocityUtils.labelCodeForValue(${data.get(0).tableName})']}" />
+            </h3>
+            <p:panelGrid columns="2" columnClasses="fifty-percent, fifty-percent"
+                         styleClass="ui-panelgrid-blank panelgrid-std-width">
+#foreach($component in ${data})
+                <p:outputLabel for="$velocityUtils.convertToCamelCase($component.tableName)_$velocityUtils.convertToCamelCase($component.columnName)" value="#{msg_$schema['$velocityUtils.labelCodeForValue(${component.tableName}).$velocityUtils.labelCodeForValue(${component.columnName})']}"  />
+                <h:outputText id="$velocityUtils.convertToCamelCase($component.tableName)_$velocityUtils.convertToCamelCase($component.columnName)" value="#{${mbName}.$velocityUtils.convertToCamelCase($component.tableName).$velocityUtils.convertToCamelCase($component.columnName)}" />
+#end
+            </p:panelGrid>
+        </div>
+</ui:composition>

@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.ficheiro"/>
+	<property name="defaultSchema" value="lic_ficheiro"/>
+	<db-entity name="anexo_formulario_mtr" schema="lic_ficheiro">
+		<db-attribute name="data_criacao" type="TIMESTAMP"/>
+		<db-attribute name="fk_formulario" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="anexo_pedido_alteracao_dados_estabelecimento" schema="lic_ficheiro">
+		<db-attribute name="codigo" type="VARCHAR" length="100"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP"/>
+		<db-attribute name="descricao" type="VARCHAR" length="1000"/>
+		<db-attribute name="fk_pedido" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="anexo_pedido_procuracao" schema="lic_ficheiro">
+		<db-attribute name="fk_pedido" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="anexo_requerimento" schema="lic_ficheiro">
+		<db-attribute name="downloaded_from_filedoc" type="BOOLEAN"/>
+		<db-attribute name="entrada_codigo" type="VARCHAR" length="200"/>
+		<db-attribute name="entrada_data" type="TIMESTAMP"/>
+		<db-attribute name="entrada_data_registo" type="TIMESTAMP"/>
+		<db-attribute name="fk_adm_registo_entrada" type="INTEGER"/>
+		<db-attribute name="fk_requerimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+		<db-attribute name="via_postal" type="BOOLEAN" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="contrato_pdf" schema="lic_ficheiro">
+		<db-attribute name="data_criacao" type="TIMESTAMP"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="documento_comp_i" schema="lic_ficheiro">
+		<db-attribute name="data" type="TIMESTAMP"/>
+		<db-attribute name="fk_valor_i" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="documento_estabelecimento" schema="lic_ficheiro">
+		<db-attribute name="codigo" type="VARCHAR" length="100"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP"/>
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP"/>
+		<db-attribute name="descricao" type="VARCHAR" length="1000"/>
+		<db-attribute name="fk_criador" type="INTEGER"/>
+		<db-attribute name="fk_criador_adm" type="INTEGER"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="documento_pedido_registo" schema="lic_ficheiro">
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="file_path" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="file_size" type="VARCHAR" isMandatory="true" length="32"/>
+		<db-attribute name="filename" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="fk_pedido_registo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime_type" type="VARCHAR" isMandatory="true" length="128"/>
+	</db-entity>
+	<db-entity name="documento_perfil" schema="lic_ficheiro">
+		<db-attribute name="fk_documento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_origem" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo_documento" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="documento_processo" schema="lic_ficheiro">
+		<db-attribute name="decisao" type="VARCHAR" length="255"/>
+		<db-attribute name="entidade" type="VARCHAR" length="255"/>
+		<db-attribute name="entrada_codigo" type="VARCHAR" length="200"/>
+		<db-attribute name="entrada_data" type="TIMESTAMP"/>
+		<db-attribute name="entrada_saida_interno" type="VARCHAR" length="1"/>
+		<db-attribute name="fk_processo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+		<db-attribute name="via" type="VARCHAR" isMandatory="true" length="200"/>
+	</db-entity>
+	<db-entity name="documento_titulo" schema="lic_ficheiro">
+		<db-attribute name="anexo_localizacao" type="BOOLEAN"/>
+		<db-attribute name="entidade" type="VARCHAR" length="255"/>
+		<db-attribute name="entrada_codigo" type="VARCHAR" length="200"/>
+		<db-attribute name="entrada_data" type="TIMESTAMP"/>
+		<db-attribute name="fk_tipo_titulo" type="INTEGER"/>
+		<db-attribute name="fk_titulo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="hidden_meta_info" type="VARCHAR" length="500"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="documento_titulo_h" schema="lic_ficheiro">
+		<db-attribute name="fk_titulo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="ficheiro_mensagem" schema="lic_ficheiro">
+		<db-attribute name="fk_mensagem" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="ficheiro_monitorizacao" schema="lic_ficheiro">
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_parsed" type="TIMESTAMP"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_uploader_perfil" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="isContinua" type="BOOLEAN"/>
+		<db-attribute name="mime" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="parse_message" type="VARCHAR" length="1000"/>
+		<db-attribute name="parse_ok" type="BOOLEAN"/>
+		<db-attribute name="parsing" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="size" type="INTEGER" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="ficheiro_monitorizacao_anexo" schema="lic_ficheiro">
+		<db-attribute name="ano" type="INTEGER"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="descricao" type="VARCHAR" length="255"/>
+		<db-attribute name="fk_fonte_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_uploader_perfil" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="size" type="INTEGER" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="ficheiro_regime_cov_apoio" schema="lic_ficheiro">
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_regime_cov_actividade" type="INTEGER"/>
+		<db-attribute name="fk_uploader_perfil" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="size" type="INTEGER" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="ficheiro_teste" schema="lic_ficheiro">
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_owner" type="INTEGER"/>
+		<db-attribute name="fk_tipo" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="100"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="parsed" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="size" type="INTEGER" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mirr_resumo" schema="lic_ficheiro">
+		<db-attribute name="data_criacao" type="TIMESTAMP"/>
+		<db-attribute name="fk_formulario" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_resumo" schema="lic_ficheiro">
+		<db-attribute name="data_criacao" type="TIMESTAMP"/>
+		<db-attribute name="fk_formulario" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="processo_consulta" schema="lic_ficheiro">
+		<db-attribute name="decisao" type="VARCHAR" length="255"/>
+		<db-attribute name="entidade" type="VARCHAR" length="255"/>
+		<db-attribute name="entrada_codigo" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="entrada_data" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_processo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mime" type="VARCHAR" length="200"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="size" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="t_origem_documento" schema="lic_ficheiro">
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="64"/>
+		<db-attribute name="codigo_label" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<obj-entity name="AnexoFormularioMtr" className="org.addition.apa.ficheiro.AnexoFormularioMtr" dbEntityName="anexo_formulario_mtr">
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="fkFormulario" type="java.lang.Integer" db-attribute-path="fk_formulario"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="AnexoPedidoAlteracaoDadosEstabelecimento" className="org.addition.apa.ficheiro.AnexoPedidoAlteracaoDadosEstabelecimento" dbEntityName="anexo_pedido_alteracao_dados_estabelecimento" superClassName="org.addition.apa.pedido.AbstractAnexoPedidoAlteracao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="AnexoPedidoProcuracao" className="org.addition.apa.ficheiro.AnexoPedidoProcuracao" dbEntityName="anexo_pedido_procuracao" superClassName="org.addition.apa.pedido.AbstractAnexoPedidoAlteracao">
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="AnexoRequerimento" className="org.addition.apa.ficheiro.AnexoRequerimento" dbEntityName="anexo_requerimento">
+		<obj-attribute name="downloadedFromFiledoc" type="java.lang.Boolean" db-attribute-path="downloaded_from_filedoc"/>
+		<obj-attribute name="entradaCodigo" type="java.lang.String" db-attribute-path="entrada_codigo"/>
+		<obj-attribute name="entradaData" type="java.util.Date" db-attribute-path="entrada_data"/>
+		<obj-attribute name="entradaDataRegisto" type="java.util.Date" db-attribute-path="entrada_data_registo"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<obj-attribute name="viaPostal" type="java.lang.Boolean" db-attribute-path="via_postal"/>
+		<post-persist method-name="onPostPersist"/>
+		<post-update method-name="onPostUpdate"/>
+	</obj-entity>
+	<obj-entity name="ContratoPdf" className="org.addition.apa.ficheiro.ContratoPdf" dbEntityName="contrato_pdf">
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+		<post-update method-name="onPostUpdate"/>
+	</obj-entity>
+	<obj-entity name="DocumentoCompI" className="org.addition.apa.ficheiro.DocumentoCompI" dbEntityName="documento_comp_i">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+		<post-update method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="DocumentoEstabelecimento" className="org.addition.apa.ficheiro.DocumentoEstabelecimento" dbEntityName="documento_estabelecimento">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="DocumentoPedidoRegisto" className="org.addition.apa.ficheiro.DocumentoPedidoRegisto" dbEntityName="documento_pedido_registo">
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="filePath" type="java.lang.String" db-attribute-path="file_path"/>
+		<obj-attribute name="fileSize" type="java.lang.String" db-attribute-path="file_size"/>
+		<obj-attribute name="filename" type="java.lang.String" db-attribute-path="filename"/>
+		<obj-attribute name="mimeType" type="java.lang.String" db-attribute-path="mime_type"/>
+	</obj-entity>
+	<obj-entity name="DocumentoPerfil" className="org.addition.apa.ficheiro.DocumentoPerfil" dbEntityName="documento_perfil">
+		<post-persist method-name="onPostPersist"/>
+		<post-update method-name="onPostUpdate"/>
+	</obj-entity>
+	<obj-entity name="DocumentoProcesso" className="org.addition.apa.ficheiro.DocumentoProcesso" dbEntityName="documento_processo">
+		<obj-attribute name="decisao" type="java.lang.String" db-attribute-path="decisao"/>
+		<obj-attribute name="entidade" type="java.lang.String" db-attribute-path="entidade"/>
+		<obj-attribute name="entradaCodigo" type="java.lang.String" db-attribute-path="entrada_codigo"/>
+		<obj-attribute name="entradaData" type="java.util.Date" db-attribute-path="entrada_data"/>
+		<obj-attribute name="entradaSaidaInterno" type="java.lang.String" db-attribute-path="entrada_saida_interno"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<obj-attribute name="via" type="java.lang.String" db-attribute-path="via"/>
+		<post-persist method-name="onPostPersist"/>
+		<post-update method-name="onPostUpdate"/>
+	</obj-entity>
+	<obj-entity name="DocumentoTitulo" className="org.addition.apa.ficheiro.DocumentoTitulo" dbEntityName="documento_titulo">
+		<obj-attribute name="anexoLocalizacao" type="java.lang.Boolean" db-attribute-path="anexo_localizacao"/>
+		<obj-attribute name="entidade" type="java.lang.String" db-attribute-path="entidade"/>
+		<obj-attribute name="entradaCodigo" type="java.lang.String" db-attribute-path="entrada_codigo"/>
+		<obj-attribute name="entradaData" type="java.util.Date" db-attribute-path="entrada_data"/>
+		<obj-attribute name="hiddenMetaInfo" type="java.lang.String" db-attribute-path="hidden_meta_info"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+		<post-update method-name="onPostUpdate"/>
+	</obj-entity>
+	<obj-entity name="DocumentoTituloH" className="org.addition.apa.ficheiro.DocumentoTituloH" dbEntityName="documento_titulo_h">
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="FicheiroMensagem" className="org.addition.apa.ficheiro.FicheiroMensagem" dbEntityName="ficheiro_mensagem">
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="FicheiroMonitorizacao" className="org.nls.apa.ficheiro.FicheiroMonitorizacao" dbEntityName="ficheiro_monitorizacao">
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataParsed" type="java.util.Date" db-attribute-path="data_parsed"/>
+		<obj-attribute name="fkEstabelecimento" type="java.lang.Integer" db-attribute-path="fk_estabelecimento"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+		<obj-attribute name="isContinua" type="java.lang.Boolean" db-attribute-path="isContinua"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="parseMessage" type="java.lang.String" db-attribute-path="parse_message"/>
+		<obj-attribute name="parseOk" type="java.lang.Boolean" db-attribute-path="parse_ok"/>
+		<obj-attribute name="parsing" type="java.lang.Boolean" db-attribute-path="parsing"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="FicheiroMonitorizacaoAnexo" className="org.nls.apa.ficheiro.FicheiroMonitorizacaoAnexo" dbEntityName="ficheiro_monitorizacao_anexo">
+		<obj-attribute name="ano" type="java.lang.Integer" db-attribute-path="ano"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="fkFonteEstabelecimento" type="java.lang.Integer" db-attribute-path="fk_fonte_estabelecimento"/>
+		<obj-attribute name="fkUploaderPerfil" type="java.lang.Integer" db-attribute-path="fk_uploader_perfil"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="FicheiroRegimeCovApoio" className="org.nls.apa.ficheiro.FicheiroRegimeCovApoio" dbEntityName="ficheiro_regime_cov_apoio">
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+	</obj-entity>
+	<obj-entity name="FicheiroTeste" className="org.nls.apa.ficheiro.FicheiroTeste" dbEntityName="ficheiro_teste">
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="fkOwner" type="java.lang.Integer" db-attribute-path="fk_owner"/>
+		<obj-attribute name="fkTipo" type="java.lang.Integer" db-attribute-path="fk_tipo"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="parsed" type="java.lang.Boolean" db-attribute-path="parsed"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="FormularioMirrResumo" className="org.addition.apa.ficheiro.FormularioMirrResumo" dbEntityName="formulario_mirr_resumo">
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruResumo" className="org.addition.apa.ficheiro.FormularioMrruResumo" dbEntityName="formulario_mrru_resumo">
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="ProcessoConsulta" className="org.addition.apa.ficheiro.ProcessoConsulta" dbEntityName="processo_consulta">
+		<obj-attribute name="decisao" type="java.lang.String" db-attribute-path="decisao"/>
+		<obj-attribute name="entidade" type="java.lang.String" db-attribute-path="entidade"/>
+		<obj-attribute name="entradaCodigo" type="java.lang.String" db-attribute-path="entrada_codigo"/>
+		<obj-attribute name="entradaData" type="java.util.Date" db-attribute-path="entrada_data"/>
+		<obj-attribute name="mime" type="java.lang.String" db-attribute-path="mime"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="size" type="java.lang.Integer" db-attribute-path="size"/>
+		<post-persist method-name="onPostPersist"/>
+	</obj-entity>
+	<obj-entity name="TOrigemDocumento" className="org.addition.apa.ficheiro.TOrigemDocumento" dbEntityName="t_origem_documento">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="codigoLabel" type="java.lang.String" db-attribute-path="codigo_label"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<db-relationship name="formulario_mtr" source="anexo_formulario_mtr" target="formulario_mtr" toMany="false">
+		<db-attribute-pair source="fk_formulario" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo" source="anexo_formulario_mtr" target="tipo_anexo" toMany="false">
+		<db-attribute-pair source="fk_tipo" target="id"/>
+	</db-relationship>
+	<db-relationship name="pedido" source="anexo_pedido_alteracao_dados_estabelecimento" target="pedido_alteracao_dados_gerais_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_pedido" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo" source="anexo_pedido_alteracao_dados_estabelecimento" target="t_tipo_documento_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_tipo" target="id"/>
+	</db-relationship>
+	<db-relationship name="pedido" source="anexo_pedido_procuracao" target="pedido_procuracao" toMany="false">
+		<db-attribute-pair source="fk_pedido" target="id"/>
+	</db-relationship>
+	<db-relationship name="adm_registo_entrada" source="anexo_requerimento" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_adm_registo_entrada" target="id"/>
+	</db-relationship>
+	<db-relationship name="pontos" source="anexo_requerimento" target="rarre_anexo_ponto" toMany="true">
+		<db-attribute-pair source="id" target="fk_anexo"/>
+	</db-relationship>
+	<db-relationship name="pontos_reu" source="anexo_requerimento" target="rarreu_anexo_ponto" toMany="true">
+		<db-attribute-pair source="id" target="fk_anexo"/>
+	</db-relationship>
+	<db-relationship name="requerimento" source="anexo_requerimento" target="requerimento" toMany="false">
+		<db-attribute-pair source="fk_requerimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo" source="anexo_requerimento" target="t_tipo_anexo_requerimento" toMany="false">
+		<db-attribute-pair source="fk_tipo" target="id"/>
+	</db-relationship>
+	<db-relationship name="contrato" source="contrato_pdf" target="contrato" toMany="false">
+		<db-attribute-pair source="id" target="fk_pdf"/>
+	</db-relationship>
+	<db-relationship name="valor_i" source="documento_comp_i" target="i_valor_trh" toMany="false">
+		<db-attribute-pair source="fk_valor_i" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="documento_estabelecimento" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="criadorAdm" source="documento_estabelecimento" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_criador_adm" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="documento_estabelecimento" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo" source="documento_estabelecimento" target="t_tipo_documento_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_tipo" target="id"/>
+	</db-relationship>
+	<db-relationship name="pedidoRegisto" source="documento_pedido_registo" target="pedido_registo" toMany="false">
+		<db-attribute-pair source="fk_pedido_registo" target="id"/>
+	</db-relationship>
+	<db-relationship name="documento" source="documento_perfil" target="documento" toMany="false">
+		<db-attribute-pair source="fk_documento" target="id"/>
+	</db-relationship>
+	<db-relationship name="origem" source="documento_perfil" target="t_origem_documento" toMany="false">
+		<db-attribute-pair source="fk_origem" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="documento_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipoDocumento" source="documento_perfil" target="t_tipo_documento_perfil" toMany="false">
+		<db-attribute-pair source="fk_tipo_documento" target="id"/>
+	</db-relationship>
+	<db-relationship name="alerta_com_data" source="documento_processo" target="alerta_com_data" toMany="false">
+		<db-attribute-pair source="id" target="fk_documento_processo"/>
+	</db-relationship>
+	<db-relationship name="processo" source="documento_processo" target="processos" toMany="false">
+		<db-attribute-pair source="fk_processo" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_documento" source="documento_titulo" target="t_tipo_documento_titulo" toMany="false">
+		<db-attribute-pair source="fk_tipo_titulo" target="id"/>
+	</db-relationship>
+	<db-relationship name="titulo" source="documento_titulo" target="titulo" toMany="false">
+		<db-attribute-pair source="fk_titulo" target="id"/>
+	</db-relationship>
+	<db-relationship name="titulo" source="documento_titulo_h" target="titulo_historico" toMany="false">
+		<db-attribute-pair source="fk_titulo" target="id"/>
+	</db-relationship>
+	<db-relationship name="mensagem" source="ficheiro_mensagem" target="mensagem" toMany="false">
+		<db-attribute-pair source="fk_mensagem" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="ficheiro_monitorizacao" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="monitorizacao" source="ficheiro_monitorizacao" target="monitorizacao" toMany="true">
+		<db-attribute-pair source="id" target="fk_ficheiro_monitorizacao"/>
+	</db-relationship>
+	<db-relationship name="uploaderPerfil" source="ficheiro_monitorizacao" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_uploader_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="fonteEstabelecimento" source="ficheiro_monitorizacao_anexo" target="fonte_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_fonte_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="uploaderPerfil" source="ficheiro_monitorizacao_anexo" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_uploader_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="regime_cov_actividade" source="ficheiro_regime_cov_apoio" target="regime_cov_actividade" toMany="false">
+		<db-attribute-pair source="fk_regime_cov_actividade" target="id"/>
+	</db-relationship>
+	<db-relationship name="uploaderPerfil" source="ficheiro_regime_cov_apoio" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_uploader_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mirr" source="formulario_mirr_resumo" target="formulario_mirr" toMany="false">
+		<db-attribute-pair source="fk_formulario" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_resumo" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario" target="id"/>
+	</db-relationship>
+	<db-relationship name="processo" source="processo_consulta" target="processos" toMany="false">
+		<db-attribute-pair source="fk_processo" target="id"/>
+	</db-relationship>
+	<db-relationship name="listDocumentosPerfil" source="t_origem_documento" target="documento_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_origem"/>
+	</db-relationship>
+	<obj-relationship name="formularioMtr" source="AnexoFormularioMtr" target="FormularioMtr" deleteRule="Nullify" db-relationship-path="formulario_mtr"/>
+	<obj-relationship name="tipo" source="AnexoFormularioMtr" target="TipoAnexo" deleteRule="Nullify" db-relationship-path="tipo"/>
+	<obj-relationship name="pedido" source="AnexoPedidoAlteracaoDadosEstabelecimento" target="PedidoAlteracaoDadosGeraisEstabelecimento" deleteRule="Nullify" db-relationship-path="pedido"/>
+	<obj-relationship name="tipo" source="AnexoPedidoAlteracaoDadosEstabelecimento" target="TTipoDocumentoEstabelecimento" deleteRule="Nullify" db-relationship-path="tipo"/>
+	<obj-relationship name="pedido" source="AnexoPedidoProcuracao" target="PedidoProcuracao" deleteRule="Nullify" db-relationship-path="pedido"/>
+	<obj-relationship name="admRegistoEntrada" source="AnexoRequerimento" target="Administrador" deleteRule="Nullify" db-relationship-path="adm_registo_entrada"/>
+	<obj-relationship name="pontos" source="AnexoRequerimento" target="RarreAnexoPonto" deleteRule="Cascade" db-relationship-path="pontos"/>
+	<obj-relationship name="pontosReu" source="AnexoRequerimento" target="RarreuAnexoPonto" deleteRule="Cascade" db-relationship-path="pontos_reu"/>
+	<obj-relationship name="requerimento" source="AnexoRequerimento" target="Requerimento" deleteRule="Nullify" db-relationship-path="requerimento"/>
+	<obj-relationship name="tipo" source="AnexoRequerimento" target="TTipoAnexoRequerimento" deleteRule="Nullify" db-relationship-path="tipo"/>
+	<obj-relationship name="contrato" source="ContratoPdf" target="Contrato" deleteRule="Nullify" db-relationship-path="contrato"/>
+	<obj-relationship name="valorI" source="DocumentoCompI" target="IValorTrh" deleteRule="Nullify" db-relationship-path="valor_i"/>
+	<obj-relationship name="criador" source="DocumentoEstabelecimento" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="criadorAdm" source="DocumentoEstabelecimento" target="Administrador" deleteRule="Nullify" db-relationship-path="criadorAdm"/>
+	<obj-relationship name="estabelecimento" source="DocumentoEstabelecimento" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="tipo" source="DocumentoEstabelecimento" target="TTipoDocumentoEstabelecimento" deleteRule="Nullify" db-relationship-path="tipo"/>
+	<obj-relationship name="pedidoRegisto" source="DocumentoPedidoRegisto" target="PedidoRegisto" deleteRule="Nullify" db-relationship-path="pedidoRegisto"/>
+	<obj-relationship name="documento" source="DocumentoPerfil" target="Documento" deleteRule="Nullify" db-relationship-path="documento"/>
+	<obj-relationship name="origem" source="DocumentoPerfil" target="TOrigemDocumento" deleteRule="Nullify" db-relationship-path="origem"/>
+	<obj-relationship name="perfil" source="DocumentoPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="tipoDocumento" source="DocumentoPerfil" target="TTipoDocumentoPerfil" deleteRule="Nullify" db-relationship-path="tipoDocumento"/>
+	<obj-relationship name="alertaComData" source="DocumentoProcesso" target="AlertaComData" deleteRule="Nullify" db-relationship-path="alerta_com_data"/>
+	<obj-relationship name="processo" source="DocumentoProcesso" target="Processos" deleteRule="Nullify" db-relationship-path="processo"/>
+	<obj-relationship name="tipoDocumento" source="DocumentoTitulo" target="TTipoDocumentoTitulo" deleteRule="Nullify" db-relationship-path="tipo_documento"/>
+	<obj-relationship name="titulo" source="DocumentoTitulo" target="Titulo" deleteRule="Nullify" db-relationship-path="titulo"/>
+	<obj-relationship name="titulo" source="DocumentoTituloH" target="TituloHistorico" deleteRule="Nullify" db-relationship-path="titulo"/>
+	<obj-relationship name="mensagem" source="FicheiroMensagem" target="Mensagem" deleteRule="Nullify" db-relationship-path="mensagem"/>
+	<obj-relationship name="estabelecimento" source="FicheiroMonitorizacao" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="monitorizacao" source="FicheiroMonitorizacao" target="Monitorizacao" deleteRule="Nullify" db-relationship-path="monitorizacao"/>
+	<obj-relationship name="uploaderPerfil" source="FicheiroMonitorizacao" target="Perfil" db-relationship-path="uploaderPerfil"/>
+	<obj-relationship name="fonteEstabelecimento" source="FicheiroMonitorizacaoAnexo" target="FonteEstabelecimento" deleteRule="Nullify" db-relationship-path="fonteEstabelecimento"/>
+	<obj-relationship name="uploaderPerfil" source="FicheiroMonitorizacaoAnexo" target="Perfil" deleteRule="Nullify" db-relationship-path="uploaderPerfil"/>
+	<obj-relationship name="regimeCovActividade" source="FicheiroRegimeCovApoio" target="RegimeCovActividade" deleteRule="Nullify" db-relationship-path="regime_cov_actividade"/>
+	<obj-relationship name="uploaderPerfil" source="FicheiroRegimeCovApoio" target="Perfil" deleteRule="Nullify" db-relationship-path="uploaderPerfil"/>
+	<obj-relationship name="formularioMirr" source="FormularioMirrResumo" target="FormularioMirr" deleteRule="Nullify" db-relationship-path="formulario_mirr"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruResumo" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="processo" source="ProcessoConsulta" target="Processos" deleteRule="Nullify" db-relationship-path="processo"/>
+	<obj-relationship name="listDocumentosPerfil" source="TOrigemDocumento" target="DocumentoPerfil" deleteRule="Deny" db-relationship-path="listDocumentosPerfil"/>
+</data-map>

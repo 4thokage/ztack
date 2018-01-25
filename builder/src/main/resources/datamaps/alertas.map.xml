@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.alertas"/>
+	<property name="defaultSchema" value="lic_alertas"/>
+	<db-entity name="alerta" schema="lic_alertas">
+		<db-attribute name="assunto" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="data_mail" type="TIMESTAMP"/>
+		<db-attribute name="data_registo" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="email_to" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="estado_mail" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_destinatario" type="INTEGER"/>
+		<db-attribute name="fk_remetente" type="INTEGER"/>
+		<db-attribute name="fk_tipo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="texto" type="CLOB" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="alerta_com_data" schema="lic_alertas">
+		<db-attribute name="assunto" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="data_envio" type="DATE" isMandatory="true"/>
+		<db-attribute name="fk_destinatario" type="INTEGER"/>
+		<db-attribute name="fk_documento_processo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="texto" type="CLOB" isMandatory="true"/>
+	</db-entity>
+	<obj-entity name="Alerta" className="org.addition.apa.alertas.Alerta" dbEntityName="alerta">
+		<obj-attribute name="assunto" type="java.lang.String" db-attribute-path="assunto"/>
+		<obj-attribute name="dataMail" type="java.util.Date" db-attribute-path="data_mail"/>
+		<obj-attribute name="dataRegisto" type="java.util.Date" db-attribute-path="data_registo"/>
+		<obj-attribute name="emailTo" type="java.lang.String" db-attribute-path="email_to"/>
+		<obj-attribute name="estadoMail" type="java.lang.Integer" db-attribute-path="estado_mail"/>
+		<obj-attribute name="texto" type="java.lang.String" db-attribute-path="texto"/>
+	</obj-entity>
+	<obj-entity name="AlertaComData" className="org.addition.apa.alertas.AlertaComData" dbEntityName="alerta_com_data">
+		<obj-attribute name="assunto" type="java.lang.String" db-attribute-path="assunto"/>
+		<obj-attribute name="dataEnvio" type="java.util.Date" db-attribute-path="data_envio"/>
+		<obj-attribute name="texto" type="java.lang.String" db-attribute-path="texto"/>
+	</obj-entity>
+	<db-relationship name="destinatario" source="alerta" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_destinatario" target="id"/>
+	</db-relationship>
+	<db-relationship name="remetente" source="alerta" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_remetente" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo" source="alerta" target="t_tipo_alerta" toMany="false">
+		<db-attribute-pair source="fk_tipo" target="id"/>
+	</db-relationship>
+	<db-relationship name="destinatario" source="alerta_com_data" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_destinatario" target="id"/>
+	</db-relationship>
+	<db-relationship name="documento_processo" source="alerta_com_data" target="documento_processo" toMany="false">
+		<db-attribute-pair source="fk_documento_processo" target="id"/>
+	</db-relationship>
+	<obj-relationship name="destinatario" source="Alerta" target="Administrador" deleteRule="Nullify" db-relationship-path="destinatario"/>
+	<obj-relationship name="remetente" source="Alerta" target="Administrador" deleteRule="Nullify" db-relationship-path="remetente"/>
+	<obj-relationship name="tipo" source="Alerta" target="TTipoAlerta" deleteRule="Nullify" db-relationship-path="tipo"/>
+	<obj-relationship name="destinatario" source="AlertaComData" target="Administrador" deleteRule="Nullify" db-relationship-path="destinatario"/>
+	<obj-relationship name="documentoProcesso" source="AlertaComData" target="DocumentoProcesso" deleteRule="Nullify" db-relationship-path="documento_processo"/>
+</data-map>

@@ -1,0 +1,291 @@
+#set( $class =".class")
+#set( $CODIGO_PROPERTY = ".CODIGO_PROPERTY" )
+package org.apa.siliamb.lua.tua.viewmodel;
+
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+#*
+#foreach( $tabela in $tabelas )
+import org.addition.apa.licenciamento.tabelas.$tabela.getTableNameUpper();
+#end
+*#
+import org.addition.apa.licenciamento.tabelas.TDescritorTua;
+import org.apa.siliamb.lua.services.LUAService;
+import org.addition.apa.licenciamento.tabelas.TFaseTua;
+import org.apache.cayenne.access.DataContext;
+import org.apache.cayenne.exp.Expression;
+import org.apache.cayenne.exp.ExpressionFactory;
+import org.apache.cayenne.query.SelectQuery;
+import org.apache.cayenne.query.SortOrder;
+import org.everis.apa.lua.entities.ProcessoLicenciamentoIntegrado;
+import org.everis.apa.lua.entities.TTRegime;
+import org.everis.apa.lua.entities.TuaVersao;
+import org.everis.apa.tua.interfaces.CondicaoTua;
+import org.everis.apa.tua.interfaces.CondicaoTuaHistorico;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Class TuaTableView was generated.
+ * It is probably a good idea to avoid changing this class manually,
+ * since it may be overwritten next time code is regenerated.
+ */
+
+public abstract class TuaTableView<T extends CondicaoTua,Y extends CondicaoTuaHistorico> implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	private List <T> condicoes = new ArrayList<T>();
+	private List <Y> condicoesHistorico = new ArrayList<Y>();
+	private T condicaoSelecionada;
+	private T condicaoNova;
+	private TableViewFilter tableViewFilter;
+	private ProcessoLicenciamentoIntegrado pli;
+	private TuaVersao tuaVersao;
+	protected DataContext ctx;
+	private TTRegime regimeUtilizador;
+	private String utilizadorAuditoria;
+	private TDescritorTua descritorTua;
+	private VisibilidadeTuaView visibilidadeTua;
+	private String prefixoComponentesUi;
+	
+	static final Logger log = LoggerFactory.getLogger(TuaTableView.class);
+	
+//	private TDescritorTua descritorTua;
+	
+	@SuppressWarnings ("unchecked")
+    public Class<T> getTypeParameterClass(int arg)
+    {
+        Type type = getClass().getGenericSuperclass();
+        ParameterizedType paramType = (ParameterizedType) type;
+        return (Class<T>) paramType.getActualTypeArguments()[arg];
+    }
+	
+	public TuaTableView(DataContext ctx, TableViewFilter tableViewFilter, ProcessoLicenciamentoIntegrado pli, TuaVersao tuaVersao,
+			String utilizador, TDescritorTua descritorTua, String prefixoComponentesUi, VisibilidadeTuaView visibilidadeTua) {
+		super();
+		this.tableViewFilter = tableViewFilter;
+		this.pli = pli;
+		this.tuaVersao = tuaVersao;
+		this.regimeUtilizador = LUAService.getTTRegimeByCodigo(ctx, visibilidadeTua.getCodRegime());
+		this.ctx = ctx;
+		this.utilizadorAuditoria = utilizador;
+		this.descritorTua = descritorTua;
+		this.visibilidadeTua = visibilidadeTua;
+		this.prefixoComponentesUi = prefixoComponentesUi;
+		
+		try {
+			condicaoSelecionada = getTypeParameterClass(0).newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			condicaoNova = getTypeParameterClass(0).newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+#*
+#foreach( $tabela in $tabelas )
+
+
+public List<$tabela.getTableNameUpper()> getLst$tabela.getTableNameMethod()(){
+		try {
+			SelectQuery selectAll = new SelectQuery($tabela.getTableNameUpper()$class);
+			return ctx.performQuery(selectAll);
+			} catch (Exception e ) {
+				log.error("Erro a obter a lista de $tabela.getTableNameUpper(): ", e);
+				ctx.rollbackChanges();
+			}
+		return Collections.emptyList();
+	}
+	
+	public $tabela.getTableNameUpper() get$tabela.getTableNameUpper()ByCodigo(String codigo){
+		Expression expression = ExpressionFactory.matchExp($tabela.getTableNameUpper()$CODIGO_PROPERTY, codigo);
+		final SelectQuery query = new SelectQuery($tabela.getTableNameUpper()$class,expression);
+		@SuppressWarnings("unchecked")
+		List<$tabela.getTableNameUpper()> listResult = (List<$tabela.getTableNameUpper()>) ctx.performQuery(query);
+
+		if (listResult != null && listResult.size() > 0) {
+			return listResult.get(0);
+		}
+		return null;
+	}
+#end
+*#
+	
+//	public void init() {
+//		getResultList();
+//	}
+	
+	/** 
+	 * Atualiza a lista de resultados
+	 */
+	public abstract List<T> getResultList();
+	
+	/**
+	 * Atualiza a lista que está no historico
+	 */
+	public List<Y> getHistorico() {
+		try {
+			Expression expression = ExpressionFactory.matchExp("pli", pli);
+			
+			SelectQuery selectAll = new SelectQuery(getTypeParameterClass(1), expression);
+			
+			selectAll.addOrdering("dataCriacao", SortOrder.DESCENDING);
+			
+			return ctx.performQuery(selectAll);
+			
+		} catch (Exception e ) {
+			log.error("Ocorreu um erro a obter o historico do descritor", e);
+		}
+		return Collections.emptyList();
+	}
+	
+	/** 
+	 * Adiciona uma nova condicao a lista 
+	 * */
+	public abstract void adicionarCondicaoNova();
+	
+	/**
+	 * Adiciona uma condicao e coloca em conflito
+	 */
+	public abstract void adicionarCondicaoConflito();
+	
+	/**
+	 * Adiciona uma condicao existente aplicavel a outro regime (sem conflito)
+	 */
+	public abstract void adicionarCondicaoRegime();
+	
+	/**
+	 * Apagar a condicao selecionada
+	 */
+	public abstract void apagarCondicao();
+	
+	/**
+	 * Editar condicao selecionada
+	 */
+	public abstract void editarCondicao();
+	
+	/**
+	 * Marcar condicao selecionada como principal
+	 */
+	public abstract void marcarPrincipal();
+	
+	/**
+	 * Criar nova condição - dirimir que ficará ativa
+	 */
+	public abstract void adicionarCondicaoDirimir();
+	
+	public List<T> getCondicoes() {
+		return condicoes;
+	}
+
+	public void setCondicoes(List<T> condicoes) {
+		this.condicoes = condicoes;
+	}
+
+	public T getCondicaoSelecionada() {
+		return condicaoSelecionada;
+	}
+
+	public void setCondicaoSelecionada(T condicaoSelecionada) {
+		this.condicaoSelecionada = condicaoSelecionada;
+	}
+
+	public T getCondicaoNova() {
+		return condicaoNova;
+	}
+
+	public void setCondicaoNova(T condicaoNova) {
+		this.condicaoNova = condicaoNova;
+	}
+
+	public TableViewFilter getTableViewFilter() {
+		return tableViewFilter;
+	}
+
+	public void setTableViewFilter(TableViewFilter tableViewFilter) {
+		this.tableViewFilter = tableViewFilter;
+	}
+
+	public ProcessoLicenciamentoIntegrado getPli() {
+		return pli;
+	}
+
+	public void setPli(ProcessoLicenciamentoIntegrado pli) {
+		this.pli = pli;
+	}
+
+
+	public TTRegime getRegimeUtilizador() {
+		return regimeUtilizador;
+	}
+
+	public void setRegimeUtilizador(TTRegime regimeUtilizador) {
+		this.regimeUtilizador = regimeUtilizador;
+	}
+
+	public DataContext getCtx() {
+		return ctx;
+	}
+
+	public void setCtx(DataContext ctx) {
+		this.ctx = ctx;
+	}
+
+	public String getUtilizadorAuditoria() {
+		return utilizadorAuditoria;
+	}
+
+	public void setUtilizadorAuditoria(String utilizadorAuditoria) {
+		this.utilizadorAuditoria = utilizadorAuditoria;
+	}
+
+	public TDescritorTua getDescritorTua() {
+		return descritorTua;
+	}
+
+	public void setDescritorTua(TDescritorTua descritorTua) {
+		this.descritorTua = descritorTua;
+	}
+
+	public List<Y> getCondicoesHistorico() {
+		return condicoesHistorico;
+	}
+
+	public void setCondicoesHistorico(List<Y> condicoesHistorico) {
+		this.condicoesHistorico = condicoesHistorico;
+	}
+
+	public TuaVersao getTuaVersao() {
+		return tuaVersao;
+	}
+
+	public void setTuaVersao(TuaVersao tuaVersao) {
+		this.tuaVersao = tuaVersao;
+	}
+	
+	public VisibilidadeTuaView getVisibilidadeTua() {
+		return visibilidadeTua;
+	}
+
+	public void setVisibilidadeTua(VisibilidadeTuaView visibilidadeTua) {
+		this.visibilidadeTua = visibilidadeTua;
+	}
+	
+	public String getPrefixoComponentesUi() {
+		return prefixoComponentesUi;
+	}
+
+	public void setPrefixoComponentesUi(String prefixoComponentesUi) {
+		this.prefixoComponentesUi = prefixoComponentesUi;
+	}
+	
+	
+}

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.atendimento"/>
+	<property name="defaultSchema" value="lic_atendimento"/>
+	<db-entity name="historico_atend" schema="lic_atendimento">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="onde" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="oque" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="quando" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="quem" type="INTEGER"/>
+		<db-attribute name="quem_entidade" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="r_atend_perfil" schema="lic_atendimento">
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_atend" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="r_atend_requerimento" schema="lic_atendimento">
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_atend" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_requerimento" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="utilizador_atendimento" schema="lic_atendimento">
+		<db-attribute name="active" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="balcao" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="email" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="fk_entidade" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="login" type="VARCHAR" isMandatory="true" length="100"/>
+		<db-attribute name="nome" type="VARCHAR" isMandatory="true" length="1000"/>
+		<db-attribute name="pw_md5" type="VARCHAR" isMandatory="true" length="100"/>
+	</db-entity>
+	<obj-entity name="HistoricoAtend" className="org.addition.apa.atendimento.HistoricoAtend" dbEntityName="historico_atend">
+		<obj-attribute name="onde" type="java.lang.String" db-attribute-path="onde"/>
+		<obj-attribute name="oque" type="java.lang.String" db-attribute-path="oque"/>
+		<obj-attribute name="quando" type="java.util.Date" db-attribute-path="quando"/>
+	</obj-entity>
+	<obj-entity name="RAtendPerfil" className="org.addition.apa.atendimento.RAtendPerfil" dbEntityName="r_atend_perfil">
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+	</obj-entity>
+	<obj-entity name="RAtendRequerimento" className="org.addition.apa.atendimento.RAtendRequerimento" dbEntityName="r_atend_requerimento">
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+	</obj-entity>
+	<obj-entity name="UtilizadorAtendimento" className="org.addition.apa.atendimento.UtilizadorAtendimento" dbEntityName="utilizador_atendimento">
+		<obj-attribute name="active" type="java.lang.Boolean" db-attribute-path="active"/>
+		<obj-attribute name="balcao" type="java.lang.String" db-attribute-path="balcao"/>
+		<obj-attribute name="email" type="java.lang.String" db-attribute-path="email"/>
+		<obj-attribute name="login" type="java.lang.String" db-attribute-path="login"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="pwMd5" type="java.lang.String" db-attribute-path="pw_md5"/>
+	</obj-entity>
+	<db-relationship name="utilizador" source="historico_atend" target="utilizador" toMany="false">
+		<db-attribute-pair source="quem_entidade" target="pkid"/>
+	</db-relationship>
+	<db-relationship name="utilizador_atendimento" source="historico_atend" target="utilizador_atendimento" toMany="false">
+		<db-attribute-pair source="quem" target="id"/>
+	</db-relationship>
+	<db-relationship name="atend" source="r_atend_perfil" target="utilizador_atendimento" toMany="false">
+		<db-attribute-pair source="fk_atend" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="r_atend_perfil" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="atend" source="r_atend_requerimento" target="utilizador_atendimento" toMany="false">
+		<db-attribute-pair source="fk_atend" target="id"/>
+	</db-relationship>
+	<db-relationship name="requerimento" source="r_atend_requerimento" target="requerimento" toMany="false">
+		<db-attribute-pair source="fk_requerimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="dados_perfil_criados" source="utilizador_atendimento" target="dados_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador_atend"/>
+	</db-relationship>
+	<db-relationship name="enquadramento_perfil_criados" source="utilizador_atendimento" target="enquadramento_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_criador_atend"/>
+	</db-relationship>
+	<db-relationship name="entidade" source="utilizador_atendimento" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_entidade" target="id"/>
+	</db-relationship>
+	<db-relationship name="historicos" source="utilizador_atendimento" target="historico_atend" toMany="true">
+		<db-attribute-pair source="id" target="quem"/>
+	</db-relationship>
+	<db-relationship name="historicos_publicos" source="utilizador_atendimento" target="historico" toMany="true">
+		<db-attribute-pair source="id" target="quem_atend"/>
+	</db-relationship>
+	<db-relationship name="perfis" source="utilizador_atendimento" target="r_atend_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_atend"/>
+	</db-relationship>
+	<db-relationship name="requerimentos" source="utilizador_atendimento" target="r_atend_requerimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_atend"/>
+	</db-relationship>
+	<db-relationship name="requerimentos_submetidos" source="utilizador_atendimento" target="requerimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_atend_submete"/>
+	</db-relationship>
+	<obj-relationship name="utilizador" source="HistoricoAtend" target="Utilizador" deleteRule="Nullify" db-relationship-path="utilizador"/>
+	<obj-relationship name="utilizadorAtendimento" source="HistoricoAtend" target="UtilizadorAtendimento" deleteRule="Nullify" db-relationship-path="utilizador_atendimento"/>
+	<obj-relationship name="atend" source="RAtendPerfil" target="UtilizadorAtendimento" deleteRule="Nullify" db-relationship-path="atend"/>
+	<obj-relationship name="perfil" source="RAtendPerfil" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="atend" source="RAtendRequerimento" target="UtilizadorAtendimento" deleteRule="Nullify" db-relationship-path="atend"/>
+	<obj-relationship name="requerimento" source="RAtendRequerimento" target="Requerimento" deleteRule="Nullify" db-relationship-path="requerimento"/>
+	<obj-relationship name="dadosPerfilCriados" source="UtilizadorAtendimento" target="DadosPerfil" deleteRule="Deny" db-relationship-path="dados_perfil_criados"/>
+	<obj-relationship name="entidade" source="UtilizadorAtendimento" target="Perfil" deleteRule="Nullify" db-relationship-path="entidade"/>
+	<obj-relationship name="historicos" source="UtilizadorAtendimento" target="HistoricoAtend" deleteRule="Deny" db-relationship-path="historicos"/>
+	<obj-relationship name="historicosPublicos" source="UtilizadorAtendimento" target="Historico" deleteRule="Deny" db-relationship-path="historicos_publicos"/>
+	<obj-relationship name="perfis" source="UtilizadorAtendimento" target="RAtendPerfil" deleteRule="Deny" db-relationship-path="perfis"/>
+	<obj-relationship name="requerimentos" source="UtilizadorAtendimento" target="RAtendRequerimento" deleteRule="Deny" db-relationship-path="requerimentos"/>
+	<obj-relationship name="requerimentosSubmetidos" source="UtilizadorAtendimento" target="Requerimento" deleteRule="Deny" db-relationship-path="requerimentos_submetidos"/>
+</data-map>

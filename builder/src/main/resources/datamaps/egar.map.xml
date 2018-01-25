@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.apa.siliamb.egar.entities"/>
+	<property name="defaultSchema" value="egar"/>
+	<db-entity name="definicao_egar" schema="egar">
+		<db-attribute name="anulamento_guias_desabilitado" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="emissao_terceiros_desabilitada" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true" length="11"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="11"/>
+	</db-entity>
+	<db-entity name="definicao_egar_perfil" schema="egar">
+		<db-attribute name="ativo" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="data_estado" type="TIMESTAMP"/>
+		<db-attribute name="fk_definicoes_egar" type="INTEGER" isMandatory="true" length="11"/>
+		<db-attribute name="fk_t_tipo_perfil" type="INTEGER" isMandatory="true" length="11"/>
+		<db-attribute name="habilitado" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="11"/>
+	</db-entity>
+	<db-entity name="definicao_egar_perfil_historico" schema="egar">
+		<db-attribute name="data_fim" type="TIMESTAMP"/>
+		<db-attribute name="data_inicio" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="fk_definicoes_egar" type="INTEGER" isMandatory="true" length="11"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="511"/>
+		<db-attribute name="tipo" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="utilizador" type="VARCHAR" isMandatory="true" length="255"/>
+	</db-entity>
+	<db-entity name="destinatario_residuo" schema="egar">
+		<db-attribute name="cod_postal_sede" type="VARCHAR" length="8"/>
+		<db-attribute name="designacao_organizacao" type="VARCHAR" length="150"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_guia_acompanhamento_residuos" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_perfil" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="localidade_sede" type="VARCHAR" length="100"/>
+		<db-attribute name="morada_sede" type="VARCHAR" length="250"/>
+		<db-attribute name="nif" type="VARCHAR" length="9"/>
+		<db-attribute name="nome" type="VARCHAR" length="255"/>
+	</db-entity>
+	<db-entity name="egar_certificados" schema="egar">
+		<db-attribute name="data_fim" type="DATE"/>
+		<db-attribute name="data_inicio" type="DATE"/>
+		<db-attribute name="fk_t_versao_ws" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="250"/>
+		<db-attribute name="software" type="VARCHAR" length="100"/>
+		<db-attribute name="token" type="VARCHAR" length="16"/>
+	</db-entity>
+	<db-entity name="estado_historico_gar" schema="egar">
+		<db-attribute name="data" type="TIMESTAMP"/>
+		<db-attribute name="fk_guia_acompanhamento_residuos" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_t_estado_gar" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="255"/>
+		<db-attribute name="utilizador" type="VARCHAR" length="255"/>
+	</db-entity>
+	<db-entity name="guia_acompanhamento_residuos" schema="egar">
+		<db-attribute name="autorizada" type="BOOLEAN"/>
+		<db-attribute name="codigo_verificacao" type="VARCHAR" length="33"/>
+		<db-attribute name="comentario_destinatario" type="VARCHAR" length="255"/>
+		<db-attribute name="comentario_estado" type="VARCHAR" length="255"/>
+		<db-attribute name="comentario_remetente" type="VARCHAR" length="255"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP"/>
+		<db-attribute name="data_estado" type="TIMESTAMP"/>
+		<db-attribute name="data_fim_transporte" type="TIMESTAMP"/>
+		<db-attribute name="fk_estado_gar" type="INTEGER"/>
+		<db-attribute name="fk_guia_associada" type="INTEGER" length="11"/>
+		<db-attribute name="fk_perfil" type="INTEGER"/>
+		<db-attribute name="fk_t_produtor" type="INTEGER" length="11"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="num_plano_gestao_lamas" type="VARCHAR" length="100"/>
+		<db-attribute name="num_plano_gestao_lamas_recebido" type="VARCHAR" length="100"/>
+		<db-attribute name="numero_gar" type="VARCHAR" length="100"/>
+		<db-attribute name="origem" type="VARCHAR" length="255"/>
+		<db-attribute name="utilizador_alteracao" type="VARCHAR" length="255"/>
+		<db-attribute name="utilizador_criacao" type="VARCHAR" length="255"/>
+	</db-entity>
+	<db-entity name="log_ws_comunicacoes_egar" schema="egar">
+		<db-attribute name="datahora" type="TIMESTAMP"/>
+		<db-attribute name="endereco" type="VARCHAR" length="200"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="id_origem" type="INTEGER"/>
+		<db-attribute name="ip" type="VARCHAR" length="100"/>
+		<db-attribute name="mensagem" type="CLOB"/>
+		<db-attribute name="utilizador" type="VARCHAR" length="100"/>
+	</db-entity>
+	<db-entity name="plano_gestao_lamas" schema="egar">
+		<db-attribute name="data_fim" type="DATE"/>
+		<db-attribute name="data_inicio" type="DATE" isMandatory="true"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_perfil" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="numero_pgl" type="VARCHAR" isMandatory="true" length="20"/>
+	</db-entity>
+	<db-entity name="remetente_residuo" schema="egar">
+		<db-attribute name="cod_postal_sede" type="VARCHAR" length="8"/>
+		<db-attribute name="designacao_organizacao" type="VARCHAR" length="150"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_guia_acompanhamento_residuos" type="INTEGER"/>
+		<db-attribute name="fk_local_recolha_retoma" type="INTEGER" length="11"/>
+		<db-attribute name="fk_perfil" type="INTEGER"/>
+		<db-attribute name="fk_tipo_perfil_egar" type="INTEGER" length="11"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="localidade_sede" type="VARCHAR" length="100"/>
+		<db-attribute name="morada_sede" type="VARCHAR" length="250"/>
+		<db-attribute name="nif" type="VARCHAR" length="9"/>
+		<db-attribute name="nome" type="VARCHAR" length="255"/>
+	</db-entity>
+	<db-entity name="residuo_transportado" schema="egar">
+		<db-attribute name="designacao" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_guia_acompanhamento_residuos" type="INTEGER"/>
+		<db-attribute name="fk_operacao" type="INTEGER"/>
+		<db-attribute name="fk_operacao_recebido" type="INTEGER"/>
+		<db-attribute name="fk_residuo_ler_recebido" type="INTEGER"/>
+		<db-attribute name="fk_residuos_ler" type="INTEGER"/>
+		<db-attribute name="fk_t_grupo_residuo" type="INTEGER"/>
+		<db-attribute name="fk_t_grupo_residuo_recebido" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="quantidade" type="DOUBLE"/>
+		<db-attribute name="quantidade_recebida" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="tipo_operacao_egar" schema="egar">
+		<db-attribute name="codigo" type="VARCHAR" length="128"/>
+		<db-attribute name="fk_tipo_operacao_valorizacao" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome" type="VARCHAR" length="512"/>
+		<db-attribute name="ordem" type="INTEGER"/>
+		<db-attribute name="valor" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="transportador_residuo" schema="egar">
+		<db-attribute name="data_inicio_transporte" type="TIMESTAMP"/>
+		<db-attribute name="data_validade" type="DATE"/>
+		<db-attribute name="fk_guia_acompanhamento_residuos" type="INTEGER"/>
+		<db-attribute name="fk_perfil_organizacao" type="INTEGER"/>
+		<db-attribute name="hora_inicio_transporte" type="TIMESTAMP"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="is_interveniente" type="BOOLEAN"/>
+		<db-attribute name="matricula" type="VARCHAR" length="15"/>
+		<db-attribute name="nif" type="VARCHAR" length="9"/>
+		<db-attribute name="nome" type="VARCHAR" length="255"/>
+	</db-entity>
+	<db-entity name="transporte_materias_perigosas" schema="egar">
+		<db-attribute name="fk_guia_acompanhamento_residuos" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_onu_grupo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="observacoes" type="VARCHAR" length="250"/>
+		<db-attribute name="observacoes_adicionais" type="VARCHAR" length="250"/>
+		<db-attribute name="volumes" type="VARCHAR" length="255"/>
+	</db-entity>
+	<obj-entity name="DefinicaoEgar" className="org.apa.siliamb.egar.entities.DefinicaoEgar" dbEntityName="definicao_egar">
+		<obj-attribute name="anulamentoGuiasDesabilitado" type="java.lang.Boolean" db-attribute-path="anulamento_guias_desabilitado"/>
+		<obj-attribute name="emissaoTerceirosDesabilitada" type="java.lang.Boolean" db-attribute-path="emissao_terceiros_desabilitada"/>
+	</obj-entity>
+	<obj-entity name="DefinicaoEgarPerfil" className="org.apa.siliamb.egar.entities.DefinicaoEgarPerfil" dbEntityName="definicao_egar_perfil">
+		<obj-attribute name="ativo" type="java.lang.Boolean" db-attribute-path="ativo"/>
+		<obj-attribute name="dataEstado" type="java.util.Date" db-attribute-path="data_estado"/>
+		<obj-attribute name="habilitado" type="java.lang.Boolean" db-attribute-path="habilitado"/>
+	</obj-entity>
+	<obj-entity name="DefinicaoEgarPerfilHistorico" className="org.apa.siliamb.egar.entities.DefinicaoEgarPerfilHistorico" dbEntityName="definicao_egar_perfil_historico">
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="tipo" type="java.lang.String" db-attribute-path="tipo"/>
+		<obj-attribute name="utilizador" type="java.lang.String" db-attribute-path="utilizador"/>
+	</obj-entity>
+	<obj-entity name="DestinatarioResiduo" className="org.apa.siliamb.egar.entities.DestinatarioResiduo" dbEntityName="destinatario_residuo">
+		<obj-attribute name="codPostalSede" type="java.lang.String" db-attribute-path="cod_postal_sede"/>
+		<obj-attribute name="designacaoOrganizacao" type="java.lang.String" db-attribute-path="designacao_organizacao"/>
+		<obj-attribute name="localidadeSede" type="java.lang.String" db-attribute-path="localidade_sede"/>
+		<obj-attribute name="moradaSede" type="java.lang.String" db-attribute-path="morada_sede"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="EgarCertificados" className="org.apa.siliamb.egar.entities.EgarCertificados" dbEntityName="egar_certificados">
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="software" type="java.lang.String" db-attribute-path="software"/>
+		<obj-attribute name="token" type="java.lang.String" db-attribute-path="token"/>
+	</obj-entity>
+	<obj-entity name="EstadoHistoricoGar" className="org.apa.siliamb.egar.entities.EstadoHistoricoGar" dbEntityName="estado_historico_gar">
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="utilizador" type="java.lang.String" db-attribute-path="utilizador"/>
+	</obj-entity>
+	<obj-entity name="GuiaAcompanhamentoResiduos" className="org.apa.siliamb.egar.entities.GuiaAcompanhamentoResiduos" dbEntityName="guia_acompanhamento_residuos">
+		<obj-attribute name="autorizada" type="java.lang.Boolean" db-attribute-path="autorizada"/>
+		<obj-attribute name="codigoVerificacao" type="java.lang.String" db-attribute-path="codigo_verificacao"/>
+		<obj-attribute name="comentarioDestinatario" type="java.lang.String" db-attribute-path="comentario_destinatario"/>
+		<obj-attribute name="comentarioEstado" type="java.lang.String" db-attribute-path="comentario_estado"/>
+		<obj-attribute name="comentarioRemetente" type="java.lang.String" db-attribute-path="comentario_remetente"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataEstado" type="java.util.Date" db-attribute-path="data_estado"/>
+		<obj-attribute name="dataFimTransporte" type="java.util.Date" db-attribute-path="data_fim_transporte"/>
+		<obj-attribute name="numPlanoGestaoLamas" type="java.lang.String" db-attribute-path="num_plano_gestao_lamas"/>
+		<obj-attribute name="numPlanoGestaoLamasRecebido" type="java.lang.String" db-attribute-path="num_plano_gestao_lamas_recebido"/>
+		<obj-attribute name="numeroGar" type="java.lang.String" db-attribute-path="numero_gar"/>
+		<obj-attribute name="origem" type="java.lang.String" db-attribute-path="origem"/>
+		<obj-attribute name="utilizadorAlteracao" type="java.lang.String" db-attribute-path="utilizador_alteracao"/>
+		<obj-attribute name="utilizadorCriacao" type="java.lang.String" db-attribute-path="utilizador_criacao"/>
+	</obj-entity>
+	<obj-entity name="LogWsComunicacoesEgar" className="org.apa.siliamb.egar.entities.LogWsComunicacoesEgar" dbEntityName="log_ws_comunicacoes_egar">
+		<obj-attribute name="datahora" type="java.util.Date" db-attribute-path="datahora"/>
+		<obj-attribute name="endereco" type="java.lang.String" db-attribute-path="endereco"/>
+		<obj-attribute name="idOrigem" type="java.lang.Integer" db-attribute-path="id_origem"/>
+		<obj-attribute name="ip" type="java.lang.String" db-attribute-path="ip"/>
+		<obj-attribute name="mensagem" type="java.lang.String" db-attribute-path="mensagem"/>
+		<obj-attribute name="utilizador" type="java.lang.String" db-attribute-path="utilizador"/>
+	</obj-entity>
+	<obj-entity name="PlanoGestaoLamas" className="org.apa.siliamb.egar.entities.PlanoGestaoLamas" dbEntityName="plano_gestao_lamas">
+		<obj-attribute name="dataFim" type="java.util.Date" db-attribute-path="data_fim"/>
+		<obj-attribute name="dataInicio" type="java.util.Date" db-attribute-path="data_inicio"/>
+		<obj-attribute name="numeroPgl" type="java.lang.String" db-attribute-path="numero_pgl"/>
+	</obj-entity>
+	<obj-entity name="RemetenteResiduo" className="org.apa.siliamb.egar.entities.RemetenteResiduo" dbEntityName="remetente_residuo">
+		<obj-attribute name="codPostalSede" type="java.lang.String" db-attribute-path="cod_postal_sede"/>
+		<obj-attribute name="designacaoOrganizacao" type="java.lang.String" db-attribute-path="designacao_organizacao"/>
+		<obj-attribute name="localidadeSede" type="java.lang.String" db-attribute-path="localidade_sede"/>
+		<obj-attribute name="moradaSede" type="java.lang.String" db-attribute-path="morada_sede"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="ResiduoTransportado" className="org.apa.siliamb.egar.entities.ResiduoTransportado" dbEntityName="residuo_transportado">
+		<obj-attribute name="designacao" type="java.lang.String" db-attribute-path="designacao"/>
+		<obj-attribute name="quantidade" type="java.lang.Double" db-attribute-path="quantidade"/>
+		<obj-attribute name="quantidadeRecebida" type="java.lang.Double" db-attribute-path="quantidade_recebida"/>
+	</obj-entity>
+	<obj-entity name="TipoOperacaoEgar" className="org.apa.siliamb.egar.entities.TipoOperacaoEgar" dbEntityName="tipo_operacao_egar">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+		<obj-attribute name="ordem" type="java.lang.Integer" db-attribute-path="ordem"/>
+		<obj-attribute name="valor" type="java.lang.Double" db-attribute-path="valor"/>
+	</obj-entity>
+	<obj-entity name="TransportadorResiduo" className="org.apa.siliamb.egar.entities.TransportadorResiduo" dbEntityName="transportador_residuo">
+		<obj-attribute name="dataInicioTransporte" type="java.util.Date" db-attribute-path="data_inicio_transporte"/>
+		<obj-attribute name="dataValidade" type="java.util.Date" db-attribute-path="data_validade"/>
+		<obj-attribute name="horaInicioTransporte" type="java.util.Date" db-attribute-path="hora_inicio_transporte"/>
+		<obj-attribute name="isInterveniente" type="java.lang.Boolean" db-attribute-path="is_interveniente"/>
+		<obj-attribute name="matricula" type="java.lang.String" db-attribute-path="matricula"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="nome" type="java.lang.String" db-attribute-path="nome"/>
+	</obj-entity>
+	<obj-entity name="TransporteMateriasPerigosas" className="org.apa.siliamb.egar.entities.TransporteMateriasPerigosas" dbEntityName="transporte_materias_perigosas">
+		<obj-attribute name="observacoes" type="java.lang.String" db-attribute-path="observacoes"/>
+		<obj-attribute name="observacoesAdicionais" type="java.lang.String" db-attribute-path="observacoes_adicionais"/>
+		<obj-attribute name="volumes" type="java.lang.String" db-attribute-path="volumes"/>
+	</obj-entity>
+	<db-relationship name="historico_definicoes_perfil" source="definicao_egar" target="definicao_egar_perfil_historico" toMany="true">
+		<db-attribute-pair source="id" target="fk_definicoes_egar"/>
+	</db-relationship>
+	<db-relationship name="perfil_utilizador" source="definicao_egar" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfis_definidos" source="definicao_egar" target="definicao_egar_perfil" toMany="true">
+		<db-attribute-pair source="id" target="fk_definicoes_egar"/>
+	</db-relationship>
+	<db-relationship name="definicoes_egar" source="definicao_egar_perfil" target="definicao_egar" toMany="false">
+		<db-attribute-pair source="fk_definicoes_egar" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_perfil" source="definicao_egar_perfil" target="t_tipo_perfil_egar" toMany="false">
+		<db-attribute-pair source="fk_t_tipo_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="definicoes_egar" source="definicao_egar_perfil_historico" target="definicao_egar" toMany="false">
+		<db-attribute-pair source="fk_definicoes_egar" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="destinatario_residuo" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="guia_acompanhamento_residuos" source="destinatario_residuo" target="guia_acompanhamento_residuos" toMany="false">
+		<db-attribute-pair source="fk_guia_acompanhamento_residuos" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_utilizador" source="destinatario_residuo" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="versao_ws" source="egar_certificados" target="t_versao_ws" toMany="false">
+		<db-attribute-pair source="fk_t_versao_ws" target="id"/>
+	</db-relationship>
+	<db-relationship name="estadoGuia" source="estado_historico_gar" target="t_estado_guia_acompanhamento_residuos" toMany="false">
+		<db-attribute-pair source="fk_t_estado_gar" target="id"/>
+	</db-relationship>
+	<db-relationship name="guiaAcompanhamentoResiduos" source="estado_historico_gar" target="guia_acompanhamento_residuos" toMany="false">
+		<db-attribute-pair source="fk_guia_acompanhamento_residuos" target="id"/>
+	</db-relationship>
+	<db-relationship name="destinatario_residuo" source="guia_acompanhamento_residuos" target="destinatario_residuo" toMany="false">
+		<db-attribute-pair source="id" target="fk_guia_acompanhamento_residuos"/>
+	</db-relationship>
+	<db-relationship name="guia_associada" source="guia_acompanhamento_residuos" target="guia_acompanhamento_residuos" toMany="false">
+		<db-attribute-pair source="fk_guia_associada" target="id"/>
+	</db-relationship>
+	<db-relationship name="guias_encadeadas" source="guia_acompanhamento_residuos" target="guia_acompanhamento_residuos" toMany="true">
+		<db-attribute-pair source="id" target="fk_guia_associada"/>
+	</db-relationship>
+	<db-relationship name="perfil_utilizador" source="guia_acompanhamento_residuos" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="remetente_residuo" source="guia_acompanhamento_residuos" target="remetente_residuo" toMany="false">
+		<db-attribute-pair source="id" target="fk_guia_acompanhamento_residuos"/>
+	</db-relationship>
+	<db-relationship name="residuo_transportado" source="guia_acompanhamento_residuos" target="residuo_transportado" toMany="false">
+		<db-attribute-pair source="id" target="fk_guia_acompanhamento_residuos"/>
+	</db-relationship>
+	<db-relationship name="tipo_estado_guia" source="guia_acompanhamento_residuos" target="t_estado_guia_acompanhamento_residuos" toMany="false">
+		<db-attribute-pair source="fk_estado_gar" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_produtor" source="guia_acompanhamento_residuos" target="t_produtor" toMany="false">
+		<db-attribute-pair source="fk_t_produtor" target="id"/>
+	</db-relationship>
+	<db-relationship name="transportadores_guia" source="guia_acompanhamento_residuos" target="transportador_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_guia_acompanhamento_residuos"/>
+	</db-relationship>
+	<db-relationship name="transporte_materias_perigosas" source="guia_acompanhamento_residuos" target="transporte_materias_perigosas" toMany="false">
+		<db-attribute-pair source="id" target="fk_guia_acompanhamento_residuos"/>
+	</db-relationship>
+	<db-relationship name="untitledRel" source="guia_acompanhamento_residuos" target="estado_historico_gar" toMany="true">
+		<db-attribute-pair source="id" target="fk_guia_acompanhamento_residuos"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="plano_gestao_lamas" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="plano_gestao_lamas" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="remetente_residuo" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="guia_acompanhamento_residuo" source="remetente_residuo" target="guia_acompanhamento_residuos" toMany="false">
+		<db-attribute-pair source="fk_guia_acompanhamento_residuos" target="id"/>
+	</db-relationship>
+	<db-relationship name="localRecolhaRetoma" source="remetente_residuo" target="local_recolha_retoma" toMany="false">
+		<db-attribute-pair source="fk_local_recolha_retoma" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_utilizador" source="remetente_residuo" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_perfil_egar" source="remetente_residuo" target="t_tipo_perfil_egar" toMany="false">
+		<db-attribute-pair source="fk_tipo_perfil_egar" target="id"/>
+	</db-relationship>
+	<db-relationship name="guia_acompanhamento_residuos" source="residuo_transportado" target="guia_acompanhamento_residuos" toMany="false">
+		<db-attribute-pair source="fk_guia_acompanhamento_residuos" target="id"/>
+	</db-relationship>
+	<db-relationship name="residuo_ler" source="residuo_transportado" target="residuos_ler" toMany="false">
+		<db-attribute-pair source="fk_residuos_ler" target="id"/>
+	</db-relationship>
+	<db-relationship name="residuo_ler_recebido" source="residuo_transportado" target="residuos_ler" toMany="false">
+		<db-attribute-pair source="fk_residuo_ler_recebido" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_grupo_residuo" source="residuo_transportado" target="t_grupo_residuo" toMany="false">
+		<db-attribute-pair source="fk_t_grupo_residuo" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_grupo_residuo_recebido" source="residuo_transportado" target="t_grupo_residuo" toMany="false">
+		<db-attribute-pair source="fk_t_grupo_residuo_recebido" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_operacao_residuo" source="residuo_transportado" target="tipo_operacao_egar" toMany="false">
+		<db-attribute-pair source="fk_operacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_operacao_residuo_recebido" source="residuo_transportado" target="tipo_operacao_egar" toMany="false">
+		<db-attribute-pair source="fk_operacao_recebido" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_operacao_valorizacao" source="tipo_operacao_egar" target="tipo_operacao_valorizacao" toMany="false">
+		<db-attribute-pair source="fk_tipo_operacao_valorizacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="guia_acompanhamento_residuos" source="transportador_residuo" target="guia_acompanhamento_residuos" toMany="false">
+		<db-attribute-pair source="fk_guia_acompanhamento_residuos" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil_residuos" source="transportador_residuo" target="perfil_residuos" toMany="false">
+		<db-attribute-pair source="fk_perfil_organizacao" target="fk_perfil"/>
+	</db-relationship>
+	<db-relationship name="guia_acompanhamento_residuos" source="transporte_materias_perigosas" target="guia_acompanhamento_residuos" toMany="false">
+		<db-attribute-pair source="fk_guia_acompanhamento_residuos" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_onu_grupo" source="transporte_materias_perigosas" target="t_onu_grupo" toMany="false">
+		<db-attribute-pair source="fk_onu_grupo" target="id"/>
+	</db-relationship>
+	<obj-relationship name="historicoDefinicoesPerfil" source="DefinicaoEgar" target="DefinicaoEgarPerfilHistorico" deleteRule="Deny" db-relationship-path="historico_definicoes_perfil"/>
+	<obj-relationship name="perfilUtilizador" source="DefinicaoEgar" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_utilizador"/>
+	<obj-relationship name="perfisDefinidos" source="DefinicaoEgar" target="DefinicaoEgarPerfil" deleteRule="Deny" db-relationship-path="perfis_definidos"/>
+	<obj-relationship name="definicoesEgar" source="DefinicaoEgarPerfil" target="DefinicaoEgar" deleteRule="Nullify" db-relationship-path="definicoes_egar"/>
+	<obj-relationship name="tipoPerfil" source="DefinicaoEgarPerfil" target="TTipoPerfilEgar" deleteRule="Nullify" db-relationship-path="tipo_perfil"/>
+	<obj-relationship name="definicoesEgar" source="DefinicaoEgarPerfilHistorico" target="DefinicaoEgar" deleteRule="Nullify" db-relationship-path="definicoes_egar"/>
+	<obj-relationship name="estabelecimento" source="DestinatarioResiduo" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="guiaAcompanhamentoResiduos" source="DestinatarioResiduo" target="GuiaAcompanhamentoResiduos" deleteRule="Nullify" db-relationship-path="guia_acompanhamento_residuos"/>
+	<obj-relationship name="perfilUtilizador" source="DestinatarioResiduo" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_utilizador"/>
+	<obj-relationship name="versaoWs" source="EgarCertificados" target="TVersaoWs" deleteRule="Nullify" db-relationship-path="versao_ws"/>
+	<obj-relationship name="estadoGuia" source="EstadoHistoricoGar" target="TEstadoGuiaAcompanhamentoResiduos" deleteRule="Nullify" db-relationship-path="estadoGuia"/>
+	<obj-relationship name="guiaAcompanhamentoResiduos" source="EstadoHistoricoGar" target="GuiaAcompanhamentoResiduos" deleteRule="Nullify" db-relationship-path="guiaAcompanhamentoResiduos"/>
+	<obj-relationship name="destinatarioResiduo" source="GuiaAcompanhamentoResiduos" target="DestinatarioResiduo" deleteRule="Deny" db-relationship-path="destinatario_residuo"/>
+	<obj-relationship name="guiaAssociada" source="GuiaAcompanhamentoResiduos" target="GuiaAcompanhamentoResiduos" deleteRule="Nullify" db-relationship-path="guia_associada"/>
+	<obj-relationship name="guiasEncadeadas" source="GuiaAcompanhamentoResiduos" target="GuiaAcompanhamentoResiduos" deleteRule="Deny" db-relationship-path="guias_encadeadas"/>
+	<obj-relationship name="perfilUtilizador" source="GuiaAcompanhamentoResiduos" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_utilizador"/>
+	<obj-relationship name="remetenteResiduo" source="GuiaAcompanhamentoResiduos" target="RemetenteResiduo" deleteRule="Nullify" db-relationship-path="remetente_residuo"/>
+	<obj-relationship name="residuoTransportado" source="GuiaAcompanhamentoResiduos" target="ResiduoTransportado" deleteRule="Nullify" db-relationship-path="residuo_transportado"/>
+	<obj-relationship name="tipoEstadoGuia" source="GuiaAcompanhamentoResiduos" target="TEstadoGuiaAcompanhamentoResiduos" deleteRule="Nullify" db-relationship-path="tipo_estado_guia"/>
+	<obj-relationship name="tipoProdutor" source="GuiaAcompanhamentoResiduos" target="TProdutor" deleteRule="Nullify" db-relationship-path="tipo_produtor"/>
+	<obj-relationship name="transportadoresGuia" source="GuiaAcompanhamentoResiduos" target="TransportadorResiduo" deleteRule="Deny" db-relationship-path="transportadores_guia"/>
+	<obj-relationship name="transporteMateriasPerigosas" source="GuiaAcompanhamentoResiduos" target="TransporteMateriasPerigosas" deleteRule="Nullify" db-relationship-path="transporte_materias_perigosas"/>
+	<obj-relationship name="untitledRel" source="GuiaAcompanhamentoResiduos" target="EstadoHistoricoGar" deleteRule="Deny" db-relationship-path="untitledRel"/>
+	<obj-relationship name="estabelecimento" source="PlanoGestaoLamas" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="perfil" source="PlanoGestaoLamas" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="estabelecimento" source="RemetenteResiduo" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="guiaAcompanhamentoResiduo" source="RemetenteResiduo" target="GuiaAcompanhamentoResiduos" deleteRule="Nullify" db-relationship-path="guia_acompanhamento_residuo"/>
+	<obj-relationship name="localRecolhaRetoma" source="RemetenteResiduo" target="LocalRecolhaRetoma" deleteRule="Nullify" db-relationship-path="localRecolhaRetoma"/>
+	<obj-relationship name="perfilUtilizador" source="RemetenteResiduo" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_utilizador"/>
+	<obj-relationship name="tipoPerfilEgar" source="RemetenteResiduo" target="TTipoPerfilEgar" deleteRule="Nullify" db-relationship-path="tipo_perfil_egar"/>
+	<obj-relationship name="guiaAcompanhamentoResiduos" source="ResiduoTransportado" target="GuiaAcompanhamentoResiduos" deleteRule="Nullify" db-relationship-path="guia_acompanhamento_residuos"/>
+	<obj-relationship name="residuoLer" source="ResiduoTransportado" target="ResiduosLer" deleteRule="Nullify" db-relationship-path="residuo_ler"/>
+	<obj-relationship name="residuoLerRecebido" source="ResiduoTransportado" target="ResiduosLer" deleteRule="Nullify" db-relationship-path="residuo_ler_recebido"/>
+	<obj-relationship name="tipoGrupoResiduo" source="ResiduoTransportado" target="TGrupoResiduo" deleteRule="Nullify" db-relationship-path="tipo_grupo_residuo"/>
+	<obj-relationship name="tipoGrupoResiduoRecebido" source="ResiduoTransportado" target="TGrupoResiduo" deleteRule="Nullify" db-relationship-path="tipo_grupo_residuo_recebido"/>
+	<obj-relationship name="tipoOperacaoResiduo" source="ResiduoTransportado" target="TipoOperacaoEgar" deleteRule="Nullify" db-relationship-path="tipo_operacao_residuo"/>
+	<obj-relationship name="tipoOperacaoResiduoRecebido" source="ResiduoTransportado" target="TipoOperacaoEgar" deleteRule="Nullify" db-relationship-path="tipo_operacao_residuo_recebido"/>
+	<obj-relationship name="tipoOperacaoValorizacao" source="TipoOperacaoEgar" target="TipoOperacaoValorizacao" deleteRule="Nullify" db-relationship-path="tipo_operacao_valorizacao"/>
+	<obj-relationship name="guiaAcompanhamentoResiduos" source="TransportadorResiduo" target="GuiaAcompanhamentoResiduos" deleteRule="Nullify" db-relationship-path="guia_acompanhamento_residuos"/>
+	<obj-relationship name="perfilResiduos" source="TransportadorResiduo" target="PerfilResiduos" deleteRule="Nullify" db-relationship-path="perfil_residuos"/>
+	<obj-relationship name="guiaAcompanhamentoResiduos" source="TransporteMateriasPerigosas" target="GuiaAcompanhamentoResiduos" deleteRule="Nullify" db-relationship-path="guia_acompanhamento_residuos"/>
+	<obj-relationship name="tipoOnuGrupo" source="TransporteMateriasPerigosas" target="TOnuGrupo" deleteRule="Nullify" db-relationship-path="tipo_onu_grupo"/>
+	<query name="getEstabelecimentoByNif" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="egar">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[
+		select cast(estab.id as text) as id, dge.nome as descricao, perfil.nif as nif, estab.cod_apa as codigoapa,
+		dge.cp7 as codpostalsede, dge.localidade as localidadesede, dge.morada as moradasede, perfil.autorizacao_emissao_guias as autorizado
+			from residuos.estabelecimento as estab 
+			join residuos.dados_gerais_estabelecimento as dge on dge.fk_estabelecimento = estab.id
+			join residuos.perfil_residuos as perfil on perfil.fk_perfil = estab.fk_perfil_organizacao
+			where perfil.nif = '$NIFSEARCH' and dge.fk_tipo_inactivacao is null and dge.actual = true and estab.data_activacao is not null order by estab.id
+		    ]]></sql>
+	</query>
+	<query name="getGarByNif" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="egar">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select gar.autorizada as autorizada, gar.codigo_verificacao as codigo_verificacao, gar.numero_gar as numero_gar, t_estado.descricao as estado_descricao, t_estado.codigo as estado_codigo 
+		from egar.guia_acompanhamento_residuos as gar 
+		left join egar.remetente_residuo as rr on rr.fk_guia_acompanhamento_residuos = gar.id 		
+		left join egar.destinatario_residuo as dr on dr.fk_guia_acompanhamento_residuos = gar.id 
+		left join tabelas.t_estado_guia_acompanhamento_residuos as t_estado on t_estado.id = gar.fk_estado_gar 		
+		where 
+		((dr.nif = '$NIFSEARCH' and (t_estado.codigo = 'CN' or t_estado.codigo = 'EM') ) or(rr.nif = '$NIFSEARCH' and (autorizada = false or t_estado.codigo = 'CO'))) and 
+		(gar.data_criacao BETWEEN current_date-30 AND current_date + 1)]]></sql>
+	</query>
+	<query name="getPerfilOrganizacaoByNif" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="egar">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select cast(org.fk_perfil as text) as id, dadosPerfil.nome as descricao, org.nif as nif
+			from residuos.perfil_residuos as org
+			join lic_utilizador.dados_perfil as dadosPerfil on org.nif = dadosPerfil.nif
+			where org.nif ='$NIFSEARCH' and dadosPerfil.actual=true ]]></sql>
+	</query>
+	<query name="getResiduosLerNivel3" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="egar">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select 'ResiduosLer' as tipo, cast(id as text) as id, concat(codigo, ' - ', nome) as descricao 
+		from residuos.residuos_ler as rl where rl.nivel = '3' and rl.activo = true order by rl.id]]></sql>
+	</query>
+	<query name="getSeqCodigoLocalRecolhaRetoma" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="egar">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select nextval('residuos.seq_codigo_local_recolha_retoma') as nextcodigo]]></sql>
+	</query>
+	<query name="getSeqNumeroGar" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="egar">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select nextval('egar.seq_numero_gar') as nextcodigo]]></sql>
+	</query>
+	<query name="getTCategorias" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="egar">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select cast(id as text) as id, concat(codigo, ' - ', descricao) as descricao 
+		from tabelas.t_categorias as tc order by tc.id]]></sql>
+	</query>
+	<query name="getTGrupo" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="egar">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select cast(id as text) as id, concat(codigo, ' - ', descricao) as descricao 
+		from tabelas.t_grupo as tg order by tg.id]]></sql>
+	</query>
+	<query name="getTGrupoResiduo" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="egar">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select cast(id as text) as id, codigo as descricao 
+		from tabelas.t_grupo_residuo as gr where gr.ativo ='true' order by gr.codigo]]></sql>
+	</query>
+	<query name="getTOnu" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="egar">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select cast(id as text) as id, codigo as codigo, concat(n_onu, ' - ', descricao) as descricao 
+		from tabelas.t_onu as ton order by ton.id]]></sql>
+	</query>
+	<query name="getTProdutor" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="egar">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select cast(id as text) as id, concat(codigo, ' - ', descricao) as descricao 
+		from tabelas.t_produtor as tp where tp.ativo ='true' order by tp.id]]></sql>
+	</query>
+	<query name="getTipoOperacaoValorizacao" factory="org.apache.cayenne.map.SQLTemplateBuilder" root="data-map" root-name="egar">
+		<property name="cayenne.GenericSelectQuery.fetchingDataRows" value="true"/>
+		<sql><![CDATA[select cast(id as text) as id, concat(codigo, ' - ', nome) as descricao 
+		from egar.tipo_operacao_egar as op order by op.id]]></sql>
+	</query>
+</data-map>

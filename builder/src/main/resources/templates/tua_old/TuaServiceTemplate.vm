@@ -1,0 +1,654 @@
+#set( $class =".class")
+#set( $CODIGO_PROPERTY = ".CODIGO_PROPERTY" )
+package org.apa.siliamb.lua.services;
+	
+import java.io.OutputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+#foreach( $component in $DATA )
+import org.addition.apa.licenciamento.tabelas.$tabela.getTableNameUpper();
+#end
+import org.addition.apa.licenciamento.tabelas.TDescritorTua;
+import org.addition.apa.licenciamento.tabelas.TEstadoCondicao;
+import org.addition.apa.licenciamento.tabelas.TEstadoTuaVersao;
+import org.addition.apa.licenciamento.tabelas.TFaseTua;
+import org.apa.siliamb.comum.MessageAlertUtils;
+import org.apa.siliamb.comum.helpers.GeracaoDocumentosHelper;
+import org.apa.siliamb.comum.helpers.MetodosComunsHelper;
+import org.apa.siliamb.framework.parameterization.SiliambParamEnum;
+import org.apa.siliamb.framework.parameterization.service.SiliambParamService;
+import org.apa.siliamb.lua.tua.viewmodel.TableViewFilter;
+import org.apa.siliamb.lua.tua.viewmodel.TuaTableView;
+import org.apa.siliamb.lua.tua.viewmodel.VisibilidadeTuaView;
+import org.apache.cayenne.DataObjectUtils;
+import org.apache.cayenne.DataRow;
+import org.apache.cayenne.ObjectContext;
+import org.apache.cayenne.access.DataContext;
+import org.apache.cayenne.exp.Expression;
+import org.apache.cayenne.exp.ExpressionFactory;
+import org.apache.cayenne.query.EJBQLQuery;
+import org.apache.cayenne.query.NamedQuery;
+import org.apache.cayenne.query.Ordering;
+import org.apache.cayenne.query.Query;
+import org.apache.cayenne.query.SelectQuery;
+import org.apache.cayenne.query.SortOrder;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.cxf.common.util.CollectionUtils;
+import org.everis.apa.lua.LuaConsts;
+import org.everis.apa.lua.entities.ProcessoLicenciamentoIntegrado;
+import org.everis.apa.lua.entities.TTRegime;
+import org.everis.apa.lua.entities.TuaVersao;
+import org.everis.apa.lua.entities.TuaVersaoDescritoresVisiveis;
+import org.everis.apa.lua.entities.TuaVersaoDocumento;
+import org.everis.apa.lua.entities.TuaVersaoFasesVisiveis;
+import org.everis.apa.lua.entities.VistoriaDocumento;
+import org.everis.apa.lua.enums.TipoEstadoCondicaoEnum;
+import org.everis.apa.lua.enums.TipoEstadoTuaVersaoEnum;
+import org.everis.apa.lua.enums.TipoFaseTuaEnum;
+import org.everis.apa.lua.helpers.LuaHelper;
+import org.everis.apa.tua.interfaces.CondicaoTua;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xhtmlrenderer.pdf.ITextRenderer;
+
+/**
+ * Class TuaService was generated.
+ * It is probably a good idea to avoid changing this class manually,
+ * since it may be overwritten next time code is regenerated.
+ */
+public class TuaService {
+	
+	private static final Logger log = LoggerFactory.getLogger(TuaService.class);
+	private static final String GET_SEQ_CODIGO_CONDICAO = "getSeqCodigoCondicao";
+	private static final String GET_SEQ_CODIGO_TUA_VERSAO_DOCUMENTO = "getSeqCodigoTuaVersaoDocumento";
+	
+	/** 
+	 * Irá retornar um novo {@link DataContext} 
+	 */
+	private static DataContext getNewContext() {
+		return DataContext.createDataContext(false);
+	}
+	
+	/**
+	 * Devolve a lista de todos os {@link TEstadoCondicao}
+	 * @param ctx - contexto que irá ser utilizado no select. Se null, é criado um novo contexto
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static List<TEstadoCondicao> getTEstadoCondicoes(DataContext ctx){
+		try {
+			if(ctx==null)
+				ctx = getNewContext();
+			
+			SelectQuery selectAll = new SelectQuery(TEstadoCondicao.class);
+			
+			return ctx.performQuery(selectAll);
+		} catch (Exception e ) {
+			log.error("", e);
+		}
+		return Collections.emptyList();
+	}
+	
+	/**
+	 * Retorna o {@link TEstadoCondicao} com o código passado por parâmetro
+	 */
+	public static TEstadoCondicao getTEstadoCondicaoByCodigo(ObjectContext objectContext, String codigoEstado) {
+		Expression expression = ExpressionFactory.matchExp(TEstadoCondicao.CODIGO_PROPERTY, codigoEstado);
+		final SelectQuery query = new SelectQuery(TEstadoCondicao.class,expression);
+		@SuppressWarnings("unchecked")
+		List<TEstadoCondicao> listResult = (List<TEstadoCondicao>) objectContext.performQuery(query);
+
+		if (listResult != null && listResult.size() > 0) {
+			return listResult.get(0);
+		}
+		return null;
+	}
+	
+	/**
+	 * Retorna o {@link TFaseTua} com o código passado por parâmetro
+	 */
+	public static TFaseTua getFaseTuaByCodigo(ObjectContext objectContext, TipoFaseTuaEnum tFase) {
+		Expression expression = ExpressionFactory.matchExp(TFaseTua.CODIGO_PROPERTY, tFase.getCodigo());
+		final SelectQuery query = new SelectQuery(TFaseTua.class,expression);
+		@SuppressWarnings("unchecked")
+		List<TFaseTua> listResult = (List<TFaseTua>) objectContext.performQuery(query);
+
+		if (listResult != null && listResult.size() > 0) {
+			return listResult.get(0);
+		}
+		return null;
+	}
+	
+	/**
+	 * Método responsável por criar um novo código para a condição a inserir na BD
+	 * C######
+	 * @param ctx
+	 * @return
+	 */
+	public static String criarCodigoCondicao(DataContext ctx){
+		return("C" + MetodosComunsHelper.criaCodigoZeros(getSeqCodigoCondicao(ctx)));
+	}
+	
+	/**
+	 * Método responsável por obter o próximo ID da sequência utilizada para gerar os códigos da condição
+	 * 
+	 * @param oc
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private static String getSeqCodigoCondicao(ObjectContext oc) {
+		Query namedQuery = new NamedQuery(GET_SEQ_CODIGO_CONDICAO);
+		Long id = -1l;
+		String codigoId = null;
+
+		final List<DataRow> rows = oc.performQuery(namedQuery);
+
+		if (rows != null && rows.size() > 0) {	
+			id = (Long) rows.get(0).get("nextcodigo");
+			codigoId = String.valueOf(id);		
+		}
+		return codigoId;
+	}
+	
+	/**
+	 * Obter todas as fases configuradas em BD ordenadas pela coluna ordem
+	 * 
+	 * @param ctx
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static List<TFaseTua> getAllFases(ObjectContext ctx) {
+		try {
+			SelectQuery selectAll = new SelectQuery(TFaseTua.class);
+			selectAll.addOrdering(TFaseTua.ORDEM_PROPERTY, SortOrder.ASCENDING);
+			return ctx.performQuery(selectAll);
+		} catch (Exception e ) {
+				log.error("Erro a obter a lista de fases: ", e);
+				ctx.rollbackChanges();
+		}
+		return Collections.emptyList();
+	}
+	
+	/**
+	 * Insere um novo registo na tabela tua_versao_descritores_visiveis
+	 * @return
+	 */
+	public static boolean insertTuaVersaoDescritoresVisiveis(ObjectContext ctx, TuaVersao tuaVersao, TDescritorTua tDescritor){
+		try{
+			TuaVersaoDescritoresVisiveis tvdv = new TuaVersaoDescritoresVisiveis();
+			tvdv.setRelTDescritorTua(tDescritor);
+			tvdv.setRelTuaVersao(tuaVersao);
+			ctx.registerNewObject(tvdv);
+		}
+		catch(Exception ex){
+			log.error("Erro ao adicionar o descritor à tabela tua_versao_descritores_visiveis", ex);
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Apaga um registo na tabela tua_versao_descritores_visiveis
+	 * @return
+	 */
+	public static boolean deleteTuaVersaoDescritoresVisiveis(ObjectContext ctx, TuaVersao tuaVersao, TDescritorTua tDescritor){
+		try{
+			Expression expression = ExpressionFactory.matchExp(TuaVersaoDescritoresVisiveis.REL_TUA_VERSAO_PROPERTY, tuaVersao);
+			expression = expression.andExp(ExpressionFactory.matchExp(TuaVersaoDescritoresVisiveis.REL_TDESCRITOR_TUA_PROPERTY, tDescritor));
+			
+			SelectQuery query = new SelectQuery(TuaVersaoDescritoresVisiveis.class, expression);
+			
+			List<TuaVersaoDescritoresVisiveis> lstTVDV = (List<TuaVersaoDescritoresVisiveis>) ctx.performQuery(query);
+			//Supostamente deve retornar apenas 1 resultado
+			
+			ctx.deleteObjects(lstTVDV);
+		}
+		catch(Exception ex){
+			log.error("Erro ao eliminar o descritor "+ tDescritor.getCodigo() +" da tabela tua_versao_descritores_visiveis", ex);
+			return false;
+		}
+		return true;
+	}
+	
+	
+	/**
+	 * Insere um novo registo na tabela tua_versao_fases_visiveis
+	 * @return
+	 */
+	public static boolean insertTuaVersaoFasesVisiveis(ObjectContext ctx, TuaVersao tuaVersao, TFaseTua tFase){
+		try{
+			TuaVersaoFasesVisiveis tvfv = new TuaVersaoFasesVisiveis();
+			tvfv.setRelTuaVersao(tuaVersao);
+			tvfv.setRelTFaseTua(tFase);
+			ctx.registerNewObject(tvfv);	
+		}
+		catch(Exception ex){
+			log.error("Erro ao adicionar a fase à tabela tua_versao_fases_visiveis", ex);
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Apaga um registo na tabela tua_versao_fases_visiveis
+	 * @return
+	 */
+	public static boolean deleteTuaVersaoFasesVisiveis(ObjectContext ctx, TuaVersao tuaVersao, TFaseTua tFase){
+		try{
+			Expression expression = ExpressionFactory.matchExp(TuaVersaoFasesVisiveis.REL_TUA_VERSAO_PROPERTY, tuaVersao);
+			expression = expression.andExp(ExpressionFactory.matchExp(TuaVersaoFasesVisiveis.REL_TFASE_TUA_PROPERTY, tFase));
+			
+			SelectQuery query = new SelectQuery(TuaVersaoFasesVisiveis.class, expression);
+			
+			List<TuaVersaoFasesVisiveis> lstTVFV = (List<TuaVersaoFasesVisiveis>) ctx.performQuery(query);
+			//Supostamente deve retornar apenas 1 resultado
+			
+			ctx.deleteObjects(lstTVFV);
+		}
+		catch(Exception ex){
+			log.error("Erro ao eliminar a fase "+ tFase.getCodigo() +" da tabela tua_versao_fases_visiveis", ex);
+			return false;
+		}
+		return true;
+	}
+	
+	
+	/**
+	 * Retorna uma lista de {@link TuaVersaoFasesVisiveis} visiveis para uma determinada {@link TuaVersao}
+	 * 
+	 * @param objectContext
+	 * @param tuaVersao
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static List<TuaVersaoFasesVisiveis> getFasesVisiveisByTuaVersao(ObjectContext objectContext, TuaVersao tuaVersao) {
+		Expression expression = ExpressionFactory.matchExp(TuaVersaoFasesVisiveis.REL_TUA_VERSAO_PROPERTY, tuaVersao);
+		final SelectQuery query = new SelectQuery(TuaVersaoFasesVisiveis.class, expression);
+		
+		return (List<TuaVersaoFasesVisiveis>) objectContext.performQuery(query);
+	}
+	
+	/**
+	 * Retorna uma lista de {@link TuaVersaoDescritoresVisiveis} visiveis para uma determinada {@link TuaVersao}
+	 * 
+	 * @param objectContext
+	 * @param tuaVersao
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static List<TuaVersaoDescritoresVisiveis> getDescritoresVisiveisByTuaVersao(ObjectContext objectContext, TuaVersao tuaVersao) {
+		Expression expression = ExpressionFactory.matchExp(TuaVersaoDescritoresVisiveis.REL_TUA_VERSAO_PROPERTY, tuaVersao);
+		final SelectQuery query = new SelectQuery(TuaVersaoDescritoresVisiveis.class, expression);
+		
+		return (List<TuaVersaoDescritoresVisiveis>) objectContext.performQuery(query);
+	}
+
+	/**
+	 * Retorna o {@link TEstadoTuaVersao} com o código passado por parâmetro
+	 */
+	public static TEstadoTuaVersao getTEstadoTuaVersaoByCodigo(ObjectContext objectContext, String codigoEstado) {
+		Expression expression = ExpressionFactory.matchExp(TEstadoTuaVersao.CODIGO_PROPERTY, codigoEstado);
+		final SelectQuery query = new SelectQuery(TEstadoTuaVersao.class,expression);
+		
+		@SuppressWarnings("unchecked")
+		List<TEstadoTuaVersao> listResult = (List<TEstadoTuaVersao>) objectContext.performQuery(query);
+
+		if (listResult != null && listResult.size() > 0) {
+			return listResult.get(0);
+		}
+		return null;
+	}
+	
+	/**
+	 * Método que cria um nova versão na base de dados, na tabela TuaVersao 
+	 * para um dado {@link ProcessoLicenciamentoIntegrado} 
+	 * @param pli - {@link ProcessoLicenciamentoIntegrado} ao qual a versão ficará associada.
+	 * @param versao - número da nova versão
+	 * @param utilizaqdor
+	 * @return TuaVersao criado
+	 * @throws Exception 
+	 */
+	public static TuaVersao criarTuaVersao(ObjectContext context, ProcessoLicenciamentoIntegrado pli, Integer versao, String utilizador, String codEstado) throws Exception {
+		
+		try {
+			
+			TEstadoTuaVersao estado = getTEstadoTuaVersaoByCodigo(context, codEstado);
+			
+			TuaVersao tuaVersao = new TuaVersao();
+			context.registerNewObject(tuaVersao);
+			tuaVersao.setRelPli(pli);
+			tuaVersao.setVersao(versao);
+			tuaVersao.setRelEstado(estado);
+			tuaVersao.setDataCriacao(Calendar.getInstance().getTime());
+			tuaVersao.setUtilizadorCriacao(utilizador);
+			
+			return tuaVersao;
+			
+		} catch (Exception ex) {
+			throw new Exception ("Erro ao criar novo TuaVersao na base de dados. ", ex);
+		}		
+	}
+
+	/**
+	 * Método que retorna o {@link TuaVersaoDocumento} para o Código de Documento e Código de Verificacao fornecidos
+	 * @param codDocumento
+	 * @param codVerificacao
+	 * @return
+	 */
+	public static TuaVersaoDocumento getDocumentoTuaByCodDocumentoAndCodVerificacao(String codDocumento, String codVerificacao){
+		DataContext oc = getNewContext();
+		
+		EJBQLQuery query = new EJBQLQuery("select doc " + 
+				"from TuaVersaoDocumento doc " +
+				"where doc.codigoDocumento = :codDocumento " +
+				"and doc.codigoVerificacao = :codVerificacao ");
+		
+		query.setParameter("codDocumento", codDocumento);
+		query.setParameter("codVerificacao", codVerificacao);
+		
+		@SuppressWarnings("unchecked")
+		List<TuaVersaoDocumento> tuaDocs = oc.performQuery(query);
+	
+		if(!CollectionUtils.isEmpty(tuaDocs)) {
+			return tuaDocs.get(0);
+		}	
+		return null;
+	}
+	
+	/**
+	 * Método que gera o PDF com o Título Único ambiental.
+	 * Pode receber como parámetros os códigos do {@link TuaVersaoDocumento} (codDoc e codVrf)
+	 * ou o Id do {@ProcessoLicenciamentoIntegrado} (idPli). 
+	 * Para filtar as condições para um dado regime pode ser acrescentado o parâmetro regime
+	 * 
+	 * @param context
+	 * @param codDoc - Código do Documento
+	 * @param codVrf - Código de Verificação
+	 * @param idTuaVersao - Id da TuaVersao
+	 * @param regime - Regime (opcional)
+	 * @param isBackOffice - Indica o módulo que está a gerar o pdf
+	 * @return true se o pdf for gerado com sucesso, false caso contrário
+	 */
+	public static boolean generatePdfTua(FacesContext context, String codDoc, String codVrf, String idTuaVersao, String regime, boolean isBackOffice){
+		
+    	ExternalContext externalContext = context.getExternalContext();
+    	HttpSession session = (HttpSession) externalContext.getSession(true);
+    	
+    	String pageTua = SiliambParamService.getString(SiliambParamEnum.URL_AMBIENTE) + "/";
+    	if(isBackOffice){
+    		pageTua = pageTua + "adm/";
+    	}
+    	pageTua = pageTua + SiliambParamService.getString(SiliambParamEnum.TUA_DOC_URL);
+    	if(pageTua != null){
+    		
+	    	String url = pageTua +";jsessionid=" + session.getId() + "?pdf=true";
+	    	
+	    		if(!StringUtils.isEmpty(codDoc) && !StringUtils.isEmpty(codVrf)){
+	    			url = url + "&" + LuaConsts.COD_DOC_REQUEST_PARAM  + "=" + codDoc
+	    					  + "&" + LuaConsts.COD_VRF__REQUEST_PARAM + "=" + codVrf;
+	    		}
+	    		else if (!StringUtils.isEmpty(idTuaVersao)) {
+	    			url = url + "&" + LuaConsts.TUA_VERSAO_REQUEST_PARAM + "=" + idTuaVersao;	    			
+	    		}
+	    		else {
+	    			log.error("Nenhum param com as keys obrigatórias encontrado.");
+	    			MessageAlertUtils.addErrorMessage(MessageAlertUtils.MESSAGE, "msg.erro.obter.documento.tua", "", "msg_tua", null);
+	    			return false;
+	    		}
+	    		
+	    		if (!StringUtils.isEmpty(regime)){
+    				url = url + "&" + LuaConsts.REGIME_REQUEST_PARAM + "=" + regime;
+    			}	
+	    		
+	        try {
+	        	
+	        	ITextRenderer renderer = new ITextRenderer();
+	        	renderer.setDocument(new URL(url).toString());   	
+	        	renderer.layout();
+	        	HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+	        	response.reset();
+	        	response.setContentType("application/pdf");
+	        	response.setHeader("Content-Disposition", "inline; filename=\"Título Único Ambiental\"");
+	        	OutputStream outputStream = response.getOutputStream();
+	        	renderer.createPDF(outputStream);
+	        	        	    	
+	        } catch (Exception ex) {
+	            log.error("Erro ao gerar o PDF: " + url, ex);
+	            return false;
+	        }
+		    context.responseComplete(); 
+    	}
+    	 return true;
+	}
+	
+	/**
+	 * Método responsável por obter todos os descritores associados a uma determinada fase e de um determinado nivel
+	 * ordenados pela coluna Ordem
+	 * 
+	 * @param objectContext
+	 * @param tFase
+	 * @param nivel
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static List<TDescritorTua> getDescritoresByFaseAndNivel(ObjectContext objectContext, TFaseTua tFase, Integer nivel){
+		Expression expression = ExpressionFactory.matchExp(TDescritorTua.REL_TFASE_TUA_PROPERTY, tFase);
+		expression = expression.andExp(ExpressionFactory.matchExp(TDescritorTua.NIVEL_PROPERTY, nivel));
+		
+		SelectQuery query = new SelectQuery(TDescritorTua.class, expression);
+		query.addOrdering(TDescritorTua.ORDEM_PROPERTY, SortOrder.ASCENDING);
+		
+		return (List<TDescritorTua>) objectContext.performQuery(query);
+	}
+
+	/**
+	 * Devolve o {@link TuaVersao} com o Id fornecido;
+	 * @param tuaVersaoId
+	 * @return
+	 */
+	public static TuaVersao getTuaVersao(ObjectContext context, Integer tuaVersaoId){
+		if(context==null)
+			context = getNewContext();
+		
+		return DataObjectUtils.objectForPK(context, TuaVersao.class, tuaVersaoId);
+	}
+	
+	/**
+	 * Converte uma lista de TuaVersaoFasesVisiveis para uma lista de Strings com o código da fase
+	 * @param lstFasesVisiveis
+	 * @return
+	 */
+	public static List<String> getCodigosFases(List<TuaVersaoFasesVisiveis> lstFasesVisiveis){
+		List<String> lst = new ArrayList<String>();
+		for(TuaVersaoFasesVisiveis tvfv : lstFasesVisiveis){
+			lst.add(tvfv.getRelTFaseTua().getCodigo());
+		}
+		return lst;
+	}
+	
+	/**
+	 * Converte uma lista de TuaVersaoDescritoresVisiveis para uma lista de Strings com o código do descritor
+	 * @param lstDescritoresVisiveis
+	 * @return
+	 */
+	public static List<String> getCodigosDescritores(List<TuaVersaoDescritoresVisiveis> lstDescritoresVisiveis){
+		List<String> lst = new ArrayList<String>();
+		for(TuaVersaoDescritoresVisiveis tvfv : lstDescritoresVisiveis){
+			lst.add(tvfv.getRelTDescritorTua().getCodigo());
+		}
+		return lst;
+	}
+	
+	/**
+	 * Método responsável por obter o próximo ID da sequência utilizada para gerar
+	 * o código de documento do {@link TuaVersaoDocumento} 
+	 * 
+	 * @param oc
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private static String getSeqCodigoTuaVersaoDocumento(ObjectContext oc) {
+		Query namedQuery = new NamedQuery(GET_SEQ_CODIGO_TUA_VERSAO_DOCUMENTO);
+		Long id = -1l;
+		String codigoId = null;
+
+		final List<DataRow> rows = oc.performQuery(namedQuery);
+
+		if (rows != null && rows.size() > 0) {	
+			id = (Long) rows.get(0).get("nextcodigo");
+			codigoId = String.valueOf(id);		
+		}
+		return codigoId;
+	}
+
+	/**
+	 * Método responsável por criar um novo código documento para o {@link TuaVersaoDocumento}
+	 * @param context
+	 * @return
+	 */
+	private static String criarCodigoTuaVersaoDocumento(ObjectContext context){
+		Format formatter = new SimpleDateFormat("yyyyMMdd");
+		Date today = Calendar.getInstance().getTime();
+		String time = formatter.format(today);
+		return("TUAD" + time +MetodosComunsHelper.criaCodigoZeros(getSeqCodigoCondicao(context)));
+	}
+
+	/**
+	 * Método responsável por criar um novo {@link TuaVersaoDocumento} para o dado
+	 * {@link TuaVersao} e {@link TTRegime}
+	 * @param tuaVersao
+	 * @param regime
+	 */
+	public static boolean criarTuaVersaoDocumento(TuaVersao tuaVersao, TTRegime regime){
+		ObjectContext context = null;
+		
+		try {
+			if(tuaVersao.getObjectContext()!=null){
+			context = tuaVersao.getObjectContext();
+			}
+			else {
+				context = DataContext.createDataContext();
+			}
+			Date data = Calendar.getInstance().getTime();
+			Format formatter = new SimpleDateFormat("yyyyMMdd");
+			String time = formatter.format(data);
+			
+			String codigoDocumento = criarCodigoTuaVersaoDocumento(context);
+			String codigoVerificacao = GeracaoDocumentosHelper.creatHashCode(LuaConsts.COD_TO_HASH_TUA, codigoDocumento, time);
+			
+			TuaVersaoDocumento documento = new TuaVersaoDocumento();
+			context.registerNewObject(documento);
+			
+			documento.setCodigoDocumento(codigoDocumento);
+			documento.setCodigoVerificacao(codigoVerificacao);
+			documento.setRelTuaVersao(tuaVersao);
+			documento.setRelTTRegime(regime);
+
+			context.commitChanges();
+			
+			return true;
+			
+		} catch (Exception ex) {
+			context.rollbackChanges();
+			log.error("Erro ao criar novo TuaVersaoDocumentos na base de dados. ", ex);
+		}
+		return false;
+	}
+
+
+	/**
+	 * Método que utiliza reflection para incializar um objeto java (ex: *Tua*TableView) invocando o seu construtor com argumentos 
+	 * 
+	 * @param constructor
+	 * @param arguments
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	@SuppressWarnings("rawtypes")
+	public static Object createObject(Constructor constructor, Object[] arguments)
+			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+
+		Object object = null;
+
+		object = constructor.newInstance(arguments);
+		return object;
+	}
+	
+	/**
+	 * Obtém a lista de {@link TDescritorTua} que são Dados Gerais e que têm uma tabela associada
+	 * @param ctx
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<TDescritorTua> getLstDescritoresDadosGerais(ObjectContext ctx) throws Exception {
+		try {
+			String queryStatement = "select distinct descritor " + 
+				"from TDescritorTua descritor " +
+				"join descritor."+TDescritorTua.REL_TFASE_TUA_PROPERTY+" fase " +
+				"where fase."+TFaseTua.DADOS_GERAIS_PROPERTY+" = true " +
+				"and descritor."+TDescritorTua.ENTIDADE_NAME_PROPERTY+" is not null ";
+				
+			EJBQLQuery query = new EJBQLQuery(queryStatement);					
+			@SuppressWarnings("unchecked")
+			List<TDescritorTua> lstCondicoes = ctx.performQuery(query);
+			
+			return lstCondicoes;
+		} catch (Exception e ) {
+			throw new Exception ("Ocorreu um erro a obter a lista de descritores que são Dados Gerais.", e);
+		}
+	}
+
+	
+	/* Obter os resultados das listas de valores (tabelas base) */
+	
+#foreach( $tabela in $tabelas )
+	/**
+	* Obtém a lista de {@link $tabela.getTableNameUpper()} existente em base dados.
+	*/
+	@SuppressWarnings("unchecked")
+	public static List<$tabela.getTableNameUpper()> getLst$tabela.getTableNameMethod()(DataContext ctx){
+		try {
+			SelectQuery selectAll = new SelectQuery($tabela.getTableNameUpper()$class);
+			return ctx.performQuery(selectAll);
+			} catch (Exception e ) {
+				log.error("Erro a obter a lista de $tabela.getTableNameUpper(): ", e);
+				ctx.rollbackChanges();
+			}
+		return Collections.emptyList();
+	}
+	
+	/**
+	* Obtém um objecto {@link $tabela.getTableNameUpper()} pelo código selecionado.
+	*/
+	public static $tabela.getTableNameUpper() get$tabela.getTableNameUpper()ByCodigo(String codigo, DataContext ctx){
+		Expression expression = ExpressionFactory.matchExp($tabela.getTableNameUpper()$CODIGO_PROPERTY, codigo);
+		final SelectQuery query = new SelectQuery($tabela.getTableNameUpper()$class,expression);
+		@SuppressWarnings("unchecked")
+		List<$tabela.getTableNameUpper()> listResult = (List<$tabela.getTableNameUpper()>) ctx.performQuery(query);
+
+		if (listResult != null && listResult.size() > 0) {
+			return listResult.get(0);
+		}
+		return null;
+	}
+#end
+	
+}
+

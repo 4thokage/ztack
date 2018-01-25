@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.mensagem"/>
+	<property name="defaultSchema" value="lic_mensagem"/>
+	<db-entity name="mensagem" schema="lic_mensagem">
+		<db-attribute name="assunto" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="data" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_mail" type="TIMESTAMP"/>
+		<db-attribute name="data_processada" type="TIMESTAMP"/>
+		<db-attribute name="de_utilizador" type="BOOLEAN"/>
+		<db-attribute name="estab_nome" type="VARCHAR" length="500"/>
+		<db-attribute name="fk_admin" type="INTEGER"/>
+		<db-attribute name="fk_ambito" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_criador" type="INTEGER"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_estado_mail" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mirr" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mtr" type="INTEGER"/>
+		<db-attribute name="fk_perfil" type="INTEGER"/>
+		<db-attribute name="fk_requerimento" type="INTEGER"/>
+		<db-attribute name="fk_tipo_mensagem" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_titulo" type="INTEGER"/>
+		<db-attribute name="form_mirr_nome" type="VARCHAR" length="500"/>
+		<db-attribute name="form_mrru_nome" type="VARCHAR" length="500"/>
+		<db-attribute name="form_mtr_nome" type="VARCHAR" length="500"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="reply_to_id" type="INTEGER"/>
+		<db-attribute name="texto" type="LONGVARCHAR"/>
+		<db-attribute name="visivel_fo" type="BOOLEAN"/>
+	</db-entity>
+	<db-entity name="pedido_registo_mensagens" schema="lic_mensagem">
+		<db-attribute name="assunto" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="fk_estado" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_pedido_registo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="mensagem" type="VARCHAR" isMandatory="true" length="4000"/>
+	</db-entity>
+	<db-entity name="pedido_registo_mensagens_estado" schema="lic_mensagem">
+		<db-attribute name="activo" type="BOOLEAN" isMandatory="true"/>
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="64"/>
+		<db-attribute name="codigo_label" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="descricao" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="template_mensagem" schema="lic_mensagem">
+		<db-attribute name="assunto" type="VARCHAR" isMandatory="true" length="500"/>
+		<db-attribute name="atualizadopor" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="codigo" type="VARCHAR" isMandatory="true" length="20"/>
+		<db-attribute name="criadopor" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="dataAtualizacao" type="DATE" isMandatory="true"/>
+		<db-attribute name="dataCriacao" type="DATE" isMandatory="true"/>
+		<db-attribute name="fk_ambito" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_tipo_mensagem" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="texto" type="LONGVARCHAR"/>
+	</db-entity>
+	<db-entity name="view_mensagens" schema="lic_mensagem">
+		<db-attribute name="administrador_nome" type="LONGVARCHAR"/>
+		<db-attribute name="ambito_nome" type="LONGVARCHAR"/>
+		<db-attribute name="assunto" type="LONGVARCHAR"/>
+		<db-attribute name="data" type="TIMESTAMP"/>
+		<db-attribute name="data_processada" type="TIMESTAMP"/>
+		<db-attribute name="de_utilizador" type="BOOLEAN"/>
+		<db-attribute name="fk_administrador" type="INTEGER"/>
+		<db-attribute name="fk_ambito" type="INTEGER"/>
+		<db-attribute name="fk_organismo" type="INTEGER"/>
+		<db-attribute name="fk_perfil" type="INTEGER"/>
+		<db-attribute name="fk_tipo_mensagem" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="perfil_email" type="LONGVARCHAR"/>
+		<db-attribute name="perfil_nif" type="LONGVARCHAR"/>
+		<db-attribute name="perfil_nome" type="LONGVARCHAR"/>
+		<db-attribute name="texto" type="LONGVARCHAR"/>
+		<db-attribute name="tipo_mensagem_nome" type="LONGVARCHAR"/>
+	</db-entity>
+	<obj-entity name="Mensagem" className="org.addition.apa.mensagem.Mensagem" dbEntityName="mensagem">
+		<obj-attribute name="assunto" type="java.lang.String" db-attribute-path="assunto"/>
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="dataMail" type="java.util.Date" db-attribute-path="data_mail"/>
+		<obj-attribute name="dataProcessada" type="java.util.Date" db-attribute-path="data_processada"/>
+		<obj-attribute name="deUtilizador" type="java.lang.Boolean" db-attribute-path="de_utilizador"/>
+		<obj-attribute name="estabNome" type="java.lang.String" db-attribute-path="estab_nome"/>
+		<obj-attribute name="formMirrNome" type="java.lang.String" db-attribute-path="form_mirr_nome"/>
+		<obj-attribute name="formMrruNome" type="java.lang.String" db-attribute-path="form_mrru_nome"/>
+		<obj-attribute name="formMtrNome" type="java.lang.String" db-attribute-path="form_mtr_nome"/>
+		<obj-attribute name="texto" type="java.lang.String" db-attribute-path="texto"/>
+		<obj-attribute name="visivelFo" type="java.lang.Boolean" db-attribute-path="visivel_fo"/>
+	</obj-entity>
+	<obj-entity name="PedidoRegistoMensagens" className="org.addition.apa.mensagem.PedidoRegistoMensagens" dbEntityName="pedido_registo_mensagens">
+		<obj-attribute name="assunto" type="java.lang.String" db-attribute-path="assunto"/>
+		<obj-attribute name="mensagem" type="java.lang.String" db-attribute-path="mensagem"/>
+	</obj-entity>
+	<obj-entity name="PedidoRegistoMensagensEstado" className="org.addition.apa.mensagem.PedidoRegistoMensagensEstado" dbEntityName="pedido_registo_mensagens_estado">
+		<obj-attribute name="activo" type="java.lang.Boolean" db-attribute-path="activo"/>
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="codigoLabel" type="java.lang.String" db-attribute-path="codigo_label"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<obj-entity name="TemplateMensagem" className="org.addition.apa.mensagem.TemplateMensagem" dbEntityName="template_mensagem">
+		<obj-attribute name="assunto" type="java.lang.String" db-attribute-path="assunto"/>
+		<obj-attribute name="atualizadopor" type="java.lang.String" db-attribute-path="atualizadopor"/>
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="criadopor" type="java.lang.String" db-attribute-path="criadopor"/>
+		<obj-attribute name="dataAtualizacao" type="java.util.Date" db-attribute-path="dataAtualizacao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="dataCriacao"/>
+		<obj-attribute name="texto" type="java.lang.String" db-attribute-path="texto"/>
+	</obj-entity>
+	<obj-entity name="ViewMensagens" className="org.addition.apa.mensagem.ViewMensagens" readOnly="true" dbEntityName="view_mensagens">
+		<obj-attribute name="administradorNome" type="java.lang.String" db-attribute-path="administrador_nome"/>
+		<obj-attribute name="ambitoNome" type="java.lang.String" db-attribute-path="ambito_nome"/>
+		<obj-attribute name="assunto" type="java.lang.String" db-attribute-path="assunto"/>
+		<obj-attribute name="data" type="java.util.Date" db-attribute-path="data"/>
+		<obj-attribute name="dataProcessada" type="java.util.Date" db-attribute-path="data_processada"/>
+		<obj-attribute name="deUtilizador" type="java.lang.Boolean" db-attribute-path="de_utilizador"/>
+		<obj-attribute name="perfilEmail" type="java.lang.String" db-attribute-path="perfil_email"/>
+		<obj-attribute name="perfilNif" type="java.lang.String" db-attribute-path="perfil_nif"/>
+		<obj-attribute name="perfilNome" type="java.lang.String" db-attribute-path="perfil_nome"/>
+		<obj-attribute name="texto" type="java.lang.String" db-attribute-path="texto"/>
+		<obj-attribute name="tipoMensagemNome" type="java.lang.String" db-attribute-path="tipo_mensagem_nome"/>
+	</obj-entity>
+	<db-relationship name="administrador" source="mensagem" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_admin" target="id"/>
+	</db-relationship>
+	<db-relationship name="ambito" source="mensagem" target="t_ambito_mensagem" toMany="false">
+		<db-attribute-pair source="fk_ambito" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="mensagem" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="mensagem" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="estado_mail" source="mensagem" target="t_estado_mail" toMany="false">
+		<db-attribute-pair source="fk_estado_mail" target="id"/>
+	</db-relationship>
+	<db-relationship name="ficheiros" source="mensagem" target="ficheiro_mensagem" toMany="true">
+		<db-attribute-pair source="id" target="fk_mensagem"/>
+	</db-relationship>
+	<db-relationship name="formulario_mirr" source="mensagem" target="formulario_mirr" toMany="false">
+		<db-attribute-pair source="fk_formulario_mirr" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="mensagem" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mtr" source="mensagem" target="formulario_mtr" toMany="false">
+		<db-attribute-pair source="fk_formulario_mtr" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="mensagem" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="requerimento" source="mensagem" target="requerimento" toMany="false">
+		<db-attribute-pair source="fk_requerimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="resposta_a_mensagem" source="mensagem" target="mensagem" toMany="false">
+		<db-attribute-pair source="reply_to_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="respostas" source="mensagem" target="mensagem" toMany="true">
+		<db-attribute-pair source="id" target="reply_to_id"/>
+	</db-relationship>
+	<db-relationship name="tipo_mensagem" source="mensagem" target="t_tipo_mensagem" toMany="false">
+		<db-attribute-pair source="fk_tipo_mensagem" target="id"/>
+	</db-relationship>
+	<db-relationship name="titulo" source="mensagem" target="titulo" toMany="false">
+		<db-attribute-pair source="fk_titulo" target="id"/>
+	</db-relationship>
+	<db-relationship name="estado" source="pedido_registo_mensagens" target="pedido_registo_mensagens_estado" toMany="false">
+		<db-attribute-pair source="fk_estado" target="id"/>
+	</db-relationship>
+	<db-relationship name="pedidoRegisto" source="pedido_registo_mensagens" target="pedido_registo" toMany="false">
+		<db-attribute-pair source="fk_pedido_registo" target="id"/>
+	</db-relationship>
+	<db-relationship name="listMensagensPedidoRegisto" source="pedido_registo_mensagens_estado" target="pedido_registo_mensagens" toMany="true">
+		<db-attribute-pair source="id" target="fk_estado"/>
+	</db-relationship>
+	<db-relationship name="ambito" source="template_mensagem" target="t_ambito_mensagem" toMany="false">
+		<db-attribute-pair source="fk_ambito" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_mensagem" source="template_mensagem" target="t_tipo_mensagem" toMany="false">
+		<db-attribute-pair source="fk_tipo_mensagem" target="id"/>
+	</db-relationship>
+	<db-relationship name="administrador" source="view_mensagens" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_administrador" target="id"/>
+	</db-relationship>
+	<db-relationship name="ambitoMensagem" source="view_mensagens" target="t_ambito_mensagem" toMany="false">
+		<db-attribute-pair source="fk_ambito" target="id"/>
+	</db-relationship>
+	<db-relationship name="organismo" source="view_mensagens" target="t_organismo" toMany="false">
+		<db-attribute-pair source="fk_organismo" target="id"/>
+	</db-relationship>
+	<db-relationship name="perfil" source="view_mensagens" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipoMensagem" source="view_mensagens" target="t_tipo_mensagem" toMany="false">
+		<db-attribute-pair source="fk_tipo_mensagem" target="id"/>
+	</db-relationship>
+	<obj-relationship name="administrador" source="Mensagem" target="Administrador" deleteRule="Nullify" db-relationship-path="administrador"/>
+	<obj-relationship name="ambito" source="Mensagem" target="TAmbitoMensagem" deleteRule="Nullify" db-relationship-path="ambito"/>
+	<obj-relationship name="criador" source="Mensagem" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="estabelecimento" source="Mensagem" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="estadoMail" source="Mensagem" target="TEstadoMail" deleteRule="Nullify" db-relationship-path="estado_mail"/>
+	<obj-relationship name="ficheiros" source="Mensagem" target="FicheiroMensagem" deleteRule="Deny" db-relationship-path="ficheiros"/>
+	<obj-relationship name="formularioMirr" source="Mensagem" target="FormularioMirr" deleteRule="Nullify" db-relationship-path="formulario_mirr"/>
+	<obj-relationship name="formularioMrru" source="Mensagem" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMtr" source="Mensagem" target="FormularioMtr" deleteRule="Nullify" db-relationship-path="formulario_mtr"/>
+	<obj-relationship name="perfil" source="Mensagem" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="requerimento" source="Mensagem" target="Requerimento" deleteRule="Nullify" db-relationship-path="requerimento"/>
+	<obj-relationship name="respostaAMensagem" source="Mensagem" target="Mensagem" deleteRule="Nullify" db-relationship-path="resposta_a_mensagem"/>
+	<obj-relationship name="respostas" source="Mensagem" target="Mensagem" deleteRule="Deny" db-relationship-path="respostas"/>
+	<obj-relationship name="tipoMensagem" source="Mensagem" target="TTipoMensagem" deleteRule="Nullify" db-relationship-path="tipo_mensagem"/>
+	<obj-relationship name="titulo" source="Mensagem" target="Titulo" deleteRule="Nullify" db-relationship-path="titulo"/>
+	<obj-relationship name="estado" source="PedidoRegistoMensagens" target="PedidoRegistoMensagensEstado" deleteRule="Nullify" db-relationship-path="estado"/>
+	<obj-relationship name="pedidoRegisto" source="PedidoRegistoMensagens" target="PedidoRegisto" deleteRule="Nullify" db-relationship-path="pedidoRegisto"/>
+	<obj-relationship name="listMensagensPedidoRegisto" source="PedidoRegistoMensagensEstado" target="PedidoRegistoMensagens" deleteRule="Deny" db-relationship-path="listMensagensPedidoRegisto"/>
+	<obj-relationship name="ambito" source="TemplateMensagem" target="TAmbitoMensagem" deleteRule="Nullify" db-relationship-path="ambito"/>
+	<obj-relationship name="tipoMensagem" source="TemplateMensagem" target="TTipoMensagem" deleteRule="Nullify" db-relationship-path="tipo_mensagem"/>
+	<obj-relationship name="administrador" source="ViewMensagens" target="Administrador" deleteRule="Nullify" db-relationship-path="administrador"/>
+	<obj-relationship name="ambitoMensagem" source="ViewMensagens" target="TAmbitoMensagem" deleteRule="Nullify" db-relationship-path="ambitoMensagem"/>
+	<obj-relationship name="organismo" source="ViewMensagens" target="TOrganismo" deleteRule="Nullify" db-relationship-path="organismo"/>
+	<obj-relationship name="perfil" source="ViewMensagens" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil"/>
+	<obj-relationship name="tipoMensagem" source="ViewMensagens" target="TTipoMensagem" deleteRule="Nullify" db-relationship-path="tipoMensagem"/>
+</data-map>

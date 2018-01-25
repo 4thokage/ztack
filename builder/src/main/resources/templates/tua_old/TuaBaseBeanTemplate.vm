@@ -1,0 +1,233 @@
+#set( $TV = "TableView" )
+#set( $MV = ".xhtml" )
+#set( $DV = "Dialog.xhtml" )
+package org.apa.siliamb.lua.tua.beans;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.addition.apa.licenciamento.tabelas.TDescritorTua;
+import org.addition.apa.licenciamento.tabelas.TFaseTua;
+import org.apa.siliamb.lua.services.TuaService;
+#*
+#foreach( $entity in $entities )
+#if(!$entity.getName().endsWith("Hist"))
+import org.apa.siliamb.lua.tua.tableview.$entity.getName()$TV;
+#end
+#end
+*#
+import org.apa.siliamb.lua.tua.viewmodel.DescritorViewModel;
+import org.apa.siliamb.lua.tua.viewmodel.FaseViewModel;
+import org.apa.siliamb.lua.tua.viewmodel.TableViewFilter;
+import org.apa.siliamb.lua.tua.viewmodel.TuaTableView;
+import org.apa.siliamb.lua.tua.viewmodel.VisibilidadeTuaView;
+import org.apache.cayenne.access.DataContext;
+import org.apache.commons.lang3.StringUtils;
+import org.everis.apa.lua.entities.ProcessoLicenciamentoIntegrado;
+import org.everis.apa.lua.entities.ProcessoLicenciamentoIntegradoRegime;
+import org.everis.apa.lua.entities.TTRegime;
+import org.everis.apa.lua.entities.TuaVersao;
+import org.everis.apa.lua.entities.TuaVersaoDescritoresVisiveis;
+import org.everis.apa.lua.entities.TuaVersaoFasesVisiveis;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Class TuaBaseBean was generated.
+ * It is probably a good idea to avoid changing this class manually,
+ * since it may be overwritten next time code is regenerated.
+ */
+
+public abstract class TuaBaseBean implements Serializable{
+	
+	private static final Logger log = LoggerFactory.getLogger(TuaBaseBean.class);
+	
+	private ProcessoLicenciamentoIntegrado pli; //
+	private ProcessoLicenciamentoIntegradoRegime plir;
+	private TuaVersao tuaVersao;
+	private Map<String, FaseViewModel> mapFases = new LinkedHashMap<String, FaseViewModel>();
+	private DataContext dataContext;
+	private String utilizadorAuditoria;
+	private TableViewFilter tableViewFilter;
+	private static final int NUMERO_MAXIMO_NIVEIS=3;
+	
+	private VisibilidadeTuaView visibilidadeTua;
+	
+	/**
+	 * Método responsável por inicializar o hashMap das fases/descritores
+	 */
+	protected void inicializarMapFases(){
+		//Obter fases e descritores
+		List<TFaseTua> lstFases = TuaService.getAllFases(dataContext);
+		
+		List<TuaVersaoFasesVisiveis> lstFasesVisiveis = TuaService.getFasesVisiveisByTuaVersao(dataContext, tuaVersao);
+		List<TuaVersaoDescritoresVisiveis> lstDescritoresVisiveis = TuaService.getDescritoresVisiveisByTuaVersao(dataContext, tuaVersao);
+		List<String> lstFasesVisiveisStr = getCodigosFases(lstFasesVisiveis);
+		List<String> lstDescritoresVisiveisStr = getCodigosDescritores(lstDescritoresVisiveis);
+		
+		for(TFaseTua tf : lstFases){
+			FaseViewModel fvm = new FaseViewModel();
+			fvm.setFaseTua(tf);
+			fvm.setVisivel(false);
+			
+			if(lstFasesVisiveisStr.contains(tf.getCodigo()) || tf.getDadosGerais())
+				fvm.setVisivel(true);
+			
+			fvm.setMapDescritores(getDescritoresFase(tf, utilizadorAuditoria, lstDescritoresVisiveisStr));
+			
+			mapFases.put(tf.getCodigo(), fvm);
+		}
+	}
+	
+	/**
+	 * Método responsável por obter todos os descritores de uma determinada fase
+	 * @param tf
+	 * @param utilizador
+	 * @return
+	 */
+	private Map<String, DescritorViewModel> getDescritoresFase(TFaseTua tf, String utilizador, List<String> lstDescritoresVisiveisStr, TTRegime regimeUtilizador){
+		//Criar método recursivo - pedir ajuda ao einstein
+		Map<String, DescritorViewModel> mapDescritoresFase = new LinkedHashMap<String, DescritorViewModel>();
+		
+		//nivel 1
+		for(int i=1; i<=NUMERO_MAXIMO_NIVEIS; i++){
+			for(TDescritorTua tdt : TuaService.getDescritoresByFaseAndNivel(dataContext, tf, i)){
+//				if(regimeUtilizador == null || (regimeUtilizador != null && tdt.getLstCodigoRegimesAssociados().contains(regimeUtilizador.getCodigo()))){
+					initDescritorViewModel(mapDescritoresFase, tdt, i, lstDescritoresVisiveisStr);
+//				}
+			}
+		}
+		
+		return mapDescritoresFase;
+	}
+	
+	private void initDescritorViewModel(Map<String, DescritorViewModel> mapDescritoresFase, TDescritorTua tDescritor, int nivel, List<String> lstDescritoresVisiveisStr){
+		DescritorViewModel descritorView = new DescritorViewModel();
+		descritorView.setDescritorTua(tDescritor);
+		descritorView.setVisivel(false);
+		
+		VisibilidadeTuaView visibilidadeTuaDescritor = null;
+		try {
+			visibilidadeTuaDescritor = visibilidadeTua.clone();
+		} catch (CloneNotSupportedException ex) {
+			log.error("Erro ao clonar VisibilidadeTua", ex);
+		}
+		visibilidadeTuaDescritor.setDadosGerais(tDescritor.getRelTFaseTua().getDadosGerais());
+		
+		
+		//Se fase tiver visibilidade fixa, então os descritores deverão ser todos apresentados também
+		if(lstDescritoresVisiveisStr.contains(tDescritor.getCodigo()) || tDescritor.getRelTFaseTua().getDadosGerais())
+			descritorView.setVisivel(true);
+#*
+#foreach( $entity in $entities )
+#if(!$entity.getName().endsWith("Hist"))
+		if(tDescritor.getCodigo().equalsIgnoreCase("$entity.getRelatedDbEntity()")){
+			TuaTableView tv = new $entity.getName()$TV(dataContext, tableViewFilter, pli, tuaVersao, utilizadorAuditoria, tDescritor.getRelTFaseTua(), visibilidadeTuaDescritor);
+			descritorView.setTableView(tv);
+			descritorView.setPageUrl("/pages/public/teste/$entity.getName()$MV");
+			descritorView.setDialogUrl("/pages/public/teste/$entity.getName()$DV");
+		}else{
+			//log.warn("O descritor " + codigo + " não tem um TableView associado");
+		}
+#end
+#end
+*#
+
+		
+		
+		
+		if(nivel == 1)
+			mapDescritoresFase.put(tDescritor.getCodigo(), descritorView);
+		else if(nivel==2 && tDescritor.getDescritorPai() != null && StringUtils.isNotEmpty(tDescritor.getDescritorPai().getCodigo()) && mapDescritoresFase.containsKey(tDescritor.getDescritorPai().getCodigo())){
+			mapDescritoresFase.get(tDescritor.getDescritorPai().getCodigo()).getMapDescritoresFilho().put(tDescritor.getCodigo(), descritorView);
+		}else if(nivel==3){
+			TDescritorTua dtPai2Nivel = tDescritor.getDescritorPai();
+			TDescritorTua dtPai1Nivel = dtPai2Nivel.getDescritorPai();
+			if(dtPai1Nivel != null && StringUtils.isNotEmpty(dtPai1Nivel.getCodigo()) && mapDescritoresFase.containsKey(dtPai1Nivel.getCodigo())
+					&& dtPai2Nivel != null && StringUtils.isNotEmpty(dtPai2Nivel.getCodigo()) && mapDescritoresFase.get(dtPai1Nivel.getCodigo()).getMapDescritoresFilho().containsKey(dtPai2Nivel.getCodigo())){
+				
+				mapDescritoresFase.get(dtPai1Nivel.getCodigo()).getMapDescritoresFilho().get(dtPai2Nivel.getCodigo()).getMapDescritoresFilho().put(tDescritor.getCodigo(), descritorView);
+				
+			}
+		}
+	}
+	
+	/**
+	 * Converte uma lista de TuaVersaoFasesVisiveis para uma lista de Strings com o c�digo da fase
+	 * @param lstFasesVisiveis
+	 * @return
+	 */
+	private List<String> getCodigosFases(List<TuaVersaoFasesVisiveis> lstFasesVisiveis){
+		List<String> lst = new ArrayList<String>();
+		for(TuaVersaoFasesVisiveis tvfv : lstFasesVisiveis){
+			lst.add(tvfv.getRelTFaseTua().getCodigo());
+		}
+		return lst;
+	}
+	/**
+	 * Converte uma lista de TuaVersaoDescritoresVisiveis para uma lista de Strings com o c�digo do descritor
+	 * @param lstDescritoresVisiveis
+	 * @return
+	 */
+	private List<String> getCodigosDescritores(List<TuaVersaoDescritoresVisiveis> lstDescritoresVisiveis){
+		List<String> lst = new ArrayList<String>();
+		for(TuaVersaoDescritoresVisiveis tvfv : lstDescritoresVisiveis){
+			lst.add(tvfv.getRelTDescritorTua().getCodigo());
+		}
+		return lst;
+	}
+	
+	public ProcessoLicenciamentoIntegrado getPli() {
+		return pli;
+	}
+	public void setPli(ProcessoLicenciamentoIntegrado pli) {
+		this.pli = pli;
+	}
+	public Map<String, FaseViewModel> getMapFases() {
+		return mapFases;
+	}
+	public void setMapFases(Map<String, FaseViewModel> mapFases) {
+		this.mapFases = mapFases;
+	}
+	public String getUtilizador() {
+		return utilizadorAuditoria;
+	}
+	public void setUtilizador(String utilizador) {
+		this.utilizadorAuditoria = utilizador;
+	}
+	public DataContext getDataContext() {
+		return dataContext;
+	}
+	public void setDataContext(DataContext dataContext) {
+		this.dataContext = dataContext;
+	}
+	public TableViewFilter getTableViewFilter() {
+		return tableViewFilter;
+	}
+	public void setTableViewFilter(TableViewFilter tableViewFilter) {
+		this.tableViewFilter = tableViewFilter;
+	}
+	public TuaVersao getTuaVersao() {
+		return tuaVersao;
+	}
+	public void setTuaVersao(TuaVersao tuaVersao) {
+		this.tuaVersao = tuaVersao;
+	}
+	public VisibilidadeTuaView getVisibilidadeTua() {
+		return visibilidadeTua;
+	}
+	public void setVisibilidadeTua(VisibilidadeTuaView visibilidadeTua) {
+		this.visibilidadeTua = visibilidadeTua;
+	}
+	public ProcessoLicenciamentoIntegradoRegime getPlir() {
+		return plir;
+	}
+	public void setPlir(ProcessoLicenciamentoIntegradoRegime plir) {
+		this.plir = plir;
+	}
+	
+}

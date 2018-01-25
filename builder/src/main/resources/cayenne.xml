@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<domains project-version="3.0.0.1">
+	<domain name="licenciamento">
+		<map name="admin" location="admin.map.xml" />
+		<map name="egar" location="egar.map.xml"/>
+		<map name="lua" location="lua.map.xml" />		
+		<map name="tua" location="tua.map.xml" />		
+		<map name="ajuda" location="ajuda.map.xml" />
+		<map name="alertas" location="alertas.map.xml" />
+		<map name="atendimento" location="atendimento.map.xml" />
+		<map name="comum" location="comum.map.xml" />
+		<map name="emissoesAtmosfericas" location="emissoesAtmosfericas.map.xml" />
+		<map name="fe" location="fe.map.xml" />
+		<map name="gasesFluorados" location="gasesFluorados.map.xml" />
+		<map name="ficheiros" location="ficheiros.map.xml" />
+		<map name="inventario" location="inventario.map.xml" />
+		<map name="mensagens" location="mensagens.map.xml" />
+		<map name="mirr" location="mirr.map.xml" />
+		<map name="mrru" location="mrru.map.xml"/>
+		<map name="mtr" location="mtr.map.xml" />
+		<map name="mtr_laranja" location="mtr_laranja.map.xml" />
+		<map name="pagamentos" location="pagamentos.map.xml"/>
+		<map name="processo" location="processo.map.xml" />
+		<map name="residuos" location="residuos.map.xml" />
+		<map name="sirapa" location="sirapa.map.xml" />
+		<map name="tabelas" location="tabelas.map.xml" />
+		<map name="trh" location="trh.map.xml" />
+		<map name="utilizadores" location="utilizadores.map.xml" />
+		<map name="cele" location="cele.map.xml"/>
+
+		<node name="ficheirosNode" datasource="jdbc/ficheiros"
+			factory="org.apache.cayenne.conf.JNDIDataSourceFactory">
+			<map-ref name="ficheiros" />
+		</node>
+		<node name="licenciamentoNode" datasource="jdbc/licenciamento"
+			factory="org.apache.cayenne.conf.JNDIDataSourceFactory">
+			<map-ref name="alertas" />
+			<map-ref name="processo" />
+			<map-ref name="atendimento" />
+			<map-ref name="mtr" />
+			<map-ref name="admin" />
+			<map-ref name="egar"/>
+			<map-ref name="lua" />
+			<map-ref name="tua" />
+			<map-ref name="residuos" />
+			<map-ref name="gasesFluorados" />
+			<map-ref name="mensagens" />
+			<map-ref name="ajuda" />
+			<map-ref name="mirr" />
+			<map-ref name="mrru"/>
+			<map-ref name="pagamentos"/>
+			<map-ref name="trh" />
+			<map-ref name="utilizadores" />
+			<map-ref name="emissoesAtmosfericas" />
+			<map-ref name="fe" />
+			<map-ref name="inventario" />
+			<map-ref name="tabelas" />
+			<map-ref name="cele" />
+		</node>
+		<node name="mtrLaranja" factory="org.apache.cayenne.conf.JNDIDataSourceFactory"
+			datasource="jdbc/mtrLaranja">
+			<map-ref name="comum" />
+			<map-ref name="mtr_laranja" />
+		</node>
+		<node name="sirapa" datasource="jdbc/sirapa"
+			factory="org.apache.cayenne.conf.JNDIDataSourceFactory">
+			<map-ref name="sirapa" />
+		</node>
+	</domain>
+</domains>

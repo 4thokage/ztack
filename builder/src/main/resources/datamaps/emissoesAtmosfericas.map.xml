@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.nls.apa.emissoesAtmosfericas.entities"/>
+	<property name="defaultSchema" value="emissoes_atmosfericas"/>
+	<db-entity name="monitorizacao" schema="emissoes_atmosfericas">
+		<db-attribute name="angulo_max_escoamento" type="DECIMAL"/>
+		<db-attribute name="capacidade_utilizada" type="INTEGER"/>
+		<db-attribute name="caudal_massico" type="DECIMAL"/>
+		<db-attribute name="caudal_volumetrico_efetivo" type="DECIMAL"/>
+		<db-attribute name="caudal_volumetrico_seco" type="DECIMAL"/>
+		<db-attribute name="concentracao" type="DECIMAL"/>
+		<db-attribute name="cumpre_localizacao_tomas_en15259" type="BOOLEAN"/>
+		<db-attribute name="cumpre_localizacao_tomas_np2167" type="BOOLEAN"/>
+		<db-attribute name="fim_medicao" type="TIMESTAMP"/>
+		<db-attribute name="fk_classificador" type="VARCHAR" length="100"/>
+		<db-attribute name="fk_ficheiro_monitorizacao" type="INTEGER"/>
+		<db-attribute name="fk_poluente_fonte_emissao" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="incerteza_caudal_massico" type="DECIMAL"/>
+		<db-attribute name="incerteza_medicao" type="DECIMAL"/>
+		<db-attribute name="inicio_medicao" type="TIMESTAMP" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="is_amostragem_laboratorio_acreditado" type="BOOLEAN"/>
+		<db-attribute name="is_analise_laboratorio_acreditado" type="BOOLEAN"/>
+		<db-attribute name="is_concentracao_inferior_lim_deteccao" type="BOOLEAN"/>
+		<db-attribute name="is_concentracao_inferior_lim_quant" type="BOOLEAN"/>
+		<db-attribute name="is_continua" type="BOOLEAN"/>
+		<db-attribute name="is_fluxo_escoamento_negativo" type="BOOLEAN"/>
+		<db-attribute name="massa_molecular_gases" type="DECIMAL"/>
+		<db-attribute name="metodologia" type="VARCHAR" length="100"/>
+		<db-attribute name="norma_referencia" type="VARCHAR" length="100"/>
+		<db-attribute name="pressao_abs_interior_conduta" type="DECIMAL"/>
+		<db-attribute name="racio_velocidade_elevada_baixa" type="DECIMAL"/>
+		<db-attribute name="taxa_isocinetismo" type="INTEGER"/>
+		<db-attribute name="temperatura_media_gases" type="DECIMAL"/>
+		<db-attribute name="teor_CO2" type="DECIMAL"/>
+		<db-attribute name="teor_O2" type="DECIMAL"/>
+		<db-attribute name="teor_vapor_agua" type="DECIMAL"/>
+		<db-attribute name="velocidade_escoamento" type="DECIMAL"/>
+		<db-attribute name="velocidade_min_escoamento" type="DECIMAL"/>
+	</db-entity>
+	<db-entity name="pedido_adicao_fontes_emissao" schema="emissoes_atmosfericas">
+		<db-attribute name="codigo" type="VARCHAR" length="32"/>
+		<db-attribute name="data_decisao" type="TIMESTAMP"/>
+		<db-attribute name="data_submissao" type="TIMESTAMP"/>
+		<db-attribute name="decisao" type="BOOLEAN"/>
+		<db-attribute name="fk_avaliador" type="INTEGER"/>
+		<db-attribute name="fk_criador" type="INTEGER"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="justificacao_indeferimento" type="VARCHAR" length="4000"/>
+	</db-entity>
+	<db-entity name="regime_cov" schema="emissoes_atmosfericas">
+		<db-attribute name="ano" type="INTEGER"/>
+		<db-attribute name="caudal_massico1" type="NUMERIC"/>
+		<db-attribute name="caudal_massico2" type="NUMERIC"/>
+		<db-attribute name="concedida_derrogacao_n3_art98" type="BOOLEAN"/>
+		<db-attribute name="concedida_derrogacao_n4_art98" type="BOOLEAN"/>
+		<db-attribute name="data_submissao_pgs" type="TIMESTAMP"/>
+		<db-attribute name="detalhes" type="VARCHAR" length="1000"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="instalacao_nova" type="BOOLEAN"/>
+	</db-entity>
+	<db-entity name="regime_cov_actividade" schema="emissoes_atmosfericas">
+		<db-attribute name="consumo_solvente" type="NUMERIC"/>
+		<db-attribute name="cumpre_oe" type="BOOLEAN"/>
+		<db-attribute name="cumpre_vle_chamine" type="BOOLEAN"/>
+		<db-attribute name="cumpre_vle_difusas" type="BOOLEAN"/>
+		<db-attribute name="cumpre_vle_substancias_classificadas" type="BOOLEAN"/>
+		<db-attribute name="cumpre_vle_total" type="BOOLEAN"/>
+		<db-attribute name="emissao_cov" type="NUMERIC"/>
+		<db-attribute name="fk_actividade_cov" type="INTEGER"/>
+		<db-attribute name="fk_opcao_cumprimento" type="INTEGER"/>
+		<db-attribute name="fk_regime_cov" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="medidas" type="VARCHAR" length="1000"/>
+		<db-attribute name="vle_chamine" type="NUMERIC"/>
+		<db-attribute name="vle_difusas" type="NUMERIC"/>
+		<db-attribute name="vle_substancias_classificadas" type="NUMERIC"/>
+		<db-attribute name="vle_total" type="NUMERIC"/>
+	</db-entity>
+	<db-entity name="regime_cov_actividade_difusas" schema="emissoes_atmosfericas">
+		<db-attribute name="e1" type="NUMERIC"/>
+		<db-attribute name="e2" type="NUMERIC"/>
+		<db-attribute name="fk_opcao_calculo_f" type="VARCHAR" length="2"/>
+		<db-attribute name="fk_opcao_calculo_s5" type="VARCHAR" length="2"/>
+		<db-attribute name="fk_regime_cov_actividade" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="s1" type="NUMERIC"/>
+		<db-attribute name="s2" type="NUMERIC"/>
+		<db-attribute name="s3" type="NUMERIC"/>
+		<db-attribute name="s4" type="NUMERIC"/>
+		<db-attribute name="s5" type="NUMERIC"/>
+		<db-attribute name="s6" type="NUMERIC"/>
+		<db-attribute name="s7" type="NUMERIC"/>
+		<db-attribute name="s8" type="NUMERIC"/>
+		<db-attribute name="s9" type="NUMERIC"/>
+	</db-entity>
+	<db-entity name="regime_cov_actividade_fonte" schema="emissoes_atmosfericas">
+		<db-attribute name="fk_fonte_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_regime_cov_actividade" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="regime_cov_actividade_fonte_s1" schema="emissoes_atmosfericas">
+		<db-attribute name="caudal" type="DECIMAL"/>
+		<db-attribute name="concentracao" type="DECIMAL"/>
+		<db-attribute name="cumpre_vle_pontual" type="BOOLEAN"/>
+		<db-attribute name="factor_conversao" type="DECIMAL"/>
+		<db-attribute name="fk_regime_cov_actividade_fonte" type="INTEGER"/>
+		<db-attribute name="horas_funcionamento" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="regime_cov_actividade_fonte_s5" schema="emissoes_atmosfericas">
+		<db-attribute name="caudal_cov_entrada" type="DECIMAL"/>
+		<db-attribute name="caudal_cov_saida" type="DECIMAL"/>
+		<db-attribute name="eficiencia_steg" type="DECIMAL"/>
+		<db-attribute name="fk_regime_cov_actividade_fonte" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="horas_funcionamento" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="quantidade_cov_encaminhada" type="DECIMAL"/>
+	</db-entity>
+	<db-entity name="regime_cov_actividade_pre" schema="emissoes_atmosfericas">
+		<db-attribute name="factor_especifico" type="DECIMAL"/>
+		<db-attribute name="fk_regime_cov_actividade" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="regime_cov_advertencia" schema="emissoes_atmosfericas">
+		<db-attribute name="fk_regime_cov" type="INTEGER"/>
+		<db-attribute name="fk_tipo_advertencia" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="regime_cov_difusas_e1" schema="emissoes_atmosfericas">
+		<db-attribute name="consumo" type="DECIMAL"/>
+		<db-attribute name="descricao_produto" type="VARCHAR" isMandatory="true" length="200"/>
+		<db-attribute name="fk_regime_cov_difusas" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="percentagem_cov" type="DECIMAL"/>
+	</db-entity>
+	<db-entity name="regime_cov_difusas_s6" schema="emissoes_atmosfericas">
+		<db-attribute name="fk_regime_cov_actividade_difusas" type="INTEGER"/>
+		<db-attribute name="fk_residuo_ler" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="percentagem_cov" type="DECIMAL"/>
+		<db-attribute name="residuo_gerado" type="DECIMAL"/>
+	</db-entity>
+	<db-entity name="regime_cov_steg" schema="emissoes_atmosfericas">
+		<db-attribute name="descricao" type="VARCHAR" length="255"/>
+		<db-attribute name="fk_regime_cov" type="INTEGER"/>
+		<db-attribute name="fk_steg" type="VARCHAR" length="3"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<obj-entity name="Monitorizacao" className="org.nls.apa.emissoesAtmosfericas.entities.Monitorizacao" dbEntityName="monitorizacao">
+		<obj-attribute name="anguloMaxEscoamento" type="java.math.BigDecimal" db-attribute-path="angulo_max_escoamento"/>
+		<obj-attribute name="capacidadeUtilizada" type="java.lang.Integer" db-attribute-path="capacidade_utilizada"/>
+		<obj-attribute name="caudalMassico" type="java.math.BigDecimal" db-attribute-path="caudal_massico"/>
+		<obj-attribute name="caudalVolumetricoEfetivo" type="java.math.BigDecimal" db-attribute-path="caudal_volumetrico_efetivo"/>
+		<obj-attribute name="caudalVolumetricoSeco" type="java.math.BigDecimal" db-attribute-path="caudal_volumetrico_seco"/>
+		<obj-attribute name="concentracao" type="java.math.BigDecimal" db-attribute-path="concentracao"/>
+		<obj-attribute name="cumpreLocalizacaoTomasEn15259" type="java.lang.Boolean" db-attribute-path="cumpre_localizacao_tomas_en15259"/>
+		<obj-attribute name="cumpreLocalizacaoTomasNp2167" type="java.lang.Boolean" db-attribute-path="cumpre_localizacao_tomas_np2167"/>
+		<obj-attribute name="fimMedicao" type="java.util.Date" db-attribute-path="fim_medicao"/>
+		<obj-attribute name="incertezaCaudalMassico" type="java.math.BigDecimal" db-attribute-path="incerteza_caudal_massico"/>
+		<obj-attribute name="incertezaMedicao" type="java.math.BigDecimal" db-attribute-path="incerteza_medicao"/>
+		<obj-attribute name="inicioMedicao" type="java.util.Date" db-attribute-path="inicio_medicao"/>
+		<obj-attribute name="isAmostragemLaboratorioAcreditado" type="java.lang.Boolean" db-attribute-path="is_amostragem_laboratorio_acreditado"/>
+		<obj-attribute name="isAnaliseLaboratorioAcreditado" type="java.lang.Boolean" db-attribute-path="is_analise_laboratorio_acreditado"/>
+		<obj-attribute name="isConcentracaoInferiorLimDeteccao" type="java.lang.Boolean" db-attribute-path="is_concentracao_inferior_lim_deteccao"/>
+		<obj-attribute name="isConcentracaoInferiorLimQuant" type="java.lang.Boolean" db-attribute-path="is_concentracao_inferior_lim_quant"/>
+		<obj-attribute name="isContinua" type="java.lang.Boolean" db-attribute-path="is_continua"/>
+		<obj-attribute name="isFluxoEscoamentoNegativo" type="java.lang.Boolean" db-attribute-path="is_fluxo_escoamento_negativo"/>
+		<obj-attribute name="massaMolecularGases" type="java.math.BigDecimal" db-attribute-path="massa_molecular_gases"/>
+		<obj-attribute name="metodologia" type="java.lang.String" db-attribute-path="metodologia"/>
+		<obj-attribute name="normaReferencia" type="java.lang.String" db-attribute-path="norma_referencia"/>
+		<obj-attribute name="pressaoAbsInteriorConduta" type="java.math.BigDecimal" db-attribute-path="pressao_abs_interior_conduta"/>
+		<obj-attribute name="racioVelocidadeElevadaBaixa" type="java.math.BigDecimal" db-attribute-path="racio_velocidade_elevada_baixa"/>
+		<obj-attribute name="taxaIsocinetismo" type="java.lang.Integer" db-attribute-path="taxa_isocinetismo"/>
+		<obj-attribute name="temperaturaMediaGases" type="java.math.BigDecimal" db-attribute-path="temperatura_media_gases"/>
+		<obj-attribute name="teorCo2" type="java.math.BigDecimal" db-attribute-path="teor_CO2"/>
+		<obj-attribute name="teorO2" type="java.math.BigDecimal" db-attribute-path="teor_O2"/>
+		<obj-attribute name="teorVaporAgua" type="java.math.BigDecimal" db-attribute-path="teor_vapor_agua"/>
+		<obj-attribute name="velocidadeEscoamento" type="java.math.BigDecimal" db-attribute-path="velocidade_escoamento"/>
+		<obj-attribute name="velocidadeMinEscoamento" type="java.math.BigDecimal" db-attribute-path="velocidade_min_escoamento"/>
+	</obj-entity>
+	<obj-entity name="PedidoAdicaoFontesEmissao" className="org.nls.apa.emissoesAtmosfericas.entities.PedidoAdicaoFontesEmissao" dbEntityName="pedido_adicao_fontes_emissao" superClassName="org.addition.apa.pedido.AbstractPedidoAlteracao">
+		<obj-attribute name="codigo" type="java.lang.String" db-attribute-path="codigo"/>
+		<obj-attribute name="dataDecisao" type="java.util.Date" db-attribute-path="data_decisao"/>
+		<obj-attribute name="dataSubmissao" type="java.util.Date" db-attribute-path="data_submissao"/>
+		<obj-attribute name="decisao" type="java.lang.Boolean" db-attribute-path="decisao"/>
+		<obj-attribute name="justificacaoIndeferimento" type="java.lang.String" db-attribute-path="justificacao_indeferimento"/>
+	</obj-entity>
+	<obj-entity name="RegimeCov" className="org.nls.apa.emissoesAtmosfericas.entities.RegimeCov" dbEntityName="regime_cov">
+		<obj-attribute name="ano" type="java.lang.Integer" db-attribute-path="ano"/>
+		<obj-attribute name="caudalMassico1" type="java.math.BigDecimal" db-attribute-path="caudal_massico1"/>
+		<obj-attribute name="caudalMassico2" type="java.math.BigDecimal" db-attribute-path="caudal_massico2"/>
+		<obj-attribute name="concedidaDerrogacaoN3Art98" type="java.lang.Boolean" db-attribute-path="concedida_derrogacao_n3_art98"/>
+		<obj-attribute name="concedidaDerrogacaoN4Art98" type="java.lang.Boolean" db-attribute-path="concedida_derrogacao_n4_art98"/>
+		<obj-attribute name="dataSubmissaoPgs" type="java.util.Date" db-attribute-path="data_submissao_pgs"/>
+		<obj-attribute name="detalhes" type="java.lang.String" db-attribute-path="detalhes"/>
+		<obj-attribute name="instalacaoNova" type="java.lang.Boolean" db-attribute-path="instalacao_nova"/>
+	</obj-entity>
+	<obj-entity name="RegimeCovActividade" className="org.nls.apa.emissoesAtmosfericas.entities.RegimeCovActividade" dbEntityName="regime_cov_actividade">
+		<obj-attribute name="consumoSolvente" type="java.math.BigDecimal" db-attribute-path="consumo_solvente"/>
+		<obj-attribute name="cumpreOe" type="java.lang.Boolean" db-attribute-path="cumpre_oe"/>
+		<obj-attribute name="cumpreVleChamine" type="java.lang.Boolean" db-attribute-path="cumpre_vle_chamine"/>
+		<obj-attribute name="cumpreVleDifusas" type="java.lang.Boolean" db-attribute-path="cumpre_vle_difusas"/>
+		<obj-attribute name="cumpreVleSubstanciasClassificadas" type="java.lang.Boolean" db-attribute-path="cumpre_vle_substancias_classificadas"/>
+		<obj-attribute name="cumpreVleTotal" type="java.lang.Boolean" db-attribute-path="cumpre_vle_total"/>
+		<obj-attribute name="emissaoCov" type="java.math.BigDecimal" db-attribute-path="emissao_cov"/>
+		<obj-attribute name="medidas" type="java.lang.String" db-attribute-path="medidas"/>
+		<obj-attribute name="vleChamine" type="java.math.BigDecimal" db-attribute-path="vle_chamine"/>
+		<obj-attribute name="vleDifusas" type="java.math.BigDecimal" db-attribute-path="vle_difusas"/>
+		<obj-attribute name="vleSubstanciasClassificadas" type="java.math.BigDecimal" db-attribute-path="vle_substancias_classificadas"/>
+		<obj-attribute name="vleTotal" type="java.math.BigDecimal" db-attribute-path="vle_total"/>
+	</obj-entity>
+	<obj-entity name="RegimeCovActividadeDifusas" className="org.nls.apa.emissoesAtmosfericas.entities.RegimeCovActividadeDifusas" dbEntityName="regime_cov_actividade_difusas">
+		<obj-attribute name="e1" type="java.math.BigDecimal" db-attribute-path="e1"/>
+		<obj-attribute name="e2" type="java.math.BigDecimal" db-attribute-path="e2"/>
+		<obj-attribute name="s1" type="java.math.BigDecimal" db-attribute-path="s1"/>
+		<obj-attribute name="s2" type="java.math.BigDecimal" db-attribute-path="s2"/>
+		<obj-attribute name="s3" type="java.math.BigDecimal" db-attribute-path="s3"/>
+		<obj-attribute name="s4" type="java.math.BigDecimal" db-attribute-path="s4"/>
+		<obj-attribute name="s5" type="java.math.BigDecimal" db-attribute-path="s5"/>
+		<obj-attribute name="s6" type="java.math.BigDecimal" db-attribute-path="s6"/>
+		<obj-attribute name="s7" type="java.math.BigDecimal" db-attribute-path="s7"/>
+		<obj-attribute name="s8" type="java.math.BigDecimal" db-attribute-path="s8"/>
+		<obj-attribute name="s9" type="java.math.BigDecimal" db-attribute-path="s9"/>
+	</obj-entity>
+	<obj-entity name="RegimeCovActividadeFonte" className="org.nls.apa.emissoesAtmosfericas.entities.RegimeCovActividadeFonte" dbEntityName="regime_cov_actividade_fonte">
+	</obj-entity>
+	<obj-entity name="RegimeCovActividadeFonteS1" className="org.nls.apa.emissoesAtmosfericas.entities.RegimeCovActividadeFonteS1" dbEntityName="regime_cov_actividade_fonte_s1">
+		<obj-attribute name="caudal" type="java.math.BigDecimal" db-attribute-path="caudal"/>
+		<obj-attribute name="concentracao" type="java.math.BigDecimal" db-attribute-path="concentracao"/>
+		<obj-attribute name="cumpreVlePontual" type="java.lang.Boolean" db-attribute-path="cumpre_vle_pontual"/>
+		<obj-attribute name="factorConversao" type="java.math.BigDecimal" db-attribute-path="factor_conversao"/>
+		<obj-attribute name="horasFuncionamento" type="java.lang.Integer" db-attribute-path="horas_funcionamento"/>
+	</obj-entity>
+	<obj-entity name="RegimeCovActividadeFonteS5" className="org.nls.apa.emissoesAtmosfericas.entities.RegimeCovActividadeFonteS5" dbEntityName="regime_cov_actividade_fonte_s5">
+		<obj-attribute name="caudalCovEntrada" type="java.math.BigDecimal" db-attribute-path="caudal_cov_entrada"/>
+		<obj-attribute name="caudalCovSaida" type="java.math.BigDecimal" db-attribute-path="caudal_cov_saida"/>
+		<obj-attribute name="eficienciaSteg" type="java.math.BigDecimal" db-attribute-path="eficiencia_steg"/>
+		<obj-attribute name="horasFuncionamento" type="java.lang.Integer" db-attribute-path="horas_funcionamento"/>
+		<obj-attribute name="quantidadeCovEncaminhada" type="java.math.BigDecimal" db-attribute-path="quantidade_cov_encaminhada"/>
+	</obj-entity>
+	<obj-entity name="RegimeCovActividadePre" className="org.nls.apa.emissoesAtmosfericas.entities.RegimeCovActividadePre" dbEntityName="regime_cov_actividade_pre">
+		<obj-attribute name="factorEspecifico" type="java.math.BigDecimal" db-attribute-path="factor_especifico"/>
+	</obj-entity>
+	<obj-entity name="RegimeCovAdvertencia" className="org.nls.apa.emissoesAtmosfericas.entities.RegimeCovAdvertencia" dbEntityName="regime_cov_advertencia">
+	</obj-entity>
+	<obj-entity name="RegimeCovDifusasE1" className="org.nls.apa.emissoesAtmosfericas.entities.RegimeCovDifusasE1" dbEntityName="regime_cov_difusas_e1">
+		<obj-attribute name="consumo" type="java.math.BigDecimal" db-attribute-path="consumo"/>
+		<obj-attribute name="descricaoProduto" type="java.lang.String" db-attribute-path="descricao_produto"/>
+		<obj-attribute name="percentagemCov" type="java.math.BigDecimal" db-attribute-path="percentagem_cov"/>
+	</obj-entity>
+	<obj-entity name="RegimeCovDifusasS6" className="org.nls.apa.emissoesAtmosfericas.entities.RegimeCovDifusasS6" dbEntityName="regime_cov_difusas_s6">
+		<obj-attribute name="percentagemCov" type="java.math.BigDecimal" db-attribute-path="percentagem_cov"/>
+		<obj-attribute name="residuoGerado" type="java.math.BigDecimal" db-attribute-path="residuo_gerado"/>
+	</obj-entity>
+	<obj-entity name="RegimeCovSteg" className="org.nls.apa.emissoesAtmosfericas.entities.RegimeCovSteg" dbEntityName="regime_cov_steg">
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+	</obj-entity>
+	<db-relationship name="classificador_continua" source="monitorizacao" target="t_monitorizacao_continua_classificador" toMany="false">
+		<db-attribute-pair source="fk_classificador" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="ficheiro_monitorizacao" source="monitorizacao" target="ficheiro_monitorizacao" toMany="false">
+		<db-attribute-pair source="fk_ficheiro_monitorizacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao_poluente" source="monitorizacao" target="fonte_estabelecimento_poluente" toMany="false">
+		<db-attribute-pair source="fk_poluente_fonte_emissao" target="id"/>
+	</db-relationship>
+	<db-relationship name="avaliador" source="pedido_adicao_fontes_emissao" target="administrador" toMany="false">
+		<db-attribute-pair source="fk_avaliador" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="pedido_adicao_fontes_emissao" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="pedido_adicao_fontes_emissao" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="fontes_emissao" source="pedido_adicao_fontes_emissao" target="fonte_estabelecimento" toMany="true">
+		<db-attribute-pair source="id" target="fk_pedido_adicao_fontes_emissao"/>
+	</db-relationship>
+	<db-relationship name="actividades" source="regime_cov" target="regime_cov_actividade" toMany="true">
+		<db-attribute-pair source="id" target="fk_regime_cov"/>
+	</db-relationship>
+	<db-relationship name="advertencias" source="regime_cov" target="regime_cov_advertencia" toMany="true">
+		<db-attribute-pair source="id" target="fk_regime_cov"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="regime_cov" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="steg" source="regime_cov" target="regime_cov_steg" toMany="true">
+		<db-attribute-pair source="id" target="fk_regime_cov"/>
+	</db-relationship>
+	<db-relationship name="actividade_cov" source="regime_cov_actividade" target="t_tipo_atividade_cov" toMany="false">
+		<db-attribute-pair source="fk_actividade_cov" target="id"/>
+	</db-relationship>
+	<db-relationship name="actividade_fontes" source="regime_cov_actividade" target="regime_cov_actividade_fonte" toMany="true">
+		<db-attribute-pair source="id" target="fk_regime_cov_actividade"/>
+	</db-relationship>
+	<db-relationship name="difusas" source="regime_cov_actividade" target="regime_cov_actividade_difusas" toMany="false">
+		<db-attribute-pair source="id" target="fk_regime_cov_actividade"/>
+	</db-relationship>
+	<db-relationship name="ficheiros_apoio" source="regime_cov_actividade" target="ficheiro_regime_cov_apoio" toMany="true">
+		<db-attribute-pair source="id" target="fk_regime_cov_actividade"/>
+	</db-relationship>
+	<db-relationship name="opcao_cumprimento" source="regime_cov_actividade" target="t_opcao_cumprimento" toMany="false">
+		<db-attribute-pair source="fk_opcao_cumprimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="pre" source="regime_cov_actividade" target="regime_cov_actividade_pre" toMany="false">
+		<db-attribute-pair source="id" target="fk_regime_cov_actividade"/>
+	</db-relationship>
+	<db-relationship name="regime_cov" source="regime_cov_actividade" target="regime_cov" toMany="false">
+		<db-attribute-pair source="fk_regime_cov" target="id"/>
+	</db-relationship>
+	<db-relationship name="opcao_calculo_f" source="regime_cov_actividade_difusas" target="t_opcao_calculo_f" toMany="false">
+		<db-attribute-pair source="fk_opcao_calculo_f" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="opcao_calculo_s5" source="regime_cov_actividade_difusas" target="t_opcao_calculo_s5" toMany="false">
+		<db-attribute-pair source="fk_opcao_calculo_s5" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="produto_e1" source="regime_cov_actividade_difusas" target="regime_cov_difusas_e1" toMany="true">
+		<db-attribute-pair source="id" target="fk_regime_cov_difusas"/>
+	</db-relationship>
+	<db-relationship name="regime_cov_actividade" source="regime_cov_actividade_difusas" target="regime_cov_actividade" toMany="false">
+		<db-attribute-pair source="fk_regime_cov_actividade" target="id"/>
+	</db-relationship>
+	<db-relationship name="residuo_s6" source="regime_cov_actividade_difusas" target="regime_cov_difusas_s6" toMany="true">
+		<db-attribute-pair source="id" target="fk_regime_cov_actividade_difusas"/>
+	</db-relationship>
+	<db-relationship name="emitido_s1" source="regime_cov_actividade_fonte" target="regime_cov_actividade_fonte_s1" toMany="true">
+		<db-attribute-pair source="id" target="fk_regime_cov_actividade_fonte"/>
+	</db-relationship>
+	<db-relationship name="fonte_emissao" source="regime_cov_actividade_fonte" target="fonte_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_fonte_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="regime_cov_actividade" source="regime_cov_actividade_fonte" target="regime_cov_actividade" toMany="false">
+		<db-attribute-pair source="fk_regime_cov_actividade" target="id"/>
+	</db-relationship>
+	<db-relationship name="retido_s5" source="regime_cov_actividade_fonte" target="regime_cov_actividade_fonte_s5" toMany="true">
+		<db-attribute-pair source="id" target="fk_regime_cov_actividade_fonte"/>
+	</db-relationship>
+	<db-relationship name="regime_cov_actividade_fonte" source="regime_cov_actividade_fonte_s1" target="regime_cov_actividade_fonte" toMany="false">
+		<db-attribute-pair source="fk_regime_cov_actividade_fonte" target="id"/>
+	</db-relationship>
+	<db-relationship name="regime_cov_actividade_fonte" source="regime_cov_actividade_fonte_s5" target="regime_cov_actividade_fonte" toMany="false">
+		<db-attribute-pair source="fk_regime_cov_actividade_fonte" target="id"/>
+	</db-relationship>
+	<db-relationship name="regime_cov_actividade" source="regime_cov_actividade_pre" target="regime_cov_actividade" toMany="false">
+		<db-attribute-pair source="fk_regime_cov_actividade" target="id"/>
+	</db-relationship>
+	<db-relationship name="regime_cov" source="regime_cov_advertencia" target="regime_cov" toMany="false">
+		<db-attribute-pair source="fk_regime_cov" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_advertencia" source="regime_cov_advertencia" target="t_tipo_advertencia_perigo" toMany="false">
+		<db-attribute-pair source="fk_tipo_advertencia" target="id"/>
+	</db-relationship>
+	<db-relationship name="regime_cov_actividade_difusas" source="regime_cov_difusas_e1" target="regime_cov_actividade_difusas" toMany="false">
+		<db-attribute-pair source="fk_regime_cov_difusas" target="id"/>
+	</db-relationship>
+	<db-relationship name="regime_cov_actividade_difusas" source="regime_cov_difusas_s6" target="regime_cov_actividade_difusas" toMany="false">
+		<db-attribute-pair source="fk_regime_cov_actividade_difusas" target="id"/>
+	</db-relationship>
+	<db-relationship name="residuo_ler" source="regime_cov_difusas_s6" target="residuos_ler" toMany="false">
+		<db-attribute-pair source="fk_residuo_ler" target="id"/>
+	</db-relationship>
+	<db-relationship name="regime_cov" source="regime_cov_steg" target="regime_cov" toMany="false">
+		<db-attribute-pair source="fk_regime_cov" target="id"/>
+	</db-relationship>
+	<db-relationship name="steg" source="regime_cov_steg" target="t_sistema_tratamento_efluente_gasoso" toMany="false">
+		<db-attribute-pair source="fk_steg" target="codigo"/>
+	</db-relationship>
+	<obj-relationship name="classificadorContinua" source="Monitorizacao" target="TMonitorizacaoContinuaClassificador" deleteRule="Nullify" db-relationship-path="classificador_continua"/>
+	<obj-relationship name="ficheiroMonitorizacao" source="Monitorizacao" target="FicheiroMonitorizacao" deleteRule="Nullify" db-relationship-path="ficheiro_monitorizacao"/>
+	<obj-relationship name="fonteEmissaoPoluente" source="Monitorizacao" target="FonteEstabelecimentoPoluente" deleteRule="Nullify" db-relationship-path="fonte_emissao_poluente"/>
+	<obj-relationship name="avaliador" source="PedidoAdicaoFontesEmissao" target="Administrador" deleteRule="Nullify" db-relationship-path="avaliador"/>
+	<obj-relationship name="criador" source="PedidoAdicaoFontesEmissao" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="estabelecimento" source="PedidoAdicaoFontesEmissao" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="fontesEmissao" source="PedidoAdicaoFontesEmissao" target="FonteEstabelecimento" deleteRule="Deny" db-relationship-path="fontes_emissao"/>
+	<obj-relationship name="actividades" source="RegimeCov" target="RegimeCovActividade" deleteRule="Cascade" db-relationship-path="actividades"/>
+	<obj-relationship name="advertencias" source="RegimeCov" target="RegimeCovAdvertencia" deleteRule="Cascade" db-relationship-path="advertencias"/>
+	<obj-relationship name="estabelecimento" source="RegimeCov" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="steg" source="RegimeCov" target="RegimeCovSteg" deleteRule="Cascade" db-relationship-path="steg"/>
+	<obj-relationship name="actividadeCov" source="RegimeCovActividade" target="TTipoAtividadeCov" deleteRule="Nullify" db-relationship-path="actividade_cov"/>
+	<obj-relationship name="actividadeFontes" source="RegimeCovActividade" target="RegimeCovActividadeFonte" deleteRule="Cascade" db-relationship-path="actividade_fontes"/>
+	<obj-relationship name="difusas" source="RegimeCovActividade" target="RegimeCovActividadeDifusas" deleteRule="Nullify" db-relationship-path="difusas"/>
+	<obj-relationship name="ficheirosApoio" source="RegimeCovActividade" target="FicheiroRegimeCovApoio" deleteRule="Cascade" db-relationship-path="ficheiros_apoio"/>
+	<obj-relationship name="opcaoCumprimento" source="RegimeCovActividade" target="TOpcaoCumprimento" deleteRule="Nullify" db-relationship-path="opcao_cumprimento"/>
+	<obj-relationship name="pre" source="RegimeCovActividade" target="RegimeCovActividadePre" deleteRule="Nullify" db-relationship-path="pre"/>
+	<obj-relationship name="regimeCov" source="RegimeCovActividade" target="RegimeCov" deleteRule="Nullify" db-relationship-path="regime_cov"/>
+	<obj-relationship name="opcaoCalculoF" source="RegimeCovActividadeDifusas" target="TOpcaoCalculoF" deleteRule="Nullify" db-relationship-path="opcao_calculo_f"/>
+	<obj-relationship name="opcaoCalculoS5" source="RegimeCovActividadeDifusas" target="TOpcaoCalculoS5" db-relationship-path="opcao_calculo_s5"/>
+	<obj-relationship name="produtoE1" source="RegimeCovActividadeDifusas" target="RegimeCovDifusasE1" deleteRule="Cascade" db-relationship-path="produto_e1"/>
+	<obj-relationship name="regimeCovActividade" source="RegimeCovActividadeDifusas" target="RegimeCovActividade" db-relationship-path="regime_cov_actividade"/>
+	<obj-relationship name="residuoS6" source="RegimeCovActividadeDifusas" target="RegimeCovDifusasS6" deleteRule="Cascade" db-relationship-path="residuo_s6"/>
+	<obj-relationship name="emitidoS1" source="RegimeCovActividadeFonte" target="RegimeCovActividadeFonteS1" deleteRule="Cascade" db-relationship-path="emitido_s1"/>
+	<obj-relationship name="fonteEmissao" source="RegimeCovActividadeFonte" target="FonteEstabelecimento" deleteRule="Nullify" db-relationship-path="fonte_emissao"/>
+	<obj-relationship name="regimeCovActividade" source="RegimeCovActividadeFonte" target="RegimeCovActividade" deleteRule="Nullify" db-relationship-path="regime_cov_actividade"/>
+	<obj-relationship name="retidoS5" source="RegimeCovActividadeFonte" target="RegimeCovActividadeFonteS5" deleteRule="Cascade" db-relationship-path="retido_s5"/>
+	<obj-relationship name="regimeCovActividadeFonte" source="RegimeCovActividadeFonteS1" target="RegimeCovActividadeFonte" deleteRule="Nullify" db-relationship-path="regime_cov_actividade_fonte"/>
+	<obj-relationship name="regimeCovActividadeFonte" source="RegimeCovActividadeFonteS5" target="RegimeCovActividadeFonte" deleteRule="Nullify" db-relationship-path="regime_cov_actividade_fonte"/>
+	<obj-relationship name="regimeCovActividade" source="RegimeCovActividadePre" target="RegimeCovActividade" deleteRule="Nullify" db-relationship-path="regime_cov_actividade"/>
+	<obj-relationship name="regimeCov" source="RegimeCovAdvertencia" target="RegimeCov" deleteRule="Nullify" db-relationship-path="regime_cov"/>
+	<obj-relationship name="tipoAdvertencia" source="RegimeCovAdvertencia" target="TTipoAdvertenciaPerigo" deleteRule="Nullify" db-relationship-path="tipo_advertencia"/>
+	<obj-relationship name="regimeCovActividadeDifusas" source="RegimeCovDifusasE1" target="RegimeCovActividadeDifusas" deleteRule="Nullify" db-relationship-path="regime_cov_actividade_difusas"/>
+	<obj-relationship name="regimeCovActividadeDifusas" source="RegimeCovDifusasS6" target="RegimeCovActividadeDifusas" deleteRule="Nullify" db-relationship-path="regime_cov_actividade_difusas"/>
+	<obj-relationship name="residuoLer" source="RegimeCovDifusasS6" target="ResiduosLer" deleteRule="Nullify" db-relationship-path="residuo_ler"/>
+	<obj-relationship name="regimeCov" source="RegimeCovSteg" target="RegimeCov" deleteRule="Nullify" db-relationship-path="regime_cov"/>
+	<obj-relationship name="steg" source="RegimeCovSteg" target="TSistemaTratamentoEfluenteGasoso" deleteRule="Nullify" db-relationship-path="steg"/>
+</data-map>

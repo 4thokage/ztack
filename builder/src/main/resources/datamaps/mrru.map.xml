@@ -1,0 +1,1495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="org.addition.apa.residuos.mrru"/>
+	<property name="defaultSchema" value="mrru"/>
+	<db-entity name="composto_classe_destino" schema="mrru">
+		<db-attribute name="fk_formulario_mrru_vo3" type="INTEGER"/>
+		<db-attribute name="fk_t_classe_composto" type="INTEGER"/>
+		<db-attribute name="fk_t_destino_composto" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nome_composto" type="VARCHAR" length="128"/>
+		<db-attribute name="perc_classe" type="DOUBLE"/>
+		<db-attribute name="perc_destino" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="destino" schema="mrru">
+		<db-attribute name="cod_estabelecimento" type="VARCHAR" length="24"/>
+		<db-attribute name="cod_estabelecimento_nao_retomado" type="VARCHAR" length="24"/>
+		<db-attribute name="fk_composto" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_residuo" type="INTEGER"/>
+		<db-attribute name="fk_t_destino" type="INTEGER"/>
+		<db-attribute name="fk_tipo_material" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nif" type="VARCHAR" length="18"/>
+		<db-attribute name="nif_nao_retomado" type="VARCHAR" length="18"/>
+		<db-attribute name="nome_estabelecimento" type="VARCHAR" length="128"/>
+		<db-attribute name="nome_estabelecimento_n_ret" type="VARCHAR" length="128"/>
+		<db-attribute name="perfil_mrru" type="VARCHAR" length="52"/>
+		<db-attribute name="quantidade" type="DOUBLE"/>
+		<db-attribute name="quantidade_armazenada" type="DOUBLE"/>
+		<db-attribute name="quantidade_nao_retomada" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="enquadramento_mrru" schema="mrru">
+		<db-attribute name="aterro" type="BOOLEAN"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="elim_val_energetica" type="BOOLEAN"/>
+		<db-attribute name="fk_criador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_enquadramento" type="INTEGER"/>
+		<db-attribute name="fk_r_estabelecimento_enquadramento" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="prod_combustiveis" type="BOOLEAN"/>
+		<db-attribute name="tratamento_mecanico" type="BOOLEAN"/>
+		<db-attribute name="triagem" type="BOOLEAN"/>
+		<db-attribute name="valorizacao_organica" type="BOOLEAN"/>
+	</db-entity>
+	<db-entity name="entrada" schema="mrru">
+		<db-attribute name="fk_formulario_mrru_residuo" type="INTEGER"/>
+		<db-attribute name="fk_t_entrada" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="equipamento" schema="mrru">
+		<db-attribute name="caudal_medio" type="DOUBLE"/>
+		<db-attribute name="descricao" type="VARCHAR" length="255"/>
+		<db-attribute name="energia_produzida_interno" type="DOUBLE"/>
+		<db-attribute name="energia_produzida_total" type="DOUBLE"/>
+		<db-attribute name="energia_produzida_venda" type="DOUBLE"/>
+		<db-attribute name="fk_producao_biogas" type="INTEGER"/>
+		<db-attribute name="fk_t_equipamento" type="INTEGER"/>
+		<db-attribute name="horas_funcionamento" type="DOUBLE"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="medicoes_ch4" type="DOUBLE"/>
+		<db-attribute name="pci" type="DOUBLE"/>
+		<db-attribute name="quantidade_queimada_valorizada_m3" type="DOUBLE"/>
+		<db-attribute name="quantidade_queimada_valorizada_ton" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="formulario_mrru" schema="mrru">
+		<db-attribute name="data_alteracao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_criacao" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="data_submissao" type="TIMESTAMP"/>
+		<db-attribute name="e_clone" type="BOOLEAN"/>
+		<db-attribute name="fk_altera" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_criador" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="fk_estabelecimento" type="INTEGER"/>
+		<db-attribute name="fk_formulario_antigo" type="INTEGER"/>
+		<db-attribute name="fk_perfil_reabre" type="INTEGER"/>
+		<db-attribute name="fk_perfil_submete" type="INTEGER"/>
+		<db-attribute name="fk_periodo" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_a1" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_a2" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_a3" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_a4" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="quantidade_ecal" type="DOUBLE"/>
+		<db-attribute name="quantidade_madeira" type="DOUBLE"/>
+		<db-attribute name="quantidade_metais" type="DOUBLE"/>
+		<db-attribute name="quantidade_metais_n_ferrosos" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros" type="DOUBLE"/>
+		<db-attribute name="quantidade_pilhas" type="DOUBLE"/>
+		<db-attribute name="quantidade_plastico" type="DOUBLE"/>
+		<db-attribute name="quantidade_putresciveis" type="DOUBLE"/>
+		<db-attribute name="quantidade_reee" type="DOUBLE"/>
+		<db-attribute name="quantidade_vidro" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_cdr1" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_cdr2" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_eve1" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_eve2" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_eve3" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_eve4" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="quantidade_ecal" type="DOUBLE"/>
+		<db-attribute name="quantidade_madeira" type="DOUBLE"/>
+		<db-attribute name="quantidade_metais" type="DOUBLE"/>
+		<db-attribute name="quantidade_metais_n_ferrosos" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros" type="DOUBLE"/>
+		<db-attribute name="quantidade_pilhas" type="DOUBLE"/>
+		<db-attribute name="quantidade_plastico" type="DOUBLE"/>
+		<db-attribute name="quantidade_putresciveis" type="DOUBLE"/>
+		<db-attribute name="quantidade_reee" type="DOUBLE"/>
+		<db-attribute name="quantidade_vidro" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_residuo" schema="mrru">
+		<db-attribute name="fk_formulario_mrru_a1" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_a2" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_a3" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_a4" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_cdr1" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_cdr2" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_eve1" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_eve2" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_eve3" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_eve4" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_s1" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_s2" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_s3" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_s4" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_s5" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_s6" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_t1" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_t2" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_t3" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_tm1" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_tm2" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_vo1" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_vo2" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_vo4" type="INTEGER"/>
+		<db-attribute name="fk_producao_energia" type="INTEGER"/>
+		<db-attribute name="fk_residuos_ler" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_s1" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_s2" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_s3" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_s4" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_s5" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_s6" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="quantidade_alimentares" type="DOUBLE"/>
+		<db-attribute name="quantidade_ecal" type="DOUBLE"/>
+		<db-attribute name="quantidade_eletrodomesticos" type="DOUBLE"/>
+		<db-attribute name="quantidade_emb_aluminio" type="DOUBLE"/>
+		<db-attribute name="quantidade_emb_compositas" type="DOUBLE"/>
+		<db-attribute name="quantidade_emb_ferrosas" type="DOUBLE"/>
+		<db-attribute name="quantidade_emb_madeira" type="DOUBLE"/>
+		<db-attribute name="quantidade_emb_papel_cartao" type="DOUBLE"/>
+		<db-attribute name="quantidade_emb_texteis" type="DOUBLE"/>
+		<db-attribute name="quantidade_emb_vidro" type="DOUBLE"/>
+		<db-attribute name="quantidade_eps" type="DOUBLE"/>
+		<db-attribute name="quantidade_finos" type="DOUBLE"/>
+		<db-attribute name="quantidade_jardim" type="DOUBLE"/>
+		<db-attribute name="quantidade_jornais" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_compositos" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_emb" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_emb_plastico" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_ferrosos" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_madeira" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_metalicos" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_n_emb" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_papel" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_perigosos" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_plastico" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_putresciveis" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_texteis" type="DOUBLE"/>
+		<db-attribute name="quantidade_outros_vidro" type="DOUBLE"/>
+		<db-attribute name="quantidade_pe" type="DOUBLE"/>
+		<db-attribute name="quantidade_pead" type="DOUBLE"/>
+		<db-attribute name="quantidade_pet" type="DOUBLE"/>
+		<db-attribute name="quantidade_pilhas" type="DOUBLE"/>
+		<db-attribute name="quantidade_projetos" type="DOUBLE"/>
+		<db-attribute name="quantidade_quimicos" type="DOUBLE"/>
+		<db-attribute name="quantidade_texteis_sanitarios" type="DOUBLE"/>
+		<db-attribute name="quantidade_tubos_lampadas" type="DOUBLE"/>
+		<db-attribute name="quantidade_verdes" type="DOUBLE"/>
+		<db-attribute name="quantidade_volumosos" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_t1" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_t2" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_t3" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_tm1" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_tm2" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_vo1" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_vo2" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_vo3" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="composto_escoado" type="DOUBLE"/>
+		<db-attribute name="composto_produzido" type="DOUBLE"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_composto_classe_destino" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="formulario_mrru_vo4" schema="mrru">
+		<db-attribute name="alertas" type="CLOB"/>
+		<db-attribute name="data_alteracao" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_alertas" type="TIMESTAMP"/>
+		<db-attribute name="data_calculo_erros" type="TIMESTAMP"/>
+		<db-attribute name="erros" type="CLOB"/>
+		<db-attribute name="fk_formulario_mrru" type="INTEGER"/>
+		<db-attribute name="fk_t_subformulario_mrru_info" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="mrru_concelho" schema="mrru">
+		<db-attribute name="fk_concelho" type="VARCHAR" length="12"/>
+		<db-attribute name="fk_origem" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="valor" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="origem" schema="mrru">
+		<db-attribute name="cod_estabelecimento" type="VARCHAR" length="24"/>
+		<db-attribute name="fk_entrada" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_residuo" type="INTEGER"/>
+		<db-attribute name="fk_t_cae" type="VARCHAR" length="6"/>
+		<db-attribute name="fk_t_origem" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="nif" type="VARCHAR" length="18"/>
+		<db-attribute name="nome_estabelecimento" type="VARCHAR" length="128"/>
+		<db-attribute name="perfil_mrru" type="VARCHAR" length="52"/>
+		<db-attribute name="valor" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="producao_biogas" schema="mrru">
+		<db-attribute name="existe_queima_valorizacao" type="BOOLEAN"/>
+		<db-attribute name="fk_formulario_mrru_a3" type="INTEGER"/>
+		<db-attribute name="fk_formulario_mrru_vo4" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="inicio_aproveitamento" type="DATE"/>
+		<db-attribute name="inicio_queima" type="DATE"/>
+		<db-attribute name="quantidade_biogas" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="producao_energia" schema="mrru">
+		<db-attribute name="eficiencia_energetica" type="DOUBLE"/>
+		<db-attribute name="energia_consumida" type="DOUBLE"/>
+		<db-attribute name="energia_exportada" type="DOUBLE"/>
+		<db-attribute name="energia_produzida" type="DOUBLE"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="tipo_material" schema="mrru">
+		<db-attribute name="fk_formulario_mrru_residuo" type="INTEGER"/>
+		<db-attribute name="fk_t_tipo_material" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="tipo_residuo" schema="mrru">
+		<db-attribute name="fk_destino" type="INTEGER"/>
+		<db-attribute name="fk_origem" type="INTEGER"/>
+		<db-attribute name="fk_t_descricao" type="INTEGER"/>
+		<db-attribute name="fk_t_metodo" type="INTEGER"/>
+		<db-attribute name="fk_t_tipo_residuo" type="INTEGER"/>
+		<db-attribute name="fk_tipo_operacao_valorizacao" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="valor" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="valor_tgr" schema="mrru">
+		<db-attribute name="fk_t_ano" type="INTEGER"/>
+		<db-attribute name="fk_tipo_operacao_valorizacao" type="INTEGER"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="valor" type="DOUBLE" isMandatory="true"/>
+	</db-entity>
+	<obj-entity name="CompostoClasseDestino" className="org.addition.apa.residuos.mrru.CompostoClasseDestino" dbEntityName="composto_classe_destino">
+		<obj-attribute name="nomeComposto" type="java.lang.String" db-attribute-path="nome_composto"/>
+		<obj-attribute name="percClasse" type="java.lang.Double" db-attribute-path="perc_classe"/>
+		<obj-attribute name="percDestino" type="java.lang.Double" db-attribute-path="perc_destino"/>
+	</obj-entity>
+	<obj-entity name="Destino" className="org.addition.apa.residuos.mrru.Destino" dbEntityName="destino">
+		<obj-attribute name="codEstabelecimento" type="java.lang.String" db-attribute-path="cod_estabelecimento"/>
+		<obj-attribute name="codEstabelecimentoNaoRetomado" type="java.lang.String" db-attribute-path="cod_estabelecimento_nao_retomado"/>
+		<obj-attribute name="fkComposto" type="java.lang.Integer" db-attribute-path="fk_composto"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="nifNaoRetomado" type="java.lang.String" db-attribute-path="nif_nao_retomado"/>
+		<obj-attribute name="nomeEstabelecimento" type="java.lang.String" db-attribute-path="nome_estabelecimento"/>
+		<obj-attribute name="nomeEstabelecimentoNRet" type="java.lang.String" db-attribute-path="nome_estabelecimento_n_ret"/>
+		<obj-attribute name="perfilMrru" type="java.lang.String" db-attribute-path="perfil_mrru"/>
+		<obj-attribute name="quantidade" type="java.lang.Double" db-attribute-path="quantidade"/>
+		<obj-attribute name="quantidadeArmazenada" type="java.lang.Double" db-attribute-path="quantidade_armazenada"/>
+		<obj-attribute name="quantidadeNaoRetomada" type="java.lang.Double" db-attribute-path="quantidade_nao_retomada"/>
+	</obj-entity>
+	<obj-entity name="EnquadramentoMrru" className="org.addition.apa.residuos.mrru.EnquadramentoMrru" dbEntityName="enquadramento_mrru">
+		<obj-attribute name="aterro" type="java.lang.Boolean" db-attribute-path="aterro"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="elimValEnergetica" type="java.lang.Boolean" db-attribute-path="elim_val_energetica"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+		<obj-attribute name="prodCombustiveis" type="java.lang.Boolean" db-attribute-path="prod_combustiveis"/>
+		<obj-attribute name="tratamentoMecanico" type="java.lang.Boolean" db-attribute-path="tratamento_mecanico"/>
+		<obj-attribute name="triagem" type="java.lang.Boolean" db-attribute-path="triagem"/>
+		<obj-attribute name="valorizacaoOrganica" type="java.lang.Boolean" db-attribute-path="valorizacao_organica"/>
+	</obj-entity>
+	<obj-entity name="Entrada" className="org.addition.apa.residuos.mrru.Entrada" dbEntityName="entrada">
+	</obj-entity>
+	<obj-entity name="Equipamento" className="org.addition.apa.residuos.mrru.Equipamento" dbEntityName="equipamento">
+		<obj-attribute name="caudalMedio" type="java.lang.Double" db-attribute-path="caudal_medio"/>
+		<obj-attribute name="descricao" type="java.lang.String" db-attribute-path="descricao"/>
+		<obj-attribute name="energiaProduzidaInterno" type="java.lang.Double" db-attribute-path="energia_produzida_interno"/>
+		<obj-attribute name="energiaProduzidaTotal" type="java.lang.Double" db-attribute-path="energia_produzida_total"/>
+		<obj-attribute name="energiaProduzidaVenda" type="java.lang.Double" db-attribute-path="energia_produzida_venda"/>
+		<obj-attribute name="horasFuncionamento" type="java.lang.Double" db-attribute-path="horas_funcionamento"/>
+		<obj-attribute name="medicoesCh4" type="java.lang.Double" db-attribute-path="medicoes_ch4"/>
+		<obj-attribute name="pci" type="java.lang.Double" db-attribute-path="pci"/>
+		<obj-attribute name="quantidadeQueimadaValorizadaM3" type="java.lang.Double" db-attribute-path="quantidade_queimada_valorizada_m3"/>
+		<obj-attribute name="quantidadeQueimadaValorizadaTon" type="java.lang.Double" db-attribute-path="quantidade_queimada_valorizada_ton"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrru" className="org.addition.apa.residuos.mrru.FormularioMrru" dbEntityName="formulario_mrru">
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCriacao" type="java.util.Date" db-attribute-path="data_criacao"/>
+		<obj-attribute name="dataSubmissao" type="java.util.Date" db-attribute-path="data_submissao"/>
+		<obj-attribute name="eClone" type="java.lang.Boolean" db-attribute-path="e_clone"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruA1" className="org.addition.apa.residuos.mrru.FormularioMrruA1" dbEntityName="formulario_mrru_a1">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruA2" className="org.addition.apa.residuos.mrru.FormularioMrruA2" dbEntityName="formulario_mrru_a2">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruA3" className="org.addition.apa.residuos.mrru.FormularioMrruA3" dbEntityName="formulario_mrru_a3">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruA4" className="org.addition.apa.residuos.mrru.FormularioMrruA4" dbEntityName="formulario_mrru_a4">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+		<obj-attribute name="quantidadeEcal" type="java.lang.Double" db-attribute-path="quantidade_ecal"/>
+		<obj-attribute name="quantidadeMadeira" type="java.lang.Double" db-attribute-path="quantidade_madeira"/>
+		<obj-attribute name="quantidadeMetais" type="java.lang.Double" db-attribute-path="quantidade_metais"/>
+		<obj-attribute name="quantidadeMetaisNFerrosos" type="java.lang.Double" db-attribute-path="quantidade_metais_n_ferrosos"/>
+		<obj-attribute name="quantidadeOutros" type="java.lang.Double" db-attribute-path="quantidade_outros"/>
+		<obj-attribute name="quantidadePilhas" type="java.lang.Double" db-attribute-path="quantidade_pilhas"/>
+		<obj-attribute name="quantidadePlastico" type="java.lang.Double" db-attribute-path="quantidade_plastico"/>
+		<obj-attribute name="quantidadePutresciveis" type="java.lang.Double" db-attribute-path="quantidade_putresciveis"/>
+		<obj-attribute name="quantidadeReee" type="java.lang.Double" db-attribute-path="quantidade_reee"/>
+		<obj-attribute name="quantidadeVidro" type="java.lang.Double" db-attribute-path="quantidade_vidro"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruCDR1" className="org.addition.apa.residuos.mrru.FormularioMrruCDR1" dbEntityName="formulario_mrru_cdr1">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruCDR2" className="org.addition.apa.residuos.mrru.FormularioMrruCDR2" dbEntityName="formulario_mrru_cdr2">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruEVE1" className="org.addition.apa.residuos.mrru.FormularioMrruEVE1" dbEntityName="formulario_mrru_eve1">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruEVE2" className="org.addition.apa.residuos.mrru.FormularioMrruEVE2" dbEntityName="formulario_mrru_eve2">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruEVE3" className="org.addition.apa.residuos.mrru.FormularioMrruEVE3" dbEntityName="formulario_mrru_eve3">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruEVE4" className="org.addition.apa.residuos.mrru.FormularioMrruEVE4" dbEntityName="formulario_mrru_eve4">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+		<obj-attribute name="quantidadeEcal" type="java.lang.Double" db-attribute-path="quantidade_ecal"/>
+		<obj-attribute name="quantidadeMadeira" type="java.lang.Double" db-attribute-path="quantidade_madeira"/>
+		<obj-attribute name="quantidadeMetais" type="java.lang.Double" db-attribute-path="quantidade_metais"/>
+		<obj-attribute name="quantidadeMetaisNFerrosos" type="java.lang.Double" db-attribute-path="quantidade_metais_n_ferrosos"/>
+		<obj-attribute name="quantidadeOutros" type="java.lang.Double" db-attribute-path="quantidade_outros"/>
+		<obj-attribute name="quantidadePilhas" type="java.lang.Double" db-attribute-path="quantidade_pilhas"/>
+		<obj-attribute name="quantidadePlastico" type="java.lang.Double" db-attribute-path="quantidade_plastico"/>
+		<obj-attribute name="quantidadePutresciveis" type="java.lang.Double" db-attribute-path="quantidade_putresciveis"/>
+		<obj-attribute name="quantidadeReee" type="java.lang.Double" db-attribute-path="quantidade_reee"/>
+		<obj-attribute name="quantidadeVidro" type="java.lang.Double" db-attribute-path="quantidade_vidro"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruResiduo" className="org.addition.apa.residuos.mrru.FormularioMrruResiduo" dbEntityName="formulario_mrru_residuo">
+	</obj-entity>
+	<obj-entity name="FormularioMrruS1" className="org.addition.apa.residuos.mrru.FormularioMrruS1" dbEntityName="formulario_mrru_s1">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruS2" className="org.addition.apa.residuos.mrru.FormularioMrruS2" dbEntityName="formulario_mrru_s2">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruS3" className="org.addition.apa.residuos.mrru.FormularioMrruS3" dbEntityName="formulario_mrru_s3">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruS4" className="org.addition.apa.residuos.mrru.FormularioMrruS4" dbEntityName="formulario_mrru_s4">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruS5" className="org.addition.apa.residuos.mrru.FormularioMrruS5" dbEntityName="formulario_mrru_s5">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruS6" className="org.addition.apa.residuos.mrru.FormularioMrruS6" dbEntityName="formulario_mrru_s6">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+		<obj-attribute name="quantidadeAlimentares" type="java.lang.Double" db-attribute-path="quantidade_alimentares"/>
+		<obj-attribute name="quantidadeEcal" type="java.lang.Double" db-attribute-path="quantidade_ecal"/>
+		<obj-attribute name="quantidadeEletrodomesticos" type="java.lang.Double" db-attribute-path="quantidade_eletrodomesticos"/>
+		<obj-attribute name="quantidadeEmbAluminio" type="java.lang.Double" db-attribute-path="quantidade_emb_aluminio"/>
+		<obj-attribute name="quantidadeEmbCompositas" type="java.lang.Double" db-attribute-path="quantidade_emb_compositas"/>
+		<obj-attribute name="quantidadeEmbFerrosas" type="java.lang.Double" db-attribute-path="quantidade_emb_ferrosas"/>
+		<obj-attribute name="quantidadeEmbMadeira" type="java.lang.Double" db-attribute-path="quantidade_emb_madeira"/>
+		<obj-attribute name="quantidadeEmbPapelCartao" type="java.lang.Double" db-attribute-path="quantidade_emb_papel_cartao"/>
+		<obj-attribute name="quantidadeEmbTexteis" type="java.lang.Double" db-attribute-path="quantidade_emb_texteis"/>
+		<obj-attribute name="quantidadeEmbVidro" type="java.lang.Double" db-attribute-path="quantidade_emb_vidro"/>
+		<obj-attribute name="quantidadeEps" type="java.lang.Double" db-attribute-path="quantidade_eps"/>
+		<obj-attribute name="quantidadeFinos" type="java.lang.Double" db-attribute-path="quantidade_finos"/>
+		<obj-attribute name="quantidadeJardim" type="java.lang.Double" db-attribute-path="quantidade_jardim"/>
+		<obj-attribute name="quantidadeJornais" type="java.lang.Double" db-attribute-path="quantidade_jornais"/>
+		<obj-attribute name="quantidadeOutrosCompositos" type="java.lang.Double" db-attribute-path="quantidade_outros_compositos"/>
+		<obj-attribute name="quantidadeOutrosEmb" type="java.lang.Double" db-attribute-path="quantidade_outros_emb"/>
+		<obj-attribute name="quantidadeOutrosEmbPlastico" type="java.lang.Double" db-attribute-path="quantidade_outros_emb_plastico"/>
+		<obj-attribute name="quantidadeOutrosFerrosos" type="java.lang.Double" db-attribute-path="quantidade_outros_ferrosos"/>
+		<obj-attribute name="quantidadeOutrosMadeira" type="java.lang.Double" db-attribute-path="quantidade_outros_madeira"/>
+		<obj-attribute name="quantidadeOutrosMetalicos" type="java.lang.Double" db-attribute-path="quantidade_outros_metalicos"/>
+		<obj-attribute name="quantidadeOutrosNEmb" type="java.lang.Double" db-attribute-path="quantidade_outros_n_emb"/>
+		<obj-attribute name="quantidadeOutrosPapel" type="java.lang.Double" db-attribute-path="quantidade_outros_papel"/>
+		<obj-attribute name="quantidadeOutrosPerigosos" type="java.lang.Double" db-attribute-path="quantidade_outros_perigosos"/>
+		<obj-attribute name="quantidadeOutrosPlastico" type="java.lang.Double" db-attribute-path="quantidade_outros_plastico"/>
+		<obj-attribute name="quantidadeOutrosPutresciveis" type="java.lang.Double" db-attribute-path="quantidade_outros_putresciveis"/>
+		<obj-attribute name="quantidadeOutrosTexteis" type="java.lang.Double" db-attribute-path="quantidade_outros_texteis"/>
+		<obj-attribute name="quantidadeOutrosVidro" type="java.lang.Double" db-attribute-path="quantidade_outros_vidro"/>
+		<obj-attribute name="quantidadePe" type="java.lang.Double" db-attribute-path="quantidade_pe"/>
+		<obj-attribute name="quantidadePead" type="java.lang.Double" db-attribute-path="quantidade_pead"/>
+		<obj-attribute name="quantidadePet" type="java.lang.Double" db-attribute-path="quantidade_pet"/>
+		<obj-attribute name="quantidadePilhas" type="java.lang.Double" db-attribute-path="quantidade_pilhas"/>
+		<obj-attribute name="quantidadeProjetos" type="java.lang.Double" db-attribute-path="quantidade_projetos"/>
+		<obj-attribute name="quantidadeQuimicos" type="java.lang.Double" db-attribute-path="quantidade_quimicos"/>
+		<obj-attribute name="quantidadeTexteisSanitarios" type="java.lang.Double" db-attribute-path="quantidade_texteis_sanitarios"/>
+		<obj-attribute name="quantidadeTubosLampadas" type="java.lang.Double" db-attribute-path="quantidade_tubos_lampadas"/>
+		<obj-attribute name="quantidadeVerdes" type="java.lang.Double" db-attribute-path="quantidade_verdes"/>
+		<obj-attribute name="quantidadeVolumosos" type="java.lang.Double" db-attribute-path="quantidade_volumosos"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruT1" className="org.addition.apa.residuos.mrru.FormularioMrruT1" dbEntityName="formulario_mrru_t1">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruT2" className="org.addition.apa.residuos.mrru.FormularioMrruT2" dbEntityName="formulario_mrru_t2">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruT3" className="org.addition.apa.residuos.mrru.FormularioMrruT3" dbEntityName="formulario_mrru_t3">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruTM1" className="org.addition.apa.residuos.mrru.FormularioMrruTM1" dbEntityName="formulario_mrru_tm1">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruTM2" className="org.addition.apa.residuos.mrru.FormularioMrruTM2" dbEntityName="formulario_mrru_tm2">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruVO1" className="org.addition.apa.residuos.mrru.FormularioMrruVO1" dbEntityName="formulario_mrru_vo1">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruVO2" className="org.addition.apa.residuos.mrru.FormularioMrruVO2" dbEntityName="formulario_mrru_vo2">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruVO3" className="org.addition.apa.residuos.mrru.FormularioMrruVO3" dbEntityName="formulario_mrru_vo3">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="compostoEscoado" type="java.lang.Double" db-attribute-path="composto_escoado"/>
+		<obj-attribute name="compostoProduzido" type="java.lang.Double" db-attribute-path="composto_produzido"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+		<obj-attribute name="fkCompostoClasseDestino" type="java.lang.Integer" db-attribute-path="fk_composto_classe_destino"/>
+	</obj-entity>
+	<obj-entity name="FormularioMrruVO4" className="org.addition.apa.residuos.mrru.FormularioMrruVO4" dbEntityName="formulario_mrru_vo4">
+		<obj-attribute name="alertas" type="java.lang.String" db-attribute-path="alertas"/>
+		<obj-attribute name="dataAlteracao" type="java.util.Date" db-attribute-path="data_alteracao"/>
+		<obj-attribute name="dataCalculoAlertas" type="java.util.Date" db-attribute-path="data_calculo_alertas"/>
+		<obj-attribute name="dataCalculoErros" type="java.util.Date" db-attribute-path="data_calculo_erros"/>
+		<obj-attribute name="erros" type="java.lang.String" db-attribute-path="erros"/>
+	</obj-entity>
+	<obj-entity name="MrruConcelho" className="org.addition.apa.residuos.mrru.MrruConcelho" dbEntityName="mrru_concelho">
+		<obj-attribute name="valor" type="java.lang.Double" db-attribute-path="valor"/>
+	</obj-entity>
+	<obj-entity name="Origem" className="org.addition.apa.residuos.mrru.Origem" dbEntityName="origem">
+		<obj-attribute name="codEstabelecimento" type="java.lang.String" db-attribute-path="cod_estabelecimento"/>
+		<obj-attribute name="nif" type="java.lang.String" db-attribute-path="nif"/>
+		<obj-attribute name="nomeEstabelecimento" type="java.lang.String" db-attribute-path="nome_estabelecimento"/>
+		<obj-attribute name="perfilMrru" type="java.lang.String" db-attribute-path="perfil_mrru"/>
+		<obj-attribute name="valor" type="java.lang.Double" db-attribute-path="valor"/>
+	</obj-entity>
+	<obj-entity name="ProducaoBiogas" className="org.addition.apa.residuos.mrru.ProducaoBiogas" dbEntityName="producao_biogas">
+		<obj-attribute name="existeQueimaValorizacao" type="java.lang.Boolean" db-attribute-path="existe_queima_valorizacao"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+		<obj-attribute name="inicioAproveitamento" type="java.util.Date" db-attribute-path="inicio_aproveitamento"/>
+		<obj-attribute name="inicioQueima" type="java.util.Date" db-attribute-path="inicio_queima"/>
+		<obj-attribute name="quantidadeBiogas" type="java.lang.Double" db-attribute-path="quantidade_biogas"/>
+	</obj-entity>
+	<obj-entity name="ProducaoEnergia" className="org.addition.apa.residuos.mrru.ProducaoEnergia" dbEntityName="producao_energia">
+		<obj-attribute name="eficienciaEnergetica" type="java.lang.Double" db-attribute-path="eficiencia_energetica"/>
+		<obj-attribute name="energiaConsumida" type="java.lang.Double" db-attribute-path="energia_consumida"/>
+		<obj-attribute name="energiaExportada" type="java.lang.Double" db-attribute-path="energia_exportada"/>
+		<obj-attribute name="energiaProduzida" type="java.lang.Double" db-attribute-path="energia_produzida"/>
+	</obj-entity>
+	<obj-entity name="TipoMaterial" className="org.addition.apa.residuos.mrru.TipoMaterial" dbEntityName="tipo_material">
+	</obj-entity>
+	<obj-entity name="TipoResiduo" className="org.addition.apa.residuos.mrru.TipoResiduo" dbEntityName="tipo_residuo">
+		<obj-attribute name="valor" type="java.lang.Double" db-attribute-path="valor"/>
+	</obj-entity>
+	<obj-entity name="ValorTgr" className="org.addition.apa.residuos.mrru.ValorTgr" dbEntityName="valor_tgr">
+		<obj-attribute name="valor" type="java.lang.Double" db-attribute-path="valor"/>
+	</obj-entity>
+	<db-relationship name="formulario_mrru_vo3" source="composto_classe_destino" target="formulario_mrru_vo3" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_vo3" target="id"/>
+	</db-relationship>
+	<db-relationship name="t_classe_composto" source="composto_classe_destino" target="t_classe_composto" toMany="false">
+		<db-attribute-pair source="fk_t_classe_composto" target="id"/>
+	</db-relationship>
+	<db-relationship name="t_destino_composto" source="composto_classe_destino" target="t_destino_composto" toMany="false">
+		<db-attribute-pair source="fk_t_destino_composto" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuo" source="destino" target="formulario_mrru_residuo" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_residuo" target="id"/>
+	</db-relationship>
+	<db-relationship name="t_destino" source="destino" target="t_destino" toMany="false">
+		<db-attribute-pair source="fk_t_destino" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_material" source="destino" target="tipo_material" toMany="false">
+		<db-attribute-pair source="fk_tipo_material" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_residuo" source="destino" target="tipo_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_destino"/>
+	</db-relationship>
+	<db-relationship name="criador" source="enquadramento_mrru" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="enquadramento" source="enquadramento_mrru" target="enquadramento_estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_enquadramento" target="id"/>
+	</db-relationship>
+	<db-relationship name="r_estabelecimento_enquadramento" source="enquadramento_mrru" target="r_estabelecimento_enquadramento" toMany="false">
+		<db-attribute-pair source="fk_r_estabelecimento_enquadramento" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuo" source="entrada" target="formulario_mrru_residuo" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_residuo" target="id"/>
+	</db-relationship>
+	<db-relationship name="origem" source="entrada" target="origem" toMany="true">
+		<db-attribute-pair source="id" target="fk_entrada"/>
+	</db-relationship>
+	<db-relationship name="t_entrada" source="entrada" target="t_entrada" toMany="false">
+		<db-attribute-pair source="fk_t_entrada" target="id"/>
+	</db-relationship>
+	<db-relationship name="producao_biogas" source="equipamento" target="producao_biogas" toMany="false">
+		<db-attribute-pair source="fk_producao_biogas" target="id"/>
+	</db-relationship>
+	<db-relationship name="t_equipamento" source="equipamento" target="t_equipamento" toMany="false">
+		<db-attribute-pair source="fk_t_equipamento" target="id"/>
+	</db-relationship>
+	<db-relationship name="altera" source="formulario_mrru" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_altera" target="id"/>
+	</db-relationship>
+	<db-relationship name="criador" source="formulario_mrru" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_criador" target="id"/>
+	</db-relationship>
+	<db-relationship name="estabelecimento" source="formulario_mrru" target="estabelecimento" toMany="false">
+		<db-attribute-pair source="fk_estabelecimento" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_antigo" source="formulario_mrru" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_antigo" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_a1" source="formulario_mrru" target="formulario_mrru_a1" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_a2" source="formulario_mrru" target="formulario_mrru_a2" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_a3" source="formulario_mrru" target="formulario_mrru_a3" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_a4" source="formulario_mrru" target="formulario_mrru_a4" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_cdr1" source="formulario_mrru" target="formulario_mrru_cdr1" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_cdr2" source="formulario_mrru" target="formulario_mrru_cdr2" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_eve1" source="formulario_mrru" target="formulario_mrru_eve1" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_eve2" source="formulario_mrru" target="formulario_mrru_eve2" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_eve3" source="formulario_mrru" target="formulario_mrru_eve3" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_eve4" source="formulario_mrru" target="formulario_mrru_eve4" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_s1" source="formulario_mrru" target="formulario_mrru_s1" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_s2" source="formulario_mrru" target="formulario_mrru_s2" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_s3" source="formulario_mrru" target="formulario_mrru_s3" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_s4" source="formulario_mrru" target="formulario_mrru_s4" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_s5" source="formulario_mrru" target="formulario_mrru_s5" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_s6" source="formulario_mrru" target="formulario_mrru_s6" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_t1" source="formulario_mrru" target="formulario_mrru_t1" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_t2" source="formulario_mrru" target="formulario_mrru_t2" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_t3" source="formulario_mrru" target="formulario_mrru_t3" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_tm1" source="formulario_mrru" target="formulario_mrru_tm1" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_tm2" source="formulario_mrru" target="formulario_mrru_tm2" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_vo1" source="formulario_mrru" target="formulario_mrru_vo1" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_vo2" source="formulario_mrru" target="formulario_mrru_vo2" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_vo3" source="formulario_mrru" target="formulario_mrru_vo3" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_vo4" source="formulario_mrru" target="formulario_mrru_vo4" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="formulario_novo" source="formulario_mrru" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_antigo"/>
+	</db-relationship>
+	<db-relationship name="mensagens" source="formulario_mrru" target="mensagem" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru"/>
+	</db-relationship>
+	<db-relationship name="perfil_reabre" source="formulario_mrru" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_reabre" target="id"/>
+	</db-relationship>
+	<db-relationship name="periodo" source="formulario_mrru" target="periodo" toMany="false">
+		<db-attribute-pair source="fk_periodo" target="id"/>
+	</db-relationship>
+	<db-relationship name="resumos" source="formulario_mrru" target="formulario_mrru_resumo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario"/>
+	</db-relationship>
+	<db-relationship name="submissor" source="formulario_mrru" target="perfil" toMany="false">
+		<db-attribute-pair source="fk_perfil_submete" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_a1" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_a1" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_a1"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_a1" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_a2" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_a2" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_a2"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_a2" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_a3" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_a3" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_a3"/>
+	</db-relationship>
+	<db-relationship name="producao_biogas" source="formulario_mrru_a3" target="producao_biogas" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_a3"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_a3" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_a4" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_a4" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_cdr1" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_cdr1" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_cdr1"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_cdr1" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_cdr2" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_cdr2" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_cdr2"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_cdr2" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_eve1" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_eve1" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_eve1"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_eve1" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_eve2" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_eve2" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_eve2"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_eve2" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_eve3" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_eve3" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_eve3"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_eve3" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_eve4" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_eve4" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="destino" source="formulario_mrru_residuo" target="destino" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_residuo"/>
+	</db-relationship>
+	<db-relationship name="entrada" source="formulario_mrru_residuo" target="entrada" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_residuo"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_a1" source="formulario_mrru_residuo" target="formulario_mrru_a1" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_a1" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_a2" source="formulario_mrru_residuo" target="formulario_mrru_a2" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_a2" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_a3" source="formulario_mrru_residuo" target="formulario_mrru_a3" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_a3" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_a4" source="formulario_mrru_residuo" target="formulario_mrru_a4" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_a4" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_cdr1" source="formulario_mrru_residuo" target="formulario_mrru_cdr1" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_cdr1" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_cdr2" source="formulario_mrru_residuo" target="formulario_mrru_cdr2" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_cdr2" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_eve1" source="formulario_mrru_residuo" target="formulario_mrru_eve1" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_eve1" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_eve2" source="formulario_mrru_residuo" target="formulario_mrru_eve2" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_eve2" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_eve3" source="formulario_mrru_residuo" target="formulario_mrru_eve3" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_eve3" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_eve4" source="formulario_mrru_residuo" target="formulario_mrru_eve4" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_eve4" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_s1" source="formulario_mrru_residuo" target="formulario_mrru_s1" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_s1" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_s2" source="formulario_mrru_residuo" target="formulario_mrru_s2" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_s2" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_s3" source="formulario_mrru_residuo" target="formulario_mrru_s3" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_s3" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_s4" source="formulario_mrru_residuo" target="formulario_mrru_s4" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_s4" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_s5" source="formulario_mrru_residuo" target="formulario_mrru_s5" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_s5" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_s6" source="formulario_mrru_residuo" target="formulario_mrru_s6" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_s6" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_t1" source="formulario_mrru_residuo" target="formulario_mrru_t1" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_t1" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_t2" source="formulario_mrru_residuo" target="formulario_mrru_t2" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_t2" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_t3" source="formulario_mrru_residuo" target="formulario_mrru_t3" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_t3" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_tm1" source="formulario_mrru_residuo" target="formulario_mrru_tm1" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_tm1" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_tm2" source="formulario_mrru_residuo" target="formulario_mrru_tm2" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_tm2" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_vo1" source="formulario_mrru_residuo" target="formulario_mrru_vo1" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_vo1" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_vo2" source="formulario_mrru_residuo" target="formulario_mrru_vo2" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_vo2" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_vo4" source="formulario_mrru_residuo" target="formulario_mrru_vo4" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_vo4" target="id"/>
+	</db-relationship>
+	<db-relationship name="origem" source="formulario_mrru_residuo" target="origem" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_residuo"/>
+	</db-relationship>
+	<db-relationship name="producao_energia" source="formulario_mrru_residuo" target="producao_energia" toMany="false">
+		<db-attribute-pair source="fk_producao_energia" target="id"/>
+	</db-relationship>
+	<db-relationship name="residuos_ler" source="formulario_mrru_residuo" target="residuos_ler" toMany="false">
+		<db-attribute-pair source="fk_residuos_ler" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_material" source="formulario_mrru_residuo" target="tipo_material" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_residuo"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_s1" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_s1" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_s1"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_s1" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_s2" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_s2" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_s2"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_s2" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_s3" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_s3" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_s3"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_s3" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_s4" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_s4" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_s4"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_s4" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_s5" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_s5" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_s5"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_s5" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_s6" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_s6" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_t1" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_t1" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_t1"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_t1" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_t2" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_t2" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_t2"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_t2" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_t3" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_t3" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_t3"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_t3" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_tm1" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_tm1" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_tm1"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_tm1" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_tm2" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_tm2" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_tm2"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_tm2" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_vo1" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_vo1" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_vo1"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_vo1" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_vo2" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_vo2" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_vo2"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_vo2" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="composto_classe_destino" source="formulario_mrru_vo3" target="composto_classe_destino" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_vo3"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_vo3" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_vo3" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru" source="formulario_mrru_vo4" target="formulario_mrru" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuos" source="formulario_mrru_vo4" target="formulario_mrru_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_vo4"/>
+	</db-relationship>
+	<db-relationship name="producao_biogas" source="formulario_mrru_vo4" target="producao_biogas" toMany="false">
+		<db-attribute-pair source="id" target="fk_formulario_mrru_vo4"/>
+	</db-relationship>
+	<db-relationship name="t_subformulario_mrru_info" source="formulario_mrru_vo4" target="t_subformulario_mrru_info" toMany="false">
+		<db-attribute-pair source="fk_t_subformulario_mrru_info" target="id"/>
+	</db-relationship>
+	<db-relationship name="concelho" source="mrru_concelho" target="t_freguesia" toMany="false">
+		<db-attribute-pair source="fk_concelho" target="id"/>
+	</db-relationship>
+	<db-relationship name="origem" source="mrru_concelho" target="origem" toMany="false">
+		<db-attribute-pair source="fk_origem" target="id"/>
+	</db-relationship>
+	<db-relationship name="entrada" source="origem" target="entrada" toMany="false">
+		<db-attribute-pair source="fk_entrada" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuo" source="origem" target="formulario_mrru_residuo" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_residuo" target="id"/>
+	</db-relationship>
+	<db-relationship name="mrru_concelho" source="origem" target="mrru_concelho" toMany="true">
+		<db-attribute-pair source="id" target="fk_origem"/>
+	</db-relationship>
+	<db-relationship name="t_cae" source="origem" target="t_cae" toMany="false">
+		<db-attribute-pair source="fk_t_cae" target="codigo"/>
+	</db-relationship>
+	<db-relationship name="t_origem" source="origem" target="t_origem" toMany="false">
+		<db-attribute-pair source="fk_t_origem" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_residuo" source="origem" target="tipo_residuo" toMany="true">
+		<db-attribute-pair source="id" target="fk_origem"/>
+	</db-relationship>
+	<db-relationship name="equipamento" source="producao_biogas" target="equipamento" toMany="true">
+		<db-attribute-pair source="id" target="fk_producao_biogas"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_a3" source="producao_biogas" target="formulario_mrru_a3" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_a3" target="id"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_vo4" source="producao_biogas" target="formulario_mrru_vo4" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_vo4" target="id"/>
+	</db-relationship>
+	<db-relationship name="destino" source="tipo_material" target="destino" toMany="true">
+		<db-attribute-pair source="id" target="fk_tipo_material"/>
+	</db-relationship>
+	<db-relationship name="formulario_mrru_residuo" source="tipo_material" target="formulario_mrru_residuo" toMany="false">
+		<db-attribute-pair source="fk_formulario_mrru_residuo" target="id"/>
+	</db-relationship>
+	<db-relationship name="t_tipo_material" source="tipo_material" target="t_tipo_material" toMany="false">
+		<db-attribute-pair source="fk_t_tipo_material" target="id"/>
+	</db-relationship>
+	<db-relationship name="destino" source="tipo_residuo" target="destino" toMany="false">
+		<db-attribute-pair source="fk_destino" target="id"/>
+	</db-relationship>
+	<db-relationship name="origem" source="tipo_residuo" target="origem" toMany="false">
+		<db-attribute-pair source="fk_origem" target="id"/>
+	</db-relationship>
+	<db-relationship name="t_descricao" source="tipo_residuo" target="t_descricao" toMany="false">
+		<db-attribute-pair source="fk_t_descricao" target="id"/>
+	</db-relationship>
+	<db-relationship name="t_metodo" source="tipo_residuo" target="t_metodo" toMany="false">
+		<db-attribute-pair source="fk_t_metodo" target="id"/>
+	</db-relationship>
+	<db-relationship name="t_tipo_residuo" source="tipo_residuo" target="t_tipo_residuo" toMany="false">
+		<db-attribute-pair source="fk_t_tipo_residuo" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_operacao_valorizacao" source="tipo_residuo" target="tipo_operacao_valorizacao" toMany="false">
+		<db-attribute-pair source="fk_tipo_operacao_valorizacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="tipo_operacao_valorizacao" source="valor_tgr" target="tipo_operacao_valorizacao" toMany="false">
+		<db-attribute-pair source="fk_tipo_operacao_valorizacao" target="id"/>
+	</db-relationship>
+	<db-relationship name="toTAno" source="valor_tgr" target="t_ano" toMany="false">
+		<db-attribute-pair source="fk_t_ano" target="id"/>
+	</db-relationship>
+	<obj-relationship name="formularioMrruVo3" source="CompostoClasseDestino" target="FormularioMrruVO3" deleteRule="Nullify" db-relationship-path="formulario_mrru_vo3"/>
+	<obj-relationship name="tClasseComposto" source="CompostoClasseDestino" target="TClasseComposto" deleteRule="Nullify" db-relationship-path="t_classe_composto"/>
+	<obj-relationship name="tDestinoComposto" source="CompostoClasseDestino" target="TDestinoComposto" deleteRule="Nullify" db-relationship-path="t_destino_composto"/>
+	<obj-relationship name="formularioMrruResiduo" source="Destino" target="FormularioMrruResiduo" deleteRule="Nullify" db-relationship-path="formulario_mrru_residuo"/>
+	<obj-relationship name="tDestino" source="Destino" target="TDestino" deleteRule="Nullify" db-relationship-path="t_destino"/>
+	<obj-relationship name="tipoMaterial" source="Destino" target="TipoMaterial" deleteRule="Nullify" db-relationship-path="tipo_material"/>
+	<obj-relationship name="tipoResiduo" source="Destino" target="TipoResiduo" deleteRule="Cascade" db-relationship-path="tipo_residuo"/>
+	<obj-relationship name="criador" source="EnquadramentoMrru" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="enquadramento" source="EnquadramentoMrru" target="EnquadramentoEstabelecimento" deleteRule="Nullify" db-relationship-path="enquadramento"/>
+	<obj-relationship name="rEstabelecimentoEnquadramento" source="EnquadramentoMrru" target="REstabelecimentoEnquadramento" deleteRule="Nullify" db-relationship-path="r_estabelecimento_enquadramento"/>
+	<obj-relationship name="formularioMrruResiduo" source="Entrada" target="FormularioMrruResiduo" deleteRule="Nullify" db-relationship-path="formulario_mrru_residuo"/>
+	<obj-relationship name="origem" source="Entrada" target="Origem" deleteRule="Cascade" db-relationship-path="origem"/>
+	<obj-relationship name="tEntrada" source="Entrada" target="TEntrada" deleteRule="Nullify" db-relationship-path="t_entrada"/>
+	<obj-relationship name="producaoBiogas" source="Equipamento" target="ProducaoBiogas" deleteRule="Nullify" db-relationship-path="producao_biogas"/>
+	<obj-relationship name="tEquipamento" source="Equipamento" target="TEquipamento" deleteRule="Nullify" db-relationship-path="t_equipamento"/>
+	<obj-relationship name="altera" source="FormularioMrru" target="Perfil" deleteRule="Nullify" db-relationship-path="altera"/>
+	<obj-relationship name="criador" source="FormularioMrru" target="Perfil" deleteRule="Nullify" db-relationship-path="criador"/>
+	<obj-relationship name="estabelecimento" source="FormularioMrru" target="Estabelecimento" deleteRule="Nullify" db-relationship-path="estabelecimento"/>
+	<obj-relationship name="formularioAntigo" source="FormularioMrru" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_antigo"/>
+	<obj-relationship name="formularioMrruA1" source="FormularioMrru" target="FormularioMrruA1" deleteRule="Cascade" db-relationship-path="formulario_mrru_a1"/>
+	<obj-relationship name="formularioMrruA2" source="FormularioMrru" target="FormularioMrruA2" deleteRule="Cascade" db-relationship-path="formulario_mrru_a2"/>
+	<obj-relationship name="formularioMrruA3" source="FormularioMrru" target="FormularioMrruA3" deleteRule="Cascade" db-relationship-path="formulario_mrru_a3"/>
+	<obj-relationship name="formularioMrruA4" source="FormularioMrru" target="FormularioMrruA4" deleteRule="Cascade" db-relationship-path="formulario_mrru_a4"/>
+	<obj-relationship name="formularioMrruCdr1" source="FormularioMrru" target="FormularioMrruCDR1" deleteRule="Cascade" db-relationship-path="formulario_mrru_cdr1"/>
+	<obj-relationship name="formularioMrruCdr2" source="FormularioMrru" target="FormularioMrruCDR2" deleteRule="Cascade" db-relationship-path="formulario_mrru_cdr2"/>
+	<obj-relationship name="formularioMrruEve1" source="FormularioMrru" target="FormularioMrruEVE1" deleteRule="Cascade" db-relationship-path="formulario_mrru_eve1"/>
+	<obj-relationship name="formularioMrruEve2" source="FormularioMrru" target="FormularioMrruEVE2" deleteRule="Cascade" db-relationship-path="formulario_mrru_eve2"/>
+	<obj-relationship name="formularioMrruEve3" source="FormularioMrru" target="FormularioMrruEVE3" deleteRule="Cascade" db-relationship-path="formulario_mrru_eve3"/>
+	<obj-relationship name="formularioMrruEve4" source="FormularioMrru" target="FormularioMrruEVE4" deleteRule="Cascade" db-relationship-path="formulario_mrru_eve4"/>
+	<obj-relationship name="formularioMrruS1" source="FormularioMrru" target="FormularioMrruS1" deleteRule="Cascade" db-relationship-path="formulario_mrru_s1"/>
+	<obj-relationship name="formularioMrruS2" source="FormularioMrru" target="FormularioMrruS2" deleteRule="Cascade" db-relationship-path="formulario_mrru_s2"/>
+	<obj-relationship name="formularioMrruS3" source="FormularioMrru" target="FormularioMrruS3" deleteRule="Cascade" db-relationship-path="formulario_mrru_s3"/>
+	<obj-relationship name="formularioMrruS4" source="FormularioMrru" target="FormularioMrruS4" deleteRule="Cascade" db-relationship-path="formulario_mrru_s4"/>
+	<obj-relationship name="formularioMrruS5" source="FormularioMrru" target="FormularioMrruS5" deleteRule="Cascade" db-relationship-path="formulario_mrru_s5"/>
+	<obj-relationship name="formularioMrruS6" source="FormularioMrru" target="FormularioMrruS6" deleteRule="Cascade" db-relationship-path="formulario_mrru_s6"/>
+	<obj-relationship name="formularioMrruT1" source="FormularioMrru" target="FormularioMrruT1" deleteRule="Cascade" db-relationship-path="formulario_mrru_t1"/>
+	<obj-relationship name="formularioMrruT2" source="FormularioMrru" target="FormularioMrruT2" deleteRule="Cascade" db-relationship-path="formulario_mrru_t2"/>
+	<obj-relationship name="formularioMrruT3" source="FormularioMrru" target="FormularioMrruT3" deleteRule="Cascade" db-relationship-path="formulario_mrru_t3"/>
+	<obj-relationship name="formularioMrruTm1" source="FormularioMrru" target="FormularioMrruTM1" deleteRule="Cascade" db-relationship-path="formulario_mrru_tm1"/>
+	<obj-relationship name="formularioMrruTm2" source="FormularioMrru" target="FormularioMrruTM2" deleteRule="Cascade" db-relationship-path="formulario_mrru_tm2"/>
+	<obj-relationship name="formularioMrruVo1" source="FormularioMrru" target="FormularioMrruVO1" deleteRule="Cascade" db-relationship-path="formulario_mrru_vo1"/>
+	<obj-relationship name="formularioMrruVo2" source="FormularioMrru" target="FormularioMrruVO2" deleteRule="Cascade" db-relationship-path="formulario_mrru_vo2"/>
+	<obj-relationship name="formularioMrruVo3" source="FormularioMrru" target="FormularioMrruVO3" deleteRule="Cascade" db-relationship-path="formulario_mrru_vo3"/>
+	<obj-relationship name="formularioMrruVo4" source="FormularioMrru" target="FormularioMrruVO4" deleteRule="Cascade" db-relationship-path="formulario_mrru_vo4"/>
+	<obj-relationship name="formularioNovo" source="FormularioMrru" target="FormularioMrru" deleteRule="Cascade" db-relationship-path="formulario_novo"/>
+	<obj-relationship name="mensagens" source="FormularioMrru" target="Mensagem" deleteRule="Nullify" db-relationship-path="mensagens"/>
+	<obj-relationship name="perfilReabre" source="FormularioMrru" target="Perfil" deleteRule="Nullify" db-relationship-path="perfil_reabre"/>
+	<obj-relationship name="periodo" source="FormularioMrru" target="Periodo" deleteRule="Nullify" db-relationship-path="periodo"/>
+	<obj-relationship name="resumos" source="FormularioMrru" target="FormularioMrruResumo" deleteRule="Nullify" db-relationship-path="resumos"/>
+	<obj-relationship name="submissor" source="FormularioMrru" target="Perfil" deleteRule="Nullify" db-relationship-path="submissor"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruA1" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruA1" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruA1" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruA2" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruA2" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruA2" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruA3" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruA3" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="producaoBiogas" source="FormularioMrruA3" target="ProducaoBiogas" deleteRule="Nullify" db-relationship-path="producao_biogas"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruA3" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruA4" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruA4" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruCDR1" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruCDR1" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruCDR1" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruCDR2" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruCDR2" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruCDR2" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruEVE1" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruEVE1" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruEVE1" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruEVE2" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruEVE2" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruEVE2" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruEVE3" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruEVE3" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruEVE3" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruEVE4" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruEVE4" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="destino" source="FormularioMrruResiduo" target="Destino" deleteRule="Cascade" db-relationship-path="destino"/>
+	<obj-relationship name="entrada" source="FormularioMrruResiduo" target="Entrada" deleteRule="Cascade" db-relationship-path="entrada"/>
+	<obj-relationship name="formularioMrruA1" source="FormularioMrruResiduo" target="FormularioMrruA1" deleteRule="Nullify" db-relationship-path="formulario_mrru_a1"/>
+	<obj-relationship name="formularioMrruA2" source="FormularioMrruResiduo" target="FormularioMrruA2" deleteRule="Nullify" db-relationship-path="formulario_mrru_a2"/>
+	<obj-relationship name="formularioMrruA3" source="FormularioMrruResiduo" target="FormularioMrruA3" deleteRule="Nullify" db-relationship-path="formulario_mrru_a3"/>
+	<obj-relationship name="formularioMrruA4" source="FormularioMrruResiduo" target="FormularioMrruA4" deleteRule="Nullify" db-relationship-path="formulario_mrru_a4"/>
+	<obj-relationship name="formularioMrruCdr1" source="FormularioMrruResiduo" target="FormularioMrruCDR1" deleteRule="Nullify" db-relationship-path="formulario_mrru_cdr1"/>
+	<obj-relationship name="formularioMrruCdr2" source="FormularioMrruResiduo" target="FormularioMrruCDR2" deleteRule="Nullify" db-relationship-path="formulario_mrru_cdr2"/>
+	<obj-relationship name="formularioMrruEve1" source="FormularioMrruResiduo" target="FormularioMrruEVE1" deleteRule="Nullify" db-relationship-path="formulario_mrru_eve1"/>
+	<obj-relationship name="formularioMrruEve2" source="FormularioMrruResiduo" target="FormularioMrruEVE2" deleteRule="Nullify" db-relationship-path="formulario_mrru_eve2"/>
+	<obj-relationship name="formularioMrruEve3" source="FormularioMrruResiduo" target="FormularioMrruEVE3" deleteRule="Nullify" db-relationship-path="formulario_mrru_eve3"/>
+	<obj-relationship name="formularioMrruEve4" source="FormularioMrruResiduo" target="FormularioMrruEVE4" deleteRule="Nullify" db-relationship-path="formulario_mrru_eve4"/>
+	<obj-relationship name="formularioMrruS1" source="FormularioMrruResiduo" target="FormularioMrruS1" deleteRule="Nullify" db-relationship-path="formulario_mrru_s1"/>
+	<obj-relationship name="formularioMrruS2" source="FormularioMrruResiduo" target="FormularioMrruS2" deleteRule="Nullify" db-relationship-path="formulario_mrru_s2"/>
+	<obj-relationship name="formularioMrruS3" source="FormularioMrruResiduo" target="FormularioMrruS3" deleteRule="Nullify" db-relationship-path="formulario_mrru_s3"/>
+	<obj-relationship name="formularioMrruS4" source="FormularioMrruResiduo" target="FormularioMrruS4" deleteRule="Nullify" db-relationship-path="formulario_mrru_s4"/>
+	<obj-relationship name="formularioMrruS5" source="FormularioMrruResiduo" target="FormularioMrruS5" deleteRule="Nullify" db-relationship-path="formulario_mrru_s5"/>
+	<obj-relationship name="formularioMrruS6" source="FormularioMrruResiduo" target="FormularioMrruS6" deleteRule="Nullify" db-relationship-path="formulario_mrru_s6"/>
+	<obj-relationship name="formularioMrruT1" source="FormularioMrruResiduo" target="FormularioMrruT1" deleteRule="Nullify" db-relationship-path="formulario_mrru_t1"/>
+	<obj-relationship name="formularioMrruT2" source="FormularioMrruResiduo" target="FormularioMrruT2" deleteRule="Nullify" db-relationship-path="formulario_mrru_t2"/>
+	<obj-relationship name="formularioMrruT3" source="FormularioMrruResiduo" target="FormularioMrruT3" deleteRule="Nullify" db-relationship-path="formulario_mrru_t3"/>
+	<obj-relationship name="formularioMrruTm1" source="FormularioMrruResiduo" target="FormularioMrruTM1" deleteRule="Nullify" db-relationship-path="formulario_mrru_tm1"/>
+	<obj-relationship name="formularioMrruTm2" source="FormularioMrruResiduo" target="FormularioMrruTM2" deleteRule="Nullify" db-relationship-path="formulario_mrru_tm2"/>
+	<obj-relationship name="formularioMrruVo1" source="FormularioMrruResiduo" target="FormularioMrruVO1" deleteRule="Nullify" db-relationship-path="formulario_mrru_vo1"/>
+	<obj-relationship name="formularioMrruVo2" source="FormularioMrruResiduo" target="FormularioMrruVO2" deleteRule="Nullify" db-relationship-path="formulario_mrru_vo2"/>
+	<obj-relationship name="formularioMrruVo4" source="FormularioMrruResiduo" target="FormularioMrruVO4" deleteRule="Nullify" db-relationship-path="formulario_mrru_vo4"/>
+	<obj-relationship name="origem" source="FormularioMrruResiduo" target="Origem" deleteRule="Cascade" db-relationship-path="origem"/>
+	<obj-relationship name="producaoEnergia" source="FormularioMrruResiduo" target="ProducaoEnergia" deleteRule="Nullify" db-relationship-path="producao_energia"/>
+	<obj-relationship name="residuosLer" source="FormularioMrruResiduo" target="ResiduosLer" deleteRule="Nullify" db-relationship-path="residuos_ler"/>
+	<obj-relationship name="tipoMaterial" source="FormularioMrruResiduo" target="TipoMaterial" deleteRule="Cascade" db-relationship-path="tipo_material"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruS1" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruS1" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruS1" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruS2" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruS2" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruS2" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruS3" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruS3" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruS3" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruS4" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruS4" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruS4" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruS5" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruS5" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruS5" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruS6" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruS6" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruT1" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruT1" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruT1" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruT2" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruT2" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruT2" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruT3" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruT3" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruT3" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruTM1" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruTM1" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruTM1" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruTM2" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruTM2" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruTM2" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruVO1" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruVO1" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruVO1" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruVO2" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruVO2" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruVO2" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="compostoClasseDestino" source="FormularioMrruVO3" target="CompostoClasseDestino" deleteRule="Cascade" db-relationship-path="composto_classe_destino"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruVO3" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruVO3" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="formularioMrru" source="FormularioMrruVO4" target="FormularioMrru" deleteRule="Nullify" db-relationship-path="formulario_mrru"/>
+	<obj-relationship name="formularioMrruResiduos" source="FormularioMrruVO4" target="FormularioMrruResiduo" deleteRule="Cascade" db-relationship-path="formulario_mrru_residuos"/>
+	<obj-relationship name="producaoBiogas" source="FormularioMrruVO4" target="ProducaoBiogas" deleteRule="Nullify" db-relationship-path="producao_biogas"/>
+	<obj-relationship name="tSubformularioMrruInfo" source="FormularioMrruVO4" target="TSubformularioMrruInfo" deleteRule="Nullify" db-relationship-path="t_subformulario_mrru_info"/>
+	<obj-relationship name="concelho" source="MrruConcelho" target="TFreguesia" deleteRule="Nullify" db-relationship-path="concelho"/>
+	<obj-relationship name="origem" source="MrruConcelho" target="Origem" deleteRule="Nullify" db-relationship-path="origem"/>
+	<obj-relationship name="entrada" source="Origem" target="Entrada" deleteRule="Nullify" db-relationship-path="entrada"/>
+	<obj-relationship name="formularioMrruResiduo" source="Origem" target="FormularioMrruResiduo" deleteRule="Nullify" db-relationship-path="formulario_mrru_residuo"/>
+	<obj-relationship name="mrruConcelho" source="Origem" target="MrruConcelho" deleteRule="Cascade" db-relationship-path="mrru_concelho"/>
+	<obj-relationship name="tCae" source="Origem" target="TCae" deleteRule="Nullify" db-relationship-path="t_cae"/>
+	<obj-relationship name="tOrigem" source="Origem" target="TOrigem" deleteRule="Nullify" db-relationship-path="t_origem"/>
+	<obj-relationship name="tipoResiduo" source="Origem" target="TipoResiduo" deleteRule="Cascade" db-relationship-path="tipo_residuo"/>
+	<obj-relationship name="equipamento" source="ProducaoBiogas" target="Equipamento" deleteRule="Cascade" db-relationship-path="equipamento"/>
+	<obj-relationship name="formularioMrruA3" source="ProducaoBiogas" target="FormularioMrruA3" deleteRule="Cascade" db-relationship-path="formulario_mrru_a3"/>
+	<obj-relationship name="formularioMrruVo4" source="ProducaoBiogas" target="FormularioMrruVO4" deleteRule="Cascade" db-relationship-path="formulario_mrru_vo4"/>
+	<obj-relationship name="destino" source="TipoMaterial" target="Destino" deleteRule="Cascade" db-relationship-path="destino"/>
+	<obj-relationship name="formularioMrruResiduo" source="TipoMaterial" target="FormularioMrruResiduo" deleteRule="Nullify" db-relationship-path="formulario_mrru_residuo"/>
+	<obj-relationship name="tTipoMaterial" source="TipoMaterial" target="TTipoMaterial" deleteRule="Nullify" db-relationship-path="t_tipo_material"/>
+	<obj-relationship name="destino" source="TipoResiduo" target="Destino" deleteRule="Nullify" db-relationship-path="destino"/>
+	<obj-relationship name="origem" source="TipoResiduo" target="Origem" deleteRule="Nullify" db-relationship-path="origem"/>
+	<obj-relationship name="tDescricao" source="TipoResiduo" target="TDescricao" deleteRule="Nullify" db-relationship-path="t_descricao"/>
+	<obj-relationship name="tMetodo" source="TipoResiduo" target="TMetodo" deleteRule="Nullify" db-relationship-path="t_metodo"/>
+	<obj-relationship name="tTipoResiduo" source="TipoResiduo" target="TTipoResiduo" deleteRule="Nullify" db-relationship-path="t_tipo_residuo"/>
+	<obj-relationship name="tipoOperacaoValorizacao" source="TipoResiduo" target="TipoOperacaoValorizacao" deleteRule="Nullify" db-relationship-path="tipo_operacao_valorizacao"/>
+	<obj-relationship name="tipoOperacaoValorizacao" source="ValorTgr" target="TipoOperacaoValorizacao" deleteRule="Nullify" db-relationship-path="tipo_operacao_valorizacao"/>
+	<obj-relationship name="toTAno" source="ValorTgr" target="TAno" deleteRule="Nullify" db-relationship-path="toTAno"/>
+</data-map>

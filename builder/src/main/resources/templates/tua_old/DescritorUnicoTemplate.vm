@@ -1,0 +1,106 @@
+#set ( $Form = "Form" ) #set ( $WidgetVar = "WidgetVar" )
+#set( $descricao = ".descricao" )
+#set( $codigo = ".codigo" )
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">			
+	<p:outputPanel styleClass="spanBtnDescritor" id="#{descritorTua.prefixoComponentesUi}spanBtnsDescritor">	
+		<p:commandButton icon="fa fa-plus" value="Adicionar"		
+			rendered="#{descritorTua.visibilidadeTua.botaoAdicionarCondicao}"
+			update="@([id$=dialogNovaCondicao)"		
+			oncomplete="PF('dialogNovaCondicao').show();"		
+			styleClass="hideToPrint">
+			<f:setPropertyActionListener value="#{descritorTua}" target="#{tuaBean.tvSelecionado}" />
+		</p:commandButton>
+		
+		<p:commandButton icon="fa fa-trash-o" value="Remover" 		
+			rendered="#{descritorTua.visibilidadeTua.botaoRemoverDescritor and descritorTua.numCondicoes eq 0}"		
+			action="#{tuaBean.removerDescritor}"
+			styleClass="hideToPrint">
+			<f:setPropertyActionListener value="#{descritorTua}" target="#{tuaBean.tvSelecionado}" />
+		</p:commandButton>
+					
+		<p:commandButton value="Histórico" icon="fa fa-book"		
+			rendered="#{descritorTua.visibilidadeTua.botaoHistorico}"
+			update="@([id$=dialogHistoricoDescritor)"		
+			oncomplete="PF('dialogHistoricoDescritor').show()" styleClass="hideToPrint botaoHistorico">
+			<f:setPropertyActionListener value="#{descritorTua}" target="#{tuaBean.tvSelecionado}" />
+		</p:commandButton>	
+	</p:outputPanel>	
+	<br />
+
+	<p:messages id="#{descritorTua.prefixoComponentesUi}Msg$entityName" showDetail="true" closable="true" for="#{descritorTua.prefixoComponentesUi}Msg$entityName" />
+	<p:dataTable id="#{descritorTua.prefixoComponentesUi}tabela$entityName"
+		widgetVar="#{descritorTua.prefixoComponentesUi}tabela$entityName$WidgetVar"
+		value="#{descritorTua.resultList}" emptyMessage="Sem dados." styleClass="descritorDataTable"
+		var="condicao">
+
+		<p:column headerText="Código" styleClass="colunaDescritor colunaCodigoDescritor" rendered="#{descritorTua.visibilidadeTua.colunaCodigoCondicao}">
+			<p:panelGrid rendered="#{condicao.conflito}" style="display:inline;">
+			    <i class="fa fa-warning"></i>
+			</p:panelGrid>
+			<h:outputText rendered="#{condicao.conflito}" value="&#160;" />
+			
+			<h:outputText
+						style="#{(not empty regimeUtilizador and condicao.regimesAssociados.contains(regimeUtilizador))? 'font-weight:bold;' : ''}"
+						value="#{condicao.codigoCondicao}" />
+		</p:column>					
+#foreach( $attribute in $objAttributes )
+#if ($attribute.getDescription() != "id" &&  $attribute.getDescription() != "Confidencial" && $attribute.getDescription() != "utilizador_criacao" && $attribute.getDescription() != "utilizador_estado" && $attribute.getDescription() != "data_estado" && $attribute.getDescription() != "data_criacao"  && $attribute.getName() != "codigoCondicao" && !$attribute.getName().contains("Outro"))						
+#if($attribute.getType() == "java.util.Date")
+		<p:column headerText="$attribute.getDescription()" styleClass="colunaDescritor">
+			<h:outputFormat 
+			style="#{(not empty regimeUtilizador and condicao.regimesAssociados.contains(regimeUtilizador))? 'font-weight:bold;' : ''}"
+			value="{0, date, dd-MM-yyyy}" rendered="#{not empty condicao.$attribute.getName() }" >
+   				<f:param value="#{condicao.$attribute.getName() }" />
+   			</h:outputFormat>
+#elseif($attribute.getType() == "java.lang.Boolean")
+		<p:column headerText="$attribute.getDescription()" styleClass="colunaDescritor">
+			<h:outputText
+				style="#{(not empty regimeUtilizador and condicao.regimesAssociados.contains(regimeUtilizador))? 'font-weight:bold;' : ''}"
+				value="#{condicao.$attribute.getName() ? 'Sim' : 'Não'}">
+			</h:outputText>
+#elseif($attribute.getType() == "java.math.BigDecimal")
+		<p:column headerText="$attribute.getDescription()" styleClass="colunaDescritor">
+			<h:outputText
+				style="#{(not empty regimeUtilizador and condicao.regimesAssociados.contains(regimeUtilizador))? 'font-weight:bold;' : ''}"
+				value="#{condicao.$attribute.getName()}">
+				<f:convertNumber groupingUsed="true" minFractionDigits="2" />
+			</h:outputText>							
+#elseif($attribute.getListaValores() != "")
+		<p:column headerText="$attribute.getDescription()" styleClass="colunaDescritor">
+			<h:outputText
+				style="#{(not empty regimeUtilizador and condicao.regimesAssociados.contains(regimeUtilizador))? 'font-weight:bold;' : ''}"
+				value="#{condicao.$attribute.getName()$codigo != 'Outro' ? condicao.$attribute.getName()$descricao : 'Outro: '.concat(condicao.$attribute.getName()Outro)}" />
+#elseif($attribute.getName() == "codigoCondicao")
+		<p:column headerText="$attribute.getDescription() rendered="#{!descritorTua.visibilidadeTua.modoImpressao}" styleClass="colunaDescritor">
+			<h:outputText
+				style="#{(not empty regimeUtilizador and condicao.regimesAssociados.contains(regimeUtilizador))? 'font-weight:bold;' : ''}"
+				value="#{condicao.$attribute.getName()}" />		
+#else
+		<p:column headerText="$attribute.getDescription()" styleClass="colunaDescritor">
+			<h:outputText
+				style="#{(not empty regimeUtilizador and condicao.regimesAssociados.contains(regimeUtilizador))? 'font-weight:bold;' : ''}"
+				value="#{condicao.$attribute.getName()}" />
+#end
+		</p:column>
+#end
+#end
+
+
+		<p:column headerText="Ação" styleClass="colunaDescritor colunaAcoesDescritor" rendered="#{descritorTua.visibilidadeTua.colunaAcoes}">
+			<p:commandButton
+				update="#{descritorTua.prefixoComponentesUi}tabela$entityName @([id$=dialogDetalheCondicao])"
+				icon="fa fa-search" title="Aceder ao detalhe"
+				oncomplete="PF('dialogDetalheCondicao').show();" styleClass="hideToPrint">
+				<f:setPropertyActionListener
+					value="#{empty condicao.principal ? condicao : condicao.principal}"
+					target="#{descritorTua.condicaoSelecionada}" />
+				<f:setPropertyActionListener value="#{descritorTua}" target="#{tuaBean.tvSelecionado}" />
+			</p:commandButton>
+		</p:column>
+	</p:dataTable>
+</ui:composition>
