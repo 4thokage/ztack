@@ -236,7 +236,7 @@ public class ObjectEntityAttributesTabLayout
 
     private final ChangeListener<ObjectAttributeAdapter> attributesTableViewSelectionListener = (observable, oldSelection, newSelection) ->
         {
-            final String[] javaTypes = ObjectEntityUtilities.getRegisteredTypeNames();
+            final String[] javaTypes = ObjectEntityUtilities.REGISTERED_TYPE_NAMES.toArray(new String[0]);
 
             if (oldSelection != null)
             {

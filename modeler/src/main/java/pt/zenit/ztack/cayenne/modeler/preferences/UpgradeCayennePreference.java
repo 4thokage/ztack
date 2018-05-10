@@ -27,7 +27,7 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import pt.zenit.ztack.cayenne.modeler.CayenneProjectManager;
-import pt.zenit.ztack.cayenne.modeler.utility.CayenneUserDir;
+import pt.zenit.ztack.cayenne.modeler.utility.CayenneUserDirHelper;
 import org.apache.commons.collections.ExtendedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,7 +108,7 @@ public class UpgradeCayennePreference extends PreferenceDecorator {
      * not exist, it is created as a side effect of this method.
      */
     public File preferencesDirectory() {
-        return CayenneUserDir.getInstance().getDirectory();
+        return CayenneUserDirHelper.getInstance().getDirectory();
     }
 
     @Override

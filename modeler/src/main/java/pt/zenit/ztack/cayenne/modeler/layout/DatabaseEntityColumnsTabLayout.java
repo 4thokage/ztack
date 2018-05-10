@@ -76,7 +76,7 @@ public class DatabaseEntityColumnsTabLayout
 //        fxmlLoader.load();
     }
 
-    private static ObservableList javaTypes = FXCollections.observableArrayList(ObjectEntityUtilities.getRegisteredTypeNames());
+    private static ObservableList javaTypes = FXCollections.observableArrayList(ObjectEntityUtilities.REGISTERED_TYPE_NAMES);
 
     @Override
     public void initializeLayout()

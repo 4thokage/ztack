@@ -129,7 +129,7 @@ public class DefaultVelocityComposer<T> implements VelocityComposer<T> {
 
 					String key = entry.getKey();
 					String camelCaseKey = CayenneUtils.upperCaseOnUnderscore(key);
-					String mbName = CayenneUtils.firstLowerCase(args.controllerName) + "Bean";
+					String mbName = "Bean";
 					Collection<DefaultComponent> defaultComponents = entry.getValue();
 
 					Template fragmentTemplate = ve
@@ -181,9 +181,9 @@ public class DefaultVelocityComposer<T> implements VelocityComposer<T> {
 			List<String> includes = generateIncludes(groupedComponents);
 
 			context.put(VELOCITY_UTILS, vu);
-			context.put(MB_NAME, args.controllerName);
+			context.put(MB_NAME, "Bean");
 			context.put("data", includes);
-			context.put(FILE_NAME, args.controllerName + "Bean.java");
+			context.put(FILE_NAME, "Bean" + "Bean.java");
 			context.put(ROOT_FILE, args.excelFile);
 			context.put(SCHEMA, args.schemaName);
 			context.put("packagePath", outputPath.replaceAll("/", "."));
@@ -217,7 +217,7 @@ public class DefaultVelocityComposer<T> implements VelocityComposer<T> {
 			context.put("data", includes);
 			context.put(SCHEMA, args.schemaName);
 			context.put(FILE_NAME, fileName + ".xhtml");
-			context.put(MB_NAME, CayenneUtils.firstLowerCase(args.controllerName) + "Bean");
+			context.put(MB_NAME, "Bean");
 
 			if (!outputDir.exists() && !outputDir.isDirectory()) {
 				outputDir.mkdirs();

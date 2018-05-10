@@ -1,24 +1,6 @@
-/*****************************************************************
- *   Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
- ****************************************************************/
-
 package pt.zenit.ztack.cayenne.modeler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -37,49 +19,35 @@ import org.slf4j.LoggerFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/** Classe principal do submodulo Ztack: Modeler */
 public class CayenneModeler extends Application
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CayenneModeler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CayenneModeler.class);
 
-//    private Stage      primaryStage;
-    private SplashLayout splashLayout;
-//    private BorderPane rootLayout;
+    private static PreferencesLayout preferencesLayout;
 
+
+    /**
+     * Mostra o SplashScreen {@link SplashLayout}
+     * @param primaryStage Stage de entrada
+     * @throws IOException se o ficheiro do layout (fxml) não for encontrado no disco
+     */
     @Override
-    public void start(final Stage primaryStage) throws Exception
-    {
-        LOGGER.info("Starting modeler...");
-//        this.primaryStage = primaryStage;
+    public void start(final Stage primaryStage) throws IOException {
+        LOG.info("Starting modeler...");
 
-
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScene.fxml"));
-//
-////        MainWindow mainWindow = new MainWindow(cayenneModel);
-////        loader.setController(mainWindow);
-//        Parent root = loader.load();
-//        MainWindow mainWindow = loader.getController();
-//
-//        Scene scene = new Scene(root);//, 470, 332);
-
-
-//        MainWindowViewController mainWindow = (MainWindowViewController) BaseView.loadFXML(getClass().getResource("/view/MainWindowView.fxml"), primaryStage);
-
-//        primaryStage.setScene(mainWindow.getScene());
-//        primaryStage.setTitle("Cayenne Modeler");
-
-
-        // Create and display the Splash layout with recent document list.
-        splashLayout = new SplashLayout(primaryStage);
+        SplashLayout splashLayout = new SplashLayout(primaryStage);
 
         splashLayout.show();
     }
 
-    public static void openProject(final String path) throws Exception
-    {
+    /** Abre o projeto encontrado no caminho indicado
+     *
+     * @param path String com o caminho para o projectp
+     * @throws IOException se não encontrar o projeto (ex: caminho invalido)
+     */
+    public static void openProject(final String path) throws IOException {
         final CayenneProject cayenneProject = CayenneProjectManager.projectForPath(path);
-//        CayenneProject cayenneProject = new CayenneProject(path);
-
-//        CayenneProjectManager.addProject(cayenneProject);
 
         if (cayenneProject != null)
         {
@@ -87,107 +55,55 @@ public class CayenneModeler extends Application
         }
         else
         {
-            LOGGER.error("Couldn't open Cayenne Model Project.");
+            LOG.error("Couldn't open Cayenne Model Project.");
         }
     }
 
-    public static void openProject(final CayenneProject cayenneProject) throws Exception
-    {
-        // TODO: Probably need to save this value off somewhere...
+    /**
+     * Abre o Projecto {@link CayenneProject} em argumento
+     * @param cayenneProject o Projeto cayenne que vai ser aberto
+     * @throws IOException se não encontrar o projeto (ex: caminho invalido)
+     */
+    public static void openProject(final CayenneProject cayenneProject) throws IOException {
+        // TODO: jsr - talvez se deva guardar este valor noutro lado?
         final MainWindowLayout mainWindow = new MainWindowLayout();
 
         mainWindow.show();
         mainWindow.displayCayenneProject(cayenneProject);
     }
 
-    private static PreferencesLayout preferencesLayout;
-
-    public static void openPreferences() throws Exception
-    {
+    /**
+     * Abre a janela das preferencias do Modeler
+     * @throws Exception se o ficheiro JavaFX (fxml) indicado no construtor {@link PreferencesLayout} não for encontrado no disco
+     */
+    public static void openPreferences() throws IOException {
         if (preferencesLayout == null)
             preferencesLayout = new PreferencesLayout();
 
         preferencesLayout.show();
     }
 
-    /**
-     * Initializes the root layout.
-     */
-//    public void initRootLayout()
-//    {
-//        try
-//        {
-//            // Load root layout from fxml file.
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(MainScene.class.getResource("view/MainScene.fxml"));
-//            rootLayout = (BorderPane) loader.load();
-//
-//            // Show the scene containing the root layout.
-//            Scene scene = new Scene(rootLayout);
-//            primaryStage.setScene(scene);
-//            primaryStage.show();
-//        }
-//        catch (IOException e)
-//        {
-//            e.printStackTrace();
-//        }
-//    }
 
     /**
-     * Shows the person overview inside the root layout.
+     * Adiciona novo(s) modulo ao processo
+     * @param modules Lista de {@link Module} a adicionar
+     * @return lista de {@link Module} adicionados
      */
-//    public void showPersonOverview()
-//    {
-//        try
-//        {
-//            // Load person overview.
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(MainScene.class.getResource("view/PersonOverview.fxml"));
-//            AnchorPane personOverview = (AnchorPane) loader.load();
-//
-//            // Set person overview into the center of root layout.
-//            rootLayout.setCenter(personOverview);
-//        }
-//        catch (IOException e)
-//        {
-//            e.printStackTrace();
-//        }
-//    }
-
-    /**
-     * Returns the main stage.
-     *
-     * @return
-     */
-//    public Stage getPrimaryStage()
-//    {
-//        return primaryStage;
-//    }
-
-//    @Inject
-//    protected static Injector injector;
-//
-//    public static Injector getInjector()
-//    {
-//        return injector;
-//    }
-
-
-    protected static Collection<Module> appendModules(final Collection<Module> modules)
+    private static Collection<Module> appendModules(final Collection<Module> modules)
     {
         modules.add(new ServerModule("CayenneModeler"));
-//        modules.add(ServerRuntime.builder().addConfig("CayenneModeler").build());
         modules.add(new ProjectModule());
-//        modules.add(new CayenneModelerModule());
 
         return modules;
     }
 
+    /**
+     * Ponto de entrada da aplicação (FX App)
+     * @param args
+     */
     public static void main(final String[] args)
     {
-//        Font.loadFont(CayenneModeler.class.getResource("/font/fontawesome-webfont.ttf").toExternalForm(), 10);
-
-        Injection.setInjector(DIBootstrap.createInjector(appendModules(new ArrayList<Module>())));
+        Injection.setInjector(DIBootstrap.createInjector(appendModules(new ArrayList<>())));
 
         launch(args);
     }

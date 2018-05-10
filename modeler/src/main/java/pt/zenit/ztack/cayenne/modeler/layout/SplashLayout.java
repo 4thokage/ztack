@@ -33,7 +33,7 @@ public class SplashLayout extends AbstractWindowLayout
     private static final String SPLASH_ICON_SIZE = "16px";
 
     @FXML
-    private ListView<String> projectListView = new ListView<>();
+    private ListView<String> projectListView;
 
     @FXML
     private Button newProjectButton = new Button();
@@ -137,7 +137,7 @@ public class SplashLayout extends AbstractWindowLayout
 
     public void onKeyTyped(final KeyEvent event)
     {
-        if (event.getCharacter().equals("\r"))
+        if (event.getCharacter().equals("\r") && projectListView.getItems().size() > 0)
             openSelectedModel();
     }
 

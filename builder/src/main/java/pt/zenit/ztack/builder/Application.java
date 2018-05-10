@@ -26,12 +26,6 @@ public class Application {
 				applicationBuilder.processExcel();
 			}
 			applicationBuilder.composeApp();
-			if(jCommanderArgs.deploy) {
-				applicationBuilder.compileAndDeploy();
-			}
-			if(jCommanderArgs.test) {
-				applicationBuilder.initTests();
-			}
 		}
 	}
 }
