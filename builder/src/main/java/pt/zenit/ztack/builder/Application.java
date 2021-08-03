@@ -15,7 +15,7 @@ public class Application {
 	public static void main(String[] args) throws IOException {
 
 		ApplicationArguments jCommanderArgs = new ApplicationArguments();
-		JCommander jCommander = new JCommander(jCommanderArgs, args);
+		JCommander jCommander = new JCommander(jCommanderArgs, null, args);
 		jCommander.setProgramName(Constants.DefaultValues.APP_TITLE.getValue());
 
 		if (jCommanderArgs.help) {

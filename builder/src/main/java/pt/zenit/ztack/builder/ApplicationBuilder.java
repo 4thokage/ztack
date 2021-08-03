@@ -13,7 +13,7 @@ import java.util.Collection;
 /** Classe que contém todos os métodos centrais da aplicação (geração de código, pré-processamento de ficheiros, testes e deploys */
 class ApplicationBuilder<T> {
 
-	private ApplicationArguments arguments;
+	private final ApplicationArguments arguments;
 
 	ApplicationBuilder(ApplicationArguments arguments) {
 	    this.arguments = arguments;

@@ -4,5 +4,6 @@
 .settings
 .DS_Store
 *.log
+*.iml
 bin
 target
